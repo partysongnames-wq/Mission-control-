@@ -4,6 +4,10 @@
     "openclaw-anything": {
       "version": "1.0.1",
       "installedAt": 1770522824076
+    },
+    "ai-humanizer": {
+      "version": "2.1.0",
+      "installedAt": 1770968617113
     }
   }
 }
