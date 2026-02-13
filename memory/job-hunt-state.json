@@ -1,19 +1,31 @@
 {
-  "lastRunAt": "2026-02-12T14:55:00+07:00",
+  "lastRunAt": "2026-02-13T14:55:00+07:00",
   "source": "ajarn.com",
   "seenJobIds": [
-    "156751"
+    "156751",
+    "156799",
+    "156803"
   ],
   "newMatchesLastBrief": [
     {
-      "id": "156751",
-      "title": "Essay Editor, IELTS / TOEFL / Math / SAT Tutor",
-      "org": "KennedyEducation",
-      "salary": "At least ฿50,000/month (full-time)",
-      "location": "Bangkok (office near BTS in city center)",
-      "fit": "Fallback salary tier (≥฿50K) + test-prep/adult focus",
-      "disqualifiersChecked": "No mandatory PGCE/QTS/Kurusapa stated",
-      "url": "https://www.ajarn.com/recruitment/jobs/156751/essay-editor-ielts-toefl-math-sat-tutor-in-bangkok"
+      "id": "156803",
+      "title": "Native English-Speaking Teachers (Upper Primary / Lower Secondary)",
+      "org": "Bangkok Christian College",
+      "salary": "฿55,000–69,000/month",
+      "location": "Sathorn Rd, next to BTS Surasak (corridor match)",
+      "fit": "Great-location tier (≥฿55K) + primary/secondary",
+      "disqualifiersChecked": "No mandatory PGCE/QTS/Kurusapa stated; TEFL/TESOL + degree + Thai license eligibility requested",
+      "url": "https://www.ajarn.com/recruitment/jobs/156803/native-english-speaking-teachers-in-bangkok"
+    },
+    {
+      "id": "156799",
+      "title": "Grade 3-4 Physical Education Teacher",
+      "org": "Chulalongkorn University Demonstration Elementary School (Satit Chula)",
+      "salary": "฿50,000 + ฿9,000 housing (effective ฿59,000)",
+      "location": "Satit Chula, central Bangkok (Siam/Samyan area; corridor match)",
+      "fit": "Great-location tier (≥฿55K effective) + primary",
+      "disqualifiersChecked": "No mandatory PGCE/QTS/Kurusapa stated; teaching qualification listed as preferred",
+      "url": "https://www.ajarn.com/recruitment/jobs/156799/physical-education-pe-teacher-grade-3-4-ages-in-bangkok"
     }
   ]
 }
