@@ -1,12 +1,14 @@
 {
-  "lastRunAt": "2026-02-14T14:00:00+07:00",
+  "lastRunAt": "2026-02-14T17:00:00+07:00",
   "source": "ajarn.com",
   "seenJobIds": [
     "156751",
     "156799",
-    "156803"
+    "156803",
+    "156807"
   ],
   "lastScanTopIds": [
+    "156807",
     "156804",
     "156803",
     "156801",
@@ -15,6 +17,15 @@
     "156793",
     "156794"
   ],
-  "newMatchesLastBrief": [],
-  "lastBriefMessage": "No new matches since last check."
+  "newMatchesLastBrief": [
+    {
+      "id": "156807",
+      "title": "Primary School English Teachers",
+      "company": "Essential Educational Staffing",
+      "salary": "฿50,000/month (+ OT ฿5,000–฿8,000)",
+      "location": "Central Bangkok, walkable to Silom BTS/MRT",
+      "fitReason": "Fallback band (≥฿50K), corridor fit, primary role, no PGCE/QTS/Kurusapa requirement"
+    }
+  ],
+  "lastBriefMessage": "1 new match: Primary School English Teachers (Essential Educational Staffing) — ฿50,000 + OT, near Silom BTS/MRT; no PGCE/QTS/Kurusapa required."
 }
