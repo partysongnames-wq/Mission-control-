@@ -1,5 +1,5 @@
 {
-  "lastRunAt": "2026-02-15T09:00:00+07:00",
+  "lastRunAt": "2026-02-15T13:00:00+07:00",
   "source": "jobsdb",
   "seenJobIds": [
     "90332022",
@@ -8,34 +8,39 @@
     "90273096",
     "90340907",
     "90287567",
-    "90202800"
+    "90202800",
+    "90348349",
+    "90335748",
+    "90304237",
+    "90336120",
+    "90304718",
+    "90314357"
   ],
   "lastScanTopIds": [
-    "90332022",
-    "90313674",
-    "90272283",
-    "90273096",
-    "90340907",
-    "90287567",
-    "90202800"
+    "90348349",
+    "90335748",
+    "90304237",
+    "90336120",
+    "90304718",
+    "90314357"
   ],
   "newMatchesLastBrief": [
     {
-      "id": "90313674",
-      "title": "Hourly Paid Instructor of English",
-      "company": "British Council Thailand (Bangkok)",
-      "salary": "Not listed (hourly paid)",
-      "location": "Bangkok",
-      "fitReason": "Strong adult/corporate-English signal; reputable employer; higher-ROI teaching profile"
+      "id": "90348349",
+      "title": "Department Manager - Learning & Development (Store Operation 1 & Head Office 1)",
+      "company": "Siam Makro",
+      "salary": "฿80,000 – ฿120,000 per month",
+      "location": "Suan Luang, Bangkok",
+      "fitReason": "High-ROI corporate L&D leadership role with strong compensation; directly aligned with adult training priority."
     },
     {
-      "id": "90272283",
-      "title": "Learning Designer (BTS Phrom Phong / MRT Phetchaburi)",
-      "company": "PRTR Group",
-      "salary": "50-70k THB",
-      "location": "Bangkok (Hybrid; BTS/MRT corridor)",
-      "fitReason": "Corporate L&D track with clear salary band and transit-corridor fit"
+      "id": "90335748",
+      "title": "Operation Training Specialist/Manager (Pepper Launch)",
+      "company": "Central Group",
+      "salary": "Not listed",
+      "location": "Bang Rak, Bangkok (Silom/Sathorn corridor-adjacent)",
+      "fitReason": "Corporate training role in preferred central corridor; promising if scope includes English enablement."
     }
   ],
-  "lastBriefMessage": "2 new matches: British Council Hourly Paid Instructor of English; PRTR Learning Designer (50-70k, BTS/MRT corridor)."
+  "lastBriefMessage": "2 new promising corporate-training matches: Siam Makro L&D Manager (80-120k) and Central Group Operation Training Specialist/Manager (Bang Rak)."
 }
