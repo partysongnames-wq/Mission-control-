@@ -1,31 +1,41 @@
 {
-  "lastRunAt": "2026-02-14T17:00:00+07:00",
-  "source": "ajarn.com",
+  "lastRunAt": "2026-02-15T09:00:00+07:00",
+  "source": "jobsdb",
   "seenJobIds": [
-    "156751",
-    "156799",
-    "156803",
-    "156807"
+    "90332022",
+    "90313674",
+    "90272283",
+    "90273096",
+    "90340907",
+    "90287567",
+    "90202800"
   ],
   "lastScanTopIds": [
-    "156807",
-    "156804",
-    "156803",
-    "156801",
-    "156799",
-    "156800",
-    "156793",
-    "156794"
+    "90332022",
+    "90313674",
+    "90272283",
+    "90273096",
+    "90340907",
+    "90287567",
+    "90202800"
   ],
   "newMatchesLastBrief": [
     {
-      "id": "156807",
-      "title": "Primary School English Teachers",
-      "company": "Essential Educational Staffing",
-      "salary": "฿50,000/month (+ OT ฿5,000–฿8,000)",
-      "location": "Central Bangkok, walkable to Silom BTS/MRT",
-      "fitReason": "Fallback band (≥฿50K), corridor fit, primary role, no PGCE/QTS/Kurusapa requirement"
+      "id": "90313674",
+      "title": "Hourly Paid Instructor of English",
+      "company": "British Council Thailand (Bangkok)",
+      "salary": "Not listed (hourly paid)",
+      "location": "Bangkok",
+      "fitReason": "Strong adult/corporate-English signal; reputable employer; higher-ROI teaching profile"
+    },
+    {
+      "id": "90272283",
+      "title": "Learning Designer (BTS Phrom Phong / MRT Phetchaburi)",
+      "company": "PRTR Group",
+      "salary": "50-70k THB",
+      "location": "Bangkok (Hybrid; BTS/MRT corridor)",
+      "fitReason": "Corporate L&D track with clear salary band and transit-corridor fit"
     }
   ],
-  "lastBriefMessage": "1 new match: Primary School English Teachers (Essential Educational Staffing) — ฿50,000 + OT, near Silom BTS/MRT; no PGCE/QTS/Kurusapa required."
+  "lastBriefMessage": "2 new matches: British Council Hourly Paid Instructor of English; PRTR Learning Designer (50-70k, BTS/MRT corridor)."
 }
