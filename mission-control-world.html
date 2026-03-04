@@ -1,0 +1,480 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mission Control · The Standard Floor</title>
+  <style>
+    :root{
+      --bg:#02030a;
+      --ink:#f6f6f8;
+      --muted:#a4abc4;
+      --gold:#f59c00;
+      --green:#10a37f;
+      --amber:#ffcc66;
+      --red:#ff4d6d;
+      --glass:rgba(0,0,0,.28);
+      --border:rgba(255,255,255,.14);
+      --shadow:0 30px 70px rgba(0,0,0,.65);
+    }
+    *{box-sizing:border-box;}
+    body{
+      margin:0;
+      min-height:100vh;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto;
+      color:var(--ink);
+      background:radial-gradient(circle at 18% 0%, #18204a 0%, #070818 40%, #02030a 100%);
+      display:flex;
+      justify-content:center;
+      padding:18px;
+    }
+    .stage{
+      width:min(1400px, calc(100vw - 24px));
+      border-radius:34px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.10);
+      box-shadow:var(--shadow);
+      background:linear-gradient(180deg,rgba(255,255,255,.03),transparent 35%), rgba(9,12,28,.96);
+      position:relative;
+    }
+    .hero{
+      position:relative;
+      height:220px;
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
+    .hero::before{
+      content:'';
+      position:absolute;
+      inset:0;
+      background-image:url('/assets/standard-crew-hero.jpg');
+      background-size:cover;
+      background-position:center;
+      filter:saturate(1.1) contrast(1.06);
+    }
+    .hero::after{
+      content:'';
+      position:absolute;
+      inset:0;
+      background:linear-gradient(180deg,rgba(2,3,10,.25),rgba(2,3,10,.92));
+    }
+    .hero-inner{
+      position:relative;
+      z-index:1;
+      padding:18px 18px;
+      height:100%;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      gap:12px;
+    }
+    .top{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+      align-items:flex-start;
+    }
+    .title .kicker{
+      letter-spacing:.34em;
+      text-transform:uppercase;
+      font-weight:800;
+      font-size:.72rem;
+      color:rgba(255,255,255,.78);
+    }
+    .title h1{
+      margin:6px 0 0;
+      letter-spacing:.26em;
+      text-transform:uppercase;
+      font-size:2rem;
+    }
+    .title p{
+      margin:8px 0 0;
+      color:rgba(255,255,255,.84);
+      max-width:760px;
+      line-height:1.4;
+      letter-spacing:.06em;
+      font-size:.95rem;
+    }
+
+    .nav{display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end;}
+    .nav a{
+      text-decoration:none;
+      color:rgba(255,255,255,.86);
+      font-size:.72rem;
+      letter-spacing:.22em;
+      text-transform:uppercase;
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.18);
+      background:rgba(0,0,0,.22);
+      backdrop-filter:blur(6px);
+    }
+
+    .banner{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+      padding:10px 12px;
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,.16);
+      background:rgba(0,0,0,.22);
+      backdrop-filter:blur(6px);
+    }
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:6px 10px;
+      border-radius:999px;
+      font-size:.72rem;
+      font-weight:900;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      border:1px solid rgba(255,255,255,.16);
+      background:rgba(255,255,255,.06);
+    }
+    .dot{width:10px;height:10px;border-radius:999px;background:var(--muted);}
+    .pill.good .dot{background:var(--green);} .pill.warn .dot{background:var(--amber);} .pill.bad .dot{background:var(--red);} 
+    .small{color:var(--muted); font-size:.85rem;}
+
+    main{ padding:18px; display:grid; grid-template-columns: 1fr 320px; gap:14px; }
+    @media (max-width: 980px){ main{ grid-template-columns:1fr; } }
+
+    /* The room */
+    .room{
+      border-radius:26px;
+      border:1px solid rgba(255,255,255,.08);
+      background:
+        radial-gradient(circle at 20% 20%, rgba(245,156,0,.08), transparent 55%),
+        radial-gradient(circle at 70% 35%, rgba(16,163,127,.08), transparent 60%),
+        linear-gradient(180deg, rgba(255,255,255,.03), rgba(0,0,0,.12));
+      position:relative;
+      min-height:560px;
+      overflow:hidden;
+    }
+
+    /* subtle floor grid */
+    .room::before{
+      content:'';
+      position:absolute;
+      inset:0;
+      background-image:
+        linear-gradient(rgba(255,255,255,.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
+      background-size: 64px 64px;
+      opacity:.14;
+      transform: perspective(900px) rotateX(58deg) translateY(120px);
+      transform-origin: top;
+      pointer-events:none;
+    }
+
+    /* desk pods */
+    .pod{
+      position:absolute;
+      width:240px;
+      border-radius:22px;
+      border:1px solid rgba(255,255,255,.12);
+      background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(0,0,0,.12)), rgba(14,18,40,.78);
+      padding:12px 12px 10px;
+      box-shadow:0 25px 60px rgba(0,0,0,.55);
+      backdrop-filter: blur(8px);
+    }
+    .pod.active{
+      border-color: rgba(245,156,0,.4);
+      box-shadow:0 25px 60px rgba(0,0,0,.55), 0 0 0 1px rgba(245,156,0,.18);
+    }
+
+    .pod-top{display:flex; justify-content:space-between; align-items:flex-start; gap:10px;}
+    .avatar{width:48px;height:48px;border-radius:16px; border:1px solid rgba(255,255,255,.16); background:rgba(0,0,0,.22); object-fit:cover;}
+    .tag{font-size:.7rem; letter-spacing:.26em; text-transform:uppercase; color:rgba(255,255,255,.82);
+      padding:6px 10px; border-radius:999px; border:1px solid rgba(255,255,255,.14); background:rgba(0,0,0,.18);}    
+    .name{margin:10px 0 0; font-weight:900; letter-spacing:.14em;}
+    .nick{margin:4px 0 0; color:var(--muted); font-size:.72rem; letter-spacing:.26em; text-transform:uppercase;}
+
+    .gauge{margin-top:10px; height:10px; border-radius:999px; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.10); overflow:hidden;}
+    .bar{height:100%; width:0%; background:linear-gradient(90deg, var(--green), #6ee7b7);}    
+    .bar.warn{background:linear-gradient(90deg,var(--amber),#ffb347);}    
+    .bar.bad{background:linear-gradient(90deg,var(--red),#ff8aa1);}    
+
+    .pod-bottom{margin-top:10px; display:flex; justify-content:space-between; gap:10px; align-items:center;}
+    .state{font-size:.7rem; letter-spacing:.22em; text-transform:uppercase; padding:6px 10px; border-radius:999px; border:1px solid rgba(255,255,255,.12); background:rgba(0,0,0,.16); color:rgba(255,255,255,.86);}    
+    .btn{border:none; border-radius:12px; padding:9px 11px; cursor:pointer; font-weight:900; letter-spacing:.2em; text-transform:uppercase; font-size:.68rem;
+      background:linear-gradient(135deg,#f59c00,#ffd27a); color:#0a0a11;}
+
+    /* paper tray */
+    .tray{position:absolute; right:10px; bottom:10px; display:flex; flex-direction:column; gap:6px; align-items:flex-end; pointer-events:none;}
+    .paper{width:26px; height:18px; border-radius:4px; background:rgba(255,255,255,.18); border:1px solid rgba(255,255,255,.14);
+      box-shadow:0 14px 26px rgba(0,0,0,.35); opacity:.9; transform:rotate(-2deg);}    
+
+    /* Trent desk is bigger and centered */
+    .pod.trent{ width:320px; }
+
+    /* side panel */
+    .side{
+      border-radius:26px;
+      border:1px solid rgba(255,255,255,.08);
+      background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(0,0,0,.14)), rgba(12,16,35,.86);
+      padding:14px;
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
+    .panel h3{margin:0 0 8px; font-size:.78rem; letter-spacing:.26em; text-transform:uppercase; color:var(--muted);}    
+    .mono{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size:.9rem; white-space:pre-wrap; color:#d7d9e6; line-height:1.45;}
+
+    .hint{color:rgba(255,255,255,.8); font-size:.92rem; line-height:1.35;}
+
+  </style>
+</head>
+<body>
+  <div class="stage">
+    <section class="hero">
+      <div class="hero-inner">
+        <div class="top">
+          <div class="title">
+            <div class="kicker">The Standard · Virtual Office World</div>
+            <h1>The Floor</h1>
+            <p>Less dashboard, more room. Desks glow when active. Paper appears when work is done. Click a desk to trigger its action.</p>
+          </div>
+          <nav class="nav">
+            <a href="/mission-control.html">Mission Control</a>
+            <a href="/virtual-office">Office (cards)</a>
+            <a href="/health">Health</a>
+            <a href="/mission-control-roster.html">Crew</a>
+          </nav>
+        </div>
+        <div class="banner">
+          <span class="pill warn" id="tokenPill"><span class="dot"></span><span id="tokenText">Token board: loading…</span></span>
+          <span class="pill" id="lockPill"><span class="dot"></span><span id="lockText">Locks: loading…</span></span>
+          <span class="small" id="updated">—</span>
+        </div>
+      </div>
+    </section>
+
+    <main>
+      <section class="room" id="room"></section>
+      <aside class="side">
+        <div class="panel">
+          <h3>Concierge notebook</h3>
+          <div class="mono" id="notebook">—</div>
+        </div>
+        <div class="panel">
+          <h3>Desk rules</h3>
+          <div class="mono">• Green headroom: calm
+• Amber: watch
+• Red: hot
+• Paper tray fills when runs complete
+
+Next step (optional): let agents POST notes to drop specific papers.</div>
+        </div>
+        <div class="panel">
+          <h3>Controls</h3>
+          <div class="hint">Try clicking Yoko, Jaz, Holly, TJ, or Joe. Trent’s desk is command-only.</div>
+        </div>
+      </aside>
+    </main>
+  </div>
+
+<script>
+  const desks = [
+    { key:'trent', name:'Trent', nick:'Director · Command', avatar:'/assets/trent-director.svg', action:null },
+    { key:'yoko', name:'Yoko', nick:'OCO', avatar:'/assets/yoko.jpg', action:'watch' },
+    { key:'holly', name:'Holly', nick:'Japan Holiday', avatar:'/assets/holly.jpg', action:'memory' },
+    { key:'jaz', name:'Jaz', nick:'Jasper Assistant', avatar:'/assets/jaz.jpg', action:'manifesto' },
+    { key:'joe', name:'Joe', nick:'Side Jobs', avatar:'/assets/joe.jpg', action:'sidejobs' },
+    { key:'tj', name:'TJ', nick:'Trent Assistant', avatar:'/assets/tj.jpg', action:'travel' },
+    { key:'clawd', name:'Clawd', nick:'Creator', avatar:'/assets/clawd.jpg', action:'clawd' },
+  ];
+
+  // fixed floorplan positions (percent-based for responsiveness)
+  const layout = {
+    trent: { left: '50%', top: '55%', transform: 'translate(-50%,-50%)' },
+    yoko:  { left: '17%', top: '26%' },
+    holly: { left: '50%', top: '22%', transform: 'translate(-50%,0)' },
+    jaz:   { left: '78%', top: '26%' },
+    joe:   { left: '18%', top: '63%' },
+    tj:    { left: '78%', top: '63%' },
+    clawd: { left: '50%', top: '78%', transform: 'translate(-50%,0)' },
+  };
+
+  const notebook = [];
+  const papers = { trent:0, yoko:0, holly:0, jaz:0, joe:0, tj:0, clawd:0 };
+  let lastStatuses = '';
+
+  function log(line){
+    const ts = new Date().toLocaleTimeString();
+    notebook.unshift(`${ts} — ${line}`);
+    document.getElementById('notebook').textContent = notebook.slice(0, 14).join('\n') || '—';
+  }
+
+  function pctColor(p){
+    if (p >= 0.85) return 'bad';
+    if (p >= 0.70) return 'warn';
+    return 'good';
+  }
+
+  function setPill(el, kind, text){
+    el.classList.remove('good','warn','bad');
+    el.classList.add(kind);
+    el.querySelector('span:last-child').textContent = text;
+  }
+
+  function render(){
+    const room = document.getElementById('room');
+    room.innerHTML = '';
+    for (const d of desks){
+      const pod = document.createElement('article');
+      pod.className = 'pod' + (d.key === 'trent' ? ' trent' : '');
+      pod.dataset.key = d.key;
+
+      const pos = layout[d.key] || { left:'10%', top:'10%' };
+      pod.style.left = pos.left;
+      pod.style.top = pos.top;
+      if (pos.transform) pod.style.transform = pos.transform;
+
+      pod.innerHTML = `
+        <div class="pod-top">
+          <img class="avatar" src="${d.avatar}" alt="${d.name}" />
+          <div class="tag">${d.nick}</div>
+        </div>
+        <div class="name">${d.name}</div>
+        <div class="nick" id="meta-${d.key}">—</div>
+        <div class="gauge"><div class="bar" id="bar-${d.key}"></div></div>
+        <div class="pod-bottom">
+          <span class="state" id="state-${d.key}">IDLE</span>
+          <button class="btn" ${d.action? '' : 'disabled style="opacity:.35; cursor:default;"'}>${d.action ? 'Trigger' : 'Director'}</button>
+        </div>
+        <div class="tray" id="tray-${d.key}"></div>
+      `;
+
+      if (d.action){
+        pod.addEventListener('click', () => trigger(d.action, d.name, d.key));
+      }
+
+      room.appendChild(pod);
+    }
+  }
+
+  function dropPaper(key){
+    papers[key] = Math.min(6, (papers[key]||0) + 1);
+    const tray = document.getElementById(`tray-${key}`);
+    if (!tray) return;
+    tray.innerHTML = '';
+    for (let i=0;i<papers[key];i++){
+      const p = document.createElement('div');
+      p.className='paper';
+      p.style.transform = `rotate(${(-4 + i*1.2)}deg) translateY(${i*1}px)`;
+      p.style.opacity = String(0.55 + i*0.07);
+      tray.appendChild(p);
+    }
+  }
+
+  async function trigger(action, name, key){
+    log(`Dispatch: ${name}`);
+    try{
+      const res = await fetch(`/run/${encodeURIComponent(action)}`);
+      const data = await res.json();
+      if (data.success){
+        log(`Done: ${name}`);
+        dropPaper('trent');
+        dropPaper(key);
+      } else {
+        log(`Failed: ${name} — ${data.message || 'error'}`);
+      }
+    }catch(e){
+      log(`Error: ${name} — ${e.message}`);
+    }
+    await refresh();
+  }
+
+  async function refresh(){
+    // token usage
+    let sessions = [];
+    try{
+      const res = await fetch('/token-usage');
+      const data = await res.json();
+      sessions = data.sessions || [];
+    }catch(e){ sessions = []; }
+
+    // locks summary
+    try{
+      const res = await fetch('/api/locks');
+      const data = await res.json();
+      const total = data.count || 0;
+      const stale = data.staleCount || 0;
+      const lockPill = document.getElementById('lockPill');
+      if (stale) setPill(lockPill,'bad',`Locks: ${total} (${stale} stale)`);
+      else if (total) setPill(lockPill,'warn',`Locks: ${total} active`);
+      else setPill(lockPill,'good','Locks: clear');
+    }catch(e){
+      setPill(document.getElementById('lockPill'),'warn','Locks: unavailable');
+    }
+
+    // statuses
+    let statuses = {};
+    try{
+      const res = await fetch('/status');
+      statuses = await res.json();
+    }catch(e){ statuses = {}; }
+
+    // update desks: token+status
+    const hot = [];
+    for (const d of desks){
+      const meta = document.getElementById(`meta-${d.key}`);
+      const bar = document.getElementById(`bar-${d.key}`);
+      const state = document.getElementById(`state-${d.key}`);
+      const pod = document.querySelector(`.pod[data-key="${d.key}"]`);
+
+      const match = sessions.find(s => (s.label||'').toLowerCase().includes(d.name.toLowerCase()))
+                 || sessions.find(s => (s.label||'').toLowerCase().includes(d.key))
+                 || null;
+
+      const pct = match ? (match.percent || 0) : 0;
+      const used = match ? match.used : null;
+      const limit = match ? match.limit : null;
+
+      if (bar){
+        const kind = pctColor(pct);
+        bar.classList.remove('warn','bad');
+        if (kind !== 'good') bar.classList.add(kind);
+        bar.style.width = `${Math.round(Math.min(1,Math.max(0,pct))*100)}%`;
+      }
+      if (meta){
+        meta.textContent = (used!=null && limit!=null)
+          ? `Tokens ${used.toLocaleString()} / ${limit.toLocaleString()} (${Math.round(pct*100)}%)`
+          : 'Tokens —';
+      }
+      if (pct >= 0.70) hot.push(d.name);
+
+      if (d.action && statuses[d.action]){
+        const st = (statuses[d.action].state || 'idle').toUpperCase();
+        state.textContent = st;
+        pod.classList.toggle('active', st === 'RUNNING');
+      } else {
+        state.textContent = 'IDLE';
+        pod.classList.remove('active');
+      }
+    }
+
+    // token pill
+    const tokenPill = document.getElementById('tokenPill');
+    if (!hot.length) setPill(tokenPill,'good','Token board: calm');
+    else if (hot.length <= 2) setPill(tokenPill,'warn',`Token board: watch ${hot.join(', ')}`);
+    else setPill(tokenPill,'bad',`Token board: hot — ${hot.slice(0,3).join(', ')}…`);
+
+    // paper drop when status changes
+    const hash = JSON.stringify(statuses);
+    if (lastStatuses && hash !== lastStatuses) dropPaper('trent');
+    lastStatuses = hash;
+
+    document.getElementById('updated').textContent = `Updated ${new Date().toLocaleTimeString()}`;
+  }
+
+  render();
+  log('The Floor opened.');
+  refresh();
+  setInterval(refresh, 12000);
+</script>
+</body>
+</html>

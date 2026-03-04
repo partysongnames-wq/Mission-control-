@@ -496,6 +496,11 @@ def virtual_office_page():
     return redirect("/mission-control-virtual-office.html")
 
 
+@app.route("/world")
+def world_page():
+    return redirect("/mission-control-world.html")
+
+
 @app.route("/")
 def dashboard():
     return redirect("/mission-control.html")
