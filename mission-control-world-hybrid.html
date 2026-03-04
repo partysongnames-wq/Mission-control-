@@ -198,7 +198,13 @@
     .intray::after{content:"IN-TRAY"; position:absolute; right:8px; bottom:7px; color:rgba(255,255,255,.6);
       font-size:.62rem; letter-spacing:.18em; text-transform:uppercase;}
 
-    .prop::after{content:''; position:absolute; inset:10px; border-radius:14px; border:1px solid rgba(255,255,255,.08); opacity:.55;}
+    .prop::after{content:''; position:absolute; inset:10px; border-radius:14px; border:1px solid rgba(255,255,255,.10); opacity:.75;}
+    .propLabel{position:absolute; left:14px; bottom:12px; font-size:.68rem; letter-spacing:.22em; text-transform:uppercase; font-weight:900; color:rgba(255,255,255,.72);} 
+    .prop.sofa{background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(0,0,0,.18));}
+    .prop.bed{background:linear-gradient(180deg,rgba(255,77,109,.16),rgba(0,0,0,.18));}
+    .prop.office{background:linear-gradient(180deg,rgba(80,160,255,.10),rgba(0,0,0,.22));}
+    .prop.pool{background:linear-gradient(180deg,rgba(16,163,127,.18),rgba(0,0,0,.18));}
+
 
     /* icon-only tokens */
     .token{cursor:pointer;}
@@ -369,6 +375,9 @@
       { cls:'prop desk', left:'78%', top:'74%' },
       { cls:'prop table', left:'50%', top:'18%', transform:'translate(-50%,0)' },
       { cls:'prop pool', left:'50%', top:'84%', transform:'translate(-50%,-50%)' },
+      { cls:'prop sofa', left:'50%', top:'52%', transform:'translate(-50%,-50%)' },
+      { cls:'prop bed', left:'88%', top:'88%', transform:'translate(-50%,-50%)' },
+      { cls:'prop office', left:'88%', top:'50%', transform:'translate(-50%,-50%)' },
     ];
     for (const pr of props){
       const el = document.createElement('div');
@@ -378,6 +387,13 @@
       el.style.position = 'absolute';
       if (pr.transform) el.style.transform = pr.transform;
       world.appendChild(el);
+      const kind = (pr.cls.split(' ').pop());
+      if (['sofa','bed','office','pool'].includes(kind)) {
+        const lab = document.createElement('div');
+        lab.className = 'propLabel';
+        lab.textContent = kind === 'pool' ? 'POOL TABLE' : kind === 'sofa' ? 'SOFA' : kind === 'bed' ? 'NAP POD' : 'PRIVATE OFFICE';
+        el.appendChild(lab);
+      }
     }
 
     // Office door sign + in-tray
