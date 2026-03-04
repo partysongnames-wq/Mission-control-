@@ -211,6 +211,7 @@
       <div class="actions">
         <button class="btn" onclick="location.href='/mission-control.html'">← Mission Control</button>
         <button class="btn" id="dangerBtn" onclick="toggleDanger()">Danger mode: OFF</button>
+        <button class="btn danger" onclick="releaseAllStale()">Release ALL stale</button>
         <button class="btn primary" onclick="refreshNow()">Refresh</button>
       </div>
     </header>
@@ -275,6 +276,16 @@
           </table>
         </div>
       </section>
+
+      <section class="panel" id="incidentPanel">
+        <div class="panel-head">
+          <h2>Incident log</h2>
+          <div class="meta">This session only (refresh-safe)</div>
+        </div>
+        <div style="padding:14px 16px;">
+          <div id="incidentLog" class="mono" style="white-space:pre-wrap; line-height:1.5; color:#cfd3e6;">—</div>
+        </div>
+      </section>
     </main>
 
     <footer>
@@ -285,6 +296,16 @@
 
   <script>
     let dangerMode = false;
+    const incidentLines = [];
+
+    function logIncident(line) {
+      const ts = new Date().toLocaleTimeString();
+      incidentLines.unshift(`${ts} — ${line}`);
+      const el = document.getElementById('incidentLog');
+      if (el) el.textContent = incidentLines.join("
+");
+    }
+
 
     function toggleDanger() {
       dangerMode = !dangerMode;
@@ -293,6 +314,23 @@
       btn.style.background = dangerMode ? "linear-gradient(135deg,#ff4d6d,#ff8aa1)" : "rgba(255,255,255,.08)";
       btn.style.color = dangerMode ? "#040409" : "var(--text)";
       refreshNow();
+    }
+
+    async function releaseAllStale() {
+      if (!confirm('Release ALL stale locks?
+
+This deletes .lock files whose PID is NOT running.')) return;
+      const res = await fetch('/api/locks/release-stale', { method: 'POST' });
+      const body = await res.json();
+      if (body.success) {
+        logIncident(`Released ${body.deletedCount} stale lock(s)`);
+        if (body.errors && body.errors.length) {
+          logIncident(`Errors: ${body.errors.length}`);
+        }
+      } else {
+        alert(body.message || 'Failed');
+      }
+      await refreshNow();
     }
 
     async function terminatePid(pid, signalName) {
@@ -366,6 +404,9 @@ Try TERM first; KILL is last resort.`)) return;
         document.getElementById('miniTotal').textContent = `Locks: ${data.count}`;
         document.getElementById('miniStale').textContent = `Stale: ${staleCount}`;
         document.getElementById('miniActive').textContent = `Active: ${activeCount}`;
+        if (staleCount > 0) {
+          logIncident(`Stale locks detected: ${staleCount}`);
+        }
 
 
         const tbody = document.getElementById('lockRows');

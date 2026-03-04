@@ -391,6 +391,37 @@ def api_release_lock(agent: str, lock_name: str):
 
     return jsonify(success=True, message="Lock released")
 
+@app.route("/api/locks/release-stale", methods=["POST"])
+def api_release_all_stale():
+    locks = _collect_lock_files()
+    stale = [l for l in locks if not l.get("pidAlive")]
+    deleted = []
+    errors = []
+    for l in stale:
+        try:
+            path = Path(l.get("path", ""))
+            # Safety: ensure it's within ~/.openclaw/agents/*/sessions and endswith .lock
+            if not path.name.endswith('.lock'):
+                continue
+            home_agents = Path.home() / ".openclaw" / "agents"
+            try:
+                path.relative_to(home_agents)
+            except Exception:
+                continue
+            if path.exists():
+                path.unlink()
+                deleted.append({"agent": l.get("agent"), "lockName": l.get("lockName")})
+        except Exception as e:
+            errors.append({"agent": l.get("agent"), "lockName": l.get("lockName"), "error": str(e)})
+
+    return jsonify({
+        "success": True,
+        "deletedCount": len(deleted),
+        "deleted": deleted,
+        "errors": errors,
+    })
+
+
 @app.route("/api/pids/<int:pid>/terminate", methods=["POST"])
 def api_terminate_pid(pid: int):
     if pid <= 1:
