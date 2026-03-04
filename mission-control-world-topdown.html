@@ -1,0 +1,417 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mission Control · The Floor (Top‑Down)</title>
+  <style>
+    :root{
+      --bg:#02030a;
+      --ink:#f6f6f8;
+      --muted:#a4abc4;
+      --line:rgba(255,255,255,.12);
+      --glass:rgba(0,0,0,.28);
+      --gold:#f59c00;
+      --green:#10a37f;
+      --amber:#ffcc66;
+      --red:#ff4d6d;
+      --shadow:0 30px 70px rgba(0,0,0,.65);
+    }
+    *{box-sizing:border-box;}
+    body{
+      margin:0;
+      min-height:100vh;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto;
+      color:var(--ink);
+      background:radial-gradient(circle at 18% 0%, #18204a 0%, #070818 40%, #02030a 100%);
+      display:flex;
+      justify-content:center;
+      padding:18px;
+    }
+    .stage{
+      width:min(1400px, calc(100vw - 24px));
+      border-radius:34px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.10);
+      box-shadow:var(--shadow);
+      background:linear-gradient(180deg,rgba(255,255,255,.03),transparent 35%), rgba(9,12,28,.96);
+    }
+
+    /* compact hero */
+    .hero{
+      position:relative;
+      height:160px;
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
+    .hero::before{
+      content:''; position:absolute; inset:0;
+      background-image:url('/assets/standard-crew-hero.jpg');
+      background-size:cover; background-position:center;
+      filter:saturate(1.05) contrast(1.05);
+      opacity:.95;
+    }
+    .hero::after{
+      content:''; position:absolute; inset:0;
+      background:linear-gradient(180deg,rgba(2,3,10,.30),rgba(2,3,10,.94));
+    }
+    .hero-inner{position:relative; z-index:1; height:100%; padding:14px 16px; display:flex; flex-direction:column; justify-content:space-between; gap:10px;}
+    .top{display:flex; justify-content:space-between; gap:12px; align-items:flex-start; flex-wrap:wrap;}
+    .title .kicker{letter-spacing:.34em; text-transform:uppercase; font-weight:900; font-size:.7rem; color:rgba(255,255,255,.78);}    
+    .title h1{margin:6px 0 0; letter-spacing:.24em; text-transform:uppercase; font-size:1.6rem;}
+    .title p{margin:6px 0 0; color:rgba(255,255,255,.82); max-width:760px; line-height:1.35; letter-spacing:.06em; font-size:.9rem;}
+    .nav{display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end;}
+    .nav a{ text-decoration:none; color:rgba(255,255,255,.86); font-size:.7rem; letter-spacing:.22em; text-transform:uppercase; padding:7px 11px; border-radius:999px; border:1px solid rgba(255,255,255,.18); background:rgba(0,0,0,.20); backdrop-filter:blur(6px);}    
+
+    .banner{display:flex; align-items:center; gap:10px; flex-wrap:wrap; padding:9px 10px; border-radius:16px; border:1px solid rgba(255,255,255,.16); background:rgba(0,0,0,.20); backdrop-filter:blur(6px);}    
+    .pill{display:inline-flex; align-items:center; gap:8px; padding:6px 10px; border-radius:999px; font-size:.7rem; font-weight:900; letter-spacing:.18em; text-transform:uppercase; border:1px solid rgba(255,255,255,.16); background:rgba(255,255,255,.06);}    
+    .dot{width:10px;height:10px;border-radius:999px;background:var(--muted);}    
+    .pill.good .dot{background:var(--green);} .pill.warn .dot{background:var(--amber);} .pill.bad .dot{background:var(--red);}    
+    .small{color:var(--muted); font-size:.82rem;}
+
+    main{ padding:16px; display:grid; grid-template-columns: 1fr 320px; gap:14px; }
+    @media (max-width: 980px){ main{ grid-template-columns:1fr; } }
+
+    /* Top-down room */
+    .room{
+      border-radius:26px;
+      border:1px solid rgba(255,255,255,.08);
+      background:
+        radial-gradient(circle at 18% 18%, rgba(245,156,0,.07), transparent 55%),
+        radial-gradient(circle at 70% 35%, rgba(16,163,127,.06), transparent 60%),
+        linear-gradient(180deg, rgba(255,255,255,.02), rgba(0,0,0,.18));
+      position:relative;
+      min-height:600px;
+      overflow:hidden;
+    }
+
+    /* crisp floorplan grid */
+    .room::before{
+      content:''; position:absolute; inset:0;
+      background-image:
+        linear-gradient(rgba(255,255,255,.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px);
+      background-size: 56px 56px;
+      opacity:.16;
+      pointer-events:none;
+    }
+
+    /* desk = surface + icon + tiny info */
+    .desk{
+      position:absolute;
+      width:220px;
+      height:150px;
+      border-radius:20px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(14,18,40,.55);
+      backdrop-filter: blur(8px);
+      box-shadow:0 24px 50px rgba(0,0,0,.5);
+      padding:10px;
+    }
+    .desk.big{ width:300px; height:190px; }
+
+    /* surface */
+    .surface{
+      position:absolute; inset:10px; border-radius:16px;
+      background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(0,0,0,.14));
+      border:1px solid rgba(255,255,255,.08);
+    }
+    .desk.active .surface{ border-color: rgba(245,156,0,.35); box-shadow:0 0 0 1px rgba(245,156,0,.10) inset; }
+
+    .badge{
+      position:absolute; left:12px; top:12px;
+      display:flex; align-items:center; gap:10px;
+      z-index:2;
+    }
+    .avatar{width:42px;height:42px;border-radius:14px; border:1px solid rgba(255,255,255,.16); object-fit:cover; background:rgba(0,0,0,.22);}    
+    .name{font-weight:900; letter-spacing:.14em;}
+    .nick{margin-top:3px; color:var(--muted); font-size:.72rem; letter-spacing:.22em; text-transform:uppercase;}
+
+    .statusDot{width:10px;height:10px;border-radius:999px;background:rgba(255,255,255,.18); border:1px solid rgba(255,255,255,.14);}    
+    .desk.active .statusDot{ background: var(--gold); box-shadow:0 0 0 4px rgba(245,156,0,.14);}    
+
+    .info{
+      position:absolute; left:12px; right:12px; bottom:12px;
+      z-index:2;
+      display:flex; justify-content:space-between; align-items:flex-end; gap:10px;
+    }
+
+    .gauge{flex:1; height:10px; border-radius:999px; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.10); overflow:hidden;}
+    .bar{height:100%; width:0%; background:linear-gradient(90deg,var(--green),#6ee7b7);}    
+    .bar.warn{background:linear-gradient(90deg,var(--amber),#ffb347);}    
+    .bar.bad{background:linear-gradient(90deg,var(--red),#ff8aa1);}    
+
+    .mini{
+      font-size:.68rem;
+      letter-spacing:.22em;
+      text-transform:uppercase;
+      color:rgba(255,255,255,.80);
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(0,0,0,.16);
+    }
+    .clickHint{color:rgba(255,255,255,.75); font-size:.78rem; letter-spacing:.14em;}
+
+    /* paper stack on surface */
+    .papers{position:absolute; right:14px; bottom:14px; display:flex; flex-direction:column; gap:6px; align-items:flex-end; z-index:3; pointer-events:none;}
+    .paper{width:26px;height:18px;border-radius:4px;background:rgba(255,255,255,.18); border:1px solid rgba(255,255,255,.14); box-shadow:0 14px 26px rgba(0,0,0,.35);}    
+
+    .side{
+      border-radius:26px;
+      border:1px solid rgba(255,255,255,.08);
+      background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(0,0,0,.16)), rgba(12,16,35,.86);
+      padding:14px;
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
+    .panel h3{margin:0 0 8px; font-size:.78rem; letter-spacing:.26em; text-transform:uppercase; color:var(--muted);}    
+    .mono{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size:.9rem; white-space:pre-wrap; color:#d7d9e6; line-height:1.45;}
+
+  </style>
+</head>
+<body>
+  <div class="stage">
+    <section class="hero">
+      <div class="hero-inner">
+        <div class="top">
+          <div class="title">
+            <div class="kicker">The Standard · Floorplan Mode</div>
+            <h1>The Floor (Top‑Down)</h1>
+            <p>Minimal desk surfaces. Status is the signal. Paper stacks are the receipts.</p>
+          </div>
+          <nav class="nav">
+            <a href="/world">World</a>
+            <a href="/virtual-office">Office (cards)</a>
+            <a href="/health">Health</a>
+            <a href="/mission-control.html">Mission Control</a>
+          </nav>
+        </div>
+        <div class="banner">
+          <span class="pill warn" id="tokenPill"><span class="dot"></span><span id="tokenText">Token board: loading…</span></span>
+          <span class="pill" id="lockPill"><span class="dot"></span><span id="lockText">Locks: loading…</span></span>
+          <span class="small" id="updated">—</span>
+        </div>
+      </div>
+    </section>
+
+    <main>
+      <section class="room" id="room"></section>
+      <aside class="side">
+        <div class="panel">
+          <h3>Concierge notebook</h3>
+          <div class="mono" id="notebook">—</div>
+        </div>
+        <div class="panel">
+          <h3>How to read it</h3>
+          <div class="mono">• Gold dot = running
+• Paper stack = completed work
+• Bar color = token headroom
+
+Click a desk to trigger its action.</div>
+        </div>
+      </aside>
+    </main>
+  </div>
+
+<script>
+  const desks = [
+    { key:'trent', name:'Trent', nick:'Director', avatar:'/assets/trent-director.svg', action:null },
+    { key:'yoko', name:'Yoko', nick:'OCO', avatar:'/assets/yoko.jpg', action:'watch' },
+    { key:'holly', name:'Holly', nick:'Holiday', avatar:'/assets/holly.jpg', action:'memory' },
+    { key:'jaz', name:'Jaz', nick:'Manifesto', avatar:'/assets/jaz.jpg', action:'manifesto' },
+    { key:'joe', name:'Joe', nick:'Side Jobs', avatar:'/assets/joe.jpg', action:'sidejobs' },
+    { key:'tj', name:'TJ', nick:'Assistant', avatar:'/assets/tj.jpg', action:'travel' },
+    { key:'clawd', name:'Clawd', nick:'Creator', avatar:'/assets/clawd.jpg', action:'clawd' },
+  ];
+
+  const layout = {
+    trent: { left:'50%', top:'55%', transform:'translate(-50%,-50%)', big:true },
+    yoko:  { left:'10%', top:'14%' },
+    holly: { left:'50%', top:'10%', transform:'translate(-50%,0)' },
+    jaz:   { left:'78%', top:'14%' },
+    joe:   { left:'10%', top:'68%' },
+    tj:    { left:'78%', top:'68%' },
+    clawd: { left:'50%', top:'82%', transform:'translate(-50%,0)' },
+  };
+
+  const notebook = [];
+  const papers = Object.fromEntries(desks.map(d => [d.key, 0]));
+  let lastStatuses = '';
+
+  function log(line){
+    const ts = new Date().toLocaleTimeString();
+    notebook.unshift(`${ts} — ${line}`);
+    document.getElementById('notebook').textContent = notebook.slice(0, 14).join('\n') || '—';
+  }
+
+  function pctColor(p){
+    if (p >= 0.85) return 'bad';
+    if (p >= 0.70) return 'warn';
+    return 'good';
+  }
+
+  function setPill(el, kind, text){
+    el.classList.remove('good','warn','bad');
+    el.classList.add(kind);
+    el.querySelector('span:last-child').textContent = text;
+  }
+
+  function render(){
+    const room = document.getElementById('room');
+    room.innerHTML = '';
+
+    for (const d of desks){
+      const pos = layout[d.key] || { left:'10%', top:'10%' };
+      const desk = document.createElement('article');
+      desk.className = 'desk' + (pos.big ? ' big' : '');
+      desk.dataset.key = d.key;
+      desk.style.left = pos.left;
+      desk.style.top = pos.top;
+      if (pos.transform) desk.style.transform = pos.transform;
+
+      desk.innerHTML = `
+        <div class="surface"></div>
+        <div class="badge">
+          <img class="avatar" src="${d.avatar}" alt="${d.name}" />
+          <div>
+            <div style="display:flex; align-items:center; gap:10px;">
+              <div class="name">${d.name}</div>
+              <div class="statusDot" id="dot-${d.key}"></div>
+            </div>
+            <div class="nick">${d.nick}</div>
+          </div>
+        </div>
+        <div class="info">
+          <div style="flex:1;">
+            <div class="gauge"><div class="bar" id="bar-${d.key}"></div></div>
+            <div class="clickHint" id="tok-${d.key}" style="margin-top:6px;">Tokens —</div>
+          </div>
+          <div class="mini" id="state-${d.key}">${d.action ? 'idle' : 'command'}</div>
+        </div>
+        <div class="papers" id="papers-${d.key}"></div>
+      `;
+
+      if (d.action){
+        desk.addEventListener('click', () => trigger(d.action, d.name, d.key));
+      }
+
+      room.appendChild(desk);
+    }
+  }
+
+  function dropPaper(key){
+    papers[key] = Math.min(6, (papers[key]||0) + 1);
+    const host = document.getElementById(`papers-${key}`);
+    if (!host) return;
+    host.innerHTML = '';
+    for (let i=0;i<papers[key];i++){
+      const p = document.createElement('div');
+      p.className='paper';
+      p.style.transform = `rotate(${(-4 + i*1.2)}deg) translateY(${i*1}px)`;
+      p.style.opacity = String(0.55 + i*0.07);
+      host.appendChild(p);
+    }
+  }
+
+  async function trigger(action, name, key){
+    log(`Dispatch: ${name}`);
+    try{
+      const res = await fetch(`/run/${encodeURIComponent(action)}`);
+      const data = await res.json();
+      if (data.success){
+        log(`Done: ${name}`);
+        dropPaper('trent');
+        dropPaper(key);
+      } else {
+        log(`Failed: ${name} — ${data.message || 'error'}`);
+      }
+    }catch(e){
+      log(`Error: ${name} — ${e.message}`);
+    }
+    await refresh();
+  }
+
+  async function refresh(){
+    let sessions = [];
+    try{
+      const res = await fetch('/token-usage');
+      const data = await res.json();
+      sessions = data.sessions || [];
+    }catch(e){ sessions = []; }
+
+    try{
+      const res = await fetch('/api/locks');
+      const data = await res.json();
+      const total = data.count || 0;
+      const stale = data.staleCount || 0;
+      if (stale) setPill(document.getElementById('lockPill'),'bad',`Locks: ${total} (${stale} stale)`);
+      else if (total) setPill(document.getElementById('lockPill'),'warn',`Locks: ${total} active`);
+      else setPill(document.getElementById('lockPill'),'good','Locks: clear');
+    }catch(e){
+      setPill(document.getElementById('lockPill'),'warn','Locks: unavailable');
+    }
+
+    let statuses = {};
+    try{
+      const res = await fetch('/status');
+      statuses = await res.json();
+    }catch(e){ statuses = {}; }
+
+    const hot = [];
+    for (const d of desks){
+      const bar = document.getElementById(`bar-${d.key}`);
+      const tok = document.getElementById(`tok-${d.key}`);
+      const st = document.getElementById(`state-${d.key}`);
+      const dot = document.getElementById(`dot-${d.key}`);
+      const card = document.querySelector(`.desk[data-key="${d.key}"]`);
+
+      const match = sessions.find(s => (s.label||'').toLowerCase().includes(d.name.toLowerCase()))
+                 || sessions.find(s => (s.label||'').toLowerCase().includes(d.key))
+                 || null;
+      const pct = match ? (match.percent || 0) : 0;
+      const used = match ? match.used : null;
+      const limit = match ? match.limit : null;
+
+      if (bar){
+        const kind = pctColor(pct);
+        bar.classList.remove('warn','bad');
+        if (kind !== 'good') bar.classList.add(kind);
+        bar.style.width = `${Math.round(Math.min(1,Math.max(0,pct))*100)}%`;
+      }
+      if (tok){
+        tok.textContent = (used!=null && limit!=null)
+          ? `Tokens ${used.toLocaleString()} / ${limit.toLocaleString()} (${Math.round(pct*100)}%)`
+          : 'Tokens —';
+      }
+      if (pct >= 0.70) hot.push(d.name);
+
+      // status from /status by action
+      let running = false;
+      if (d.action && statuses[d.action]){
+        const s = (statuses[d.action].state || 'idle').toLowerCase();
+        running = (s === 'running');
+        if (st) st.textContent = s;
+      }
+      if (card) card.classList.toggle('active', running);
+      if (dot) dot.style.background = running ? 'var(--gold)' : 'rgba(255,255,255,.18)';
+    }
+
+    if (!hot.length) setPill(document.getElementById('tokenPill'),'good','Token board: calm');
+    else if (hot.length <= 2) setPill(document.getElementById('tokenPill'),'warn',`Token board: watch ${hot.join(', ')}`);
+    else setPill(document.getElementById('tokenPill'),'bad',`Token board: hot — ${hot.slice(0,3).join(', ')}…`);
+
+    const hash = JSON.stringify(statuses);
+    if (lastStatuses && hash !== lastStatuses) dropPaper('trent');
+    lastStatuses = hash;
+
+    document.getElementById('updated').textContent = `Updated ${new Date().toLocaleTimeString()}`;
+  }
+
+  render();
+  log('Top-down floor opened.');
+  refresh();
+  setInterval(refresh, 12000);
+</script>
+</body>
+</html>

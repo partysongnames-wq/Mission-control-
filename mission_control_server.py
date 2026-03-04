@@ -501,6 +501,11 @@ def world_page():
     return redirect("/mission-control-world.html")
 
 
+@app.route("/world-topdown")
+def world_topdown_page():
+    return redirect("/mission-control-world-topdown.html")
+
+
 @app.route("/")
 def dashboard():
     return redirect("/mission-control.html")
