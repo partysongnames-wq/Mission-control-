@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>The Standard Mission Control</title>
+  <style>
+    :root {
+      --bg:#010103;
+      --panel:#090b10;
+      --card:#15181f;
+      --card-alt:#1d1f27;
+      --accent:#ff6fb0;
+      --accent2:#10a37f;
+      --text:#f6f6f8;
+      --muted:#9aa0b7;
+    }
+    * { box-sizing:border-box; }
+    body {
+      margin:0;
+      min-height:100vh;
+      font-family:"Inter","SF Pro",system-ui;
+      background:radial-gradient(circle at top,#0c0c14,#05050b 55%,#010103 100%);
+      color:var(--text);
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      padding:24px;
+    }
+    .layout {
+      width:min(1100px,calc(100vw-32px));
+      border-radius:32px;
+      background:var(--panel);
+      display:grid;
+      grid-template-columns:220px 1fr;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.08);
+      box-shadow:0 40px 90px rgba(0,0,0,.6);
+    }
+    .sidebar {
+      background:#03030a;
+      padding:28px 20px;
+      display:flex;
+      flex-direction:column;
+      gap:18px;
+    }
+    .sidebar button {
+      text-transform:uppercase;
+      letter-spacing:.2em;
+      border:none;
+      background:transparent;
+      color:var(--muted);
+      font-weight:600;
+      padding:8px 4px;
+      display:flex;
+      align-items:center;
+      gap:8px;
+      cursor:pointer;
+    }
+    .sidebar button.active { color:#fff; }
+    .sidebar .divider { height:1px; background:rgba(255,255,255,.08); margin:8px 0; }
+    .sidebar .logo { font-size:1.1rem; letter-spacing:.3em; color:var(--accent); }
+    .sidebar button span { color:inherit; }
+    .shell {
+      padding:32px;
+      display:flex;
+      flex-direction:column;
+      gap:16px;
+    }
+    .hero {
+      position:relative;
+      border-radius:26px;
+      overflow:hidden;
+      margin-bottom:16px;
+      height:220px;
+      border:1px solid rgba(255,255,255,.12);
+    }
+    .hero-link {
+      position:absolute;
+      inset:0;
+      display:block;
+      color:inherit;
+      text-decoration:none;
+      z-index:1;
+    }
+    .hero::before {
+      content:'';
+      position:absolute;
+      inset:0;
+      background-image:url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1600&q=80');
+      background-size:cover;
+      background-position:center;
+      filter:contrast(1.1) saturate(1.1);
+      z-index:0;
+    }
+    .hero::after {
+      content:'';
+      position:absolute;
+      inset:0;
+      background:linear-gradient(180deg,rgba(5,5,10,.1),rgba(2,2,2,.75));
+      z-index:0;
+    }
+    .hero-content {
+      position:relative;
+      z-index:1;
+      padding:28px;
+      height:100%;
+      display:flex;
+      flex-direction:column;
+      justify-content:flex-end;
+      color:#fff;
+      text-shadow:0 18px 40px rgba(0,0,0,.7);
+    }
+    .hero-content h2 {
+      margin:0;
+      font-size:1.9rem;
+      letter-spacing:.25em;
+      text-transform:uppercase;
+    }
+    .hero-content p {
+      margin:.6rem 0 0;
+      max-width:540px;
+      color:rgba(255,255,255,.9);
+      letter-spacing:.08em;
+    }
+    .hero-pill {
+      margin-top:14px;
+      align-self:flex-start;
+      padding:6px 14px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.5);
+      background:rgba(0,0,0,.3);
+      font-size:.65rem;
+      letter-spacing:.4em;
+      text-transform:uppercase;
+    }
+    .header h1 { margin:0; font-size:2rem; }
+    .header p { margin:6px 0 0; color:var(--muted); }
+    .flight-link {
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-size:.65rem;
+      letter-spacing:.3em;
+      text-transform:uppercase;
+      color:var(--accent2);
+      text-decoration:none;
+    }
+    .flight-link img {
+      width:40px;
+      height:40px;
+      border-radius:12px;
+      object-fit:cover;
+      border:1px solid rgba(255,255,255,.35);
+    }
+    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:20px; }
+    .card {
+      background:var(--card);
+      border-radius:22px;
+      padding:20px;
+      border:1px solid rgba(255,255,255,.08);
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
+    .card span { font-size:.75rem; letter-spacing:.2em; text-transform:uppercase; color:var(--accent); }
+    .card h2 { margin:0; font-size:1.35rem; }
+    .card p { margin:0; color:var(--muted); line-height:1.45; flex:1; }
+    button { border:none; border-radius:12px; padding:12px 18px; font-weight:600; font-size:.95rem; cursor:pointer; color:#040409; transition:.2s; }
+    .button-pink { background:linear-gradient(135deg,#ff6fb0,#ff99c2); box-shadow:0 16px 32px rgba(255,111,176,.4); }
+    .button-green { background:linear-gradient(135deg,#10a37f,#1ac4b9); box-shadow:0 16px 32px rgba(16,163,127,.4); }
+    .hint { font-size:.78rem; color:#7ce7c8; }
+    .calendar-preview {
+      margin-top:24px;
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:16px;
+    }
+    .event {
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,.06);
+      padding:16px;
+      background:var(--card-alt);
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+    }
+    .event .time { font-size:1.5rem; margin:0; }
+    .event .label { font-size:.75rem; letter-spacing:.2em; text-transform:uppercase; color:var(--muted); }
+    .event .detail { margin:6px 0 0; color:var(--text); font-size:.95rem; }
+    .event button {
+      align-self:flex-start;
+      padding:8px 14px;
+      background:rgba(255,255,255,.1);
+      color:#fff;
+      font-size:.85rem;
+      border-radius:10px;
+      box-shadow:none;
+      cursor:pointer;
+    }
+    .status {
+      font-size:.9rem;
+      color:#7ce7c8;
+    }
+    .footer { display:flex; justify-content:space-between; font-size:.78rem; color:var(--muted); }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <div class="sidebar">
+      <div class="logo">THE STANDARD</div>
+      <button class="active">Mission Control</button>
+      <button onclick="window.location.href='/calendar';">Calendar</button>
+      <button onclick="window.location.href='/health';">Health</button>
+      <button onclick="window.location.href='/team';">Agents</button>
+      <button onclick="window.location.href='/office';">Office</button>
+      <div class="divider"></div>
+      <p style="font-size:.85rem; color:#7c879c;">Concierge dashboard · Tap a card when you need service.</p>
+    </div>
+    <div class="shell">
+      <div class="header">
+        <div>
+          <h1>Concierge Dashboard</h1>
+          <p>Styled like a boutique hotel experience—each staff card runs only when you tap it.</p>
+        </div>
+        <a class="flight-link" href="/mission-control-flight-plan.html" target="_blank">
+          <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=200&q=60" alt="Flight plan" />
+          <span>Flight Plan</span>
+        </a>
+      </div>
+      <div class="hero">
+        <a class="hero-link" href="/mission-control-flight-plan.html" target="_blank" aria-label="Open flight plan">
+          <div class="hero-content">
+            <span class="hero-pill">The Standard · Mission Control</span>
+            <h2>Concierge-grade automation</h2>
+            <p>Live signals from Jasper and the travel desk, layered over a lobby-ready view so the experience feels like a private club check-in.</p>
+          </div>
+        </a>
+      </div>
+      <div class="grid">
+        <div class="card">
+          <span>Travel Concierge</span>
+          <h2>Refresh Bangkok→Japan fares</h2>
+          <p>Trigger the Topic Monitor/Skyscanner scan and surface the freshest fares for Hong Kong, Osaka, Tokyo, and Busan whenever you need them.</p>
+          <button class="button-pink" onclick="runAction('travel')">Run Travel Scan</button>
+          <div class="hint">Command: Use Topic Monitor / extra:skyscanner-watch</div>
+        </div>
+        <div class="card">
+          <span>Daily Butler</span>
+          <h2>Draft tomorrow’s top three</h2>
+          <p>The Morning Manifesto skill gives you a travel-focused to-do list each morning—no typing, just tap and go.</p>
+          <button class="button-green" onclick="runAction('manifesto')">Run Morning Manifesto</button>
+          <div class="hint">Command: Use morning-manifesto with travel focus</div>
+        </div>
+        <div class="card">
+          <span>Memory Librarian</span>
+          <h2>Capture a quick note or playlist</h2>
+          <p>Drop a lyric, playlist idea, or trip reminder into Supermemory. It becomes searchable later without you needing to remember it.</p>
+          <button class="button-pink" onclick="runAction('memory')">Store Memory</button>
+          <div class="hint">Command: Use Supermemory to store: [text]</div>
+        </div>
+      </div>
+      <div class="calendar-preview">
+        <div class="event">
+          <div class="label">Daily</div>
+          <p class="time">09:00</p>
+          <p class="detail">Token Pulse — keeps the AI group quotas healthy.</p>
+          <button onclick="runAction('token')">Run Token Pulse</button>
+        </div>
+        <div class="event">
+          <div class="label">Scheduled</div>
+          <p class="time">Every 6 hrs</p>
+          <p class="detail">Travel Price Watch — refreshes BKK→Japan fare feed.</p>
+          <button onclick="runAction('watch')">Update Prices</button>
+        </div>
+        <div class="event">
+          <div class="label">On Demand</div>
+          <p class="time">Morning</p>
+          <p class="detail">Morning Manifesto — tap when you need the day’s Top 3.</p>
+          <button onclick="runAction('manifesto')">Run Manifesto</button>
+        </div>
+        <div class="event">
+          <div class="label">Flexible</div>
+          <p class="time">Anytime</p>
+          <p class="detail">Memory Snapshot — store a lyric or reminder before it disappears.</p>
+          <button onclick="runAction('memory')">Store Memory</button>
+        </div>
+      </div>
+      <div class="status" id="status">Ready</div>
+      <div class="footer">
+        <span>Concierge mode · No terminal, all polish.</span>
+        <span><a href="/health" style="color:#10a37f; text-decoration:none;">Health &amp; Locks</a> · Nasha-friendly · Hotel staff vibe.</span>
+      </div>
+    </div>
+  </div>
+  <script>
+    async function runAction(action) {
+      const status = document.getElementById('status');
+      status.textContent = 'Running ' + action + '…';
+      try {
+        const res = await fetch('/run/' + action);
+        const body = await res.json();
+        status.textContent = body.message;
+      } catch (error) {
+        status.textContent = 'Failed: ' + (error.message || 'unknown error');
+      }
+    }
+  </script>
+</body>
+</html>

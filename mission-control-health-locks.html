@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Mission Control · Health & Locks</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg:#010103;
+      --panel:#090b10;
+      --card:#15181f;
+      --card-alt:#1d1f27;
+      --accent:#ff6fb0;
+      --accent2:#10a37f;
+      --text:#f6f6f8;
+      --muted:#9aa0b7;
+      --warn:#ffcc66;
+      --bad:#ff4d6d;
+      --good:#34d399;
+    }
+    * { box-sizing:border-box; }
+    body {
+      margin:0;
+      min-height:100vh;
+      font-family:"Inter","SF Pro",system-ui;
+      background:radial-gradient(circle at top,#0c0c14,#05050b 55%,#010103 100%);
+      color:var(--text);
+      display:flex;
+      justify-content:center;
+      align-items:flex-start;
+      padding:24px;
+    }
+    .layout {
+      width:min(1200px,calc(100vw-32px));
+      border-radius:32px;
+      background:var(--panel);
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.08);
+      box-shadow:0 40px 90px rgba(0,0,0,.6);
+    }
+    header {
+      padding:22px 26px;
+      border-bottom:1px solid rgba(255,255,255,.08);
+      display:flex;
+      justify-content:space-between;
+      gap:16px;
+      align-items:flex-end;
+      background:linear-gradient(180deg,rgba(255,255,255,.02),transparent);
+    }
+    header h1 { margin:0; font-size:1.35rem; letter-spacing:.12em; text-transform:uppercase; }
+    header p { margin:8px 0 0; color:var(--muted); max-width:760px; }
+    .actions { display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end; }
+    .btn {
+      border:none;
+      border-radius:12px;
+      padding:10px 14px;
+      font-weight:700;
+      cursor:pointer;
+      background:rgba(255,255,255,.08);
+      color:var(--text);
+    }
+    .btn.primary { background:linear-gradient(135deg,#10a37f,#1ac4b9); color:#040409; }
+    .btn.danger { background:linear-gradient(135deg,#ff4d6d,#ff8aa1); color:#040409; }
+    main { padding:22px 26px 28px; display:flex; flex-direction:column; gap:18px; }
+
+    .kpis { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:14px; }
+    .kpi {
+      background:var(--card);
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:18px;
+      padding:14px 16px;
+    }
+    .kpi .label { font-size:.72rem; letter-spacing:.22em; text-transform:uppercase; color:var(--muted); }
+    .kpi .value { font-size:1.35rem; font-weight:800; margin-top:8px; }
+    .kpi .sub { margin-top:6px; font-size:.9rem; color:var(--muted); }
+
+    .panel {
+      background:var(--card-alt);
+      border:1px solid rgba(255,255,255,.06);
+      border-radius:18px;
+      overflow:hidden;
+    }
+    .panel-head {
+      padding:14px 16px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    .panel-head h2 { margin:0; font-size:.95rem; letter-spacing:.18em; text-transform:uppercase; }
+    .panel-head .meta { font-size:.86rem; color:var(--muted); }
+
+    table { width:100%; border-collapse:collapse; }
+    th, td { padding:12px 14px; text-align:left; border-bottom:1px solid rgba(255,255,255,.06); vertical-align:top; }
+    th { font-size:.72rem; letter-spacing:.22em; text-transform:uppercase; color:var(--muted); }
+    td { font-size:.95rem; }
+    .pill {
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:4px 10px;
+      border-radius:999px;
+      font-size:.78rem;
+      font-weight:700;
+      letter-spacing:.08em;
+      background:rgba(255,255,255,.08);
+      color:var(--text);
+      white-space:nowrap;
+    }
+    .pill.good { background:rgba(52,211,153,.12); color:var(--good); }
+    .pill.warn { background:rgba(255,204,102,.12); color:var(--warn); }
+    .pill.bad { background:rgba(255,77,109,.12); color:var(--bad); }
+    .mono { font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace; font-size:.9rem; color:#d7d9e6; }
+    .muted { color:var(--muted); }
+    .row-actions { display:flex; gap:8px; }
+    .small { padding:7px 10px; font-size:.85rem; border-radius:10px; }
+
+    footer { padding:14px 26px; color:var(--muted); font-size:.85rem; border-top:1px solid rgba(255,255,255,.08); display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; }
+    a { color:var(--accent2); text-decoration:none; }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <header>
+      <div>
+        <h1>Health & Locks</h1>
+        <p>Quick view of OpenClaw session lock files (and whether the owning PID is still alive). Use this to diagnose “session file locked (timeout …)” failures.</p>
+      </div>
+      <div class="actions">
+        <button class="btn" onclick="location.href='/mission-control.html'">← Mission Control</button>
+        <button class="btn primary" onclick="refreshNow()">Refresh</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="kpis">
+        <div class="kpi">
+          <div class="label">Total locks</div>
+          <div class="value" id="kpiTotal">…</div>
+          <div class="sub" id="kpiPath">—</div>
+        </div>
+        <div class="kpi">
+          <div class="label">Stale locks</div>
+          <div class="value" id="kpiStale">…</div>
+          <div class="sub">PID not running (safe to release)</div>
+        </div>
+        <div class="kpi">
+          <div class="label">Last refresh</div>
+          <div class="value" id="kpiWhen">…</div>
+          <div class="sub" id="kpiError">&nbsp;</div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head">
+          <h2>Lock files</h2>
+          <div class="meta" id="metaCount">—</div>
+        </div>
+        <div style="overflow:auto; max-height:60vh;">
+          <table>
+            <thead>
+              <tr>
+                <th>Status</th>
+                <th>Agent</th>
+                <th>Lock file</th>
+                <th>PID</th>
+                <th>Created</th>
+                <th>Age</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="lockRows"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <span>Tip: if a lock is stale, you can release it here and then retry the job.</span>
+      <span><a href="/team">Back to Lounge</a> · <a href="/calendar">Calendar</a></span>
+    </footer>
+  </div>
+
+  <script>
+    function fmtAge(seconds) {
+      if (seconds < 60) return Math.round(seconds) + 's';
+      const m = Math.floor(seconds / 60);
+      const s = Math.round(seconds % 60);
+      if (m < 60) return m + 'm ' + s + 's';
+      const h = Math.floor(m / 60);
+      const mm = m % 60;
+      return h + 'h ' + mm + 'm';
+    }
+
+    function pill(kind, text) {
+      return `<span class="pill ${kind}">${text}</span>`;
+    }
+
+    async function releaseLock(agent, lockName) {
+      if (!confirm(`Release lock?\n\n${agent}: ${lockName}\n\nOnly do this if you're sure the owning process is gone.`)) return;
+      const res = await fetch(`/api/locks/${encodeURIComponent(agent)}/${encodeURIComponent(lockName)}/release`, { method: 'POST' });
+      const body = await res.json();
+      if (!body.success) alert(body.message || 'Failed to release lock');
+      await refreshNow();
+    }
+
+    async function refreshNow() {
+      document.getElementById('kpiError').textContent = ' ';
+      try {
+        const res = await fetch('/api/locks');
+        const data = await res.json();
+
+        document.getElementById('kpiTotal').textContent = data.count;
+        document.getElementById('kpiStale').textContent = data.staleCount;
+        document.getElementById('kpiWhen').textContent = new Date(data.generatedAt).toLocaleTimeString();
+        document.getElementById('kpiPath').textContent = data.rootHint ? `Root: ${data.rootHint}` : '—';
+        document.getElementById('metaCount').textContent = `${data.count} lock(s) across ${data.agentCount} agent(s)`;
+
+        const tbody = document.getElementById('lockRows');
+        tbody.innerHTML = '';
+
+        if (!data.locks.length) {
+          tbody.innerHTML = `<tr><td colspan="7" class="muted">No lock files found.</td></tr>`;
+          return;
+        }
+
+        for (const lock of data.locks) {
+          const status = lock.pidAlive ? pill('warn', 'ACTIVE') : pill('bad', 'STALE');
+          const created = lock.createdAt || '—';
+          const age = (typeof lock.ageSeconds === 'number') ? fmtAge(lock.ageSeconds) : '—';
+
+          let actionCell = '<span class="muted">—</span>';
+          if (!lock.pidAlive) {
+            actionCell = `<div class="row-actions"><button class="btn danger small" onclick="releaseLock('${lock.agent}','${lock.lockName}')">Release</button></div>`;
+          }
+
+          tbody.innerHTML += `
+            <tr>
+              <td>${status}</td>
+              <td>${lock.agent}</td>
+              <td class="mono">${lock.lockName}</td>
+              <td class="mono">${lock.pid ?? '—'}</td>
+              <td class="mono">${created}</td>
+              <td>${age}</td>
+              <td>${actionCell}</td>
+            </tr>
+          `;
+        }
+      } catch (err) {
+        document.getElementById('kpiError').textContent = 'Error: ' + (err.message || 'unknown');
+      }
+    }
+
+    refreshNow();
+    setInterval(refreshNow, 10000);
+  </script>
+</body>
+</html>
