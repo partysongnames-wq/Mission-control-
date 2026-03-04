@@ -294,6 +294,21 @@
   };
 
   const papers = Object.fromEntries(agents.map(a => [a.key, 0]));
+  let worldState = {notes:{}, unread:{}};
+
+  async function fetchWorldState(){
+    try{
+      const res = await fetch('/api/world/state');
+      worldState = await res.json();
+    }catch(e){
+      worldState = worldState || {notes:{}, unread:{}};
+    }
+  }
+
+  async function clearUnread(agentKey){
+    try{ await fetch(`/api/world/clear/${encodeURIComponent(agentKey)}`, {method:'POST'}); }catch(e){}
+  }
+
   const notebook = [];
   let selected = 'trent';
   const unread = loadUnread();
@@ -355,7 +370,7 @@
         selected = a.key;
         // opening the card clears unread
         unread[a.key] = 0;
-        saveUnread();
+        clearUnread(a.key);
         highlight();
         renderUnread();
       });
@@ -451,25 +466,13 @@
 
   
 
-  function loadUnread(){
-    try{
-      const raw = localStorage.getItem('mc_unread_v1');
-      if (!raw) return Object.fromEntries(agents.map(a => [a.key, 0]));
-      const obj = JSON.parse(raw);
-      for (const a of agents){ if (!(a.key in obj)) obj[a.key] = 0; }
-      return obj;
-    } catch(e){
-      return Object.fromEntries(agents.map(a => [a.key, 0]));
-    }
-  }
+  function loadUnread(){ return Object.fromEntries(agents.map(a => [a.key, 0])); }
 
-  function saveUnread(){
-    try{ localStorage.setItem('mc_unread_v1', JSON.stringify(unread)); }catch(e){}
-  }
+  function saveUnread(){}
 
   function renderUnread(){
     for (const a of agents){
-      const u = unread[a.key] || 0;
+      const u = (worldState && worldState.unread && worldState.unread[a.key]) ? worldState.unread[a.key] : (unread[a.key] || 0);
       const badge = document.getElementById(`unread-${a.key}`);
       if (badge) badge.style.display = u > 0 ? 'block' : 'none';
 
@@ -553,6 +556,7 @@
   }
 
   async function refresh(){
+    await fetchWorldState();
     let sessions = [];
     try{
       const res = await fetch('/token-usage');
@@ -633,18 +637,6 @@
       // move token subtly between idle/active
       const mode = running ? 'running' : (pct >= 0.85 ? 'bed' : (pct >= 0.70 ? 'sofa' : 'idle'));
       moveToken(a.key, mode);
-
-      // unread note heuristic: if status.detail changed (usually last run line), mark unread
-      if (a.action && statuses[a.action]){
-        const detail = statuses[a.action].detail || '';
-        if (detail && lastDetails[a.action] && detail !== lastDetails[a.action]){
-          unread[a.key] = (unread[a.key] || 0) + 1;
-          saveUnread();
-        }
-        lastDetails[a.action] = detail;
-        const lastEl = document.getElementById(`clast-${a.key}`);
-        if (lastEl) lastEl.textContent = detail.replace(/^Last run:\s*/,'');
-      }
 
     }
 

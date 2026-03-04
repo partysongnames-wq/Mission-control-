@@ -4,14 +4,55 @@ import os
 import shlex
 import signal
 import subprocess
+import threading
 from datetime import datetime, timedelta
 from http import HTTPStatus
 from pathlib import Path
-from typing import Dict, List
+from typing import Dict, List, Optional
 
 from flask import Flask, abort, jsonify, redirect, send_from_directory, request
 
 BASE_DIR = Path(__file__).parent.resolve()
+
+WORLD_STATE_PATH = BASE_DIR / 'mission-control-world-state.json'
+WORLD_STATE_LOCK = threading.Lock()
+
+
+def _load_world_state() -> Dict:
+    with WORLD_STATE_LOCK:
+        if WORLD_STATE_PATH.exists():
+            try:
+                return json.loads(WORLD_STATE_PATH.read_text(encoding='utf-8'))
+            except Exception:
+                return {'notes': {}, 'unread': {}}
+        return {'notes': {}, 'unread': {}}
+
+
+def _save_world_state(state: Dict) -> None:
+    with WORLD_STATE_LOCK:
+        WORLD_STATE_PATH.write_text(json.dumps(state, ensure_ascii=False, indent=2), encoding='utf-8')
+
+
+def _world_add_note(agent: str, note: str, level: str = 'info') -> Dict:
+    state = _load_world_state()
+    state.setdefault('notes', {})
+    state.setdefault('unread', {})
+    state['notes'].setdefault(agent, [])
+    ts = datetime.now().astimezone().strftime('%Y-%m-%d %H:%M %Z')
+    state['notes'][agent].insert(0, {'ts': ts, 'note': note, 'level': level})
+    state['notes'][agent] = state['notes'][agent][:30]
+    state['unread'][agent] = int(state['unread'].get(agent, 0)) + 1
+    _save_world_state(state)
+    return state
+
+
+def _world_clear_unread(agent: str) -> Dict:
+    state = _load_world_state()
+    state.setdefault('unread', {})
+    state['unread'][agent] = 0
+    _save_world_state(state)
+    return state
+
 app = Flask(__name__, static_folder=None)
 
 COMMANDS: Dict[str, str] = {
@@ -110,6 +151,18 @@ def set_status(action: str, state: str, detail: str) -> None:
         statuses[action]["detail"] = detail
 
 
+world_action_map = {
+    'travel': 'tj',
+    'manifesto': 'jaz',
+    'watch': 'yoko',
+    'memory': 'holly',
+    'sidejobs': 'joe',
+    'clawd': 'clawd',
+    'pricewatch': 'yoko',
+    'deals': 'yoko',
+}
+
+
 @app.route("/run/<action>")
 def run_action(action: str):
     command = COMMANDS.get(action)
@@ -119,7 +172,13 @@ def run_action(action: str):
     proc = subprocess.run(shlex.split(command), cwd=str(BASE_DIR), capture_output=True, text=True)
     output = proc.stdout.strip() or proc.stderr.strip() or "Done."
     detail = output.replace("\n", " ")[:120]
-    set_status(action, "idle", f"Last run: {detail}")    # If we just ran a price check, stamp last-checked + compute deltas + append history.
+    set_status(action, "idle", f"Last run: {detail}")
+    try:
+        agent_key = world_action_map.get(action)
+        if agent_key and proc.returncode == 0:
+            _world_add_note(agent_key, f"{action}: {detail}", level='info')
+    except Exception:
+        pass    # If we just ran a price check, stamp last-checked + compute deltas + append history.
     if action == 'pricewatch' and proc.returncode == 0:
         try:
             plan_path = BASE_DIR / 'travel-flight-plan.json'
@@ -353,6 +412,29 @@ def _collect_lock_files() -> List[Dict]:
             })
     locks.sort(key=lambda x: (x.get("pidAlive", False), -(x.get("ageSeconds") or 0)))
     return locks
+
+
+@app.route('/api/world/state')
+def api_world_state():
+    return jsonify(_load_world_state())
+
+
+@app.route('/api/world/note', methods=['POST'])
+def api_world_note():
+    payload = request.get_json(silent=True) or {}
+    agent = (payload.get('agent') or '').strip()
+    note = (payload.get('note') or '').strip()
+    level = (payload.get('level') or 'info').strip()
+    if not agent or not note:
+        return jsonify(success=False, message='agent and note required'), HTTPStatus.BAD_REQUEST
+    state = _world_add_note(agent, note, level)
+    return jsonify(success=True, state=state)
+
+
+@app.route('/api/world/clear/<agent>', methods=['POST'])
+def api_world_clear(agent: str):
+    state = _world_clear_unread(agent)
+    return jsonify(success=True, state=state)
 
 
 @app.route("/api/locks")
