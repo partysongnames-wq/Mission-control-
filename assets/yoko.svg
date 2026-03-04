@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <defs>
+    <radialGradient id="bg" cx="30%" cy="20%" r="90%">
+      <stop offset="0%" stop-color="#2a2340"/>
+      <stop offset="55%" stop-color="#0f111a"/>
+      <stop offset="100%" stop-color="#050409"/>
+    </radialGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ffd27a"/>
+      <stop offset="45%" stop-color="#f59c00"/>
+      <stop offset="100%" stop-color="#c57a00"/>
+    </linearGradient>
+    <filter id="softGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feColorMatrix in="blur" type="matrix"
+        values="1 0 0 0 0
+                0 0.7 0 0 0
+                0 0 0.2 0 0
+                0 0 0 0.8 0" result="tint"/>
+      <feMerge>
+        <feMergeNode in="tint"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <clipPath id="circle">
+      <circle cx="256" cy="256" r="220"/>
+    </clipPath>
+  </defs>
+
+  <rect width="512" height="512" fill="url(#bg)"/>
+
+  <!-- outer ring -->
+  <circle cx="256" cy="256" r="236" fill="none" stroke="rgba(245,156,0,0.55)" stroke-width="6"/>
+  <circle cx="256" cy="256" r="228" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="2"/>
+
+  <!-- inner badge -->
+  <g clip-path="url(#circle)">
+    <rect x="0" y="0" width="512" height="512" fill="url(#bg)"/>
+
+    <!-- subtle room glow -->
+    <circle cx="160" cy="140" r="180" fill="rgba(245,156,0,0.12)" filter="url(#softGlow)"/>
+
+    <!-- minimalist face silhouette (abstract) -->
+    <path d="M256 165c-48 0-86 38-86 86 0 49 20 80 33 95 9 11 12 20 12 34v11h82v-11c0-14 3-23 12-34 13-15 33-46 33-95 0-48-38-86-86-86z"
+          fill="rgba(255,255,255,0.10)"/>
+    <path d="M150 412c18-52 60-78 106-78s88 26 106 78" fill="rgba(255,255,255,0.08)"/>
+
+    <!-- name strip -->
+    <rect x="78" y="356" width="356" height="86" rx="22" fill="rgba(0,0,0,0.28)" stroke="rgba(255,255,255,0.14)"/>
+    <text x="256" y="408" text-anchor="middle" font-family="Space Grotesk, system-ui" font-size="46" font-weight="800" letter-spacing="10" fill="url(#gold)">YOKO</text>
+    <text x="256" y="444" text-anchor="middle" font-family="Space Grotesk, system-ui" font-size="14" font-weight="700" letter-spacing="6" fill="rgba(255,255,255,0.65)">OPEN CLAW OPTIMIZATION</text>
+  </g>
+
+  <!-- corner sparkle -->
+  <path d="M412 112l10 26 26 10-26 10-10 26-10-26-26-10 26-10z" fill="rgba(245,156,0,0.7)"/>
+</svg>
