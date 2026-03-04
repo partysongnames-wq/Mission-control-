@@ -18,6 +18,7 @@
       --bad:#ff4d6d;
       --good:#34d399;
     }
+    input:focus, select:focus { outline: none; box-shadow:0 0 0 3px rgba(16,163,127,.18); }
     * { box-sizing:border-box; }
     body {
       margin:0;
@@ -252,6 +253,46 @@
         </div>
       </section>
 
+      <section class="panel" id="filterBar">
+        <div class="panel-head">
+          <h2>Concierge controls</h2>
+          <div class="meta">Filter + group + spotlight offenders</div>
+        </div>
+        <div style="padding:14px 16px; display:flex; gap:12px; flex-wrap:wrap; align-items:center;">
+          <input id="q" placeholder="Search (agent / lock / pid / command)" style="flex:1; min-width:260px; padding:10px 12px; border-radius:12px; border:1px solid rgba(255,255,255,.14); background:rgba(0,0,0,.25); color:var(--text);" />
+          <select id="agentFilter" style="padding:10px 12px; border-radius:12px; border:1px solid rgba(255,255,255,.14); background:rgba(0,0,0,.25); color:var(--text);">
+            <option value="">All agents</option>
+          </select>
+          <label style="display:flex; gap:8px; align-items:center; color:var(--muted); font-weight:600;">
+            <input type="checkbox" id="staleOnly" />
+            Stale only
+          </label>
+          <label style="display:flex; gap:8px; align-items:center; color:var(--muted); font-weight:600;">
+            <input type="checkbox" id="groupPid" />
+            Group by PID
+          </label>
+          <label style="display:flex; gap:8px; align-items:center; color:var(--muted); font-weight:600;">
+            Offender threshold
+            <select id="ageThreshold" style="padding:10px 12px; border-radius:12px; border:1px solid rgba(255,255,255,.14); background:rgba(0,0,0,.25); color:var(--text);">
+              <option value="60">1m+</option>
+              <option value="300" selected>5m+</option>
+              <option value="900">15m+</option>
+              <option value="1800">30m+</option>
+            </select>
+          </label>
+        </div>
+      </section>
+
+      <section class="panel" id="offendersPanel">
+        <div class="panel-head">
+          <h2>Top offenders</h2>
+          <div class="meta" id="offenderMeta">—</div>
+        </div>
+        <div style="padding:14px 16px;">
+          <div id="offenders" class="mono" style="white-space:pre-wrap; line-height:1.55; color:#cfd3e6;">—</div>
+        </div>
+      </section>
+
       <section class="panel">
         <div class="panel-head">
           <h2>Lock files</h2>
@@ -297,13 +338,13 @@
   <script>
     let dangerMode = false;
     const incidentLines = [];
+    let lastData = null;
 
     function logIncident(line) {
       const ts = new Date().toLocaleTimeString();
       incidentLines.unshift(`${ts} — ${line}`);
       const el = document.getElementById('incidentLog');
-      if (el) el.textContent = incidentLines.join("
-");
+      if (el) el.textContent = incidentLines.join("\n");
     }
 
 
@@ -317,9 +358,9 @@
     }
 
     async function releaseAllStale() {
-      if (!confirm('Release ALL stale locks?
+      if (!confirm(`Release ALL stale locks?
 
-This deletes .lock files whose PID is NOT running.')) return;
+This deletes .lock files whose PID is NOT running.`)) return;
       const res = await fetch('/api/locks/release-stale', { method: 'POST' });
       const body = await res.json();
       if (body.success) {
@@ -372,17 +413,88 @@ Try TERM first; KILL is last resort.`)) return;
       await refreshNow();
     }
 
+    function renderAgentOptions(locks) {
+      const sel = document.getElementById('agentFilter');
+      if (!sel) return;
+      const current = sel.value;
+      const agents = Array.from(new Set((locks || []).map(l => l.agent))).sort();
+      sel.innerHTML = '<option value="">All agents</option>' + agents.map(a => `<option value="${a}">${a}</option>`).join('');
+      sel.value = current;
+    }
+
+    function lockText(lock) {
+      const pid = lock.pid ?? '';
+      const cmd = (lock.procInfo && (lock.procInfo.command || '')) || '';
+      return `${lock.agent} ${lock.lockName} ${pid} ${cmd}`.toLowerCase();
+    }
+
+    function suggest(lock) {
+      const age = (typeof lock.ageSeconds === 'number') ? lock.ageSeconds : 0;
+      if (!lock.pidAlive) return {level:'bad', text:'Release (stale lock)'};
+      if (age >= 1800) return {level:'bad', text:'Likely stuck — Terminate PID (try TERM)'};
+      if (age >= 900) return {level:'warn', text:'Slow — consider waiting or TERM if no progress'};
+      return {level:'warn', text:'Active — wait (normal)'};
+    }
+
+    function renderOffenders(data) {
+      const out = document.getElementById('offenders');
+      const meta = document.getElementById('offenderMeta');
+      if (!out || !meta) return;
+      const locks = (data && data.locks) ? data.locks : [];
+      const threshold = parseInt(document.getElementById('ageThreshold')?.value || '300', 10);
+      const offenders = locks
+        .filter(l => typeof l.ageSeconds === 'number' && l.ageSeconds >= threshold)
+        .sort((a,b) => (b.ageSeconds||0) - (a.ageSeconds||0))
+        .slice(0, 8);
+
+      meta.textContent = offenders.length ? `Showing ${offenders.length} (>= ${threshold}s)` : `None (>= ${threshold}s)`;
+      if (!offenders.length) {
+        out.textContent = '—';
+        return;
+      }
+
+      const lines = offenders.map(l => {
+        const s = suggest(l);
+        const age = (typeof l.ageSeconds === 'number') ? fmtAge(l.ageSeconds) : '—';
+        const cmd = ((l.procInfo && (l.procInfo.command || '—')) || '—');
+        const state = l.pidAlive ? 'ACTIVE' : 'STALE';
+        return `${state} · ${age} · ${l.agent} · pid=${l.pid} · ${s.text}
+  ${l.lockName}
+  ${cmd}`;
+      });
+      out.textContent = lines.join("\n\n");
+    }
+
+    function getFilteredLocks(data) {
+      const locks = (data && data.locks) ? data.locks : [];
+      const q = (document.getElementById('q')?.value || '').trim().toLowerCase();
+      const agent = document.getElementById('agentFilter')?.value || '';
+      const staleOnly = !!document.getElementById('staleOnly')?.checked;
+      return locks.filter(l => {
+        if (agent && l.agent !== agent) return false;
+        if (staleOnly && l.pidAlive) return false;
+        if (q && !lockText(l).includes(q)) return false;
+        return true;
+      });
+    }
+
+
     async function refreshNow() {
       document.getElementById('kpiError').textContent = ' ';
       try {
         const res = await fetch('/api/locks');
         const data = await res.json();
+        lastData = data;
 
         document.getElementById('kpiTotal').textContent = data.count;
         document.getElementById('kpiStale').textContent = data.staleCount;
         document.getElementById('kpiWhen').textContent = new Date(data.generatedAt).toLocaleTimeString();
         document.getElementById('kpiPath').textContent = data.rootHint ? `Root: ${data.rootHint}` : '—';
         document.getElementById('metaCount').textContent = `${data.count} lock(s) across ${data.agentCount} agent(s)`;
+
+        renderAgentOptions(data.locks || []);
+        renderOffenders(data);
+
 
         const activeCount = (data.locks || []).filter(l => l.pidAlive).length;
         const staleCount = data.staleCount || 0;
@@ -417,7 +529,55 @@ Try TERM first; KILL is last resort.`)) return;
           return;
         }
 
-        for (const lock of data.locks) {
+        const groupPid = !!document.getElementById('groupPid')?.checked;
+
+        let locks = data.locks || [];
+        // apply filters
+        const q = (document.getElementById('q')?.value || '').trim().toLowerCase();
+        const agent = document.getElementById('agentFilter')?.value || '';
+        const staleOnly = !!document.getElementById('staleOnly')?.checked;
+        locks = locks.filter(l => {
+          if (agent && l.agent !== agent) return false;
+          if (staleOnly && l.pidAlive) return false;
+          if (q && !lockText(l).includes(q)) return false;
+          return true;
+        });
+
+        if (groupPid) {
+          // collapse into pid groups (including stale pid=None groups)
+          const groups = new Map();
+          for (const l of locks) {
+            const key = String(l.pid ?? '—');
+            if (!groups.has(key)) groups.set(key, []);
+            groups.get(key).push(l);
+          }
+          // flatten into synthetic rows
+          const rows = [];
+          for (const [pidKey, arr] of groups.entries()) {
+            const anyAlive = arr.some(x => x.pidAlive);
+            const maxAge = Math.max(...arr.map(x => x.ageSeconds || 0));
+            const agents = Array.from(new Set(arr.map(x => x.agent))).join(', ');
+            const cmd = (arr.find(x => x.procInfo && x.procInfo.command)?.procInfo?.command) || '—';
+            const etime = (arr.find(x => x.procInfo && x.procInfo.etime)?.procInfo?.etime) || '—';
+            rows.push({
+              _group: true,
+              pid: pidKey === '—' ? null : parseInt(pidKey,10),
+              pidKey,
+              pidAlive: anyAlive,
+              agent: agents,
+              lockName: `${arr.length} lock(s)`,
+              createdAt: arr[0].createdAt,
+              ageSeconds: maxAge,
+              procInfo: {command: cmd, etime: etime},
+              _locks: arr,
+            });
+          }
+          // Sort stale groups first then age desc
+          rows.sort((a,b) => (a.pidAlive === b.pidAlive ? (b.ageSeconds||0)-(a.ageSeconds||0) : (a.pidAlive ? 1 : -1)));
+          locks = rows;
+        }
+
+        for (const lock of locks) {
           const status = lock.pidAlive ? pill('warn', 'ACTIVE') : pill('bad', 'STALE');
           const created = lock.createdAt || '—';
           const age = (typeof lock.ageSeconds === 'number') ? fmtAge(lock.ageSeconds) : '—';
@@ -448,6 +608,29 @@ Try TERM first; KILL is last resort.`)) return;
 
     refreshNow();
     setInterval(refreshNow, 10000);
+
+    function wireFilters() {
+      const ids = ['q','agentFilter','staleOnly','groupPid','ageThreshold'];
+      ids.forEach(id => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        el.addEventListener('input', () => {
+          if (lastData) {
+            renderOffenders(lastData);
+            // table rerender happens via refresh; keep it simple for now.
+            refreshNow();
+          }
+        });
+        el.addEventListener('change', () => {
+          if (lastData) {
+            renderOffenders(lastData);
+            refreshNow();
+          }
+        });
+      });
+    }
+
+    wireFilters();
   </script>
 </body>
 </html>
