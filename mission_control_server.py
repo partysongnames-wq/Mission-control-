@@ -21,6 +21,7 @@ COMMANDS: Dict[str, str] = {
     "token": "openclaw cron list",
     "watch": "openclaw agent --local --agent super-jobs --message \"Refresh travel alert for Bangkok to Japan routes.\"",
     "pricewatch": "openclaw cron run d39d96cc-b37b-4cd6-9ff9-2c0bc2b39c9e --expect-final --timeout 600000",
+    "deals": "openclaw cron run d39d96cc-b37b-4cd6-9ff9-2c0bc2b39c9e --expect-final --timeout 600000"
 }
 
 statuses = {
@@ -30,6 +31,7 @@ statuses = {
     "token": {"label": "Token Pulse", "state": "idle", "detail": "Last run: none"},
     "watch": {"label": "Travel Watch", "state": "idle", "detail": "Last run: none"},
     "pricewatch": {"label": "Price Check Now", "state": "idle", "detail": "Last run: none"},
+    "deals": {"label": "Deals Radar", "state": "idle", "detail": "Last run: none"},
 }
 
 HTML_PAGES = {p.name for p in BASE_DIR.glob("*.html")}
@@ -487,6 +489,11 @@ def team_members_page():
 @app.route("/office")
 def office_page():
     return redirect("/mission-control-office.html")
+
+
+@app.route("/virtual-office")
+def virtual_office_page():
+    return redirect("/mission-control-virtual-office.html")
 
 
 @app.route("/")
