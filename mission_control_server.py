@@ -506,6 +506,11 @@ def world_topdown_page():
     return redirect("/mission-control-world-topdown.html")
 
 
+@app.route("/world-hybrid")
+def world_hybrid_page():
+    return redirect("/mission-control-world-hybrid.html")
+
+
 @app.route("/")
 def dashboard():
     return redirect("/mission-control.html")
