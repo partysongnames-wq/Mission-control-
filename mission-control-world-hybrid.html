@@ -261,6 +261,22 @@
     </main>
   </div>
 
+
+
+  <div id="askModal" style="display:none; position:fixed; inset:0; z-index:9999; background:rgba(0,0,0,.55); backdrop-filter: blur(6px);">
+    <div style="max-width:720px; margin:10vh auto; background:rgba(12,16,35,.96); border:1px solid rgba(255,255,255,.14); border-radius:22px; box-shadow:0 40px 90px rgba(0,0,0,.6); overflow:hidden;">
+      <div style="padding:14px 16px; display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid rgba(255,255,255,.10);">
+        <div style="font-weight:900; letter-spacing:.18em; text-transform:uppercase; font-size:.82rem; color:rgba(255,255,255,.85);">Message <span id="askWho">Agent</span></div>
+        <button id="askClose" class="btn" style="background:rgba(255,255,255,.10); color:var(--ink);">Close</button>
+      </div>
+      <div style="padding:14px 16px;">
+        <textarea id="askText" rows="5" placeholder="Ask a question…" style="width:100%; padding:12px; border-radius:16px; border:1px solid rgba(255,255,255,.14); background:rgba(0,0,0,.20); color:var(--ink); font-size:1rem; line-height:1.35;"></textarea>
+        <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; margin-top:10px;">
+          <div id="askStatus" style="color:var(--muted); font-size:.9rem;">Tip: Shift+Enter for newline</div>
+          <button id="askSend" class="btn">Send</button>
+        </div>
+      </div>
+
 <script>
   const agents = [
     { key:'trent', name:'Trent', nick:'Director', avatar:'/assets/trent-director.svg', action:null },
@@ -699,14 +715,16 @@
 
   render();
 
-  // modal wiring
-  const closeBtn = document.getElementById('askClose');
+  window.addEventListener('load', () => {
+    // modal wiring (after DOM is ready)
+    const closeBtn = document.getElementById('askClose');
   const sendBtn = document.getElementById('askSend');
   const modal = document.getElementById('askModal');
   if (closeBtn) closeBtn.addEventListener('click', closeAskModal);
   if (sendBtn) sendBtn.addEventListener('click', sendAsk);
   if (modal) modal.addEventListener('click', (e) => { if (e.target === modal) closeAskModal(); });
-  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeAskModal(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeAskModal(); });
+  });
 
 
   // activity => Director in office
@@ -717,20 +735,6 @@
   refresh();
   setInterval(refresh, 12000);
 </script>
-
-  <div id="askModal" style="display:none; position:fixed; inset:0; z-index:9999; background:rgba(0,0,0,.55); backdrop-filter: blur(6px);">
-    <div style="max-width:720px; margin:10vh auto; background:rgba(12,16,35,.96); border:1px solid rgba(255,255,255,.14); border-radius:22px; box-shadow:0 40px 90px rgba(0,0,0,.6); overflow:hidden;">
-      <div style="padding:14px 16px; display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid rgba(255,255,255,.10);">
-        <div style="font-weight:900; letter-spacing:.18em; text-transform:uppercase; font-size:.82rem; color:rgba(255,255,255,.85);">Message <span id="askWho">Agent</span></div>
-        <button id="askClose" class="btn" style="background:rgba(255,255,255,.10); color:var(--ink);">Close</button>
-      </div>
-      <div style="padding:14px 16px;">
-        <textarea id="askText" rows="5" placeholder="Ask a question…" style="width:100%; padding:12px; border-radius:16px; border:1px solid rgba(255,255,255,.14); background:rgba(0,0,0,.20); color:var(--ink); font-size:1rem; line-height:1.35;"></textarea>
-        <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; margin-top:10px;">
-          <div id="askStatus" style="color:var(--muted); font-size:.9rem;">Tip: Shift+Enter for newline</div>
-          <button id="askSend" class="btn">Send</button>
-        </div>
-      </div>
     </div>
   </div>
 
