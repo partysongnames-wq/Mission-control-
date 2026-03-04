@@ -208,12 +208,13 @@
   </div>
   <script>
     const AGENTS = [
+      { id: 'director', name: 'Trent', nickname: 'TR', desc: 'Director / approves changes', avatar: '/assets/trent-avatar.jpg', model: 'openai-codex/gpt-5.2' },
+      { id: '-5181843441', name: 'Japan Holiday', nickname: 'Holly', desc: 'Japan trip + memories', action: 'memory', avatar: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=200&q=80', model: 'openai-codex/gpt-5.2' },
       { id: '-5275095885', name: 'Travel Desk', nickname: 'TJ', desc: 'Token pulse, travel scans', action: 'travel', avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=200&q=80' },
       { id: '-5158792881', name: 'Jasper Assistant', nickname: 'Jas', desc: 'Manifesto + calm top 3', action: 'manifesto', avatar: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=200&q=80', model: 'openai-codex/gpt-5.1-codex-mini' },
       { id: '-5287663927', name: 'Yoko', nickname: 'Trip Buddy', desc: 'Ops / watch desk / queries (running as Trip Buddy)', action: 'watch', avatar: '/assets/yoko.jpg', model: 'openai-codex/gpt-5.2' },
-      { id: '-5181843441', name: 'Japan Holiday', nickname: 'Holly', desc: 'Japan trip + memories', action: 'memory', avatar: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=200&q=80', model: 'openai-codex/gpt-5.2' },
-      { id: '-5254836070', name: 'Side Jobs – Joe', nickname: 'Joe', desc: 'Job hunt + follow-ups', avatar: 'https://images.unsplash.com/photo-1454165205744-3b78555e5572?auto=format&fit=crop&w=200&q=80', model: 'openrouter/moonshotai/kimi-k2.5' },
-      { id: '-5271777981', name: 'Trent', nickname: 'Casey', desc: 'Internal ops + mission control assistant—keeps the cron fleet humming, builds the dashboards you actually use, captures fares/reminders/job leads, and translates instincts into clickable tools and updates.', avatar: 'https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?auto=format&fit=crop&w=200&q=80', model: 'openai-codex/gpt-5.1-codex-mini' },
+      { id: '-5254836070', name: 'Side Jobs – Joe', nickname: 'Joe', desc: 'Job hunt + follow-ups', avatar: '/assets/joe.jpg', model: 'openrouter/moonshotai/kimi-k2.5' },
+      { id: '-5271777981', name: 'Casey', nickname: 'Casey', desc: 'Internal ops + mission control assistant—keeps the cron fleet humming, builds the dashboards you actually use, captures fares/reminders/job leads, and translates instincts into clickable tools and updates.', avatar: 'https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?auto=format&fit=crop&w=200&q=80', model: 'openai-codex/gpt-5.1-codex-mini' },
     ];
 
     const roster = document.getElementById('roster');
@@ -231,7 +232,7 @@
         const model = agent.model || (tokenRow ? tokenRow.model : 'unknown');
         const percent = tokenRow ? Math.round(tokenRow.percent * 100) : 0;
         const headroom = tokenRow ? tokenRow.limit - tokenRow.used : 0;
-        const statusKey = agent.action;
+        const statusKey = agent.action || '';
         const state = statuses[statusKey]?.state || 'idle';
         const detail = statuses[statusKey]?.detail || 'Standing by';
         const stateClass = state === 'running' ? 'active' : 'idle';
@@ -252,7 +253,7 @@
             </div>
             <div class="status-pill ${stateClass}">${state === 'running' ? 'Working now' : detail}</div>
             <div class="actions">
-              <button onclick="trigger('${agent.action || 'manifesto'}')">Trigger ${agent.name}</button>
+              ${agent.action ? `<button onclick=\"trigger('`+agent.action+`')\">Trigger ${agent.name}</button>` : `<button disabled style=\"opacity:.5;cursor:default;\">Director</button>`}
             </div>
           </article>
         `;
