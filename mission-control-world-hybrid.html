@@ -182,6 +182,22 @@
     .prop.table{width:280px;height:160px;}
     .prop.pool{width:360px;height:180px; border-radius:22px; border-color:rgba(245,156,0,.18);
       background:linear-gradient(180deg,rgba(16,163,127,.14),rgba(0,0,0,.18));}
+
+    .prop.sofa{width:300px;height:120px; border-radius:26px; border-color:rgba(255,255,255,.10);
+      background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(0,0,0,.18));}
+    .prop.bed{width:260px;height:140px; border-radius:26px; border-color:rgba(255,77,109,.18);
+      background:linear-gradient(180deg,rgba(255,77,109,.10),rgba(0,0,0,.18));}
+    .prop.office{width:260px;height:170px; border-radius:26px; border-color:rgba(255,255,255,.12);
+      background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(0,0,0,.22));}
+    .doorSign{position:absolute; left:14px; top:14px; padding:6px 10px; border-radius:999px;
+      font-size:.68rem; letter-spacing:.22em; text-transform:uppercase; font-weight:900;
+      border:1px solid rgba(255,255,255,.14); background:rgba(0,0,0,.20); color:rgba(255,255,255,.86);}
+    .doorSign.out{border-color:rgba(255,77,109,.28); color:rgba(255,77,109,.95);}
+    .intray{position:absolute; right:14px; bottom:14px; width:70px; height:34px; border-radius:10px;
+      border:1px solid rgba(255,255,255,.12); background:rgba(0,0,0,.18);}
+    .intray::after{content:"IN-TRAY"; position:absolute; right:8px; bottom:7px; color:rgba(255,255,255,.6);
+      font-size:.62rem; letter-spacing:.18em; text-transform:uppercase;}
+
     .prop::after{content:''; position:absolute; inset:10px; border-radius:14px; border:1px solid rgba(255,255,255,.08); opacity:.55;}
 
     /* icon-only tokens */
@@ -276,6 +292,10 @@
   let selected = 'trent';
   const unread = loadUnread();
   let lastStatuses = '';
+  const AWAY_MS = 10 * 60 * 1000;
+  let lastActivity = Date.now();
+  let directorOut = false;
+
   const actionToAgent = {watch:'yoko', memory:'holly', manifesto:'jaz', sidejobs:'joe', travel:'tj', clawd:'clawd'};
 
   function log(line){
@@ -360,6 +380,20 @@
       world.appendChild(el);
     }
 
+    // Office door sign + in-tray
+    const office = Array.from(world.querySelectorAll('.prop.office'))[0];
+    if (office){
+      const sign = document.createElement('div');
+      sign.className = 'doorSign';
+      sign.id = 'directorDoor';
+      sign.textContent = 'IN';
+      office.appendChild(sign);
+      const tray = document.createElement('div');
+      tray.className = 'intray';
+      tray.id = 'directorTray';
+      office.appendChild(tray);
+    }
+
     // Tokens
     for (const a of agents){
       const wrap = document.createElement('div');
@@ -434,6 +468,15 @@
     document.querySelectorAll('.card').forEach(c => c.classList.toggle('active', c.dataset.key === selected));
   }
 
+  function dropToDirector(){
+    // When Director is out, route papers to the private office in-tray.
+    if (!directorOut) { dropPaper('trent'); return; }
+    const tray = document.getElementById('directorTray');
+    if (!tray) return;
+    tray.style.boxShadow = '0 0 0 2px rgba(80,160,255,.25) inset';
+    setTimeout(() => tray.style.boxShadow = '', 900);
+  }
+
   function dropPaper(key){
     papers[key] = Math.min(6, (papers[key]||0) + 1);
     const host = document.getElementById(`papers-${key}`);
@@ -448,11 +491,11 @@
     }
   }
 
-  function moveToken(key, active){
+  function moveToken(key, mode){
     const token = document.getElementById(`wrap-${key}`);
     if (!token) return;
     const p = layout.tokens[key] || {};
-    const target = active ? p.active : p.idle;
+    const target = (mode === 'running') ? p.active : (mode === 'bed') ? {x:'88%',y:'88%'} : (mode === 'sofa') ? {x:'50%',y:'52%'} : p.idle;
     if (!target) return;
     token.style.left = target.x;
     token.style.top = target.y;
@@ -465,11 +508,32 @@
       const res = await fetch(`/run/${encodeURIComponent(action)}`);
       const data = await res.json();
       if (data.success){
-        dropPaper('trent');
+        dropToDirector();
         dropPaper(key);
       }
     }catch(e){}
     await refresh();
+  }
+
+  function updateDirectorPresence(){
+    const now = Date.now();
+    const out = (now - lastActivity) > AWAY_MS;
+    if (out !== directorOut){
+      directorOut = out;
+      const door = document.getElementById('directorDoor');
+      if (door){
+        door.textContent = directorOut ? 'OUT' : 'IN';
+        door.classList.toggle('out', directorOut);
+      }
+      // Move Trent token: in => normal spot, out => private office
+      const w = document.getElementById('wrap-trent');
+      if (directorOut){
+        if (w){ w.style.left = '88%'; w.style.top = '50%'; }
+      } else {
+        const p = layout.tokens.trent?.idle;
+        if (w && p){ w.style.left = p.x; w.style.top = p.y; }
+      }
+    }
   }
 
   async function refresh(){
@@ -551,7 +615,8 @@
       if (desk) desk.classList.toggle('active', running);
 
       // move token subtly between idle/active
-      moveToken(a.key, running);
+      const mode = running ? 'running' : (pct >= 0.85 ? 'bed' : (pct >= 0.70 ? 'sofa' : 'idle'));
+      moveToken(a.key, mode);
 
       // unread note heuristic: if status.detail changed (usually last run line), mark unread
       if (a.action && statuses[a.action]){
@@ -579,6 +644,12 @@
   }
 
   render();
+
+  // activity => Director in office
+  ['mousemove','keydown','click','touchstart'].forEach(ev => {
+    document.addEventListener(ev, () => { lastActivity = Date.now(); }, {passive:true});
+  });
+
   refresh();
   setInterval(refresh, 12000);
 </script>
