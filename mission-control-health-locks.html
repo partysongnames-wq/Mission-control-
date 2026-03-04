@@ -210,6 +210,7 @@
       </div>
       <div class="actions">
         <button class="btn" onclick="location.href='/mission-control.html'">← Mission Control</button>
+        <button class="btn" id="dangerBtn" onclick="toggleDanger()">Danger mode: OFF</button>
         <button class="btn primary" onclick="refreshNow()">Refresh</button>
       </div>
     </header>
@@ -265,6 +266,8 @@
                 <th>PID</th>
                 <th>Created</th>
                 <th>Age</th>
+                <th>Process</th>
+                <th>Elapsed</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -281,6 +284,34 @@
   </div>
 
   <script>
+    let dangerMode = false;
+
+    function toggleDanger() {
+      dangerMode = !dangerMode;
+      const btn = document.getElementById('dangerBtn');
+      btn.textContent = `Danger mode: ${dangerMode ? "ON" : "OFF"}`;
+      btn.style.background = dangerMode ? "linear-gradient(135deg,#ff4d6d,#ff8aa1)" : "rgba(255,255,255,.08)";
+      btn.style.color = dangerMode ? "#040409" : "var(--text)";
+      refreshNow();
+    }
+
+    async function terminatePid(pid, signalName) {
+      const sig = (signalName || "TERM").toUpperCase();
+      const scary = sig === "KILL" ? "FORCE KILL" : "Terminate";
+      if (!confirm(`${scary} PID ${pid}?
+
+This will stop the running process holding the lock.
+Try TERM first; KILL is last resort.`)) return;
+      const res = await fetch(`/api/pids/${encodeURIComponent(pid)}/terminate`, {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({signal: sig}),
+      });
+      const body = await res.json();
+      if (!body.success) alert(body.message || "Failed to terminate");
+      await refreshNow();
+    }
+
     function fmtAge(seconds) {
       if (seconds < 60) return Math.round(seconds) + 's';
       const m = Math.floor(seconds / 60);
@@ -363,6 +394,8 @@
               <td class="mono">${lock.pid ?? '—'}</td>
               <td class="mono">${created}</td>
               <td>${age}</td>
+              <td class="mono">${(lock.procInfo && lock.procInfo.command) ? lock.procInfo.command : '—'}</td>
+              <td class="mono">${(lock.procInfo && lock.procInfo.etime) ? lock.procInfo.etime : '—'}</td>
               <td>${actionCell}</td>
             </tr>
           `;

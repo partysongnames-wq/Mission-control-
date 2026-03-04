@@ -2,13 +2,14 @@
 import json
 import os
 import shlex
+import signal
 import subprocess
 from datetime import datetime, timedelta
 from http import HTTPStatus
 from pathlib import Path
 from typing import Dict, List
 
-from flask import Flask, abort, jsonify, redirect, send_from_directory
+from flask import Flask, abort, jsonify, redirect, send_from_directory, request
 
 BASE_DIR = Path(__file__).parent.resolve()
 app = Flask(__name__, static_folder=None)
@@ -116,17 +117,52 @@ def run_action(action: str):
     proc = subprocess.run(shlex.split(command), cwd=str(BASE_DIR), capture_output=True, text=True)
     output = proc.stdout.strip() or proc.stderr.strip() or "Done."
     detail = output.replace("\n", " ")[:120]
-    set_status(action, "idle", f"Last run: {detail}")
-    # If we just ran a price check, stamp the last-checked time in the flight plan JSON.
+    set_status(action, "idle", f"Last run: {detail}")    # If we just ran a price check, stamp last-checked + compute deltas + append history.
     if action == 'pricewatch' and proc.returncode == 0:
         try:
             plan_path = BASE_DIR / 'travel-flight-plan.json'
             if plan_path.exists():
-                plan = json.loads(plan_path.read_text(encoding='utf-8'))
-                plan.setdefault('meta', {})
-                plan['meta']['prices_last_checked'] = datetime.now().astimezone().strftime('%Y-%m-%d %H:%M %Z')
-                plan['meta'].setdefault('prices_source', 'Skyscanner')
-                plan_path.write_text(json.dumps(plan, ensure_ascii=False, indent=2), encoding='utf-8')
+                before = json.loads(plan_path.read_text(encoding='utf-8'))
+                # After cron run may have updated the JSON; reload it.
+                after = json.loads(plan_path.read_text(encoding='utf-8'))
+                after.setdefault('meta', {})
+                ts = datetime.now().astimezone().strftime('%Y-%m-%d %H:%M %Z')
+                after['meta']['prices_last_checked'] = ts
+                after['meta'].setdefault('prices_source', 'Skyscanner')
+
+                # Build flight index by id to compare.
+                bmap = {f.get('id'): f for f in (before.get('flights') or [])}
+                changes = []
+                for f in (after.get('flights') or []):
+                    fid = f.get('id')
+                    if not fid:
+                        continue
+                    old = bmap.get(fid, {})
+                    oldp = old.get('price_per_person')
+                    newp = f.get('price_per_person')
+                    if isinstance(oldp, (int, float)) and isinstance(newp, (int, float)) and oldp != newp:
+                        changes.append({
+                            'id': fid,
+                            'leg': f"{f.get('from_code','?')}→{f.get('to_code','?')}",
+                            'old': oldp,
+                            'new': newp,
+                            'delta': newp - oldp,
+                        })
+
+                    # Append price history point (best effort).
+                    f.setdefault('price_history', [])
+                    if isinstance(newp, (int, float)) and newp > 0:
+                        f['price_history'].append({'ts': ts, 'price_per_person': newp})
+                        f['price_history'] = f['price_history'][-60:]
+
+                if changes:
+                    after['meta']['prices_last_result'] = f"Updated ({len(changes)} legs changed)"
+                    after['meta']['prices_last_changes'] = changes
+                else:
+                    after['meta']['prices_last_result'] = 'Checked — no material price changes found.'
+                    after['meta']['prices_last_changes'] = []
+
+                plan_path.write_text(json.dumps(after, ensure_ascii=False, indent=2), encoding='utf-8')
         except Exception:
             pass
     return jsonify(success=proc.returncode == 0, message=output)
@@ -250,6 +286,29 @@ def _pid_alive(pid: int) -> bool:
         return False
     return True
 
+def _inspect_pid(pid: int) -> Dict:
+    """Return basic process info for a PID via ps (best-effort)."""
+    info = {"pid": pid, "etime": None, "command": None}
+    try:
+        proc = subprocess.run(
+            ["ps", "-p", str(pid), "-o", "etime=,command="],
+            capture_output=True,
+            text=True,
+            timeout=2,
+        )
+        out = (proc.stdout or "").strip()
+        if proc.returncode == 0 and out:
+            # First token is elapsed, remainder is command
+            parts = out.split(maxsplit=1)
+            if parts:
+                info["etime"] = parts[0]
+            if len(parts) > 1:
+                info["command"] = parts[1]
+    except Exception:
+        pass
+    return info
+
+
 
 def _collect_lock_files() -> List[Dict]:
     """Collect *.lock files under ~/.openclaw/agents/*/sessions/."""
@@ -272,6 +331,7 @@ def _collect_lock_files() -> List[Dict]:
             except Exception:
                 payload = {}
             alive = bool(pid) and isinstance(pid, int) and _pid_alive(pid)
+            proc_info = _inspect_pid(pid) if (pid and isinstance(pid, int)) else {"pid": pid, "etime": None, "command": None}
             age_seconds = None
             if created_at:
                 try:
@@ -287,6 +347,7 @@ def _collect_lock_files() -> List[Dict]:
                 "createdAt": created_at,
                 "pidAlive": alive,
                 "ageSeconds": age_seconds,
+                "procInfo": proc_info,
             })
     locks.sort(key=lambda x: (x.get("pidAlive", False), -(x.get("ageSeconds") or 0)))
     return locks
@@ -329,6 +390,43 @@ def api_release_lock(agent: str, lock_name: str):
         return jsonify(success=False, message=f"Failed to delete lock: {e}"), HTTPStatus.INTERNAL_SERVER_ERROR
 
     return jsonify(success=True, message="Lock released")
+
+@app.route("/api/pids/<int:pid>/terminate", methods=["POST"])
+def api_terminate_pid(pid: int):
+    if pid <= 1:
+        return jsonify(success=False, message="Refusing to signal PID <= 1"), HTTPStatus.BAD_REQUEST
+
+    if not _pid_alive(pid):
+        return jsonify(success=False, message="PID not running"), HTTPStatus.NOT_FOUND
+
+    # Safety: only allow terminating PIDs that currently own at least one lock file.
+    locks = _collect_lock_files()
+    owned = [l for l in locks if l.get("pid") == pid and l.get("pidAlive")]
+    if not owned:
+        return jsonify(success=False, message="Refusing: PID does not appear to own any active session locks"), HTTPStatus.CONFLICT
+
+    # Default to TERM; allow KILL if explicitly requested.
+    payload = {}
+    try:
+        payload = json.loads((request.data or b'{}').decode('utf-8') or '{}')
+    except Exception:
+        payload = {}
+    sig_name = (payload.get('signal') or 'TERM').upper()
+    sig = signal.SIGTERM if sig_name == 'TERM' else signal.SIGKILL if sig_name == 'KILL' else None
+    if sig is None:
+        return jsonify(success=False, message="Unsupported signal (use TERM or KILL)"), HTTPStatus.BAD_REQUEST
+
+    try:
+        os.kill(pid, sig)
+    except PermissionError:
+        return jsonify(success=False, message="Permission denied"), HTTPStatus.FORBIDDEN
+    except ProcessLookupError:
+        return jsonify(success=False, message="PID not running"), HTTPStatus.NOT_FOUND
+    except Exception as e:
+        return jsonify(success=False, message=f"Failed to signal PID: {e}"), HTTPStatus.INTERNAL_SERVER_ERROR
+
+    return jsonify(success=True, message=f"Sent {sig_name} to PID {pid}", locks=owned)
+
 
 
 @app.route("/health")
