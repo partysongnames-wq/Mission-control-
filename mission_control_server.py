@@ -65,6 +65,16 @@ COMMANDS: Dict[str, str] = {
     "deals": "openclaw cron run d39d96cc-b37b-4cd6-9ff9-2c0bc2b39c9e --expect-final --timeout 600000"
 }
 
+AGENT_DISPATCH: Dict[str, str] = {
+    # Map lounge avatar key -> OpenClaw agent id
+    'yoko': 'super-jobs',
+    'jaz': 'super-jobs',
+    'tj': 'super-jobs',
+    'holly': 'super-jobs',
+    'joe': 'super-jobs',
+    'clawd': 'super-jobs',
+}
+
 statuses = {
     "travel": {"label": "Travel Scan", "state": "idle", "detail": "Last run: none"},
     "manifesto": {"label": "Morning Manifesto", "state": "idle", "detail": "Last run: none"},
@@ -429,6 +439,55 @@ def api_world_note():
         return jsonify(success=False, message='agent and note required'), HTTPStatus.BAD_REQUEST
     state = _world_add_note(agent, note, level)
     return jsonify(success=True, state=state)
+
+
+@app.route('/api/world/ask', methods=['POST'])
+def api_world_ask():
+    payload = request.get_json(silent=True) or {}
+    agent = (payload.get('agent') or '').strip()
+    message = (payload.get('message') or '').strip()
+    if not agent or not message:
+        return jsonify(success=False, message='agent and message required'), HTTPStatus.BAD_REQUEST
+
+    target_agent = AGENT_DISPATCH.get(agent)
+    if not target_agent:
+        return jsonify(success=False, message='unknown agent'), HTTPStatus.NOT_FOUND
+
+    # Persist the question as a note (unread)
+    try:
+        _world_add_note(agent, f"Q: {message}", level='question')
+    except Exception:
+        pass
+
+    def _runner():
+        cmd = ["openclaw", "agent", "--local", "--agent", target_agent, "--message", message]
+        try:
+            proc = subprocess.run(cmd, cwd=str(BASE_DIR), capture_output=True, text=True, timeout=900)
+            out = (proc.stdout or '').strip()
+            err = (proc.stderr or '').strip()
+            combined = out or err or 'Done.'
+            snippet = combined.replace("\n", " ")[:220]
+            if proc.returncode == 0:
+                _world_add_note(agent, snippet, level='answer')
+            else:
+                _world_add_note(agent, f"Error: {snippet}", level='error')
+        except subprocess.TimeoutExpired:
+            try:
+                _world_add_note(agent, "Timed out waiting for agent response.", level='error')
+            except Exception:
+                pass
+        except Exception as e:
+            try:
+                _world_add_note(agent, f"Error: {e}", level='error')
+            except Exception:
+                pass
+
+    try:
+        threading.Thread(target=_runner, daemon=True).start()
+    except Exception:
+        return jsonify(success=False, message='Failed to start agent runner'), HTTPStatus.INTERNAL_SERVER_ERROR
+
+    return jsonify(success=True, message='Queued'), HTTPStatus.ACCEPTED
 
 
 @app.route('/api/world/clear/<agent>', methods=['POST'])

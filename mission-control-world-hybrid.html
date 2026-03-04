@@ -312,6 +312,49 @@
   }
 
   const notebook = [];
+  let askTarget = null;
+
+  function openAskModal(agentKey){
+    askTarget = agentKey;
+    const modal = document.getElementById('askModal');
+    const who = document.getElementById('askWho');
+    const txt = document.getElementById('askText');
+    const a = agents.find(x => x.key === agentKey);
+    if (who) who.textContent = a ? a.name : agentKey;
+    if (txt) { txt.value = ''; setTimeout(() => txt.focus(), 50); }
+    if (modal) modal.style.display = 'block';
+  }
+
+  function closeAskModal(){
+    const modal = document.getElementById('askModal');
+    if (modal) modal.style.display = 'none';
+  }
+
+  async function sendAsk(){
+    const status = document.getElementById('askStatus');
+    const txt = document.getElementById('askText');
+    const message = (txt?.value || '').trim();
+    if (!askTarget || !message) return;
+    if (status) status.textContent = 'Sending…';
+    try{
+      const res = await fetch('/api/world/ask', {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({agent: askTarget, message})
+      });
+      const data = await res.json();
+      if (data.success){
+        if (status) status.textContent = 'Sent.';
+        closeAskModal();
+      } else {
+        if (status) status.textContent = data.message || 'Failed';
+      }
+    }catch(e){
+      if (status) status.textContent = e.message || 'Error';
+    }
+    await refresh();
+  }
+
   let selected = 'trent';
   const unread = loadUnread();
   let lastStatuses = '';
@@ -364,6 +407,7 @@
           <div class="c-row" style="margin-top:8px;">
             <div class="hint" id="clast-${a.key}" style="font-size:.75rem;">—</div>
             ${a.action ? `<button class="btn" style="padding:8px 10px; font-size:.62rem;" onclick="event.stopPropagation(); trigger('${a.action}','${a.name}','${a.key}')">Trigger</button>` : ``}
+            <button class="btn" style="padding:8px 10px; font-size:.62rem; background:rgba(255,255,255,.10); color:var(--ink); border:1px solid rgba(255,255,255,.14);" onclick="event.stopPropagation(); openAskModal('${a.key}')">Ask</button>
           </div>
         </div>
       `;
@@ -655,6 +699,16 @@
 
   render();
 
+  // modal wiring
+  const closeBtn = document.getElementById('askClose');
+  const sendBtn = document.getElementById('askSend');
+  const modal = document.getElementById('askModal');
+  if (closeBtn) closeBtn.addEventListener('click', closeAskModal);
+  if (sendBtn) sendBtn.addEventListener('click', sendAsk);
+  if (modal) modal.addEventListener('click', (e) => { if (e.target === modal) closeAskModal(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeAskModal(); });
+
+
   // activity => Director in office
   ['mousemove','keydown','click','touchstart'].forEach(ev => {
     document.addEventListener(ev, () => { lastActivity = Date.now(); }, {passive:true});
@@ -663,5 +717,22 @@
   refresh();
   setInterval(refresh, 12000);
 </script>
+
+  <div id="askModal" style="display:none; position:fixed; inset:0; z-index:9999; background:rgba(0,0,0,.55); backdrop-filter: blur(6px);">
+    <div style="max-width:720px; margin:10vh auto; background:rgba(12,16,35,.96); border:1px solid rgba(255,255,255,.14); border-radius:22px; box-shadow:0 40px 90px rgba(0,0,0,.6); overflow:hidden;">
+      <div style="padding:14px 16px; display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid rgba(255,255,255,.10);">
+        <div style="font-weight:900; letter-spacing:.18em; text-transform:uppercase; font-size:.82rem; color:rgba(255,255,255,.85);">Message <span id="askWho">Agent</span></div>
+        <button id="askClose" class="btn" style="background:rgba(255,255,255,.10); color:var(--ink);">Close</button>
+      </div>
+      <div style="padding:14px 16px;">
+        <textarea id="askText" rows="5" placeholder="Ask a question…" style="width:100%; padding:12px; border-radius:16px; border:1px solid rgba(255,255,255,.14); background:rgba(0,0,0,.20); color:var(--ink); font-size:1rem; line-height:1.35;"></textarea>
+        <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; margin-top:10px;">
+          <div id="askStatus" style="color:var(--muted); font-size:.9rem;">Tip: Shift+Enter for newline</div>
+          <button id="askSend" class="btn">Send</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </body>
 </html>
