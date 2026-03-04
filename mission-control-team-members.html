@@ -30,12 +30,13 @@
     header h1{margin:0;font-size:2.4rem;letter-spacing:.25em;text-transform:uppercase;color:var(--accent);}    
     header p{margin:6px 0 0;color:var(--muted);max-width:480px;line-height:1.5;}
     .nav-link{color:var(--accent2);letter-spacing:.3em;text-transform:uppercase;font-size:.65rem;text-decoration:none;}
-    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin-top:24px;}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;margin-top:24px;align-items:start;}
+     (max-width: 640px){.grid{grid-template-columns:1fr;}}
     .card{border-radius:24px;border:1px solid rgba(255,255,255,.12);background:var(--card);padding:22px;position:relative;overflow:hidden;box-shadow:0 20px 40px rgba(0,0,0,.45);
-      display:flex;flex-direction:column;gap:10px;}
+      display:flex;flex-direction:column;gap:10px;min-height:220px;display:flex;flex-direction:column;}
     .card h2{margin:0;font-size:1.2rem;letter-spacing:.2em;text-transform:uppercase;color:#fff;}
     .card span{font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);}
-    .card p{margin:0;line-height:1.4;color:rgba(255,255,255,.85);}
+    .card p{margin:0;line-height:1.4;color:rgba(255,255,255,.85);display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden;}
     .role-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);}
     .pulse{position:absolute;right:14px;top:14px;width:12px;height:12px;border-radius:50%;background:var(--accent2);box-shadow:0 0 12px rgba(16,163,127,.8);}
     footer{margin-top:28px;display:flex;justify-content:space-between;align-items:center;color:var(--muted);letter-spacing:.3em;font-size:.7rem;}
@@ -43,7 +44,7 @@
     .avatar{width:52px;height:52px;border-radius:18px;display:flex;align-items:center;justify-content:center;
       background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.18);font-weight:900;letter-spacing:.2em;}
     .avatar.director{background:linear-gradient(135deg,rgba(245,156,0,.25),rgba(255,255,255,.06));
-      border:1px solid rgba(245,156,0,.55);box-shadow:0 18px 40px rgba(245,156,0,.18);}
+      border:1px solid rgba(245,156,0,.55);box-shadow:0 18px 40px rgba(245,156,0,.18);background-image:url('assets/trent-portrait.jpg');background-size:cover;background-position:center;}
     .card.director{border:1px solid rgba(245,156,0,.55);background:linear-gradient(180deg,rgba(245,156,0,.09),rgba(18,21,42,.92));}
     .card.director::before{content:'';position:absolute;inset:-2px;pointer-events:none;border-radius:26px;
       background:radial-gradient(circle at top left,rgba(245,156,0,.35),transparent 55%);
@@ -59,25 +60,27 @@
 <body>
   <div class="page">
     <header>
+    <div style="border-top:1px solid rgba(255,255,255,.1);margin:18px 0 0;padding-top:18px;font-size:.8rem;letter-spacing:.25em;color:var(--muted);">Pick your nickname + icon; drop the details into the HTML or just send me the update – the crew thrives on personality.</div>
+
       <div>
         <h1>Team Roster</h1>
         <p>The human + bot ensemble that keeps the lounge humming: each card describes who they serve, the cron they guard, and the way they stay proactive.</p>
       </div>
       <a class="nav-link" href="mission-control-team.html">← View Lounge</a>
     </header>
-    <div class="grid">
-<article class="card director">
+    
+        <div class="grid">
+      <article class="card director">
         <div class="pulse director"></div>
         <div class="topline">
-          <div class="avatar director" aria-label="Trent avatar">TR</div>
-          <div class="crown" title="Director">✦</div>
+          <img src="assets/trent.jpg" alt="Trent" class="avatar director" style="object-fit:cover;" />
+          <div class="crown">✦</div>
         </div>
         <span>CEO / Director</span>
         <h2>Trent</h2>
         <p>Sets direction, approves changes, and keeps the whole system aligned with real-world needs. The lounge runs on your call.</p>
         <div class="role-badge">The Standard · Director</div>
       </article>
-
       <article class="card">
         <div class="pulse"></div>
         <span>Lead agent</span>
@@ -117,6 +120,142 @@
         <p>The Standard’s optimization concierge: watches lock health, budgets tokens, and keeps OpenClaw running smooth.</p>
         <div class="role-badge">OCO · Yoko</div>
       </article>
+      <article class="card">
+        <div class="pulse"></div>
+        <span>New guard</span>
+        <h2>Trent and Jasper Assistant – new</h2>
+        <p>Field experiments, creative pilot work, and ad-hoc prompts (like today’s lounge upgrades) live here so we can iterate fast.</p>
+        <div class="role-badge">Experiment</div>
+      </article>
+    </div>
+
+        <div class="topline">
+          <img src="assets/trent.jpg" alt="Trent" class="avatar director" style="object-fit:cover;" />
+          <div class="crown">✦</div>
+        </div>
+        <span>Commander-in-chief</span>
+        <h2>Trent</h2>
+        <p>Vision, approvals, and the heartbeat of Mission Control. Your name cards everything else.</p>
+        <div class="role-badge">Mission Lead · always on call</div>
+        <p style="font-size:.75rem;letter-spacing:.2em;color:var(--accent2);">Nickname: Command</p>
+      </article>
+      <article class="card">
+        <div class="pulse"></div>
+        <div class="avatar" aria-label="Clawd Skills icon">CS</div>
+        <span>Travel ops</span>
+        <h2>Clawd Skills</h2>
+        <p>Keeps the Bangkok→Japan watch, runs the 09:00 flight scan, and posts price alerts straight into the lounge.</p>
+        <div class="role-badge">Cron · Travel Scan 09:00</div>
+        <p class="arcade-avatar-label">Nickname: Jeteyes</p>
+      </article>
+      <article class="card">
+        <div class="pulse"></div>
+        <div class="avatar">JA</div>
+        <span>Daily planner</span>
+        <h2>Jasper Assistant</h2>
+        <p>Drafts morning manifestos, syncs the decisions, and keeps mission control calm.</p>
+        <div class="role-badge">Cron · Manifesto 06:30</div>
+        <p class="arcade-avatar-label">Nickname: JazBot</p>
+      </article>
+      <article class="card">
+        <div class="pulse"></div>
+        <div class="avatar">SJ</div>
+        <span>Jobs concierge</span>
+        <h2>Side Jobs · Corporate</h2>
+        <p>Patrols Ajarn, JobDB, and LinkedIn. The jobs pulse always points to commutable opportunities.</p>
+        <div class="role-badge">Cron · Jobs Pulse 16:00</div>
+        <p class="arcade-avatar-label">Nickname: Pulse</p>
+      </article>
+      <article class="card">
+        <div class="pulse"></div>
+        <div class="avatar">NH</div>
+        <span>Memory keeper</span>
+        <h2>Japan holiday with nasha</h2>
+        <p>Encodes playlists and travel thoughts into Supermemory so you can revisit them from any device.</p>
+        <div class="role-badge">Cron · Memory Snapshot 20:00</div>
+        <p class="arcade-avatar-label">Nickname: Archivist</p>
+      </article>
+      <article class="card">
+        <div class="pulse"></div>
+        <div class="avatar">OC</div>
+        <span>Optimization</span>
+        <h2>Open Claw Optimization</h2>
+        <p>Monitors tokens, the cron health, and keeps the automation lean so your slack stays quiet.</p>
+        <div class="role-badge">Cron · Token Pulse 12:00</div>
+        <p class="arcade-avatar-label">Nickname: Warden</p>
+      </article>
+      <article class="card">
+        <div class="pulse"></div>
+        <div class="avatar">EX</div>
+        <span>Field lab</span>
+        <h2>Trent and Jasper Assistant – new</h2>
+        <p>Experimental prompts, lounge upgrades, and creative tooling that keeps this crew evolving.</p>
+        <div class="role-badge">Cron · Experimental</div>
+        <p class="arcade-avatar-label">Nickname: Lab</p>
+      </article>
+    </div>
+
+        <div class="topline">
+          <img src="assets/trent-avatar.jpg" alt="Trent" style="width:52px;height:52px;border-radius:18px;object-fit:cover;border:1px solid rgba(245,156,0,.55);box-shadow:0 18px 40px rgba(245,156,0,.18);" />
+          <div class="crown" title="Director">✦</div>
+        </div>
+        <span>CEO / Director</span>
+        <h2>Trent</h2>
+        <p>Sets direction, approves changes, and keeps the whole system aligned with real-world needs. The lounge runs on your call.</p>
+        <div class="role-badge">The Standard · Director</div>
+      </article>
+
+      <article class="card">
+        <div class="pulse"></div>
+        <span>Lead agent</span>
+        <h2>Clawd Skills</h2>
+        <p>Heads the travel watch: Bangkok→Japan fares, mission cron, and the Topic Monitor spark that keeps prices in view.</p>
+        <div class="role-badge">Travel / Ops</div>
+      </article>
+      <article class="card">
+        <div class="pulse"></div>
+        <span>Planner</span>
+        <h2>Jasper Assistant</h2>
+        <p>Crafts the morning manifesto, syncs the decisions, and turns vague travel goals into top-three clarity each day.</p>
+        <div class="role-badge">Strategy</div>
+      </article>
+      <article class="card">
+        <div class="pulse"></div>
+        <span>Watch desk</span>
+        <h2>Joe</h2>
+        <p>Scans Ajarn / JobDB / LinkedIn for corridor-friendly roles and feeds the jobs corridor pulse, so interviews stay commutable.</p>
+        <div class="role-badge">Jobs</div>
+      </article>
+      <article class="card">
+        <div class="pulse"></div>
+        <span>Memory</span>
+        <h2>Japan holiday with nasha</h2>
+        <p>Captures playlists, trip ideas, and the story arcs from the journey—keeps the long-term memory accessible when you need it.</p>
+        <div class="role-badge">Memory</div>
+      </article>
+      <article class="card">
+        <div class="pulse"></div>
+        <div class="topline">
+          <img src="assets/yoko.svg" alt="Yoko" style="width:52px;height:52px;border-radius:18px;border:1px solid rgba(245,156,0,.45);background:rgba(0,0,0,.2);" />
+          <div class="crown" title="Concierge">◆</div>
+        </div>
+        <span>Concierge</span>
+        <h2>Yoko</h2>
+        <p>The Standard’s optimization concierge: watches lock health, budgets tokens, and keeps OpenClaw running smooth.</p>
+        <div class="role-badge">OCO · Yoko</div>
+      </article>
+      <article class="card">
+        <div class="pulse"></div>
+        <div class="topline">
+          <img src="assets/holly.svg" alt="Holly" style="width:52px;height:52px;border-radius:18px;border:1px solid rgba(245,156,0,.45);background:rgba(0,0,0,.2);" />
+          <div class="crown" title="Concierge">◆</div>
+        </div>
+        <span>Concierge</span>
+        <h2>Holly</h2>
+        <p>The Standard’s travel concierge: keeps the flight plan clean, scans deals, updates city briefs, and makes the itinerary feel effortless.</p>
+        <div class="role-badge">Travel · Concierge</div>
+      </article>
+
       <article class="card">
         <div class="pulse"></div>
         <span>New guard</span>
