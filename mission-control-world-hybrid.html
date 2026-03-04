@@ -423,7 +423,7 @@
           <div class="c-row" style="margin-top:8px;">
             <div class="hint" id="clast-${a.key}" style="font-size:.75rem;">—</div>
             ${a.action ? `<button class="btn" style="padding:8px 10px; font-size:.62rem;" onclick="event.stopPropagation(); trigger('${a.action}','${a.name}','${a.key}')">Trigger</button>` : ``}
-            <button class="btn" style="padding:8px 10px; font-size:.62rem; background:rgba(255,255,255,.10); color:var(--ink); border:1px solid rgba(255,255,255,.14);" onclick="event.stopPropagation(); openAskModal('${a.key}')">Ask</button>
+            ${a.key !== 'trent' ? `<button class="btn" style="padding:8px 10px; font-size:.62rem; background:rgba(255,255,255,.10); color:var(--ink); border:1px solid rgba(255,255,255,.14);" onclick="event.stopPropagation(); openAskModal('${a.key}')">Ask</button>` : ``}
           </div>
         </div>
       `;

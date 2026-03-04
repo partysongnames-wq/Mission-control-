@@ -451,7 +451,7 @@ def api_world_ask():
 
     target_agent = AGENT_DISPATCH.get(agent)
     if not target_agent:
-        return jsonify(success=False, message='unknown agent'), HTTPStatus.NOT_FOUND
+        return jsonify(success=False, message=f"unknown agent '{agent}'. Valid: {', '.join(sorted(AGENT_DISPATCH.keys()))}"), HTTPStatus.NOT_FOUND
 
     # Persist the question as a note (unread)
     try:
