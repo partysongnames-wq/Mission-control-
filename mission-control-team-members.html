@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Mission Control Team</title>
+  <style>
+    :root {
+      --bg:#050409;
+      --panel:#0f111a;
+      --card:#12152a;
+      --accent:#f59c00;
+      --accent2:#10a37f;
+      --muted:#a0a8c5;
+      --text:#f4f5f8;
+      --border:rgba(255,255,255,.08);
+      font-family:'Space Grotesk',system-ui;
+    }
+    *{box-sizing:border-box;}
+    body{margin:0;min-height:100vh;background:radial-gradient(circle at top,#1f1632,#050409 55%);display:flex;justify-content:center;padding:28px;}
+    .page{width:min(1200px,calc(100vw-32px));background:var(--panel);border-radius:30px;padding:32px;border:1px solid var(--border);box-shadow:0 30px 80px rgba(0,0,0,.7);}
+    header{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:24px;}
+    header h1{margin:0;font-size:2.4rem;letter-spacing:.25em;text-transform:uppercase;color:var(--accent);}    
+    header p{margin:6px 0 0;color:var(--muted);max-width:480px;line-height:1.5;}
+    .nav-link{color:var(--accent2);letter-spacing:.3em;text-transform:uppercase;font-size:.65rem;text-decoration:none;}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin-top:24px;}
+    .card{border-radius:24px;border:1px solid rgba(255,255,255,.12);background:var(--card);padding:22px;position:relative;overflow:hidden;box-shadow:0 20px 40px rgba(0,0,0,.45);
+      display:flex;flex-direction:column;gap:10px;}
+    .card h2{margin:0;font-size:1.2rem;letter-spacing:.2em;text-transform:uppercase;color:#fff;}
+    .card span{font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);}
+    .card p{margin:0;line-height:1.4;color:rgba(255,255,255,.85);}
+    .role-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);}
+    .pulse{position:absolute;right:14px;top:14px;width:12px;height:12px;border-radius:50%;background:var(--accent2);box-shadow:0 0 12px rgba(16,163,127,.8);}
+    footer{margin-top:28px;display:flex;justify-content:space-between;align-items:center;color:var(--muted);letter-spacing:.3em;font-size:.7rem;}
+    footer a{color:var(--accent2);text-decoration:none;}
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div>
+        <h1>Team Roster</h1>
+        <p>The human + bot ensemble that keeps the lounge humming: each card describes who they serve, the cron they guard, and the way they stay proactive.</p>
+      </div>
+      <a class="nav-link" href="mission-control-team.html">← View Lounge</a>
+    </header>
+    <div class="grid">
+<article class="card">
+        <div class="pulse"></div>
+        <span>CEO / Director</span>
+        <h2>Trent</h2>
+        <p>Sets direction, approves changes, and keeps the whole system aligned with real-world needs. The lounge runs on your call.</p>
+        <div class="role-badge">Command</div>
+      </article>
+
+      <article class="card">
+        <div class="pulse"></div>
+        <span>Lead agent</span>
+        <h2>Clawd Skills</h2>
+        <p>Heads the travel watch: Bangkok→Japan fares, mission cron, and the Topic Monitor spark that keeps prices in view.</p>
+        <div class="role-badge">Travel / Ops</div>
+      </article>
+      <article class="card">
+        <div class="pulse"></div>
+        <span>Planner</span>
+        <h2>Jasper Assistant</h2>
+        <p>Crafts the morning manifesto, syncs the decisions, and turns vague travel goals into top-three clarity each day.</p>
+        <div class="role-badge">Strategy</div>
+      </article>
+      <article class="card">
+        <div class="pulse"></div>
+        <span>Watch desk</span>
+        <h2>Side Jobs · Corporate</h2>
+        <p>Scans Ajarn / JobDB / LinkedIn for corridor-friendly roles and feeds the jobs corridor pulse, so interviews stay commutable.</p>
+        <div class="role-badge">Jobs</div>
+      </article>
+      <article class="card">
+        <div class="pulse"></div>
+        <span>Memory</span>
+        <h2>Japan holiday with nasha</h2>
+        <p>Captures playlists, trip ideas, and the story arcs from the journey—keeps the long-term memory accessible when you need it.</p>
+        <div class="role-badge">Memory</div>
+      </article>
+      <article class="card">
+        <div class="pulse"></div>
+        <span>Ops</span>
+        <h2>Open Claw Optimization</h2>
+        <p>Rings the token bell, audits cron health, and nudges the helper server to keep everything within budget.</p>
+        <div class="role-badge">Guard</div>
+      </article>
+      <article class="card">
+        <div class="pulse"></div>
+        <span>New guard</span>
+        <h2>Trent and Jasper Assistant – new</h2>
+        <p>Field experiments, creative pilot work, and ad-hoc prompts (like today’s lounge upgrades) live here so we can iterate fast.</p>
+        <div class="role-badge">Experiment</div>
+      </article>    </div>
+    <footer>
+      <span>Updated live · mission control HQ</span>
+      <a href="mission-control-flight-plan.html">View Flight Plan</a>
+    </footer>
+  </div>
+</body>
+</html>
