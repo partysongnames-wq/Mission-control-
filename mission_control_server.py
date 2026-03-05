@@ -668,6 +668,32 @@ def api_world_move():
     return jsonify(success=True, state=state)
 
 
+@app.route('/api/tea/run', methods=['POST'])
+def api_tea_run():
+    # Run the multi-agent tea script in the background.
+    script_path = str(BASE_DIR / 'scripts' / 'afternoon-tea-multiagent.sh')
+
+    def _runner():
+        try:
+            _send_telegram_message('[Tea Party] Meeting started (manual trigger).')
+        except Exception:
+            pass
+        try:
+            subprocess.run(['/bin/bash', script_path], cwd=str(BASE_DIR), capture_output=True, text=True, timeout=900)
+        except Exception as e:
+            try:
+                _send_telegram_message(f'[Tea Party] Error running tea: {e}')
+            except Exception:
+                pass
+
+    try:
+        threading.Thread(target=_runner, daemon=True).start()
+    except Exception:
+        return jsonify(success=False, message='Failed to start tea runner'), HTTPStatus.INTERNAL_SERVER_ERROR
+
+    return jsonify(success=True, message='Tea party triggered'), HTTPStatus.ACCEPTED
+
+
 @app.route('/api/world/chat', methods=['GET'])
 def api_world_chat_get():
     state = _load_world_state()

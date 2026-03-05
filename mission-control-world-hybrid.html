@@ -290,6 +290,7 @@
         <div style="display:flex; justify-content:space-between; gap:10px; align-items:center; padding:6px 4px 10px;">
           <div style="font-weight:900; letter-spacing:.18em; text-transform:uppercase; font-size:.75rem; color:rgba(255,255,255,.75);">Directory</div>
           <button class="btn" id="chatTab" style="padding:8px 10px; font-size:.62rem; background:rgba(255,255,255,.10); color:var(--ink); border:1px solid rgba(255,255,255,.14);">Office Chat (24h)</button>
+          <button class="btn" id="teaBtn" style="padding:8px 10px; font-size:.62rem; background:linear-gradient(135deg,#f59c00,#ffd27a); color:#0a0a11;">Tea Party</button>
         </div>
       </aside>
       <section class="world" id="world"></section>
@@ -843,6 +844,14 @@
     const chatClose = document.getElementById('chatClose');
     const chatModal = document.getElementById('chatModal');
     if (chatTab) chatTab.addEventListener('click', openChatModal);
+    const teaBtn = document.getElementById('teaBtn');
+    if (teaBtn) teaBtn.addEventListener('click', async () => {
+      teaBtn.textContent = 'Starting…';
+      try {
+        await fetch('/api/tea/run', {method:'POST'});
+      } catch(e) {}
+      setTimeout(() => { teaBtn.textContent = 'Tea Party'; }, 1200);
+    });
     if (chatClose) chatClose.addEventListener('click', closeChatModal);
     if (chatModal) chatModal.addEventListener('click', (e) => { if (e.target === chatModal) closeChatModal(); });
   const sendBtn = document.getElementById('askSend');
