@@ -583,7 +583,7 @@
     if (!target) return;
     token.style.left = target.x;
     token.style.top = target.y;
-    token.classList.toggle('active', !!active);
+    token.classList.toggle('active', mode === 'running');
   }
 
   async function trigger(action, name, key){
