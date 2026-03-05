@@ -76,6 +76,19 @@ def _world_add_note(agent: str, note: str, level: str = 'info') -> Dict:
     return state
 
 
+def _send_telegram_message(text_msg: str) -> None:
+    # Best-effort: send to the Open Claw Optimization Telegram group
+    try:
+        subprocess.run([
+            'openclaw', 'message', 'send',
+            '--channel', 'telegram',
+            '--target', 'telegram:-5287663927',
+            '--message', text_msg,
+        ], capture_output=True, text=True, timeout=15)
+    except Exception:
+        pass
+
+
 def _world_set_position(agent: str, x: float, y: float) -> Dict:
     state = _load_world_state()
     state.setdefault('positions', {})
@@ -537,11 +550,14 @@ def api_world_ask():
             snippet = combined.replace("\n", " ")[:220]
             if proc.returncode == 0:
                 _world_add_note(agent, snippet, level='answer')
+                _send_telegram_message(f"[{agent}] {snippet}")
             else:
                 _world_add_note(agent, f"Error: {snippet}", level='error')
+                _send_telegram_message(f"[{agent}] Error: {snippet}")
         except subprocess.TimeoutExpired:
             try:
                 _world_add_note(agent, "Timed out waiting for agent response.", level='error')
+                _send_telegram_message(f"[{agent}] Error: timed out waiting for response")
             except Exception:
                 pass
         except Exception as e:
