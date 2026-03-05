@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>City Briefs · Mission Control</title>
+  <style>
+    :root{--bg:#030308;--panel:#101223;--card:#1d2135;--muted:#a0a8c5;--border:rgba(255,255,255,.12);--accent:#ffb347;--accent2:#10a37f;font-family:'Space Grotesk','Inter',system-ui;}
+    *{box-sizing:border-box;}
+    body{margin:0;min-height:100vh;background:radial-gradient(circle at top,#2d1b54,#030308 45%);color:#f5f7ff;display:flex;justify-content:center;padding:24px;}
+    .page{width:min(1200px,calc(100vw-32px));background:var(--panel);border-radius:32px;padding:32px;border:1px solid var(--border);box-shadow:0 30px 80px rgba(0,0,0,.7);}    
+    header{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:18px;flex-wrap:wrap;}
+    h1{margin:0;font-size:1.6rem;letter-spacing:.22em;text-transform:uppercase;}
+    a{color:var(--accent);text-decoration:none;}
+    .meta{color:var(--muted);letter-spacing:.08em;font-size:.85rem;}
+
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px;}
+    .card{background:rgba(255,255,255,.02);border:1px solid var(--border);border-radius:22px;padding:18px;overflow:hidden;}
+    .city-photo{height:140px;border-radius:18px;overflow:hidden;border:1px solid rgba(255,255,255,.14);margin-bottom:12px;position:relative;}
+    .city-photo img{width:100%;height:100%;object-fit:cover;filter:contrast(1.1) saturate(1.1) brightness(.95);}
+    .city-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.05),rgba(0,0,0,.55));}
+
+    .card h2{margin:0;font-size:1.1rem;letter-spacing:.14em;text-transform:uppercase;}
+    .sub{margin:6px 0 0;color:var(--muted);letter-spacing:.08em;font-size:.85rem;}
+    .section{margin-top:14px;padding-top:14px;border-top:1px solid rgba(255,255,255,.08);}
+    .section h3{margin:0;font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);}
+    ul{margin:10px 0 0;padding-left:18px;line-height:1.5;}
+    li{margin:6px 0;}
+    .tag{display:inline-flex;padding:3px 8px;border-radius:999px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.05);font-size:.7rem;letter-spacing:.18em;color:#fff;}
+    .sig-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;border:1px solid rgba(255,179,71,.45);background:rgba(255,179,71,.10);letter-spacing:.14em;font-size:.68rem;text-transform:uppercase;}
+    .link-chip{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.06);color:#fff;text-decoration:none;font-size:.72rem;letter-spacing:.08em;}
+    .link-chip:hover{background:rgba(255,255,255,.10);}
+  
+    .glass-header{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;flex-wrap:wrap;
+      padding:14px 14px;border-radius:22px;border:1px solid rgba(255,255,255,.14);
+      background:linear-gradient(135deg,rgba(255,255,255,.10),rgba(255,255,255,.04));
+      box-shadow:0 20px 50px rgba(0,0,0,.45);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+    .glass-meta{color:var(--muted);letter-spacing:.10em;font-size:.78rem;text-transform:uppercase;opacity:.9;}
+    .chipbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:flex-end;}
+    .chip{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;
+      border:1px solid rgba(255,255,255,.16);
+      background:rgba(12,14,24,.28);
+      color:#fff;text-decoration:none;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.08);
+      transition:transform .15s ease, background .15s ease, border-color .15s ease;
+    }
+    .chip:hover{transform:translateY(-1px);background:rgba(255,255,255,.10);border-color:rgba(255,255,255,.26);}
+    .chip.active{background:rgba(255,179,71,.14);border-color:rgba(255,179,71,.50);}
+    .chip .ico{font-size:.95rem;letter-spacing:0;}
+
+</style>
+</head>
+<body>
+  <div class="page">
+    <header class="glass-header">
+      <div>
+        <h1>City Briefs</h1>
+        <div class="meta">Fast, practical notes for each stop · <a href="/mission-control-flight-plan.html">Back to flight plan</a></div>
+      </div>
+      <div class="meta">Draft v0 · we’ll refine after hotels lock</div>
+    
+      <div class="chipbar">
+        <a class="chip" href="/mission-control.html"><span class="ico">⟵</span>Mission</a>
+        <a class="chip" href="/mission-control-flight-plan.html"><span class="ico">✈</span>Flights</a>
+        <a class="chip" href="/mission-control-flight-deals.html"><span class="ico">🏷</span>Deals</a>
+        <a class="chip active" href="/mission-control-city-briefs.html"><span class="ico">🗺</span>Briefs</a>
+        <a class="chip" href="/mission-control-flight-alternatives.html"><span class="ico">⎇</span>Alts</a>
+      </div>
+</header>
+
+    <div class="card" style="margin-bottom:16px;">
+      <h2 style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;">
+        <span>Comfort + pacing defaults</span>
+        <span class="sig-badge">Trent + Nasha</span>
+      </h2>
+      <div class="sub">City briefs are written to keep days light, food-forward, and emotionally warm (not “top-10” grind).</div>
+      <div class="section" style="border-top:none;padding-top:10px;margin-top:10px;">
+        <ul>
+          <li><b>One anchor neighborhood per day</b> + 1 “mission” (meal / view / market) + 1 calm reset spot.</li>
+          <li><b>Hard cap: 2 major blocks/day</b> (everything else is optional extras nearby).</li>
+          <li><b>Shared-moment rule:</b> pick one small ritual each day (tea + note, sunset hand-hold, or a “one bite for you” swap).</li>
+        </ul>
+      </div>
+    </div>
+
+    <div id="nav" class="card" style="margin-bottom:16px;"><h2>Jump</h2><div class="sub">Tap a city</div><div id="nav-links" style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;"></div></div><div class="grid" id="grid"></div>
+  </div>
+
+  <script>
+    const normalizePhotoPath = (photo) => {
+      if (!photo) return '';
+      return photo.startsWith('/') ? `.${photo}` : photo;
+    };
+
+    async function loadPlan(){
+      const res = await fetch('travel-flight-plan.json');
+      return await res.json();
+    }
+
+    function render(plan){
+      const cities = plan.city_briefs || [];
+      const grid = document.getElementById('grid');
+      if (!cities.length){
+        grid.innerHTML = '<div class="card"><h2>No briefs yet</h2><p class="sub">Add city_briefs to travel-flight-plan.json</p></div>';
+        return;
+      }
+      const nav = document.getElementById("nav-links");
+      if (nav){ nav.innerHTML = cities.map(c => `<a class="tag" href="#${(c.city||"").toLowerCase().replace(/[^a-z0-9]+/g,"-")}">${c.city}</a>`).join(""); }
+      grid.innerHTML = cities.map(c => {
+        const stay = (c.stay_areas||[]).map(s => `<li><span class="tag">${s.area}</span> — ${s.why}</li>`).join('');
+        const doo = (c.must_do||[]).map(s => `<li>${s}</li>`).join('');
+        const transit = (c.transit_notes||[]).map(s => `<li>${s}</li>`).join('');
+        const food = (c.food||[]).map(s => `<li>${s}</li>`).join('');
+        const photoSrc = normalizePhotoPath(c.photo);
+        return `
+          <div class="card" id="${(c.city||"").toLowerCase().replace(/[^a-z0-9]+/g,"-")}">
+            <div class="city-photo">${photoSrc ? `<img src="${photoSrc}" alt="${c.city}">` : ''}</div>
+            <h2>${c.city}</h2>
+            <div class="sub">${c.dates || ''}</div>
+
+            <div class="section">
+              <h3>Where to stay</h3>
+              <ul>${stay || '<li>—</li>'}</ul>
+            </div>
+
+            <div class="section">
+              <h3>Must do</h3>
+              <ul>${doo || '<li>—</li>'}</ul>
+            </div>
+
+            <div class="section">
+              <h3>Transit notes</h3>
+              <ul>${transit || '<li>—</li>'}</ul>
+            </div>
+
+            <div class="section">
+              <h3>Nasha hook</h3>
+              <ul><li>${c.nasha_hook || '—'}</li></ul>
+            </div>
+
+            <div class="section">
+              <h3>Seafood street hits</h3>
+              <ul>${(c.seafood_street_hits||[]).map(s=>`<li>${s}</li>`).join('') || '<li>—</li>'}</ul>
+            </div>
+
+            <div class="section">
+              <h3>Nice sitdown pick</h3>
+              <ul><li>${c.nice_sitdown_pick || '—'}</li></ul>
+            </div>
+
+            ${c.coastal_options ? `
+            <div class=\"section\">
+              <h3>Coastal options</h3>
+              <ul>${(c.coastal_options||[]).map(o=>`<li><span class=\"tag\">${o.area}</span> — ${o.why}</li>`).join('')}</ul>
+            </div>
+            ` : ''}
+
+            <div class="section">
+              <h3>Food hits</h3>
+              <ul>${food || '<li>—</li>'}</ul>
+            </div>
+          </div>`;
+      }).join('');
+    }
+
+    loadPlan().then(render);
+  </script>
+</body>
+</html>
