@@ -25,6 +25,23 @@ WORLD_BOUNDS = {
     'maxY': 0.90,
 }
 WORLD_MAX_MOVES_PER_DAY = 5
+WORLD_ZONES = {
+    # normalized x/y in the world room
+    'office_door': {'x': 0.88, 'y': 0.50},
+    'intray': {'x': 0.92, 'y': 0.56},
+    'health_corner': {'x': 0.92, 'y': 0.88},
+    'creative_corner': {'x': 0.86, 'y': 0.18},
+}
+
+
+APPROVAL_KEYWORDS = [
+    'approve', 'approval', 'should i', 'can i', 'ok to',
+    'book', 'booking', 'buy', 'purchase', 'spend', 'pay',
+    'delete', 'remove', 'terminate', 'kill', 'release all',
+]
+
+
+
 
 
 def _bkk_date_str() -> str:
@@ -55,6 +72,24 @@ def _world_add_note(agent: str, note: str, level: str = 'info') -> Dict:
     state['notes'][agent].insert(0, {'ts': ts, 'note': note, 'level': level})
     state['notes'][agent] = state['notes'][agent][:30]
     state['unread'][agent] = int(state['unread'].get(agent, 0)) + 1
+    _save_world_state(state)
+    return state
+
+
+def _world_set_position(agent: str, x: float, y: float) -> Dict:
+    state = _load_world_state()
+    state.setdefault('positions', {})
+    state.setdefault('moves', {})
+
+    # clamp
+    x = max(WORLD_BOUNDS['minX'], min(WORLD_BOUNDS['maxX'], float(x)))
+    y = max(WORLD_BOUNDS['minY'], min(WORLD_BOUNDS['maxY'], float(y)))
+
+    state['positions'][agent] = {
+        'x': x,
+        'y': y,
+        'updatedAt': datetime.now(ZoneInfo('Asia/Bangkok')).isoformat(),
+    }
     _save_world_state(state)
     return state
 
@@ -451,6 +486,26 @@ def api_world_note():
     if not agent or not note:
         return jsonify(success=False, message='agent and note required'), HTTPStatus.BAD_REQUEST
     state = _world_add_note(agent, note, level)
+
+    # auto-walk based on intent
+    try:
+        nlow = note.lower()
+        level_norm = level.lower()
+        needs_approval = (level_norm in ['needs_approval','approval']) or any(k in nlow for k in APPROVAL_KEYWORDS)
+        if needs_approval:
+            z = WORLD_ZONES['office_door']
+            _world_set_position(agent, z['x'], z['y'])
+        elif level_norm in ['error','warn','warning']:
+            z = WORLD_ZONES['health_corner']
+            _world_set_position(agent, z['x'], z['y'])
+        elif level_norm in ['answer','info','ok','done']:
+            # send back to their preferred corner if known (e.g. clawd creative); otherwise do nothing
+            if agent == 'clawd':
+                z = WORLD_ZONES['creative_corner']
+                _world_set_position(agent, z['x'], z['y'])
+    except Exception:
+        pass
+
     return jsonify(success=True, state=state)
 
 
