@@ -286,7 +286,12 @@
     </section>
 
     <main>
-      <aside class="rail" id="rail"></aside>
+      <aside class="rail" id="rail">
+        <div style="display:flex; justify-content:space-between; gap:10px; align-items:center; padding:6px 4px 10px;">
+          <div style="font-weight:900; letter-spacing:.18em; text-transform:uppercase; font-size:.75rem; color:rgba(255,255,255,.75);">Directory</div>
+          <button class="btn" id="chatTab" style="padding:8px 10px; font-size:.62rem; background:rgba(255,255,255,.10); color:var(--ink); border:1px solid rgba(255,255,255,.14);">Office Chat (24h)</button>
+        </div>
+      </aside>
       <section class="world" id="world"></section>
     </main>
   </div>
@@ -394,6 +399,36 @@
 
   function closeAskModal(){
     const modal = document.getElementById('askModal');
+    if (modal) modal.style.display = 'none';
+  }
+
+  async function openChatModal(){
+    const modal = document.getElementById('chatModal');
+    const body = document.getElementById('chatBody');
+    if (modal) modal.style.display = 'block';
+    if (body) body.textContent = 'Loading…';
+    try{
+      const res = await fetch('/api/world/chat');
+      const data = await res.json();
+      const items = data.chat || [];
+      if (!items.length){
+        if (body) body.textContent = '—';
+        return;
+      }
+      const lines = items.map(c => {
+        const ts = (c.ts || '').replace('T',' ').slice(0,16);
+        const to = c.to ? ` → ${c.to}` : '';
+        return `${ts}  ${c.from}${to}  [${c.topic}]
+  ${c.msg}`;
+      });
+      if (body) body.textContent = lines.slice(-120).join('\n\n');
+    } catch(e){
+      if (body) body.textContent = 'Error loading chat.';
+    }
+  }
+
+  function closeChatModal(){
+    const modal = document.getElementById('chatModal');
     if (modal) modal.style.display = 'none';
   }
 
@@ -804,6 +839,12 @@
   window.addEventListener('load', () => {
     // modal wiring (after DOM is ready)
     const closeBtn = document.getElementById('askClose');
+    const chatTab = document.getElementById('chatTab');
+    const chatClose = document.getElementById('chatClose');
+    const chatModal = document.getElementById('chatModal');
+    if (chatTab) chatTab.addEventListener('click', openChatModal);
+    if (chatClose) chatClose.addEventListener('click', closeChatModal);
+    if (chatModal) chatModal.addEventListener('click', (e) => { if (e.target === chatModal) closeChatModal(); });
   const sendBtn = document.getElementById('askSend');
   const modal = document.getElementById('askModal');
   if (closeBtn) closeBtn.addEventListener('click', closeAskModal);
@@ -821,6 +862,19 @@
   refresh();
   setInterval(refresh, 12000);
 </script>
+    </div>
+  </div>
+
+
+  <div id="chatModal" style="display:none; position:fixed; inset:0; z-index:9998; background:rgba(0,0,0,.55); backdrop-filter: blur(6px);">
+    <div style="max-width:860px; margin:8vh auto; background:rgba(12,16,35,.96); border:1px solid rgba(255,255,255,.14); border-radius:22px; box-shadow:0 40px 90px rgba(0,0,0,.6); overflow:hidden;">
+      <div style="padding:14px 16px; display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid rgba(255,255,255,.10);">
+        <div style="font-weight:900; letter-spacing:.18em; text-transform:uppercase; font-size:.82rem; color:rgba(255,255,255,.85);">Office Chat · last 24h</div>
+        <button id="chatClose" class="btn" style="background:rgba(255,255,255,.10); color:var(--ink);">Close</button>
+      </div>
+      <div style="padding:14px 16px;">
+        <div id="chatBody" class="mono" style="white-space:pre-wrap; max-height:56vh; overflow:auto;">Loading…</div>
+      </div>
     </div>
   </div>
 

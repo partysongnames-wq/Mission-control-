@@ -5,6 +5,7 @@ import shlex
 import signal
 import subprocess
 import threading
+import uuid
 from datetime import datetime, timedelta
 from http import HTTPStatus
 from pathlib import Path
@@ -25,6 +26,9 @@ WORLD_BOUNDS = {
     'maxY': 0.90,
 }
 WORLD_MAX_MOVES_PER_DAY = 5
+WORLD_CHAT_LIMIT_PER_HOUR = 3
+WORLD_CHAT_MAX_LEN = 180
+
 WORLD_ZONES = {
     # normalized x/y in the world room
     'office_door': {'x': 0.88, 'y': 0.50},
@@ -54,11 +58,47 @@ def _load_world_state() -> Dict:
             try:
                 return json.loads(WORLD_STATE_PATH.read_text(encoding='utf-8'))
             except Exception:
-                return {'notes': {}, 'unread': {}, 'positions': {}, 'moves': {}}
-        return {'notes': {}, 'unread': {}, 'positions': {}, 'moves': {}}
+                return {'notes': {}, 'unread': {}, 'positions': {}, 'moves': {}, 'chat': [], 'chatApprovals': {}, 'chatCounters': {}}
+        return {'notes': {}, 'unread': {}, 'positions': {}, 'moves': {}, 'chat': [], 'chatApprovals': {}, 'chatCounters': {}}
+
+
+def _world_prune(state: Dict) -> Dict:
+    """Prune ephemeral office chat (>24h) and expired approvals."""
+    try:
+        now = datetime.now(ZoneInfo('Asia/Bangkok'))
+        # chat items stored with iso ts
+        chat = state.get('chat') or []
+        kept = []
+        for c in chat:
+            ts = c.get('ts')
+            if not ts:
+                continue
+            try:
+                dt = datetime.fromisoformat(ts)
+            except Exception:
+                continue
+            if (now - dt).total_seconds() <= 24*3600:
+                kept.append(c)
+        state['chat'] = kept[-200:]
+
+        # approvals
+        appr = state.get('chatApprovals') or {}
+        new_appr = {}
+        for token, a in appr.items():
+            try:
+                exp = datetime.fromisoformat(a.get('expiresAt'))
+                if exp > now:
+                    new_appr[token] = a
+            except Exception:
+                continue
+        state['chatApprovals'] = new_appr
+    except Exception:
+        pass
+    return state
 
 
 def _save_world_state(state: Dict) -> None:
+    state = _world_prune(state)
     with WORLD_STATE_LOCK:
         WORLD_STATE_PATH.write_text(json.dumps(state, ensure_ascii=False, indent=2), encoding='utf-8')
 
@@ -628,6 +668,139 @@ def api_world_move():
     return jsonify(success=True, state=state)
 
 
+@app.route('/api/world/chat', methods=['GET'])
+def api_world_chat_get():
+    state = _load_world_state()
+    state = _world_prune(state)
+    return jsonify({
+        'chat': state.get('chat') or [],
+    })
+
+
+@app.route('/api/world/chat', methods=['POST'])
+def api_world_chat_post():
+    payload = request.get_json(silent=True) or {}
+    from_agent = (payload.get('from') or payload.get('agent') or '').strip()
+    to_agent = (payload.get('to') or '').strip()
+    topic = (payload.get('topic') or 'office').strip()
+    msg = (payload.get('msg') or payload.get('message') or '').strip()
+
+    if not from_agent or not msg:
+        return jsonify(success=False, message='from and msg required'), HTTPStatus.BAD_REQUEST
+    if from_agent not in AGENT_DISPATCH:
+        return jsonify(success=False, message=f"unknown agent '{from_agent}'"), HTTPStatus.NOT_FOUND
+
+    msg = msg.replace("\n", " ").strip()
+    if len(msg) > WORLD_CHAT_MAX_LEN:
+        msg = msg[:WORLD_CHAT_MAX_LEN] + '…'
+
+    state = _load_world_state()
+    state.setdefault('chat', [])
+    state.setdefault('chatCounters', {})
+    state.setdefault('chatApprovals', {})
+
+    now = datetime.now(ZoneInfo('Asia/Bangkok'))
+    hour_key = now.strftime('%Y-%m-%dT%H')
+    key = f"{from_agent}:{hour_key}"
+    cnt = int(state['chatCounters'].get(key, 0))
+
+    # allow if an approval is active for this from_agent/topic
+    approved = False
+    for token, a in (state.get('chatApprovals') or {}).items():
+        if a.get('from') == from_agent and a.get('topic') == topic:
+            try:
+                if datetime.fromisoformat(a.get('expiresAt')) > now:
+                    approved = True
+                    break
+            except Exception:
+                pass
+
+    if not approved and cnt >= WORLD_CHAT_LIMIT_PER_HOUR:
+        return jsonify(success=False, message='chat limit reached; request permission via /api/world/chat/request'), HTTPStatus.TOO_MANY_REQUESTS
+
+    state['chatCounters'][key] = cnt + 1
+
+    entry = {
+        'ts': now.isoformat(),
+        'from': from_agent,
+        'to': to_agent or None,
+        'topic': topic,
+        'msg': msg,
+    }
+    state['chat'].append(entry)
+    state = _world_prune(state)
+    _save_world_state(state)
+
+    return jsonify(success=True, entry=entry)
+
+
+@app.route('/api/world/chat/request', methods=['POST'])
+def api_world_chat_request():
+    payload = request.get_json(silent=True) or {}
+    from_agent = (payload.get('from') or '').strip()
+    topic = (payload.get('topic') or 'office').strip()
+    reason = (payload.get('reason') or '').strip()
+    minutes = int(payload.get('minutes') or 30)
+
+    if not from_agent:
+        return jsonify(success=False, message='from required'), HTTPStatus.BAD_REQUEST
+    if from_agent not in AGENT_DISPATCH:
+        return jsonify(success=False, message=f"unknown agent '{from_agent}'"), HTTPStatus.NOT_FOUND
+
+    state = _load_world_state()
+    state.setdefault('chatApprovals', {})
+
+    now = datetime.now(ZoneInfo('Asia/Bangkok'))
+    token = str(uuid.uuid4())
+    expires = now + timedelta(minutes=minutes)
+    state['chatApprovals'][token] = {
+        'from': from_agent,
+        'topic': topic,
+        'reason': reason,
+        'createdAt': now.isoformat(),
+        'expiresAt': expires.isoformat(),
+        'approved': None,
+    }
+    _save_world_state(state)
+
+    approve_url = f"http://127.0.0.1:9000/api/world/chat/approve/{token}"
+    deny_url = f"http://127.0.0.1:9000/api/world/chat/deny/{token}"
+
+    msg = (
+        f"Permission request: [{from_agent}] wants extended office chat on '{topic}' for {minutes}m.\n"
+        f"Reason: {reason or '—'}\n"
+        f"Approve: {approve_url}\n"
+        f"Deny: {deny_url}"
+    )
+    _send_telegram_message(msg)
+
+    return jsonify(success=True, token=token, expiresAt=expires.isoformat())
+
+
+@app.route('/api/world/chat/approve/<token>')
+def api_world_chat_approve(token: str):
+    state = _load_world_state()
+    a = (state.get('chatApprovals') or {}).get(token)
+    if not a:
+        return 'Not found', 404
+    a['approved'] = True
+    state['chatApprovals'][token] = a
+    _save_world_state(state)
+    return f"Approved for {a.get('from')} on {a.get('topic')} until {a.get('expiresAt')}"
+
+
+@app.route('/api/world/chat/deny/<token>')
+def api_world_chat_deny(token: str):
+    state = _load_world_state()
+    a = (state.get('chatApprovals') or {}).get(token)
+    if not a:
+        return 'Not found', 404
+    a['approved'] = False
+    state['chatApprovals'][token] = a
+    _save_world_state(state)
+    return f"Denied for {a.get('from')} on {a.get('topic')}"
+
+
 @app.route('/api/world/clear/<agent>', methods=['POST'])
 def api_world_clear(agent: str):
     state = _world_clear_unread(agent)
@@ -744,6 +917,43 @@ def api_terminate_pid(pid: int):
 @app.route("/health")
 def health_page():
     return redirect("/mission-control-health-locks.html")
+
+@app.route("/api/promote-deal", methods=["POST"])
+def promote_deal():
+    """Store a deal as an alternative for a flight (keeps main plan stable)."""
+    payload = request.get_json(silent=True) or {}
+    flight_id = payload.get('flight_id')
+    deal = payload.get('deal') or {}
+    if not flight_id:
+        return jsonify({'ok': False, 'error': 'missing flight_id'}), 400
+
+    plan_path = BASE_DIR / 'travel-flight-plan.json'
+    if not plan_path.exists():
+        return jsonify({'ok': False, 'error': 'plan not found'}), 404
+
+    plan = json.loads(plan_path.read_text(encoding='utf-8'))
+    plan.setdefault('alternatives', {})
+    plan['alternatives'].setdefault(flight_id, [])
+
+    # normalize minimal deal fields
+    keep = {
+        'route': deal.get('route'),
+        'date': deal.get('date'),
+        'airline': deal.get('airline'),
+        'times': deal.get('times'),
+        'stops': deal.get('stops'),
+        'price_per_person': deal.get('price_per_person'),
+        'url': deal.get('url'),
+        'saved_at': datetime.now().astimezone().strftime('%Y-%m-%d %H:%M %Z'),
+        'savings_vs_baseline': deal.get('savings_vs_baseline'),
+    }
+    plan['alternatives'][flight_id].insert(0, keep)
+    # cap alternatives per flight
+    plan['alternatives'][flight_id] = plan['alternatives'][flight_id][:20]
+
+    plan_path.write_text(json.dumps(plan, ensure_ascii=False, indent=2), encoding='utf-8')
+    return jsonify({'ok': True, 'count': len(plan['alternatives'][flight_id])})
+
 
 @app.route("/calendar")
 def calendar_page():
