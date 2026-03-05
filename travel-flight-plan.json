@@ -1,0 +1,883 @@
+{
+  "meta": {
+    "trip_dates": "9–19 Apr 2026",
+    "route_chain": "BKK → HKG → KIX → PUS → CJU → PUS → BKK",
+    "total_cost_per_person": 14500,
+    "total_cost_tbd": 1200,
+    "baggage_plan": "1×15kg checked bag shared (mainly for Nasha) • Trent carry-on only",
+    "return_plan": "Return may be separate: Nasha PUS→BKK option A • Trent PUS→BKK option B (no Vietnam transit for Trent).",
+    "notes": "Latest plan: HK 9–11, Osaka 11–16 (stay Osaka on 14), Busan transit 16, Jeju 16–18, Busan 18–19, return 19. Hiroshima by JR (Kansai–Hiroshima pass).",
+    "prices_last_checked": "2026-03-05 09:35 +07",
+    "prices_source": "Skyscanner",
+    "prices_last_result": "Leg 1 BKK→HKG ฿4,531 | Leg 2 HKG→KIX ฿3,015 | Leg 3 KIX→PUS ฿2,316 | Leg 4 PUS→CJU ฿1,155 | Leg 5 CJU→PUS ฿1,089 | Leg 6 (Nasha) PUS→BKK ฿3,303 | Leg 7 (Trent) PUS→BKK ฿5,099",
+    "prices_last_changes": [],
+    "deals_last_checked": "2026-03-05 11:03 +07",
+    "baseline_prices": {
+      "flight1": 4541,
+      "flight2": 3000,
+      "flight3": 2365,
+      "flight4": 1090,
+      "flight5": 1090,
+      "flight6": 3222,
+      "flight7": 4560
+    },
+    "baseline_set_at": "2026-03-05 00:17 +07"
+  },
+  "flights": [
+    {
+      "id": "flight1",
+      "party": "shared",
+      "date": "09 Apr",
+      "from_code": "BKK",
+      "from_city": "Bangkok",
+      "to_code": "HKG",
+      "to_city": "Hong Kong",
+      "airline": "TBD",
+      "flight_number": "TBD",
+      "depart": "TBD",
+      "arrive": "TBD",
+      "next_day": false,
+      "route_type": "direct",
+      "status": "planned",
+      "price_per_person": 4541,
+      "price_total": 9082,
+      "baggage_included": "Carry-on + add 1×15kg shared checked bag",
+      "notes": "Skyscanner tracker link (leg 1).",
+      "risk_flags": [],
+      "booking_links": [
+        {
+          "label": "Skyscanner (leg 1)",
+          "url": "https://skyscanner.app.link/ykradJFOe1b"
+        }
+      ],
+      "pnr": "PNR TBD",
+      "price_history": [
+        {
+          "ts": "2026-03-04 23:49 +07",
+          "price_per_person": 4541
+        },
+        {
+          "ts": "2026-03-05 00:17 +07",
+          "price_per_person": 4541
+        },
+        {
+          "ts": "2026-03-05 09:32 +07",
+          "price_per_person": 4541
+        },
+        {
+          "ts": "2026-03-05 09:35 +07",
+          "price_per_person": 4541
+        }
+      ]
+    },
+    {
+      "id": "flight2",
+      "party": "shared",
+      "date": "11 Apr",
+      "from_code": "HKG",
+      "from_city": "Hong Kong",
+      "to_code": "KIX",
+      "to_city": "Osaka",
+      "airline": "TBD",
+      "flight_number": "TBD",
+      "depart": "TBD",
+      "arrive": "TBD",
+      "next_day": false,
+      "route_type": "direct",
+      "status": "planned",
+      "price_per_person": 3000,
+      "price_total": 6000,
+      "baggage_included": "TBD",
+      "notes": "Skyscanner tracker link (leg 2).",
+      "risk_flags": [],
+      "booking_links": [
+        {
+          "label": "Skyscanner (leg 2)",
+          "url": "https://skyscanner.app.link/ChNDzaIOe1b"
+        }
+      ],
+      "pnr": "PNR TBD",
+      "price_history": [
+        {
+          "ts": "2026-03-04 23:49 +07",
+          "price_per_person": 3038
+        },
+        {
+          "ts": "2026-03-05 00:17 +07",
+          "price_per_person": 3015
+        },
+        {
+          "ts": "2026-03-05 09:32 +07",
+          "price_per_person": 3038
+        },
+        {
+          "ts": "2026-03-05 09:35 +07",
+          "price_per_person": 3000
+        }
+      ]
+    },
+    {
+      "id": "flight3",
+      "party": "shared",
+      "date": "16 Apr",
+      "from_code": "KIX",
+      "from_city": "Osaka",
+      "to_code": "PUS",
+      "to_city": "Busan",
+      "airline": "Eastar Jet (shown)",
+      "flight_number": "TBD",
+      "depart": "11:30",
+      "arrive": "12:55",
+      "next_day": false,
+      "route_type": "direct",
+      "status": "planned",
+      "price_per_person": 2365,
+      "price_total": 4730,
+      "baggage_included": "Carry-on",
+      "notes": "Busan transit day. Skyscanner tracker link (leg 3).",
+      "risk_flags": [
+        "self-transfer"
+      ],
+      "booking_links": [
+        {
+          "label": "Skyscanner (leg 3)",
+          "url": "https://skyscanner.app.link/CSTVlGLOe1b"
+        }
+      ],
+      "pnr": "PNR TBD",
+      "price_history": [
+        {
+          "ts": "2026-03-04 23:49 +07",
+          "price_per_person": 2365
+        },
+        {
+          "ts": "2026-03-04 23:49 +07",
+          "price_per_person": 2365
+        },
+        {
+          "ts": "2026-03-05 00:17 +07",
+          "price_per_person": 2347
+        },
+        {
+          "ts": "2026-03-05 09:32 +07",
+          "price_per_person": 2365
+        },
+        {
+          "ts": "2026-03-05 09:35 +07",
+          "price_per_person": 2365
+        }
+      ],
+      "observed_cheapest": {
+        "ts": "2026-03-04 23:49 +07",
+        "airline": "Eastar Jet (shown)",
+        "flight_number": "TBD",
+        "depart": "11:30",
+        "arrive": "12:55",
+        "stops": "Direct",
+        "price_per_person": 2365
+      }
+    },
+    {
+      "id": "flight4",
+      "party": "shared",
+      "date": "16 Apr",
+      "from_code": "PUS",
+      "from_city": "Busan",
+      "to_code": "CJU",
+      "to_city": "Jeju",
+      "airline": "Jeju Air",
+      "flight_number": "7C607",
+      "depart": "14:40",
+      "arrive": "15:45",
+      "next_day": false,
+      "route_type": "direct",
+      "status": "planned",
+      "price_per_person": 1090,
+      "price_total": 2180,
+      "baggage_included": "Cabin bag (checked bag optional)",
+      "notes": "Observed cheapest option from Skyscanner details panel. (PUS Gimhae → CJU Jeju)",
+      "risk_flags": [
+        "connection-day"
+      ],
+      "booking_links": [
+        {
+          "label": "Skyscanner (leg 4)",
+          "url": "https://skyscanner.app.link/QF1fpbROe1b"
+        }
+      ],
+      "pnr": "PNR TBD",
+      "price_history": [
+        {
+          "ts": "2026-03-04 23:49 +07",
+          "price_per_person": 1093
+        },
+        {
+          "ts": "2026-03-04 23:49 +07",
+          "price_per_person": 1090
+        },
+        {
+          "ts": "2026-03-05 00:17 +07",
+          "price_per_person": 1030
+        },
+        {
+          "ts": "2026-03-05 09:32 +07",
+          "price_per_person": 1090
+        },
+        {
+          "ts": "2026-03-05 09:35 +07",
+          "price_per_person": 1090
+        }
+      ],
+      "observed_cheapest": {
+        "ts": "2026-03-04 23:49 +07",
+        "airline": "Jeju Air",
+        "flight_number": "7C607",
+        "depart": "14:40",
+        "arrive": "15:45",
+        "stops": "Direct",
+        "price_per_person": 1090
+      }
+    },
+    {
+      "id": "flight5",
+      "party": "shared",
+      "date": "18 Apr",
+      "from_code": "CJU",
+      "from_city": "Jeju",
+      "to_code": "PUS",
+      "to_city": "Busan",
+      "airline": "Jeju Air",
+      "flight_number": "7C503",
+      "depart": "10:45",
+      "arrive": "11:45",
+      "next_day": false,
+      "route_type": "direct",
+      "status": "planned",
+      "price_per_person": 1090,
+      "price_total": 2180,
+      "baggage_included": "Cabin bag (checked bag optional)",
+      "notes": "Observed cheapest option from Skyscanner details panel. (CJU Jeju → PUS Gimhae)",
+      "risk_flags": [],
+      "booking_links": [
+        {
+          "label": "Skyscanner (leg 5)",
+          "url": "https://skyscanner.app.link/mv2BP5TOe1b"
+        }
+      ],
+      "pnr": "PNR TBD",
+      "price_history": [
+        {
+          "ts": "2026-03-04 23:49 +07",
+          "price_per_person": 1090
+        },
+        {
+          "ts": "2026-03-04 23:49 +07",
+          "price_per_person": 1090
+        },
+        {
+          "ts": "2026-03-05 00:17 +07",
+          "price_per_person": 1076
+        },
+        {
+          "ts": "2026-03-05 09:32 +07",
+          "price_per_person": 1129
+        },
+        {
+          "ts": "2026-03-05 09:35 +07",
+          "price_per_person": 1090
+        }
+      ],
+      "observed_cheapest": {
+        "ts": "2026-03-04 23:49 +07",
+        "airline": "Jeju Air",
+        "flight_number": "7C503",
+        "depart": "10:45",
+        "arrive": "11:45",
+        "stops": "Direct",
+        "price_per_person": 1090
+      }
+    },
+    {
+      "id": "flight6",
+      "party": "nasha",
+      "date": "19 Apr",
+      "from_code": "PUS",
+      "from_city": "Busan",
+      "to_code": "BKK",
+      "to_city": "Bangkok",
+      "airline": "TBD",
+      "flight_number": "TBD",
+      "depart": "TBD",
+      "arrive": "TBD",
+      "next_day": false,
+      "route_type": "direct",
+      "status": "planned",
+      "price_per_person": 3222,
+      "price_total": 3222,
+      "baggage_included": "1×15kg checked (shared bag) + carry-on",
+      "notes": "Nasha return tracker (19 Apr).",
+      "risk_flags": [],
+      "booking_links": [
+        {
+          "label": "Skyscanner (leg 6 - Nasha, 19 Apr)",
+          "url": "https://skyscanner.app.link/SI8z5NzRe1b"
+        }
+      ],
+      "pnr": "PNR TBD",
+      "price_history": [
+        {
+          "ts": "2026-03-04 23:49 +07",
+          "price_per_person": 3605
+        },
+        {
+          "ts": "2026-03-05 00:17 +07",
+          "price_per_person": 3222
+        },
+        {
+          "ts": "2026-03-05 09:32 +07",
+          "price_per_person": 3332
+        },
+        {
+          "ts": "2026-03-05 09:35 +07",
+          "price_per_person": 3222
+        }
+      ]
+    },
+    {
+      "id": "flight7",
+      "party": "trent",
+      "date": "19 Apr (or 20 Apr if chosen)",
+      "from_code": "PUS",
+      "from_city": "Busan",
+      "to_code": "BKK",
+      "to_city": "Bangkok",
+      "airline": "TBD",
+      "flight_number": "TBD",
+      "depart": "TBD",
+      "arrive": "TBD",
+      "next_day": false,
+      "route_type": "direct",
+      "status": "planned",
+      "price_per_person": 5099,
+      "price_total": 5099,
+      "baggage_included": "Carry-on only",
+      "notes": "Trent return trackers (19 Apr). No Vietnam transit (passport validity).",
+      "risk_flags": [
+        "constraint_no_vietnam_transit"
+      ],
+      "booking_links": [
+        {
+          "label": "Skyscanner (leg 6 - Trent A, 19 Apr)",
+          "url": "https://skyscanner.app.link/dctcXKyRe1b"
+        },
+        {
+          "label": "Skyscanner (leg 6 - Trent B, 19 Apr)",
+          "url": "https://skyscanner.app.link/LIPMdZBRe1b"
+        }
+      ],
+      "pnr": "PNR TBD",
+      "price_history": [
+        {
+          "ts": "2026-03-04 23:49 +07",
+          "price_per_person": 5202
+        },
+        {
+          "ts": "2026-03-05 00:17 +07",
+          "price_per_person": 4560
+        },
+        {
+          "ts": "2026-03-05 09:32 +07",
+          "price_per_person": 4560
+        },
+        {
+          "ts": "2026-03-05 09:35 +07",
+          "price_per_person": 5099
+        }
+      ]
+    }
+  ],
+  "decisions": [
+    {
+      "label": "Updated Skyscanner tracker links for returns to 19 Apr (Nasha + Trent options A/B).",
+      "done": true
+    },
+    {
+      "label": "BKK→HKG: confirm 1×15kg checked bag add-on cost for chosen airline.",
+      "done": false
+    },
+    {
+      "label": "Osaka stay: ensure accommodation keeps you in Osaka on 14 Apr.",
+      "done": false
+    },
+    {
+      "label": "Return: pick if Trent returns 19th (arrive same day) vs 20th (cheaper).",
+      "done": false
+    }
+  ],
+  "risks": [
+    {
+      "label": "16 Apr double-flight day (Osaka→Busan→Jeju) — buffer for delays",
+      "active": true
+    },
+    {
+      "label": "Trent: Vietnam transit NOT allowed (passport <6 months) — avoid VN routes",
+      "active": true
+    },
+    {
+      "label": "Self-transfer days: plan airport→hotel transfers + check-in cutoffs",
+      "active": true
+    }
+  ],
+  "cost_breakdown": {
+    "per_person_total": 14300,
+    "jr_pass": 3331,
+    "expected_add_ons": [
+      {
+        "label": "1×15kg checked bag (shared)",
+        "amount": 0
+      },
+      {
+        "label": "Seat selection (optional)",
+        "amount": 400
+      }
+    ],
+    "splits": [
+      {
+        "person": "Shared",
+        "notes": "Most flights split 2 pax",
+        "amount": 0
+      },
+      {
+        "person": "Nasha",
+        "notes": "Return option + shared checked bag",
+        "amount": 0
+      },
+      {
+        "person": "Trent",
+        "notes": "Return direct option (no VN transit)",
+        "amount": 0
+      }
+    ]
+  },
+  "map_points": [
+    {
+      "code": "BKK",
+      "city": "Bangkok",
+      "lat": 13.69,
+      "lng": 100.7501
+    },
+    {
+      "code": "HKG",
+      "city": "Hong Kong",
+      "lat": 22.308,
+      "lng": 113.9185,
+      "photo": "/assets/cities/hong-kong.svg"
+    },
+    {
+      "code": "KIX",
+      "city": "Osaka",
+      "lat": 34.4347,
+      "lng": 135.2441,
+      "photo": "/assets/cities/osaka.svg"
+    },
+    {
+      "code": "PUS",
+      "city": "Busan",
+      "lat": 35.1796,
+      "lng": 129.0756,
+      "photo": "/assets/cities/busan.svg"
+    },
+    {
+      "code": "CJU",
+      "city": "Jeju",
+      "lat": 33.5113,
+      "lng": 126.493,
+      "photo": "/assets/cities/jeju.svg"
+    }
+  ],
+  "message_summary": "Updated itinerary loaded. Prices will be checked via Skyscanner app.link trackers every 6h; updates only when Δ ≥ THB 300 pp.",
+  "deals_radar": [
+    {
+      "title": "Recent drops (≥ THB 300 pp)",
+      "subtitle": "Only the meaningful moves since last check",
+      "deals": []
+    },
+    {
+      "title": "All-time lows (per leg)",
+      "subtitle": "Best seen so far (useful for “book now?”)",
+      "deals": [
+        {
+          "flight_id": "flight4",
+          "route": "PUS→CJU",
+          "date": "16 Apr",
+          "airline": "Jeju Air",
+          "times": "14:40→15:45",
+          "stops": "Direct",
+          "price_per_person": 1030,
+          "savings_vs_baseline": 60,
+          "note": "Low at 2026-03-05 00:17 +07 (current 1090)",
+          "url": "https://skyscanner.app.link/QF1fpbROe1b"
+        },
+        {
+          "flight_id": "flight5",
+          "route": "CJU→PUS",
+          "date": "18 Apr",
+          "airline": "Jeju Air",
+          "times": "10:45→11:45",
+          "stops": "Direct",
+          "price_per_person": 1076,
+          "savings_vs_baseline": 14,
+          "note": "Low at 2026-03-05 00:17 +07 (current 1090)",
+          "url": "https://skyscanner.app.link/mv2BP5TOe1b"
+        },
+        {
+          "flight_id": "flight3",
+          "route": "KIX→PUS",
+          "date": "16 Apr",
+          "airline": "Eastar Jet (shown)",
+          "times": "11:30→12:55",
+          "stops": "Direct",
+          "price_per_person": 2347,
+          "savings_vs_baseline": 18,
+          "note": "Low at 2026-03-05 00:17 +07 (current 2365)",
+          "url": "https://skyscanner.app.link/CSTVlGLOe1b"
+        },
+        {
+          "flight_id": "flight2",
+          "route": "HKG→KIX",
+          "date": "11 Apr",
+          "airline": "TBD",
+          "times": "TBD→TBD",
+          "stops": "Direct",
+          "price_per_person": 3000,
+          "savings_vs_baseline": 0,
+          "note": "Low at 2026-03-05 09:35 +07 (current 3000)",
+          "url": "https://skyscanner.app.link/ChNDzaIOe1b"
+        },
+        {
+          "flight_id": "flight6",
+          "route": "PUS→BKK",
+          "date": "19 Apr",
+          "airline": "TBD",
+          "times": "TBD→TBD",
+          "stops": "Direct",
+          "price_per_person": 3222,
+          "savings_vs_baseline": 0,
+          "note": "Low at 2026-03-05 00:17 +07 (current 3222)",
+          "url": "https://skyscanner.app.link/SI8z5NzRe1b"
+        },
+        {
+          "flight_id": "flight1",
+          "route": "BKK→HKG",
+          "date": "09 Apr",
+          "airline": "TBD",
+          "times": "TBD→TBD",
+          "stops": "Direct",
+          "price_per_person": 4541,
+          "savings_vs_baseline": 0,
+          "note": "Low at 2026-03-04 23:49 +07 (current 4541)",
+          "url": "https://skyscanner.app.link/ykradJFOe1b"
+        },
+        {
+          "flight_id": "flight7",
+          "route": "PUS→BKK",
+          "date": "19 Apr (or 20 Apr if chosen)",
+          "airline": "TBD",
+          "times": "TBD→TBD",
+          "stops": "Direct",
+          "price_per_person": 4560,
+          "savings_vs_baseline": 0,
+          "note": "Low at 2026-03-05 00:17 +07 (current 5099)",
+          "url": "https://skyscanner.app.link/dctcXKyRe1b"
+        }
+      ]
+    },
+    {
+      "title": "Return hedge",
+      "subtitle": "Compare Nasha vs Trent options at a glance",
+      "deals": [
+        {
+          "flight_id": "flight6",
+          "route": "PUS→BKK",
+          "date": "19 Apr",
+          "airline": "TBD",
+          "times": "TBD→TBD",
+          "stops": "Direct",
+          "price_per_person": 3222,
+          "savings_vs_baseline": 0,
+          "note": "NASHA",
+          "url": "https://skyscanner.app.link/SI8z5NzRe1b"
+        },
+        {
+          "flight_id": "flight7",
+          "route": "PUS→BKK",
+          "date": "19 Apr (or 20 Apr if chosen)",
+          "airline": "TBD",
+          "times": "TBD→TBD",
+          "stops": "Direct",
+          "price_per_person": 5099,
+          "savings_vs_baseline": -539,
+          "note": "TRENT",
+          "url": "https://skyscanner.app.link/dctcXKyRe1b"
+        }
+      ]
+    }
+  ],
+  "city_briefs": [
+    {
+      "city": "Hong Kong",
+      "dates": "9–11 Apr (2 nights)",
+      "stay_areas": [
+        {
+          "area": "Central / Sheung Wan",
+          "why": "Easy MTR access, walkable food/harbour vibes."
+        }
+      ],
+      "must_do": [
+        "Star Ferry / harbour at night",
+        "One proper dim sum brunch",
+        "Peak / skyline viewpoint"
+      ],
+      "transit_notes": [
+        "Octopus card for MTR/buses",
+        "Airport Express vs bus depending on hotel"
+      ],
+      "food": [
+        "Dim sum",
+        "Roast goose / char siu"
+      ],
+      "photo": "/assets/cities/hong-kong.svg",
+      "nasha_hook": "Street seafood + dim sum city. Easy to do local spots + one nicer harbour meal without making it formal.",
+      "seafood_street_hits": [
+        "Temple Street / Jordan: claypot + seafood stir-fries (go where it’s busy).",
+        "Sham Shui Po: fish ball noodles / cheung fun stalls (local vibe).",
+        "Typhoon shelter style crab/shrimp (street-to-sitdown depending on place)."
+      ],
+      "nice_sitdown_pick": "One harbour-view Cantonese seafood set (keep it simple: steamed fish + prawns + veg).",
+      "signature_seafood": "Typhoon-shelter crab night (or a steamed fish + prawns harbour meal).",
+      "map_links": [
+        {
+          "label": "Temple Street (night food)",
+          "url": "https://www.google.com/maps/search/?api=1&query=Temple%20Street%20Night%20Market%20Hong%20Kong"
+        },
+        {
+          "label": "Jordan (local eats)",
+          "url": "https://www.google.com/maps/search/?api=1&query=Jordan%20Hong%20Kong%20restaurants"
+        }
+      ],
+      "image": "/assets/cities/hong-kong.svg"
+    },
+    {
+      "city": "Osaka",
+      "dates": "11–16 Apr (with mandatory stay 14 Apr)",
+      "stay_areas": [
+        {
+          "area": "Namba / Dotonbori",
+          "why": "Food + nightlife + easy transport."
+        },
+        {
+          "area": "Umeda",
+          "why": "Good for day trips + train connections."
+        }
+      ],
+      "must_do": [
+        "Dotonbori night walk",
+        "One big shopping/arcade evening",
+        "Day trip: Hiroshima + Miyajima"
+      ],
+      "transit_notes": [
+        "IC card (ICOCA) works widely",
+        "JR Kansai–Hiroshima pass for Hiroshima leg"
+      ],
+      "food": [
+        "Takoyaki + okonomiyaki",
+        "Late-night ramen"
+      ],
+      "photo": "/assets/cities/osaka.jpg",
+      "nasha_hook": "Kuromon Market for seafood street snacking + late-night izakaya plates. Very “eat as you walk”.",
+      "seafood_street_hits": [
+        "Kuromon Ichiba: grilled scallops, uni, oysters (sample-and-go).",
+        "Dotonbori street food loop: takoyaki + seafood skewers.",
+        "Conveyor-belt sushi for quick, fun, cheap tasting."
+      ],
+      "nice_sitdown_pick": "One proper sushi/kaisendon dinner (reserve if it’s a famous place).",
+      "signature_seafood": "Kuromon Market scallop/uni crawl + sushi dinner.",
+      "map_links": [
+        {
+          "label": "Kuromon Ichiba Market",
+          "url": "https://www.google.com/maps/search/?api=1&query=Kuromon%20Ichiba%20Market"
+        },
+        {
+          "label": "Dotonbori",
+          "url": "https://www.google.com/maps/search/?api=1&query=Dotonbori"
+        }
+      ],
+      "image": "/assets/cities/osaka.jpg"
+    },
+    {
+      "city": "Hiroshima",
+      "dates": "12–13 Apr (1 night)",
+      "stay_areas": [
+        {
+          "area": "Near Hiroshima Station",
+          "why": "Easy with luggage + early trains."
+        }
+      ],
+      "must_do": [
+        "Peace Memorial Park + Museum",
+        "Miyajima day trip"
+      ],
+      "transit_notes": [
+        "JR ferry to Miyajima covered by pass (if using JR ferry)"
+      ],
+      "food": [
+        "Oysters dinner (plan)"
+      ],
+      "photo": "/assets/cities/hiroshima.jpg",
+      "nasha_hook": "This is the Japan “oyster chapter”. We lean into it hard.",
+      "seafood_street_hits": [
+        "Hiroshima oysters: grilled/fried/raw depending on comfort level.",
+        "Miyajima: anago (conger eel) + oysters near the ferry area."
+      ],
+      "nice_sitdown_pick": "Dedicated oyster dinner (sitdown) — make this the “signature meal” of Japan leg.",
+      "signature_seafood": "Oysters in Hiroshima + Miyajima anago (eel) lunch.",
+      "map_links": [
+        {
+          "label": "Peace Memorial Park",
+          "url": "https://www.google.com/maps/search/?api=1&query=Hiroshima%20Peace%20Memorial%20Park"
+        },
+        {
+          "label": "Miyajima Ferry / Itsukushima",
+          "url": "https://www.google.com/maps/search/?api=1&query=Itsukushima%20Shrine"
+        }
+      ],
+      "image": "/assets/cities/hiroshima.jpg"
+    },
+    {
+      "city": "Busan",
+      "dates": "16 Apr (transit) + 18–19 Apr (1 night)",
+      "stay_areas": [
+        {
+          "area": "Seomyeon",
+          "why": "Central, good for short stays."
+        },
+        {
+          "area": "Haeundae",
+          "why": "Beach vibe if time allows."
+        }
+      ],
+      "must_do": [
+        "Quick seafood market hit (if time)",
+        "Beach walk if staying Haeundae"
+      ],
+      "transit_notes": [
+        "Gimhae airport transfers: rail/bus/taxi"
+      ],
+      "food": [
+        "Seafood markets"
+      ],
+      "photo": "/assets/cities/busan.jpg",
+      "nasha_hook": "Korea’s seafood playground: market wow-factor + coastal dinner photos.",
+      "seafood_street_hits": [
+        "Jagalchi Fish Market: pick seafood + eat it fresh (iconic).",
+        "Seaside grilled clams/seafood near Haeundae/Songjeong/Cheongsapo.",
+        "Eomuk (Busan fish cake) snacks for casual street bites."
+      ],
+      "nice_sitdown_pick": "One seaside set meal (seafood hotpot / grilled shellfish) — go for vibes + comfort.",
+      "coastal_options": [
+        {
+          "area": "Haeundae / Songjeong",
+          "why": "Best “coastal holiday” feel without leaving Busan; easy logistics."
+        },
+        {
+          "area": "Gijang (day trip or 1 night)",
+          "why": "More local coastline + seafood; could be cheaper and very food-forward."
+        },
+        {
+          "area": "Tongyeong/Geoje (only if adding 1–2 nights)",
+          "why": "Bigger “seafood town / island coast” energy, but more travel time."
+        }
+      ],
+      "signature_seafood": "Jagalchi market pick-your-seafood + seaside grilled clams (Haeundae/Cheongsapo).",
+      "map_links": [
+        {
+          "label": "Jagalchi Fish Market",
+          "url": "https://www.google.com/maps/search/?api=1&query=Jagalchi%20Fish%20Market"
+        },
+        {
+          "label": "Haeundae Beach",
+          "url": "https://www.google.com/maps/search/?api=1&query=Haeundae%20Beach"
+        },
+        {
+          "label": "Cheongsapo",
+          "url": "https://www.google.com/maps/search/?api=1&query=Cheongsapo"
+        },
+        {
+          "label": "Gijang",
+          "url": "https://www.google.com/maps/search/?api=1&query=Gijang%20Busan"
+        }
+      ],
+      "image": "/assets/cities/busan.jpg"
+    },
+    {
+      "city": "Jeju",
+      "dates": "16–18 Apr (2 nights)",
+      "stay_areas": [
+        {
+          "area": "Jeju City",
+          "why": "Convenient for airport + food."
+        },
+        {
+          "area": "Seogwipo",
+          "why": "Better nature access, waterfalls."
+        }
+      ],
+      "must_do": [
+        "Coastline cafe / scenic drive",
+        "One nature day (waterfalls/volcanic views)"
+      ],
+      "transit_notes": [
+        "Consider renting a car vs taxis depending on plan"
+      ],
+      "food": [
+        "Black pork BBQ",
+        "Seafood + tangerine snacks"
+      ],
+      "photo": "/assets/cities/jeju.svg",
+      "nasha_hook": "Jeju is the “island food” leg: abalone + seafood soups + coastal cafes.",
+      "seafood_street_hits": [
+        "Abalone porridge (classic Jeju breakfast).",
+        "Seafood hotpot / stews (comfort food after exploring).",
+        "Seaside grilled cuttlefish / shellfish stands (simple + local)."
+      ],
+      "nice_sitdown_pick": "One black pork BBQ + seafood sides night (Jeju signature).",
+      "signature_seafood": "Abalone porridge breakfast + seafood hotpot night (island vibes).",
+      "map_links": [
+        {
+          "label": "Dongmun Market (Jeju City)",
+          "url": "https://www.google.com/maps/search/?api=1&query=Dongmun%20Market%20Jeju"
+        },
+        {
+          "label": "Seogwipo",
+          "url": "https://www.google.com/maps/search/?api=1&query=Seogwipo"
+        }
+      ],
+      "image": "/assets/cities/jeju.svg"
+    }
+  ],
+  "alternatives": {
+    "flight1": [
+      {
+        "route": "BKK→HKG",
+        "date": "09 Apr",
+        "airline": null,
+        "times": null,
+        "stops": null,
+        "price_per_person": 3000,
+        "url": "https://skyscanner.app.link/ykradJFOe1b",
+        "saved_at": "2026-03-05 11:03 +07",
+        "savings_vs_baseline": null
+      }
+    ]
+  }
+}
