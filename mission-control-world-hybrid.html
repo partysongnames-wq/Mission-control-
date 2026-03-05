@@ -307,7 +307,7 @@
       jaz:   { idle:{x:'74%',y:'18%'}, active:{x:'86%',y:'28%'} },
       joe:   { idle:{x:'12%',y:'68%'}, active:{x:'26%',y:'78%'} },
       tj:    { idle:{x:'74%',y:'68%'}, active:{x:'86%',y:'78%'} },
-      clawd: { idle:{x:'47%',y:'82%'}, active:{x:'56%',y:'76%'} },
+      clawd: { idle:{x:'86%',y:'18%'}, active:{x:'82%',y:'26%'} },
     }
   };
 
@@ -455,6 +455,7 @@
       { cls:'prop sofa', left:'50%', top:'52%', transform:'translate(-50%,-50%)' },
       { cls:'prop bed', left:'88%', top:'88%', transform:'translate(-50%,-50%)' },
       { cls:'prop office', left:'88%', top:'50%', transform:'translate(-50%,-50%)' },
+      { cls:'prop table', left:'78%', top:'16%', transform:'translate(-50%,-50%)' },
     ];
     for (const pr of props){
       const el = document.createElement('div');
@@ -576,7 +577,9 @@
     const token = document.getElementById(`wrap-${key}`);
     if (!token) return;
     const p = layout.tokens[key] || {};
-    const target = (mode === 'running') ? p.active : (mode === 'bed') ? {x:'88%',y:'88%'} : (mode === 'sofa') ? {x:'50%',y:'52%'} : p.idle;
+    const persisted = (worldState && worldState.positions && worldState.positions[key]) ? worldState.positions[key] : null;
+    const idlePos = persisted ? {x: String(Math.round(persisted.x*100)) + '%', y: String(Math.round(persisted.y*100)) + '%'} : p.idle;
+    const target = (mode === 'running') ? p.active : (mode === 'bed') ? {x:'88%',y:'88%'} : (mode === 'sofa') ? {x:'50%',y:'52%'} : idlePos;
     if (!target) return;
     token.style.left = target.x;
     token.style.top = target.y;

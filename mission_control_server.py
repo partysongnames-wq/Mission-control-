@@ -8,6 +8,7 @@ import threading
 from datetime import datetime, timedelta
 from http import HTTPStatus
 from pathlib import Path
+from zoneinfo import ZoneInfo
 from typing import Dict, List, Optional
 
 from flask import Flask, abort, jsonify, redirect, send_from_directory, request
@@ -17,6 +18,18 @@ BASE_DIR = Path(__file__).parent.resolve()
 WORLD_STATE_PATH = BASE_DIR / 'mission-control-world-state.json'
 WORLD_STATE_LOCK = threading.Lock()
 
+WORLD_BOUNDS = {
+    'minX': 0.08,
+    'maxX': 0.92,
+    'minY': 0.14,
+    'maxY': 0.90,
+}
+WORLD_MAX_MOVES_PER_DAY = 5
+
+
+def _bkk_date_str() -> str:
+    return datetime.now(ZoneInfo('Asia/Bangkok')).date().isoformat()
+
 
 def _load_world_state() -> Dict:
     with WORLD_STATE_LOCK:
@@ -24,8 +37,8 @@ def _load_world_state() -> Dict:
             try:
                 return json.loads(WORLD_STATE_PATH.read_text(encoding='utf-8'))
             except Exception:
-                return {'notes': {}, 'unread': {}}
-        return {'notes': {}, 'unread': {}}
+                return {'notes': {}, 'unread': {}, 'positions': {}, 'moves': {}}
+        return {'notes': {}, 'unread': {}, 'positions': {}, 'moves': {}}
 
 
 def _save_world_state(state: Dict) -> None:
@@ -62,7 +75,7 @@ COMMANDS: Dict[str, str] = {
     "token": "openclaw cron list",
     "watch": "openclaw agent --local --agent super-jobs --message \"Refresh travel alert for Bangkok to Japan routes.\"",
     "pricewatch": "openclaw cron run d39d96cc-b37b-4cd6-9ff9-2c0bc2b39c9e --expect-final --timeout 600000",
-    "deals": "openclaw cron run d39d96cc-b37b-4cd6-9ff9-2c0bc2b39c9e --expect-final --timeout 600000"
+    "deals": "bash -lc \"openclaw cron run d39d96cc-b37b-4cd6-9ff9-2c0bc2b39c9e --expect-final --timeout 600000 && /Library/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python deals_radar.py\"",
 }
 
 AGENT_DISPATCH: Dict[str, str] = {
@@ -488,6 +501,60 @@ def api_world_ask():
         return jsonify(success=False, message='Failed to start agent runner'), HTTPStatus.INTERNAL_SERVER_ERROR
 
     return jsonify(success=True, message='Queued'), HTTPStatus.ACCEPTED
+
+
+@app.route('/api/world/move', methods=['POST'])
+def api_world_move():
+    payload = request.get_json(silent=True) or {}
+    agent = (payload.get('agent') or '').strip()
+    x = payload.get('x')
+    y = payload.get('y')
+
+    if not agent:
+        return jsonify(success=False, message='agent required'), HTTPStatus.BAD_REQUEST
+    if agent == 'trent':
+        return jsonify(success=False, message='director cannot be moved'), HTTPStatus.BAD_REQUEST
+
+    # allow moving only known lounge agents
+    if agent not in AGENT_DISPATCH:
+        return jsonify(success=False, message=f"unknown agent '{agent}'"), HTTPStatus.NOT_FOUND
+
+    try:
+        x = float(x)
+        y = float(y)
+    except Exception:
+        return jsonify(success=False, message='x and y must be numbers (0..1)'), HTTPStatus.BAD_REQUEST
+
+    if not (0.0 <= x <= 1.0 and 0.0 <= y <= 1.0):
+        return jsonify(success=False, message='x and y must be within 0..1'), HTTPStatus.BAD_REQUEST
+
+    # clamp to office bounds
+    x = max(WORLD_BOUNDS['minX'], min(WORLD_BOUNDS['maxX'], x))
+    y = max(WORLD_BOUNDS['minY'], min(WORLD_BOUNDS['maxY'], y))
+
+    state = _load_world_state()
+    state.setdefault('positions', {})
+    state.setdefault('moves', {})
+
+    today = _bkk_date_str()
+    m = state['moves'].get(agent) or {}
+    if m.get('date') != today:
+        m = {'date': today, 'count': 0}
+
+    if int(m.get('count', 0)) >= WORLD_MAX_MOVES_PER_DAY:
+        return jsonify(success=False, message=f'move limit reached ({WORLD_MAX_MOVES_PER_DAY}/day)'), HTTPStatus.TOO_MANY_REQUESTS
+
+    m['count'] = int(m.get('count', 0)) + 1
+    state['moves'][agent] = m
+
+    state['positions'][agent] = {
+        'x': x,
+        'y': y,
+        'updatedAt': datetime.now(ZoneInfo('Asia/Bangkok')).isoformat(),
+    }
+
+    _save_world_state(state)
+    return jsonify(success=True, state=state)
 
 
 @app.route('/api/world/clear/<agent>', methods=['POST'])
