@@ -211,8 +211,10 @@
       <button class="active">Mission Control</button>
       <button onclick="window.location.href='/calendar';">Calendar</button>
       <button onclick="window.location.href='/health';">Health</button>
+      <button onclick="window.location.href='/world-hybrid';">Office World</button>
       <button onclick="window.location.href='/team';">Agents</button>
       <button onclick="window.location.href='/office';">Office</button>
+      <button onclick="window.location.href='/mission-control-roster.html';">Team Roster</button>
       <div class="divider"></div>
       <p style="font-size:.85rem; color:#7c879c;">Concierge dashboard · Tap a card when you need service.</p>
     </div>
@@ -244,6 +246,21 @@
           <button class="button-pink" onclick="runAction('travel')">Run Travel Scan</button>
           <div class="hint">Command: Use Topic Monitor / extra:skyscanner-watch</div>
         </div>
+        <div class="card">
+          <span>Deal Hunter</span>
+          <h2>Deals Radar</h2>
+          <p>Scan cheap alternates beyond the pinned itinerary (±1 day, direct-only, avoid VN transit).</p>
+          <button class="button-green" onclick="window.open('/mission-control-flight-deals.html','_blank')">Open Deals Radar</button>
+          <div class="hint">Uses Skyscanner links + manual promotes</div>
+        </div>
+        <div class="card">
+          <span>Local Guide</span>
+          <h2>City Briefs</h2>
+          <p>Fast notes for each stop: where to stay, must-do, transit notes, and food hits.</p>
+          <button class="button-pink" onclick="window.open('/mission-control-city-briefs.html','_blank')">Open City Briefs</button>
+          <div class="hint">Editable in travel-flight-plan.json → city_briefs</div>
+        </div>
+
         <div class="card">
           <span>Daily Butler</span>
           <h2>Draft tomorrow’s top three</h2>
