@@ -241,7 +241,7 @@
       transform-origin:center; transform:translateX(-50%) rotate(45deg);}
 
     .corner{opacity:1; transform:scale(1); background:rgba(80,160,255,.9); border-color:rgba(80,160,255,.9); box-shadow:0 0 0 4px rgba(80,160,255,.14), 0 14px 28px rgba(0,0,0,.55); animation: ping 1.6s ease-in-out infinite;}
-    @keyframes ping{0%{transform:scale(1); opacity:.9;}50%{transform:scale(1.25); opacity:1;}100%{transform:scale(1); opacity:.9;}}
+50%{transform:scale(1.25); opacity:1;}100%{transform:scale(1); opacity:.9;}}
 
     .tokenWrap.running .bubble{position:absolute; left:50%; top:-14px; transform:translate(-50%,-100%); max-width:220px;
       padding:8px 10px; border-radius:14px; border:1px solid rgba(255,255,255,.16);
@@ -343,6 +343,7 @@
 
   const papers = Object.fromEntries(agents.map(a => [a.key, 0]));
   let worldState = {notes:{}, unread:{}};
+  let prevUnread = {};
 
   async function fetchWorldState(){
     try{
@@ -351,6 +352,26 @@
     }catch(e){
       worldState = worldState || {notes:{}, unread:{}};
     }
+  }
+
+  
+
+  function pingToken(agentKey){
+    const w = document.getElementById(`wrap-${agentKey}`);
+    if (!w) return;
+    w.classList.add('ping');
+    setTimeout(() => w.classList.remove('ping'), 3500);
+  
+    try{
+      // ping on unread increases
+      const cur = (worldState && worldState.unread) ? worldState.unread : {};
+      for (const k of Object.keys(cur)){
+        const prev = prevUnread[k] || 0;
+        const now = cur[k] || 0;
+        if (now > prev) pingToken(k);
+      }
+      prevUnread = cur || {};
+    } catch(e){}
   }
 
   async function clearUnread(agentKey){
