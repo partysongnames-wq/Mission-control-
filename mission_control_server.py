@@ -115,12 +115,12 @@ COMMANDS: Dict[str, str] = {
 
 AGENT_DISPATCH: Dict[str, str] = {
     # Map lounge avatar key -> OpenClaw agent id
-    'yoko': 'super-jobs',
-    'jaz': 'super-jobs',
-    'tj': 'super-jobs',
-    'holly': 'super-jobs',
-    'joe': 'super-jobs',
-    'clawd': 'super-jobs',
+    'yoko': 'yoko',
+    'jaz': 'jaz',
+    'tj': 'tj',
+    'holly': 'holly',
+    'joe': 'joe',
+    'clawd': 'clawd',
 }
 
 statuses = {
