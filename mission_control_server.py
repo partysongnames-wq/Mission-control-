@@ -19,6 +19,25 @@ BASE_DIR = Path(__file__).parent.resolve()
 WORLD_STATE_PATH = BASE_DIR / 'mission-control-world-state.json'
 WORLD_STATE_LOCK = threading.Lock()
 
+WELLBEING_STATE_PATH = BASE_DIR / 'mission-control-wellbeing-state.json'
+WELLBEING_LOCK = threading.Lock()
+
+
+def _load_wellbeing() -> dict:
+    with WELLBEING_LOCK:
+        if WELLBEING_STATE_PATH.exists():
+            try:
+                return json.loads(WELLBEING_STATE_PATH.read_text(encoding='utf-8'))
+            except Exception:
+                return {'thai': {'words': [], 'wordOfDay': None}}
+        return {'thai': {'words': [], 'wordOfDay': None}}
+
+
+def _save_wellbeing(state: dict) -> None:
+    with WELLBEING_LOCK:
+        WELLBEING_STATE_PATH.write_text(json.dumps(state, ensure_ascii=False, indent=2), encoding='utf-8')
+
+
 WORLD_BOUNDS = {
     'minX': 0.08,
     'maxX': 0.92,
@@ -666,6 +685,44 @@ def api_world_move():
 
     _save_world_state(state)
     return jsonify(success=True, state=state)
+
+
+@app.route('/api/wellbeing/state')
+def api_wellbeing_state():
+    return jsonify(_load_wellbeing())
+
+
+@app.route('/api/wellbeing/thai/add', methods=['POST'])
+def api_wellbeing_thai_add():
+    payload = request.get_json(silent=True) or {}
+    thai = (payload.get('thai') or '').strip()
+    roman = (payload.get('roman') or '').strip()
+    meaning = (payload.get('meaning') or '').strip()
+    example = (payload.get('example') or '').strip()
+    if not thai or not roman or not meaning:
+        return jsonify(success=False, message='thai, roman, meaning required'), HTTPStatus.BAD_REQUEST
+    state = _load_wellbeing()
+    state.setdefault('thai', {})
+    state['thai'].setdefault('words', [])
+    entry = {
+        'thai': thai,
+        'roman': roman,
+        'meaning': meaning,
+        'example': example or None,
+        'ts': datetime.now(ZoneInfo('Asia/Bangkok')).isoformat(),
+    }
+    state['thai']['words'].append(entry)
+    # keep last 500
+    state['thai']['words'] = state['thai']['words'][-500:]
+    # also update word of day to the latest added
+    state['thai']['wordOfDay'] = entry
+    _save_wellbeing(state)
+    return jsonify(success=True, state=state)
+
+
+@app.route('/wellbeing')
+def wellbeing_page():
+    return redirect('/mission-control-wellbeing.html')
 
 
 @app.route('/api/tea/run', methods=['POST'])
