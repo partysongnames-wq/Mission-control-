@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The Standard Job Lounge</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Playfair+Display:wght@600&display=swap');
+    :root {
+      color: #f5f5f5;
+      background: #030303;
+    }
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: 'Space Grotesk', system-ui, sans-serif;
+      background: radial-gradient(circle at top, rgba(255, 255, 255, 0.08), transparent 55%), #030303;
+      color: #f5f5f5;
+    }
+    .page {
+      min-height: 100vh;
+      padding: 2rem clamp(1rem, 3vw, 3rem) 3rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+    header {
+      max-width: 920px;
+      margin-bottom: 1rem;
+    }
+    .tagline {
+      letter-spacing: 0.2em;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      color: #facc15;
+      display: inline-flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
+    header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.5rem, 4vw, 4rem);
+      margin: 0.35rem 0;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    header p {
+      margin: 0;
+      max-width: 760px;
+      color: rgba(245, 245, 245, 0.85);
+      font-size: 1rem;
+    }
+    .quick-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin: 1.25rem 0;
+    }
+    .quick-links a {
+      border-radius: 999px;
+      padding: 0.35rem 1rem;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      text-decoration: none;
+      color: #f5f5f5;
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      transition: background 0.3s ease;
+    }
+    .quick-links a:hover {
+      background: rgba(250, 204, 21, 0.18);
+    }
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.25rem;
+    }
+    .summary-card {
+      padding: 1.5rem;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    }
+    .summary-card h2 {
+      margin: 0 0 0.5rem;
+      font-size: 1.1rem;
+    }
+    .summary-card p {
+      margin: 0;
+      color: rgba(245, 245, 245, 0.7);
+      font-size: 0.95rem;
+    }
+    .summary-list {
+      margin: 0.8rem 0 0;
+      padding: 0;
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      font-size: 0.9rem;
+    }
+    .summary-list li {
+      color: rgba(245, 245, 245, 0.75);
+    }
+    .jobs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+    }
+    .job-card {
+      position: relative;
+      padding: 1.5rem;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      overflow: hidden;
+      min-height: 220px;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45);
+    }
+    .job-card::after {
+      content: '';
+      position: absolute;
+      inset: 1px;
+      border-radius: inherit;
+      pointer-events: none;
+      background: linear-gradient(135deg, rgba(250, 204, 21, 0.15), rgba(34, 197, 94, 0.08));
+      mask-image: linear-gradient(#000 0 0);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .job-card.highlight::after {
+      opacity: 1;
+    }
+    .job-card h3 {
+      margin: 0;
+      font-size: 1.25rem;
+    }
+    .job-role {
+      margin: 0;
+      color: rgba(245, 245, 245, 0.8);
+      font-size: 1rem;
+    }
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      font-size: 0.85rem;
+      color: rgba(245, 245, 245, 0.7);
+    }
+    .meta span {
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+    .status-pill {
+      align-self: flex-start;
+      padding: 0.35rem 0.9rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border: 1px solid transparent;
+    }
+    .status-pill.applied {
+      background: rgba(74, 222, 128, 0.15);
+      color: #86efac;
+      border-color: rgba(74, 222, 128, 0.45);
+    }
+    .status-pill.interview {
+      background: rgba(59, 130, 246, 0.18);
+      color: #93c5fd;
+      border-color: rgba(59, 130, 246, 0.45);
+    }
+    .status-pill.demo {
+      background: rgba(247, 171, 10, 0.2);
+      color: #fcd34d;
+      border-color: rgba(247, 171, 10, 0.45);
+    }
+    .notes {
+      margin: 0;
+      color: rgba(245, 245, 245, 0.75);
+      font-size: 0.9rem;
+    }
+    .timeline {
+      padding: 1.5rem;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(15, 23, 42, 0.8);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    }
+    .timeline h3 {
+      margin-top: 0;
+      margin-bottom: 0.75rem;
+    }
+    .timeline-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .timeline-list li {
+      font-size: 0.9rem;
+      color: rgba(245, 245, 245, 0.7);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 0.5rem;
+    }
+    .timeline-list li:last-child {
+      border-bottom: none;
+    }
+    footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      padding: 1.25rem 1.5rem;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.03);
+      margin-top: 1rem;
+    }
+    footer a {
+      color: #facc15;
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    @media (max-width: 640px) {
+      header h1 {
+        font-size: 2.5rem;
+      }
+      .meta {
+        flex-direction: column;
+        gap: 0.4rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="tagline">The Standard · Job Lounge</div>
+      <h1>Opportunity Suite</h1>
+      <p>Curated from your 2026 tracker, this suite keeps every Bangkok role in the same cinematic vibe as The Standard Mission Control. Pockets of light highlight the high-salary tenants and upcoming interviews while the grid shows every application lined up like bespoke rooms.</p>
+      <div class="quick-links">
+        <a href="mission-control-standard.html">Mission Control</a>
+        <a href="/world-hybrid">Office View</a>
+        <a href="mission-control-calendar.html">Calendar</a>
+      </div>
+    </header>
+
+    <section class="summary">
+      <article class="summary-card">
+        <h2>Pipeline Snapshot</h2>
+        <p>17 active applications across private schools, agencies, corporate training, and university roles.</p>
+        <ul class="summary-list">
+          <li>Highest offers: Assumption College Bangrak (75k), Srinakharinwirot University (65k + housing), BCC IEP (55-69k + bonus)</li>
+          <li>Corporate & training: Pandora Production, British Council, AUA, Schmoll Asia Pacific, PRTR</li>
+          <li>Location range: Surasak · Silom · Siam · Rama 3/Sathorn · Bangrak · Sukhumvit 64 · Rayong/Bangkok</li>
+        </ul>
+      </article>
+      <article class="summary-card">
+        <h2>Highlight Suite</h2>
+        <p>These need more than just “applied.”</p>
+        <ul class="summary-list">
+          <li>BCC IEP (G9-10) → Interview Friday Mar 6, 2pm (Surasa BTS)</li>
+          <li>Creative Writing/Journalism (EPL) → 20-minute demo to reschedule Mon/Tue; asked for 45k+</li>
+          <li>Job fairs & follow-ups → Essential Staffing, PRTR, Modulo, Anglo Singapore (Hail Mary push)</li>
+        </ul>
+      </article>
+      <article class="summary-card">
+        <h2>Next Moves</h2>
+        <p>Keep these scheduled in your calendar so nothing cool slips off the list.</p>
+        <ul class="summary-list">
+          <li>Confirm demo link/time for Creative Writing/Journalism next Monday.</li>
+          <li>Prep BCC IEP interview materials, make sure suite is polished for Fri 6 Mar.</li>
+          <li>Follow up with AUA and Pandora for corporate training & L&D clarity.</li>
+        </ul>
+      </article>
+    </section>
+
+    <section class="timeline">
+      <h3>Application Status Timeline</h3>
+      <ul class="timeline-list">
+        <li><span>Applied (most roles)</span><strong>17</strong></li>
+        <li><span>Interview scheduled</span><strong>1</strong></li>
+        <li><span>Demo pending</span><strong>1</strong></li>
+        <li><span>Follow-up window</span><strong>6+</strong></li>
+      </ul>
+    </section>
+
+    <section class="jobs-grid">
+      <article class="job-card">
+        <h3>BCC EIP (EP program)</h3>
+        <p class="job-role">English Teacher (EP, multi-subject)</p>
+        <div class="meta">
+          <span>Applied Feb 7</span>
+          <span>Salary 59-75k</span>
+          <span>Location Surasak BTS</span>
+        </div>
+        <span class="status-pill applied">Applied</span>
+        <p class="notes">English Immersion Program — higher-tier opportunity for multi-subject support.</p>
+      </article>
+      <article class="job-card">
+        <h3>Essential Staffing</h3>
+        <p class="job-role">Secondary English (agency)</p>
+        <div class="meta">
+          <span>Applied Feb 7</span>
+          <span>Salary TBD</span>
+          <span>Location Silom area</span>
+        </div>
+        <span class="status-pill applied">Applied</span>
+        <p class="notes">Agency application—waiting to hear back on placements.</p>
+      </article>
+      <article class="job-card">
+        <h3>Wall Street English</h3>
+        <p class="job-role">English Teacher</p>
+        <div class="meta">
+          <span>Applied Feb 9</span>
+          <span>Salary TBD</span>
+        </div>
+        <span class="status-pill applied">Applied</span>
+        <p class="notes">Adult learners focus—location TBD but strong name recognition.</p>
+      </article>
+      <article class="job-card">
+        <h3>EduFirst</h3>
+        <p class="job-role">Business English (break work)</p>
+        <div class="meta">
+          <span>Applied Feb 14</span>
+          <span>Rate 400/hr</span>
+          <span>Location Siam</span>
+        </div>
+        <span class="status-pill applied">Applied</span>
+        <p class="notes">Side income during break, flexible hours.</p>
+      </article>
+      <article class="job-card">
+        <h3>PRTR / Learning Designer</h3>
+        <p class="job-role">Learning Designer</p>
+        <div class="meta">
+          <span>Applied Feb 15</span>
+          <span>Salary TBD</span>
+          <span>Location Phrom Phong</span>
+        </div>
+        <span class="status-pill applied">Applied</span>
+        <p class="notes">Via JobsDB—PDPA consent already provided.</p>
+      </article>
+      <article class="job-card">
+        <h3>PRTR general</h3>
+        <p class="job-role">Agency recruitment</p>
+        <div class="meta">
+          <span>Applied Feb 15</span>
+          <span>Salary TBD</span>
+        </div>
+        <span class="status-pill applied">Applied</span>
+        <p class="notes">PDPA consent received—awaiting next steps.</p>
+      </article>
+      <article class="job-card">
+        <h3>British Council</h3>
+        <p class="job-role">Hourly Paid Instructor</p>
+        <div class="meta">
+          <span>Applied Feb 15</span>
+          <span>Rate 1000/hr</span>
+        </div>
+        <span class="status-pill applied">Applied</span>
+        <p class="notes">Prefers CELTA-certified folks but open to strong demos.</p>
+      </article>
+      <article class="job-card">
+        <h3>Schmoll Asia Pacific</h3>
+        <p class="job-role">In-House English Teacher</p>
+        <div class="meta">
+          <span>Applied Feb 18</span>
+          <span>Salary 55k+</span>
+          <span>Location Rama 3 / Sathorn</span>
+        </div>
+        <span class="status-pill applied">Applied</span>
+        <p class="notes">Corporate clients, engineers—bilingual team vibe.</p>
+      </article>
+      <article class="job-card">
+        <h3>Y Learning (Thailand)</h3>
+        <p class="job-role">Test Prep Tutor</p>
+        <div class="meta">
+          <span>Applied Feb 18</span>
+          <span>Rate 600/hr</span>
+          <span>Location Siam area</span>
+        </div>
+        <span class="status-pill applied">Applied</span>
+        <p class="notes">Part-time tutoring with test prep focus.</p>
+      </article>
+      <article class="job-card">
+        <h3>Pandora Production Co.</h3>
+        <p class="job-role">L&D / English Trainer</p>
+        <div class="meta">
+          <span>Applied Feb 19</span>
+          <span>Salary 60k</span>
+          <span>Location Prawet (hybrid)</span>
+        </div>
+        <span class="status-pill applied">Applied</span>
+        <p class="notes">Blends HR and training, hybrid schedule.</p>
+      </article>
+      <article class="job-card">
+        <h3>Modulo School</h3>
+        <p class="job-role">NES English Teacher</p>
+        <div class="meta">
+          <span>Applied Feb 19</span>
+          <span>Salary 45-60k</span>
+        </div>
+        <span class="status-pill applied">Applied</span>
+        <p class="notes">Multiple branches—flexible placement possibilities.</p>
+      </article>
+      <article class="job-card">
+        <h3>Assumption College Bangrak</h3>
+        <p class="job-role">Secondary English Teacher</p>
+        <div class="meta">
+          <span>Applied Mar 1</span>
+          <span>Salary 75k</span>
+          <span>Location Bangrak</span>
+        </div>
+        <span class="status-pill applied">Applied</span>
+        <p class="notes">Double down on the elite boys' school energy.</p>
+      </article>
+      <article class="job-card">
+        <h3>AUA</h3>
+        <p class="job-role">Corporate English Trainer</p>
+        <div class="meta">
+          <span>Applied Mar 1</span>
+          <span>Salary TBD</span>
+          <span>Location Rayong / Bangkok</span>
+        </div>
+        <span class="status-pill applied">Applied</span>
+        <p class="notes">Part-time corporate training unit, good networking runway.</p>
+      </article>
+      <article class="job-card highlight">
+        <h3>Creative Writing / Journalism (EPL)</h3>
+        <p class="job-role">High School English Teacher</p>
+        <div class="meta">
+          <span>Applied Mar 1</span>
+          <span>Asked >45k</span>
+        </div>
+        <span class="status-pill demo">Demo</span>
+        <p class="notes">Online 20-min demo to reschedule Monday or Tuesday.</p>
+      </article>
+      <article class="job-card highlight">
+        <h3>BCC IEP (G9-10)</h3>
+        <p class="job-role">English Teacher (IEP)</p>
+        <div class="meta">
+          <span>Applied Mar 1</span>
+          <span>Salary 55-69k + 40k bonus</span>
+          <span>Location Surasak BTS</span>
+        </div>
+        <span class="status-pill interview">Interview</span>
+        <p class="notes">Interview Friday Mar 6 at 2pm — prepare IEP pitch & materials.</p>
+      </article>
+      <article class="job-card">
+        <h3>Srinakharinwirot University</h3>
+        <p class="job-role">NES English / SAT</p>
+        <div class="meta">
+          <span>Applied Mar 3</span>
+          <span>Salary 65k (55k + 10k housing)</span>
+          <span>Location Prasarnmit / Asok</span>
+        </div>
+        <span class="status-pill applied">Applied</span>
+        <p class="notes">University-level role with housing stipend.</p>
+      </article>
+      <article class="job-card">
+        <h3>Anglo Singapore</h3>
+        <p class="job-role">Secondary Core English</p>
+        <div class="meta">
+          <span>Applied Mar 4</span>
+          <span>Salary TBD</span>
+          <span>Location Sukhumvit 64</span>
+        </div>
+        <span class="status-pill applied">Applied</span>
+        <p class="notes">Hail Mary submission—big campus energy.</p>
+      </article>
+    </section>
+
+    <footer>
+      <div>
+        The Standard Job Lounge · Styled for Bangkok applications and hotel-grade polish.
+      </div>
+      <a href="mission-control-widget.html">Return to the lobby</a>
+    </footer>
+  </div>
+</body>
+</html>

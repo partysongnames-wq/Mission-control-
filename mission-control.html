@@ -201,6 +201,54 @@
       font-size:.9rem;
       color:#7ce7c8;
     }
+    .incident-log {
+      margin-top:20px;
+      border-radius:20px;
+      border:1px solid rgba(255,255,255,.08);
+      padding:18px;
+      background:rgba(255,255,255,.02);
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+    }
+    .incident-log h3 {
+      margin:0;
+      letter-spacing:.3em;
+      text-transform:uppercase;
+      font-size:.85rem;
+      color:var(--accent);
+    }
+    .incident-log .log-subtitle {
+      margin:0;
+      color:var(--muted);
+      font-size:.85rem;
+      letter-spacing:.08em;
+    }
+    .log-row {
+      display:flex;
+      justify-content:space-between;
+      flex-wrap:wrap;
+      gap:12px;
+      align-items:center;
+      font-size:.85rem;
+    }
+    .log-label {
+      font-size:.75rem;
+      letter-spacing:.3em;
+      text-transform:uppercase;
+      color:var(--accent2);
+    }
+    .log-detail {
+      flex:1;
+      font-size:.85rem;
+      color:var(--text);
+    }
+    .log-duration {
+      font-size:.75rem;
+      letter-spacing:.25em;
+      text-transform:uppercase;
+      color:#ffb347;
+    }
     .footer { display:flex; justify-content:space-between; font-size:.78rem; color:var(--muted); }
   </style>
 </head>
@@ -213,7 +261,7 @@
       <button onclick="window.location.href='/health';">Health</button>
       <button onclick="window.location.href='/world-hybrid';">Office World</button>
       <button onclick="window.location.href='/team';">Agents</button>
-      <button onclick="window.location.href='/office';">Office</button>
+      <button onclick="window.location.href='/world-hybrid';">Office</button>
       <button onclick="window.location.href='/mission-control-roster.html';">Team Roster</button>
       <div class="divider"></div>
       <p style="font-size:.85rem; color:#7c879c;">Concierge dashboard · Tap a card when you need service.</p>
@@ -300,6 +348,15 @@
           <p class="time">Anytime</p>
           <p class="detail">Memory Snapshot — store a lyric or reminder before it disappears.</p>
           <button onclick="runAction('memory')">Store Memory</button>
+        </div>
+      </div>
+      <div class="incident-log">
+        <h3>Connection health</h3>
+        <p class="log-subtitle">Most recent interruption: OAuth refresh caused the Telegram session to drop. The helper recovered automatically once the new token arrived.</p>
+        <div class="log-row">
+          <span class="log-label">Offline</span>
+          <span class="log-detail">01:55 → 02:15 · Telegram token refresh</span>
+          <span class="log-duration">~20 min</span>
         </div>
       </div>
       <div class="status" id="status">Ready</div>
