@@ -272,6 +272,7 @@
           </div>
           <nav class="nav">
             <a href="/world-topdown">Top‑Down</a>
+            <a href="#" id="teaNav" style="border-color:rgba(245,156,0,.35);">Tea Party</a>
             <a href="/world">World</a>
             <a href="/health">Health</a>
             <a href="/mission-control.html">Mission Control</a>
@@ -841,6 +842,14 @@
     // modal wiring (after DOM is ready)
     const closeBtn = document.getElementById('askClose');
     const chatTab = document.getElementById('chatTab');
+    const teaNav = document.getElementById('teaNav');
+    if (teaNav) teaNav.addEventListener('click', async (e) => {
+      e.preventDefault();
+      const old = teaNav.textContent;
+      teaNav.textContent = 'Starting…';
+      try { await fetch('/api/tea/run', {method:'POST'}); } catch(err) {}
+      setTimeout(() => { teaNav.textContent = old; }, 1500);
+    });
     const chatClose = document.getElementById('chatClose');
     const chatModal = document.getElementById('chatModal');
     if (chatTab) chatTab.addEventListener('click', openChatModal);
