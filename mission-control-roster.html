@@ -253,7 +253,7 @@
             </div>
             <div class="status-pill ${stateClass}">${state === 'running' ? 'Working now' : detail}</div>
             <div class="actions">
-              ${agent.action ? `<button onclick=\"trigger('`+agent.action+`')\">Trigger ${agent.name}</button>` : `<button disabled style=\"opacity:.5;cursor:default;\">Director</button>`}
+              ${agent.action ? `<button onclick=\"trigger('`+agent.action+`')\">Trigger ${agent.nickname || agent.name}</button>` : `<button disabled style=\"opacity:.5;cursor:default;\">Director</button>`}
             </div>
           </article>
         `;
