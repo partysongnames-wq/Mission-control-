@@ -746,21 +746,21 @@ def api_cooler_run():
 
             r1 = {}
             for a in people:
-                r1[a] = ask(a, f"You are {a}. Water Cooler topic: {focus}. Give ONE idea in 2-3 lines max. If missing context, ask ONE question.")
+                r1[a] = ask(a, f"You are {a}. Water Cooler topic: {focus}. Be friendly + smart. 2-4 lines. One useful idea, plus optional dry/witty aside (no forced jokes). If missing key info, ask ONE question.")
 
             # Round 2: light crossover questioning
             cross = {}
-            cross['jaz->holly'] = ask('jaz', f"Holly said:\n{r1.get('holly', '')}\n\nQuestion it in 2 lines: what's weak/assumption? how to improve.")
-            cross['clawd->joe'] = ask('clawd', f"Joe said:\n{r1.get('joe', '')}\n\nQuestion it in 2 lines: make it more human + reduce clutter.")
-            cross['tj->jaz'] = ask('tj', f"Jaz said:\n{r1.get('jaz', '')}\n\nQuestion it in 2 lines: add one gentle wellbeing/pacing tweak.")
+            cross['jaz->holly'] = ask('jaz', f"Holly said:\n{r1.get('holly', '')}\n\nGive a friendly 1-2 line challenge (dry/witty ok): what's the one assumption? what's the tiny tweak that makes it better?")
+            cross['clawd->joe'] = ask('clawd', f"Joe said:\n{r1.get('joe', '')}\n\n1-2 lines: make it more human + less clutter. Add a tasteful joke if it naturally fits.")
+            cross['tj->jaz'] = ask('tj', f"Jaz said:\n{r1.get('jaz', '')}\n\n1-2 lines: add a gentle pacing/wellbeing tweak. Friendly tone; one light joke only if natural.")
 
             # Yoko synthesis
             yoko_prompt = (
-                "You are Yoko. Summarize this Water Cooler in a Telegram-friendly format (<= ~45 lines, <= 5 min read):\n"
-                "- 3-6 bullets: best ideas (tag who)\n"
-                "- 2-3 crossover lines: who challenged what + improved version\n"
-                "- Decisions needed (if any)\n"
-                "- Next actions (1 line per person)\n\n"
+                "You are Yoko. Write a Telegram summary that feels like a smart friend recapping a quick, playful Water Cooler chat (dry/witty but not snarky). Keep it <= ~35 lines and <= 5 min read:\n"
+                "- Best bits (3-6 bullets) with who said it\n"
+                "- The one good disagreement (1-2 lines): who challenged what + the improved version\n"
+                "- Decisions Trent needs (if any)\n"
+                "- Next moves (1 short line per person)\n\n"
                 f"Topic: {focus}\n\n"
                 f"Round1:\nHolly: {r1.get('holly','')}\nJaz: {r1.get('jaz','')}\nJoe: {r1.get('joe','')}\nTJ: {r1.get('tj','')}\nClawd: {r1.get('clawd','')}\n\n"
                 f"Crossover:\nJaz->Holly: {cross.get('jaz->holly','')}\nClawd->Joe: {cross.get('clawd->joe','')}\nTJ->Jaz: {cross.get('tj->jaz','')}\n"
