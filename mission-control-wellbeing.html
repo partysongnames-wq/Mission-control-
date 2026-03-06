@@ -108,12 +108,16 @@
 
     <main>
       <section class="card">
-        <h2>Thai word of the day</h2>
+        <div class="row" style="justify-content:space-between; align-items:center; margin-bottom:6px;">
+          <h2 style="margin:0;">Thai word of the day</h2>
+          <button class="btn ghost" id="saveWodBtn" title="Save today’s word into your glossary">Save to glossary</button>
+        </div>
         <div class="thaiWord">
           <div class="thaiRoman mono" id="wRoman">—</div>
           <div class="thaiScript" id="wScript">—</div>
           <div class="thaiMeta" id="wMeaning">—</div>
           <div class="thaiMeta" id="wExample">—</div>
+          <div class="thaiMeta" id="wodStatus" style="min-height:1.2em;"></div>
         </div>
       </section>
 
@@ -200,6 +204,27 @@
     render();
   }
 
+  async function saveWodToGlossary(){
+    const w = state?.thai?.wordOfDay;
+    const el = document.getElementById('wodStatus');
+    if (!w?.thai || !w?.roman || !w?.meaning){
+      el.textContent = 'No word to save yet.';
+      return;
+    }
+    el.textContent = 'Saving…';
+    try{
+      await fetch('/api/wellbeing/thai/add', {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({thai: w.thai, roman: w.roman, meaning: w.meaning, example: w.example || ''})
+      });
+      el.textContent = 'Saved to glossary.';
+      await refresh();
+    }catch(e){
+      el.textContent = 'Save failed.';
+    }
+  }
+
   async function saveWord(){
     const thai = (document.getElementById('inThai').value || '').trim();
     const roman = (document.getElementById('inRoman').value || '').trim();
@@ -221,6 +246,7 @@
   }
 
   document.getElementById('refreshBtn').addEventListener('click', refresh);
+  document.getElementById('saveWodBtn').addEventListener('click', saveWodToGlossary);
   document.getElementById('q').addEventListener('input', render);
   document.getElementById('addBtn').addEventListener('click', openAdd);
   document.getElementById('closeAdd').addEventListener('click', closeAdd);
