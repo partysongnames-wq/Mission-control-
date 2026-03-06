@@ -70,9 +70,11 @@
     .btn.ghost{background:rgba(255,255,255,.10); color:var(--text); border:1px solid rgba(255,255,255,.14);}    
 
     .thaiWord{display:grid; grid-template-columns: 1fr; gap:8px;}
-    .thaiScript{font-size:2rem; font-weight:900; letter-spacing:.04em;}
-    .thaiRoman{font-size:1.05rem; color:rgba(255,255,255,.88);}
+    /* Romanization is the primary readable line (tone marks). */
+    .thaiRoman{font-size:1.45rem; font-weight:900; color:rgba(255,255,255,.92);}
+    .thaiScript{font-size:1.7rem; font-weight:900; letter-spacing:.04em; opacity:.95;}
     .thaiMeta{color:var(--muted); line-height:1.35;}
+    .exampleRow{color:rgba(255,255,255,.82); font-size:.9rem; padding-top:0;}
 
     table{width:100%; border-collapse:collapse;}
     th,td{padding:10px 10px; border-bottom:1px solid rgba(255,255,255,.08); text-align:left; vertical-align:top;}
@@ -108,8 +110,8 @@
       <section class="card">
         <h2>Thai word of the day</h2>
         <div class="thaiWord">
-          <div class="thaiScript" id="wScript">—</div>
           <div class="thaiRoman mono" id="wRoman">—</div>
+          <div class="thaiScript" id="wScript">—</div>
           <div class="thaiMeta" id="wMeaning">—</div>
           <div class="thaiMeta" id="wExample">—</div>
         </div>
@@ -125,8 +127,8 @@
           <table>
             <thead>
               <tr>
-                <th>Thai</th>
                 <th>Roman (tone)</th>
+                <th>Thai</th>
                 <th>Meaning</th>
               </tr>
             </thead>
@@ -185,7 +187,10 @@
     }
 
     for (const w of filtered){
-      rows.innerHTML += `<tr><td style="font-weight:900;">${w.thai || ''}</td><td class="mono">${w.roman || ''}</td><td>${w.meaning || ''}</td></tr>`;
+      rows.innerHTML += `<tr><td class="mono" style="font-weight:900;">${w.roman || ''}</td><td style="font-weight:900;">${w.thai || ''}</td><td>${w.meaning || ''}</td></tr>`;
+      if (w.example){
+        rows.innerHTML += `<tr><td colspan="3" class="exampleRow">Example: ${w.example}</td></tr>`;
+      }
     }
   }
 
