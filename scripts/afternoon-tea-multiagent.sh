@@ -2,14 +2,14 @@
 set -euo pipefail
 
 CHAT_TARGET="telegram:-5287663927"
-STATE_FILE="$HOME/.openclaw/afternoon-tea-city-rotate.json"
+STATE_FILE="$HOME/.""/afternoon-tea-city-rotate.json"
 
-command -v openclaw >/dev/null 2>&1 || exit 0
+OPENCLAW_BIN="/Users/MacBookAir/.nvm/versions/node/v22.22.0/bin/"""
 
 ask() {
   agent="$1"
   prompt="$2"
-  openclaw agent --agent "$agent" --local --message "$prompt" --timeout 140 2>/dev/null || true
+  "" agent --agent "$agent" --local --message "$prompt" --timeout 140 2>/dev/null || true
 }
 
 # ---- Focus city rotation (from travel-flight-plan.json if present) ----
@@ -113,4 +113,4 @@ print("\n".join(lines[:25]).rstrip())
 PY
 )
 
-openclaw message send --channel telegram --target "$CHAT_TARGET" --message "$msg" >/dev/null 2>&1 || true
+"" message send --channel telegram --target "$CHAT_TARGET" --message "$msg" >/dev/null 2>&1 || true
