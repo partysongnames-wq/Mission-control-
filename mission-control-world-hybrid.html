@@ -206,6 +206,9 @@
     .prop.pool{background:linear-gradient(180deg,rgba(16,163,127,.18),rgba(0,0,0,.18));}
     .prop.cooler{background:linear-gradient(180deg,rgba(170,220,255,.14),rgba(0,0,0,.18));}
     .prop.cooler::after{border-radius:18px;}
+    @keyframes coolerPulse{0%{box-shadow:0 0 0 0 rgba(170,220,255,.18);}70%{box-shadow:0 0 0 18px rgba(170,220,255,0);}100%{box-shadow:0 0 0 0 rgba(170,220,255,0);}}
+    .prop.cooler.active{animation:coolerPulse 1.4s ease-out infinite;}
+
 
 
     /* icon-only tokens */
@@ -511,6 +514,10 @@
   let lastActivity = Date.now();
   let directorOut = false;
 
+  let coolerMode = false;
+  let coolerUntil = 0;
+
+
   const actionToAgent = {watch:'yoko', memory:'holly', manifesto:'jaz', sidejobs:'joe', travel:'tj', clawd:'clawd'};
 
   function log(line){
@@ -724,7 +731,12 @@
     b._t = setTimeout(() => b.classList.remove('show'), 120000);
   }
 
-  function moveToken(key, mode){
+  
+    // small per-agent jitter at the cooler so avatars don't stack
+    const coolerJitter = {
+      holly:{dx:-4,dy:-10}, jaz:{dx:6,dy:-6}, joe:{dx:8,dy:8}, tj:{dx:-6,dy:10}, clawd:{dx:-12,dy:2}, yoko:{dx:0,dy:0}
+    };
+function moveToken(key, mode){
     const token = document.getElementById(`wrap-${key}`);
     if (!token) return;
     const p = layout.tokens[key] || {};
@@ -735,10 +747,17 @@
       && !(Math.abs(persistedRaw.x - 0.88) < 0.001 && Math.abs(persistedRaw.y - 0.5) < 0.001 && key !== 'yoko'))
       ? persistedRaw : null;
     const idlePos = persisted ? {x: String(Math.round(persisted.x*100)) + '%', y: String(Math.round(persisted.y*100)) + '%'} : p.idle;
-    const target = (mode === 'running') ? p.active : (mode === 'bed') ? {x:'88%',y:'88%'} : (mode === 'sofa') ? {x:'50%',y:'52%'} : idlePos;
+    const target = (mode === 'running') ? p.active       : (mode === 'cooler') ? ({x:'12%', y:'52%'})       : (mode === 'bed') ? {x:'88%',y:'88%'}       : (mode === 'sofa') ? {x:'50%',y:'52%'}       : idlePos;
     if (!target) return;
-    token.style.left = target.x;
-    token.style.top = target.y;
+    let x = target.x, y = target.y;
+    if (mode === 'cooler'){
+      const j = coolerJitter[key] || {dx:0,dy:0};
+      // convert percent strings to numbers, add px jitter via calc
+      x = `calc(${target.x} + ${j.dx}px)`;
+      y = `calc(${target.y} + ${j.dy}px)`;
+    }
+    token.style.left = x;
+    token.style.top = y;
     token.classList.toggle('active', mode === 'running');
   }
 
@@ -870,7 +889,9 @@
       if (desk) desk.classList.toggle('active', running);
 
       // move token subtly between idle/active
-      const mode = running ? 'running' : (pct >= 0.85 ? 'bed' : (pct >= 0.70 ? 'sofa' : 'idle'));
+      const now = Date.now();
+      if (coolerMode && now > coolerUntil) { coolerMode = false; }
+      const mode = running ? 'running' : (coolerMode && a.key !== 'trent' ? 'cooler' : (pct >= 0.85 ? 'bed' : (pct >= 0.70 ? 'sofa' : 'idle')));
       moveToken(a.key, mode);
 
     }
@@ -907,6 +928,12 @@
     if (coolerBtn) coolerBtn.addEventListener('click', async () => {
       const topic = prompt('Water Cooler topic (optional):', '');
       coolerBtn.textContent = 'Starting…';
+      coolerMode = true;
+      coolerUntil = Date.now() + (4 * 60 * 1000); // keep them at the cooler for ~4 min
+      const coolerProp = document.querySelector('.prop.cooler');
+      if (coolerProp) coolerProp.classList.add('active');
+      setTimeout(() => { if (coolerProp) coolerProp.classList.remove('active'); }, 4*60*1000);
+      refresh();
       try {
         await fetch('/api/cooler/run', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({topic: topic || 'Water Cooler'})});
       } catch (e) {}
