@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+OPENCLAW_BIN="/Users/MacBookAir/.nvm/versions/node/v22.22.0/bin/openclaw"
+# Make sure relative paths resolve for edits inside /Users/MacBookAir/clawd
+cd /Users/MacBookAir/clawd
+
 # Runs a single "cycle" for one agent and posts the result into Office World notes.
 # Usage: office-cycle-runner.sh <agent>
 
@@ -96,7 +100,7 @@ P
 PROMPT="$(prompt_for "$AGENT")"
 
 # Run agent
-OUT=$(openclaw agent --agent "$AGENT" --local --message "$PROMPT" --timeout 300 2>&1 || true)
+OUT=$("$OPENCLAW_BIN" agent --agent "$AGENT" --local --message "$PROMPT" --timeout 300 2>&1 || true)
 
 # Keep notes tidy
 OUT_TRIM=$(python3 - <<'PY' "$OUT"
