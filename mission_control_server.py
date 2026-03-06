@@ -183,6 +183,7 @@ COMMANDS: Dict[str, str] = {
     "watch": "openclaw agent --local --agent super-jobs --message \"Refresh travel alert for Bangkok to Japan routes.\"",
     "pricewatch": "openclaw cron run d39d96cc-b37b-4cd6-9ff9-2c0bc2b39c9e --expect-final --timeout 600000",
     "deals": "bash -lc \"openclaw cron run d39d96cc-b37b-4cd6-9ff9-2c0bc2b39c9e --expect-final --timeout 600000 && /Library/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python deals_radar.py\"",
+    "hotelwatch": "bash -lc \"/Library/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python hotel_watch.py\"",
 }
 
 AGENT_DISPATCH: Dict[str, str] = {
@@ -203,6 +204,7 @@ statuses = {
     "watch": {"label": "Travel Watch", "state": "idle", "detail": "Last run: none"},
     "pricewatch": {"label": "Price Check Now", "state": "idle", "detail": "Last run: none"},
     "deals": {"label": "Deals Radar", "state": "idle", "detail": "Last run: none"},
+    "hotelwatch": {"label": "Hotel Check Now", "state": "idle", "detail": "Last run: none"},
 }
 
 HTML_PAGES = {p.name for p in BASE_DIR.glob("*.html")}
@@ -724,6 +726,63 @@ def api_wellbeing_thai_add():
 def wellbeing_page():
     return redirect('/mission-control-wellbeing.html')
 
+
+
+@app.route('/api/cooler/run', methods=['POST'])
+def api_cooler_run():
+    payload = request.get_json(silent=True) or {}
+    topic = (payload.get('topic') or 'Water Cooler').strip()[:80]
+
+    def _run():
+        try:
+            focus = topic
+            people = ['holly', 'jaz', 'joe', 'tj', 'clawd']
+
+            def ask(agent: str, prompt: str, timeout: int = 140) -> str:
+                # Use OpenClaw CLI; keep it robust in launchd-like envs.
+                oc = '/Users/MacBookAir/.nvm/versions/node/v22.22.0/bin/openclaw'
+                cmd = [oc, 'agent', '--agent', agent, '--local', '--message', prompt, '--timeout', str(timeout)]
+                return subprocess.run(cmd, capture_output=True, text=True, timeout=timeout + 30).stdout.strip()
+
+            r1 = {}
+            for a in people:
+                r1[a] = ask(a, f"You are {a}. Water Cooler topic: {focus}. Give ONE idea in 2-3 lines max. If missing context, ask ONE question.")
+
+            # Round 2: light crossover questioning
+            cross = {}
+            cross['jaz->holly'] = ask('jaz', f"Holly said:\n{r1.get('holly', '')}\n\nQuestion it in 2 lines: what's weak/assumption? how to improve.")
+            cross['clawd->joe'] = ask('clawd', f"Joe said:\n{r1.get('joe', '')}\n\nQuestion it in 2 lines: make it more human + reduce clutter.")
+            cross['tj->jaz'] = ask('tj', f"Jaz said:\n{r1.get('jaz', '')}\n\nQuestion it in 2 lines: add one gentle wellbeing/pacing tweak.")
+
+            # Yoko synthesis
+            yoko_prompt = (
+                "You are Yoko. Summarize this Water Cooler in a Telegram-friendly format (<= ~45 lines, <= 5 min read):\n"
+                "- 3-6 bullets: best ideas (tag who)\n"
+                "- 2-3 crossover lines: who challenged what + improved version\n"
+                "- Decisions needed (if any)\n"
+                "- Next actions (1 line per person)\n\n"
+                f"Topic: {focus}\n\n"
+                f"Round1:\nHolly: {r1.get('holly','')}\nJaz: {r1.get('jaz','')}\nJoe: {r1.get('joe','')}\nTJ: {r1.get('tj','')}\nClawd: {r1.get('clawd','')}\n\n"
+                f"Crossover:\nJaz->Holly: {cross.get('jaz->holly','')}\nClawd->Joe: {cross.get('clawd->joe','')}\nTJ->Jaz: {cross.get('tj->jaz','')}\n"
+            )
+            summary = ask('yoko', yoko_prompt, timeout=180)
+
+            # Post summary into Office Chat + Telegram
+            try:
+                _world_chat_post('yoko', None, 'water-cooler', f"{focus}:\n" + ((summary[:1800] + '…') if summary and len(summary) > 1800 else (summary or 'done')))
+            except Exception:
+                pass
+
+            _send_telegram_message(f"Water Cooler · {focus}\n\n{summary or '(no summary generated)'}")
+
+        except Exception as e:
+            try:
+                _world_note('yoko', f"cooler: error: {e}", level='error')
+            except Exception:
+                pass
+
+    threading.Thread(target=_run, daemon=True).start()
+    return jsonify(success=True, started=True, topic=topic)
 
 @app.route('/api/tea/run', methods=['POST'])
 def api_tea_run():
