@@ -830,11 +830,14 @@ function moveToken(key, mode){
       const pct = match ? (match.percent || 0) : 0;
 
       // Speech bubble on new answers/errors
-      const newest = (worldState && worldState.notes && worldState.notes[a.key] && worldState.notes[a.key][0]) ? worldState.notes[a.key][0] : null;
+      const arrNotes = (worldState && worldState.notes && worldState.notes[a.key]) ? worldState.notes[a.key] : null;
+      const newest = (arrNotes && arrNotes.length) ? arrNotes[arrNotes.length - 1] : null;
       if (newest){
         const sig = (newest.ts || '') + '|' + (newest.note || '');
         if (lastNoteSeen[a.key] && sig !== lastNoteSeen[a.key]){
-          if (['answer','error','needs_approval'].includes((newest.level||'').toLowerCase())){
+          const lvl = (newest.level||'').toLowerCase();
+          const noteText = (newest.note||'');
+          if (['answer','error','needs_approval'].includes(lvl) || (lvl === 'info' && noteText.startsWith('cooler:'))){
             showBubble(a.key, newest.note || '');
           }
         }
