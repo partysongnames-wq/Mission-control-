@@ -560,6 +560,7 @@
               <div class="gauge"><div class="bar" id="cbar-${a.key}"></div></div>
             </div>
             <div class="mini" id="cstate-${a.key}">${a.action ? 'idle' : 'command'}</div>
+            <div class="mini" id="cpct-${a.key}" style="min-width:42px; text-align:right; opacity:.9;">—</div>
           </div>
           <div class="c-row" style="margin-top:8px;">
             <div class="hint" id="clast-${a.key}" style="font-size:.75rem;">—</div>
@@ -860,11 +861,15 @@ function moveToken(key, mode){
       }
       if (tok){
         tok.textContent = (used!=null && limit!=null)
-          ? `Tokens ${used.toLocaleString()} / ${limit.toLocaleString()} (${Math.round(pct*100)}%)`
+          ? `Tokens ${used.toLocaleString()} / ${limit.toLocaleString()}`
           : 'Tokens —';
       }
+      const pctEl = document.getElementById(`pct-${a.key}`);
+      if (pctEl) pctEl.textContent = `${Math.round(pct*100)}%`;
 
       // rail gauge
+      const cpct = document.getElementById(`cpct-${a.key}`);
+      if (cpct) cpct.textContent = `${Math.round(pct*100)}%`;
       const cbar = document.getElementById(`cbar-${a.key}`);
       if (cbar){
         const kind = pctColor(pct);
