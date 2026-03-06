@@ -231,7 +231,7 @@ def serve_asset(filename: str):
 def _fetch_sessions_json() -> List[Dict]:
     try:
         proc = subprocess.run(
-            ["openclaw", "sessions", "--json"],
+            ['/Users/MacBookAir/.nvm/versions/node/v22.22.0/bin/openclaw', 'sessions', '--all-agents', '--json'],
             cwd=str(BASE_DIR),
             capture_output=True,
             text=True,
@@ -274,7 +274,7 @@ def fetch_token_usage() -> List[Dict]:
             }
         )
     usage.sort(key=lambda entry: entry["percent"], reverse=True)
-    return usage[:5]
+    return usage[:200]
 
 
 def set_status(action: str, state: str, detail: str) -> None:
