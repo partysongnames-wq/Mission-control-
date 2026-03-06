@@ -824,8 +824,9 @@ function moveToken(key, mode){
 
     const hot = [];
     for (const a of agents){
-      const match = sessions.find(s => (s.label||'').toLowerCase().includes(a.name.toLowerCase()))
+      const match = sessions.find(s => (s.agentId||'').toLowerCase() === a.key)
                  || sessions.find(s => (s.label||'').toLowerCase().includes(a.key))
+                 || sessions.find(s => (s.label||'').toLowerCase().includes(a.name.toLowerCase()))
                  || null;
       const pct = match ? (match.percent || 0) : 0;
 
