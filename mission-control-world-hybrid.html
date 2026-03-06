@@ -722,7 +722,12 @@
     const token = document.getElementById(`wrap-${key}`);
     if (!token) return;
     const p = layout.tokens[key] || {};
-    const persisted = (worldState && worldState.positions && worldState.positions[key]) ? worldState.positions[key] : null;
+    const persistedRaw = (worldState && worldState.positions && worldState.positions[key]) ? worldState.positions[key] : null;
+    // If a bunch of tokens get auto-returned to the same fallback (0.88, 0.5), they stack and look "missing".
+    // Treat that specific coordinate as non-persisted so tokens snap back to their designed idle layout.
+    const persisted = (persistedRaw && typeof persistedRaw.x === 'number' && typeof persistedRaw.y === 'number'
+      && !(Math.abs(persistedRaw.x - 0.88) < 0.001 && Math.abs(persistedRaw.y - 0.5) < 0.001 && key !== 'yoko'))
+      ? persistedRaw : null;
     const idlePos = persisted ? {x: String(Math.round(persisted.x*100)) + '%', y: String(Math.round(persisted.y*100)) + '%'} : p.idle;
     const target = (mode === 'running') ? p.active : (mode === 'bed') ? {x:'88%',y:'88%'} : (mode === 'sofa') ? {x:'50%',y:'52%'} : idlePos;
     if (!target) return;
