@@ -748,11 +748,24 @@ def api_cooler_run():
             for a in people:
                 r1[a] = ask(a, f"You are {a}. Water Cooler topic: {focus}. Be friendly + smart. 2-4 lines. One useful idea, plus optional dry/witty aside (no forced jokes). If missing key info, ask ONE question.")
 
+            # Post each person's line into Office World notes so speech bubbles can appear client-side
+            for a in people:
+                try:
+                    _world_note(a, 'cooler: ' + (r1.get(a) or ''), level='answer')
+                except Exception:
+                    pass
+
             # Round 2: light crossover questioning
             cross = {}
             cross['jaz->holly'] = ask('jaz', f"Holly said:\n{r1.get('holly', '')}\n\nGive a friendly 1-2 line challenge (dry/witty ok): what's the one assumption? what's the tiny tweak that makes it better?")
             cross['clawd->joe'] = ask('clawd', f"Joe said:\n{r1.get('joe', '')}\n\n1-2 lines: make it more human + less clutter. Add a tasteful joke if it naturally fits.")
             cross['tj->jaz'] = ask('tj', f"Jaz said:\n{r1.get('jaz', '')}\n\n1-2 lines: add a gentle pacing/wellbeing tweak. Friendly tone; one light joke only if natural.")
+
+
+            try:
+                _world_note('yoko', 'cooler: cross-checks ready', level='info')
+            except Exception:
+                pass
 
             # Yoko synthesis
             yoko_prompt = (
