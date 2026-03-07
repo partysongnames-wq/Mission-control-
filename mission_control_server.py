@@ -1,3 +1,9 @@
+
+@app.route('/mission-control')
+def mission_control_short():
+    return redirect('/mission-control.html')
+
+
 """Mission Control helper server."""
 import json
 import os
