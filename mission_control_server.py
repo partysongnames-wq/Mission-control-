@@ -59,6 +59,30 @@ WORLD_ZONES = {
     'intray': {'x': 0.92, 'y': 0.56},
     'health_corner': {'x': 0.92, 'y': 0.88},
     'creative_corner': {'x': 0.86, 'y': 0.18},
+
+    # desks / lounge zones (for move-intent)
+    'yoko_desk': {'x': 0.26, 'y': 0.28},
+    'holly_desk': {'x': 0.56, 'y': 0.24},
+    'jaz_desk': {'x': 0.86, 'y': 0.28},
+    'joe_desk': {'x': 0.26, 'y': 0.78},
+    'tj_desk': {'x': 0.86, 'y': 0.78},
+    'clawd_desk': {'x': 0.82, 'y': 0.26},
+
+    'watercooler': {'x': 0.12, 'y': 0.52},
+    'cooler': {'x': 0.12, 'y': 0.52},
+    'sofa': {'x': 0.50, 'y': 0.52},
+    'nap_pod': {'x': 0.88, 'y': 0.88},
+    'pool': {'x': 0.50, 'y': 0.84},
+    'health': {'x': 0.08, 'y': 0.18},
+}
+
+AGENT_DESK_ZONE = {
+    'yoko': 'yoko_desk',
+    'holly': 'holly_desk',
+    'jaz': 'jaz_desk',
+    'joe': 'joe_desk',
+    'tj': 'tj_desk',
+    'clawd': 'clawd_desk',
 }
 
 
