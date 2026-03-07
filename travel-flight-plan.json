@@ -1052,9 +1052,15 @@
       "check_out": "16 Apr",
       "nights": 3,
       "budget_per_night_thb": 1500,
-      "status": "planning",
+      "status": "shortlist",
       "price_last_checked": "—",
-      "notes": "Must stay in Osaka on 14 Apr"
+      "notes": "Nasha candidate: Airbnb “Luxury Elevator Apartment｜15 Min to USJ｜Sleeps 2”. Not confirmed; keep as preferred option while comparing alternatives. Neighborhood note: near Tobita Shinchi area.",
+      "provider_links": [
+        {
+          "label": "Airbnb candidate (Nasha pick)",
+          "url": "https://www.airbnb.com/rooms/1618541328655695000?unique_share_id=edb74f92-5136-460b-b574-6f87bcaf3d18&viralityEntryPoint=1&s=76"
+        }
+      ]
     },
     {
       "id": "busan1",
@@ -1092,6 +1098,21 @@
   ],
   "hotel_alternatives": {
     "osaka2": [
+      {
+        "label": "Luxury Elevator Apartment｜15 Min to USJ｜Sleeps 2 (Airbnb)",
+        "url": "https://www.airbnb.com/rooms/1618541328655695000?unique_share_id=edb74f92-5136-460b-b574-6f87bcaf3d18&viralityEntryPoint=1&s=76",
+        "saved_at": "2026-03-07 14:35 +07",
+        "notes": "From Nasha. Shortlist candidate, not locked. 2 guests, 1 bed, 1 private bath. New listing (no reviews yet).",
+        "price_total_thb": 4046,
+        "nights": 3,
+        "check_in": "2026-04-13",
+        "check_out": "2026-04-16",
+        "price_per_night_thb": 1349,
+        "area": "Osaka (near Tennoji/Shinsekai; host notes Tobita Shinchi area)",
+        "bed": "1 queen bed",
+        "cancellation": "TBD (depends on selected dates/fare)",
+        "verdict": "Preferred candidate (pending compare + confirm)"
+      },
       {
         "label": "KATSU HOTEL 新今宫# (Agoda)",
         "url": "https://www.agoda.com/sp/8cQHsIbiAC7",
