@@ -718,9 +718,9 @@ def api_world_move_intent():
     # inline the body of api_world_move by calling the function via request context is messy;
     # just paste the move logic here in a small safe form.
     with WORLD_STATE_LOCK:
-        state = _world_load()
+        state = _load_world_state()
         # enforce per-day move limit using same helper
-        ok, remaining = _world_can_move(state, agent)
+        ok, remaining = _can_move(state, agent)
         if not ok:
             return jsonify(success=False, message='move limit reached', remaining=remaining), HTTPStatus.TOO_MANY_REQUESTS
 
@@ -728,8 +728,8 @@ def api_world_move_intent():
         y = max(WORLD_BOUNDS['minY'], min(WORLD_BOUNDS['maxY'], req['y']))
         state.setdefault('positions', {})
         state['positions'][agent] = {'x': x, 'y': y}
-        _world_record_move(state, agent)
-        _world_save(state)
+        _record_move(state, agent)
+        _save_world_state(state)
 
     # Optional: leave a small note for intent (non-unread)
     if reason:
