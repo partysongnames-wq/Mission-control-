@@ -1088,7 +1088,8 @@
           "label": "Airbnb candidate (Nasha pick)",
           "url": "https://www.airbnb.com/rooms/1618541328655695000?unique_share_id=edb74f92-5136-460b-b574-6f87bcaf3d18&viralityEntryPoint=1&s=76"
         }
-      ]
+      ],
+      "photo": "/assets/hotels/airbnb-osaka-1618541328655695000.jpg"
     },
     {
       "id": "busan1",
@@ -1137,7 +1138,8 @@
         "check_out": "2026-04-16",
         "price_per_night_thb": 1584,
         "area": "Tennoji",
-        "verdict": "Shortlist candidate (pending compare + confirm)"
+        "verdict": "Shortlist candidate (pending compare + confirm)",
+        "photo": "/assets/hotels/agoda-homenest-tennoji.jpg"
       },
       {
         "label": "Luxury Elevator Apartment｜15 Min to USJ｜Sleeps 2 (Airbnb)",
@@ -1152,7 +1154,8 @@
         "area": "Osaka (near Tennoji/Shinsekai; host notes Tobita Shinchi area)",
         "bed": "1 queen bed",
         "cancellation": "TBD (depends on selected dates/fare)",
-        "verdict": "Preferred candidate (pending compare + confirm)"
+        "verdict": "Preferred candidate (pending compare + confirm)",
+        "photo": "/assets/hotels/airbnb-osaka-1618541328655695000.jpg"
       },
       {
         "label": "KATSU HOTEL 新今宫# (Agoda)",
