@@ -586,12 +586,14 @@
     const world = document.getElementById('world');
     world.innerHTML = '';
 
-    // Props: a few desks + a pool table (cool office)
+    // Props: desks (one per person) + shared hangout zones
     const props = [
-      { cls:'prop desk', left:'22%', top:'32%' },
-      { cls:'prop desk', left:'78%', top:'32%' },
-      { cls:'prop desk', left:'22%', top:'74%' },
-      { cls:'prop desk', left:'78%', top:'74%' },
+      { cls:'prop desk', left:'26%', top:'28%', label:'YOKO DESK' },
+      { cls:'prop desk', left:'56%', top:'24%', label:'HOLLY DESK' },
+      { cls:'prop desk', left:'86%', top:'28%', label:'JAZ DESK' },
+      { cls:'prop desk', left:'26%', top:'78%', label:'JOE DESK' },
+      { cls:'prop desk', left:'86%', top:'78%', label:'TJ DESK' },
+      { cls:'prop desk', left:'82%', top:'26%', label:'CLAWD DESK' },
       { cls:'prop table', left:'50%', top:'18%', transform:'translate(-50%,0)' },
       { cls:'prop pool', left:'50%', top:'84%', transform:'translate(-50%,-50%)' },
       { cls:'prop sofa', left:'50%', top:'52%', transform:'translate(-50%,-50%)' },
@@ -609,6 +611,12 @@
       if (pr.transform) el.style.transform = pr.transform;
       world.appendChild(el);
       const kind = (pr.cls.split(' ').pop());
+      if (pr.label){
+        const lab = document.createElement('div');
+        lab.className = 'propLabel';
+        lab.textContent = pr.label;
+        el.appendChild(lab);
+      }
       if (['sofa','bed','office','pool','cooler'].includes(kind)) {
         const lab = document.createElement('div');
         lab.className = 'propLabel';
