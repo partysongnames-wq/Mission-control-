@@ -4,14 +4,25 @@
     "route_chain": "BKK → HKG → KIX → PUS → CJU → PUS → BKK",
     "total_cost_per_person": 14500,
     "total_cost_tbd": 1200,
-    "baggage_plan": "1×15kg checked bag shared (mainly for Nasha) • Trent carry-on only",
+    "baggage_plan": "Outbound: carry-on only (7kg each on HK Express). Return: bring foldable duffel; add checked bag only on the leg we need (likely return).",
     "return_plan": "Return may be separate: Nasha PUS→BKK option A • Trent PUS→BKK option B (no Vietnam transit for Trent).",
     "notes": "Latest plan: HK 9–11, Osaka 11–16 (stay Osaka on 14), Busan transit 16, Jeju 16–18, Busan 18–19, return 19. Hiroshima by JR (Kansai–Hiroshima pass).",
-    "prices_last_checked": "2026-03-05 09:35 +07",
+    "prices_last_checked": "2026-03-07 14:24 +07",
     "prices_source": "Skyscanner",
-    "prices_last_result": "Leg 1 BKK→HKG ฿4,531 | Leg 2 HKG→KIX ฿3,015 | Leg 3 KIX→PUS ฿2,316 | Leg 4 PUS→CJU ฿1,155 | Leg 5 CJU→PUS ฿1,089 | Leg 6 (Nasha) PUS→BKK ฿3,303 | Leg 7 (Trent) PUS→BKK ฿5,099",
-    "prices_last_changes": [],
-    "deals_last_checked": "2026-03-05 11:03 +07",
+    "prices_last_result": "Manual check: HKG→KIX (11 Apr) now seen at ฿3,015 total (Hong Kong Airlines HX612 direct, 14:20→19:20) via Skyscanner TH.",
+    "prices_last_changes": [
+      {
+        "flight_id": "flight7",
+        "route": "PUS→BKK",
+        "description": "Trent return trackers (19 Apr). No Vietnam transit (passport validity).",
+        "old_price_per_person": 5595,
+        "new_price_per_person": 3171,
+        "delta": -2424,
+        "link": "https://www.trip.com/",
+        "ts": "2026-03-07 12:47 +07"
+      }
+    ],
+    "deals_last_checked": "2026-03-05 16:50 +07",
     "baseline_prices": {
       "flight1": 4541,
       "flight2": 3000,
@@ -21,7 +32,11 @@
       "flight6": 3222,
       "flight7": 4560
     },
-    "baseline_set_at": "2026-03-05 00:17 +07"
+    "baseline_set_at": "2026-03-05 00:17 +07",
+    "price_watch_scope": "Skip booked flights; watch remaining legs only.",
+    "hotel_budget_per_night_thb": 1500,
+    "hotels_last_checked": "—",
+    "hotels_last_result": "Reviewed Osaka alt: KATSU HOTEL (fails double bed requirement)."
   },
   "flights": [
     {
@@ -32,17 +47,17 @@
       "from_city": "Bangkok",
       "to_code": "HKG",
       "to_city": "Hong Kong",
-      "airline": "TBD",
-      "flight_number": "TBD",
-      "depart": "TBD",
-      "arrive": "TBD",
+      "airline": "HK Express",
+      "flight_number": "UO733",
+      "depart": "00:20",
+      "arrive": "04:30",
       "next_day": false,
       "route_type": "direct",
-      "status": "planned",
-      "price_per_person": 4541,
-      "price_total": 9082,
-      "baggage_included": "Carry-on + add 1×15kg shared checked bag",
-      "notes": "Skyscanner tracker link (leg 1).",
+      "status": "booked",
+      "price_per_person": 3314.28,
+      "price_total": 6628.55,
+      "baggage_included": "Personal item + carry-on (7kg total per person). Checked baggage not included (add-on).",
+      "notes": "Booked via Trip.com (per Nasha screenshots). Confirmation ref exists—store in private chat/docs. Booked — stop price tracking.",
       "risk_flags": [],
       "booking_links": [
         {
@@ -68,7 +83,8 @@
           "ts": "2026-03-05 09:35 +07",
           "price_per_person": 4541
         }
-      ]
+      ],
+      "track_price": false
     },
     {
       "id": "flight2",
@@ -78,22 +94,22 @@
       "from_city": "Hong Kong",
       "to_code": "KIX",
       "to_city": "Osaka",
-      "airline": "TBD",
-      "flight_number": "TBD",
-      "depart": "TBD",
-      "arrive": "TBD",
+      "airline": "Hong Kong Airlines",
+      "flight_number": "HX612",
+      "depart": "14:20",
+      "arrive": "19:20",
       "next_day": false,
       "route_type": "direct",
       "status": "planned",
-      "price_per_person": 3000,
-      "price_total": 6000,
-      "baggage_included": "TBD",
-      "notes": "Skyscanner tracker link (leg 2).",
+      "price_per_person": 3015,
+      "price_total": 6030,
+      "baggage_included": "Cabin bag (checked bag varies by fare/provider)",
+      "notes": "Skyscanner TH live quote: HX612 HKG→KIX direct 14:20→19:20 from ฿3,015 total.",
       "risk_flags": [],
       "booking_links": [
         {
           "label": "Skyscanner (leg 2)",
-          "url": "https://skyscanner.app.link/ChNDzaIOe1b"
+          "url": "https://www.skyscanner.co.th/transport/flights/hkg/osaa/260411/config/12191-2604111420--32229-0-13068-2604111920?adultsv2=1&cabinclass=economy&childrenv2=&ref=home&rtn=0&preferdirects=false&outboundaltsenabled=false&inboundaltsenabled=false"
         }
       ],
       "pnr": "PNR TBD",
@@ -113,6 +129,30 @@
         {
           "ts": "2026-03-05 09:35 +07",
           "price_per_person": 3000
+        },
+        {
+          "ts": "2026-03-05 18:03 +07",
+          "price_per_person": 3035
+        },
+        {
+          "ts": "2026-03-06 00:03 +07",
+          "price_per_person": 3000
+        },
+        {
+          "ts": "2026-03-07 00:03 +07",
+          "price_per_person": 3219
+        },
+        {
+          "ts": "2026-03-07 00:12 +07",
+          "price_per_person": 5240
+        },
+        {
+          "ts": "2026-03-07 12:03 +07",
+          "price_per_person": 5341
+        },
+        {
+          "ts": "2026-03-07 14:24 +07",
+          "price_per_person": 3015
         }
       ]
     },
@@ -131,8 +171,8 @@
       "next_day": false,
       "route_type": "direct",
       "status": "planned",
-      "price_per_person": 2365,
-      "price_total": 4730,
+      "price_per_person": 2345,
+      "price_total": 4690,
       "baggage_included": "Carry-on",
       "notes": "Busan transit day. Skyscanner tracker link (leg 3).",
       "risk_flags": [
@@ -165,6 +205,26 @@
         {
           "ts": "2026-03-05 09:35 +07",
           "price_per_person": 2365
+        },
+        {
+          "ts": "2026-03-05 18:03 +07",
+          "price_per_person": 2319
+        },
+        {
+          "ts": "2026-03-06 00:03 +07",
+          "price_per_person": 2365
+        },
+        {
+          "ts": "2026-03-07 00:03 +07",
+          "price_per_person": 2375
+        },
+        {
+          "ts": "2026-03-07 00:12 +07",
+          "price_per_person": 2345
+        },
+        {
+          "ts": "2026-03-07 12:03 +07",
+          "price_per_person": 2330
         }
       ],
       "observed_cheapest": {
@@ -192,8 +252,8 @@
       "next_day": false,
       "route_type": "direct",
       "status": "planned",
-      "price_per_person": 1090,
-      "price_total": 2180,
+      "price_per_person": 1157,
+      "price_total": 2314,
       "baggage_included": "Cabin bag (checked bag optional)",
       "notes": "Observed cheapest option from Skyscanner details panel. (PUS Gimhae → CJU Jeju)",
       "risk_flags": [
@@ -226,6 +286,18 @@
         {
           "ts": "2026-03-05 09:35 +07",
           "price_per_person": 1090
+        },
+        {
+          "ts": "2026-03-06 00:03 +07",
+          "price_per_person": 1090
+        },
+        {
+          "ts": "2026-03-07 00:12 +07",
+          "price_per_person": 1157
+        },
+        {
+          "ts": "2026-03-07 12:03 +07",
+          "price_per_person": 1157
         }
       ],
       "observed_cheapest": {
@@ -253,8 +325,8 @@
       "next_day": false,
       "route_type": "direct",
       "status": "planned",
-      "price_per_person": 1090,
-      "price_total": 2180,
+      "price_per_person": 1095,
+      "price_total": 2190,
       "baggage_included": "Cabin bag (checked bag optional)",
       "notes": "Observed cheapest option from Skyscanner details panel. (CJU Jeju → PUS Gimhae)",
       "risk_flags": [],
@@ -285,6 +357,18 @@
         {
           "ts": "2026-03-05 09:35 +07",
           "price_per_person": 1090
+        },
+        {
+          "ts": "2026-03-06 00:03 +07",
+          "price_per_person": 1090
+        },
+        {
+          "ts": "2026-03-07 00:12 +07",
+          "price_per_person": 1095
+        },
+        {
+          "ts": "2026-03-07 12:03 +07",
+          "price_per_person": 1096
         }
       ],
       "observed_cheapest": {
@@ -312,8 +396,8 @@
       "next_day": false,
       "route_type": "direct",
       "status": "planned",
-      "price_per_person": 3222,
-      "price_total": 3222,
+      "price_per_person": 3580,
+      "price_total": 3580,
       "baggage_included": "1×15kg checked (shared bag) + carry-on",
       "notes": "Nasha return tracker (19 Apr).",
       "risk_flags": [],
@@ -340,6 +424,18 @@
         {
           "ts": "2026-03-05 09:35 +07",
           "price_per_person": 3222
+        },
+        {
+          "ts": "2026-03-06 00:03 +07",
+          "price_per_person": 3222
+        },
+        {
+          "ts": "2026-03-07 00:12 +07",
+          "price_per_person": 3580
+        },
+        {
+          "ts": "2026-03-07 12:03 +07",
+          "price_per_person": 3543
         }
       ]
     },
@@ -358,14 +454,18 @@
       "next_day": false,
       "route_type": "direct",
       "status": "planned",
-      "price_per_person": 5099,
-      "price_total": 5099,
+      "price_per_person": 3171,
+      "price_total": 3171,
       "baggage_included": "Carry-on only",
       "notes": "Trent return trackers (19 Apr). No Vietnam transit (passport validity).",
       "risk_flags": [
         "constraint_no_vietnam_transit"
       ],
       "booking_links": [
+        {
+          "label": "Trip.com (Trent return 19 Apr)",
+          "url": "https://www.trip.com/flights/flight_details/XXXX"
+        },
         {
           "label": "Skyscanner (leg 6 - Trent A, 19 Apr)",
           "url": "https://skyscanner.app.link/dctcXKyRe1b"
@@ -392,6 +492,22 @@
         {
           "ts": "2026-03-05 09:35 +07",
           "price_per_person": 5099
+        },
+        {
+          "ts": "2026-03-06 00:03 +07",
+          "price_per_person": 5099
+        },
+        {
+          "ts": "2026-03-07 00:12 +07",
+          "price_per_person": 6030
+        },
+        {
+          "ts": "2026-03-07 12:03 +07",
+          "price_per_person": 5595
+        },
+        {
+          "ts": "2026-03-07 12:47 +07",
+          "price_per_person": 3171
         }
       ]
     }
@@ -403,7 +519,7 @@
     },
     {
       "label": "BKK→HKG: confirm 1×15kg checked bag add-on cost for chosen airline.",
-      "done": false
+      "done": true
     },
     {
       "label": "Osaka stay: ensure accommodation keeps you in Osaka on 14 Apr.",
@@ -570,12 +686,12 @@
           "flight_id": "flight1",
           "route": "BKK→HKG",
           "date": "09 Apr",
-          "airline": "TBD",
-          "times": "TBD→TBD",
+          "airline": "HK Express",
+          "times": "00:20→04:30",
           "stops": "Direct",
           "price_per_person": 4541,
           "savings_vs_baseline": 0,
-          "note": "Low at 2026-03-04 23:49 +07 (current 4541)",
+          "note": "Low at 2026-03-04 23:49 +07 (current 3314.28)",
           "url": "https://skyscanner.app.link/ykradJFOe1b"
         },
         {
@@ -646,7 +762,7 @@
         "Dim sum",
         "Roast goose / char siu"
       ],
-      "photo": "/assets/cities/hong-kong.svg",
+      "photo": "/assets/cities/hong-kong-photo.jpg",
       "nasha_hook": "Street seafood + dim sum city. Easy to do local spots + one nicer harbour meal without making it formal.",
       "seafood_street_hits": [
         "Temple Street / Jordan: claypot + seafood stir-fries (go where it’s busy).",
@@ -733,7 +849,7 @@
       "food": [
         "Oysters dinner (plan)"
       ],
-      "photo": "/assets/cities/hiroshima.jpg",
+      "photo": "/assets/cities/hiroshima-oysters.jpg",
       "nasha_hook": "This is the Japan “oyster chapter”. We lean into it hard.",
       "seafood_street_hits": [
         "Hiroshima oysters: grilled/fried/raw depending on comfort level.",
@@ -843,7 +959,7 @@
         "Black pork BBQ",
         "Seafood + tangerine snacks"
       ],
-      "photo": "/assets/cities/jeju.svg",
+      "photo": "/assets/cities/jeju-photo.jpg",
       "nasha_hook": "Jeju is the “island food” leg: abalone + seafood soups + coastal cafes.",
       "seafood_street_hits": [
         "Abalone porridge (classic Jeju breakfast).",
@@ -877,6 +993,120 @@
         "url": "https://skyscanner.app.link/ykradJFOe1b",
         "saved_at": "2026-03-05 11:03 +07",
         "savings_vs_baseline": null
+      }
+    ]
+  },
+  "booking_refs": {
+    "flight1": {
+      "provider": "Trip.com",
+      "confirmation": "YBLRGD (mask if sharing)",
+      "booking_no": "1622926452562163 (mask if sharing)"
+    }
+  },
+  "hotels": [
+    {
+      "id": "hk",
+      "city": "Hong Kong",
+      "check_in": "09 Apr",
+      "check_out": "11 Apr",
+      "nights": 2,
+      "budget_per_night_thb": 1500,
+      "status": "planning",
+      "price_last_checked": "—",
+      "notes": "TST Cozy Suite/Prv Bath/TST. Rating 8.3 (63 reviews). Request-to-book + Non-refundable (per screenshots).",
+      "provider_links": [
+        {
+          "label": "Agoda option (TST Cozy Suite/Prv Bath/TST)",
+          "url": "https://www.agoda.com/sp/wGpw7Gkckv5"
+        }
+      ],
+      "current_price_total_thb": 3144,
+      "current_price_per_night_thb": 1572
+    },
+    {
+      "id": "osaka1",
+      "city": "Osaka",
+      "check_in": "11 Apr",
+      "check_out": "12 Apr",
+      "nights": 1,
+      "budget_per_night_thb": 1500,
+      "status": "planning",
+      "price_last_checked": "—",
+      "notes": "1 night"
+    },
+    {
+      "id": "hiroshima",
+      "city": "Hiroshima",
+      "check_in": "12 Apr",
+      "check_out": "13 Apr",
+      "nights": 1,
+      "budget_per_night_thb": 1500,
+      "status": "planning",
+      "price_last_checked": "—",
+      "notes": "1 night + oysters/Miyajima"
+    },
+    {
+      "id": "osaka2",
+      "city": "Osaka",
+      "check_in": "13 Apr",
+      "check_out": "16 Apr",
+      "nights": 3,
+      "budget_per_night_thb": 1500,
+      "status": "planning",
+      "price_last_checked": "—",
+      "notes": "Must stay in Osaka on 14 Apr"
+    },
+    {
+      "id": "busan1",
+      "city": "Busan",
+      "check_in": "16 Apr",
+      "check_out": "16 Apr",
+      "nights": 0,
+      "budget_per_night_thb": 1500,
+      "status": "planning",
+      "price_last_checked": "—",
+      "notes": "Transit day (maybe no hotel or late check-in)"
+    },
+    {
+      "id": "jeju",
+      "city": "Jeju",
+      "check_in": "16 Apr",
+      "check_out": "18 Apr",
+      "nights": 2,
+      "budget_per_night_thb": 1500,
+      "status": "planning",
+      "price_last_checked": "—",
+      "notes": "2 nights"
+    },
+    {
+      "id": "busan2",
+      "city": "Busan",
+      "check_in": "18 Apr",
+      "check_out": "19 Apr",
+      "nights": 1,
+      "budget_per_night_thb": 1500,
+      "status": "planning",
+      "price_last_checked": "—",
+      "notes": "1 night before return"
+    }
+  ],
+  "hotel_alternatives": {
+    "osaka2": [
+      {
+        "label": "KATSU HOTEL 新今宫# (Agoda)",
+        "url": "https://www.agoda.com/sp/8cQHsIbiAC7",
+        "saved_at": "2026-03-06 08:58 +07",
+        "notes": "Good budget but fails double-bed requirement; tatami/futons. Rating 7.6 (104).",
+        "price_per_night_thb": 1629,
+        "rating": 7.6,
+        "reviews": 104,
+        "area": "Namba (Shin-Imamiya area likely)",
+        "room_type": "Tatami Room (18 m²)",
+        "bed": "2 futons + 1 sofa bed (no double bed)",
+        "bathroom": "Private (walk-in shower + bathtub shown)",
+        "smoking": "Non-smoking (filter applied)",
+        "refundable": "Non-refundable",
+        "verdict": "Avoid (does not meet double bed requirement)"
       }
     ]
   }
