@@ -717,19 +717,18 @@ def api_world_move_intent():
     req = {'agent': agent, 'x': float(target['x']), 'y': float(target['y'])}
     # inline the body of api_world_move by calling the function via request context is messy;
     # just paste the move logic here in a small safe form.
-    with WORLD_STATE_LOCK:
-        state = _load_world_state()
-        # enforce per-day move limit using same helper
-        ok, remaining = _can_move(state, agent)
-        if not ok:
-            return jsonify(success=False, message='move limit reached', remaining=remaining), HTTPStatus.TOO_MANY_REQUESTS
+    state = _load_world_state()
+    # enforce per-day move limit using same helper
+    ok, remaining = _can_move(state, agent)
+    if not ok:
+        return jsonify(success=False, message='move limit reached', remaining=remaining), HTTPStatus.TOO_MANY_REQUESTS
 
-        x = max(WORLD_BOUNDS['minX'], min(WORLD_BOUNDS['maxX'], req['x']))
-        y = max(WORLD_BOUNDS['minY'], min(WORLD_BOUNDS['maxY'], req['y']))
-        state.setdefault('positions', {})
-        state['positions'][agent] = {'x': x, 'y': y}
-        _record_move(state, agent)
-        _save_world_state(state)
+    x = max(WORLD_BOUNDS['minX'], min(WORLD_BOUNDS['maxX'], req['x']))
+    y = max(WORLD_BOUNDS['minY'], min(WORLD_BOUNDS['maxY'], req['y']))
+    state.setdefault('positions', {})
+    state['positions'][agent] = {'x': x, 'y': y}
+    _record_move(state, agent)
+    _save_world_state(state)
 
     # Optional: leave a small note for intent (non-unread)
     if reason:
