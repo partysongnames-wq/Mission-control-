@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Hotels · Mission Control</title>
+  <style>
+    :root{--bg:#030308;--panel:#101223;--card:#1d2135;--muted:#a0a8c5;--border:rgba(255,255,255,.12);--accent:#ffb347;--accent2:#10a37f;font-family:'Space Grotesk','Inter',system-ui;}
+    *{box-sizing:border-box;}
+    body{margin:0;min-height:100vh;background:radial-gradient(circle at top,#2d1b54,#030308 45%);color:#f5f7ff;display:flex;justify-content:center;padding:24px;}
+    .page{width:min(1240px,calc(100vw-32px));background:var(--panel);border-radius:32px;padding:28px;border:1px solid var(--border);box-shadow:0 30px 80px rgba(0,0,0,.7);}    
+
+    .glass-header{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;flex-wrap:wrap;
+      padding:14px 14px;border-radius:22px;border:1px solid rgba(255,255,255,.14);
+      background:linear-gradient(135deg,rgba(255,255,255,.10),rgba(255,255,255,.04));
+      box-shadow:0 20px 50px rgba(0,0,0,.45);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+    h1{margin:0;font-size:1.5rem;letter-spacing:.22em;text-transform:uppercase;}
+    .subtitle{color:var(--muted);max-width:880px;line-height:1.5;letter-spacing:.06em;margin-top:8px;}
+    .chipbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:flex-end;}
+    .chip{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;
+      border:1px solid rgba(255,255,255,.16);
+      background:rgba(12,14,24,.28);
+      color:#fff;text-decoration:none;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.08);
+      transition:transform .15s ease, background .15s ease, border-color .15s ease;
+    }
+    .chip:hover{transform:translateY(-1px);background:rgba(255,255,255,.10);border-color:rgba(255,255,255,.26);}
+    .chip.active{background:rgba(255,179,71,.14);border-color:rgba(255,179,71,.50);}
+    .chip .ico{font-size:.95rem;letter-spacing:0;}
+
+    .hero{display:grid;grid-template-columns:repeat(4,minmax(220px,1fr));gap:12px;margin:16px 0;}
+    .hero-card{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.10);border-radius:18px;padding:14px;}
+    .hero-card h3{margin:0;font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);}
+    .hero-card strong{display:block;margin-top:8px;font-size:1.2rem;letter-spacing:.12em;}
+
+    .section-title{margin:12px 0 10px;font-size:.75rem;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);}    
+    .card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;}
+    .hotel-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.10);border-radius:18px;overflow:hidden;display:flex;flex-direction:column;min-height:220px;}
+    .hotel-media{height:140px;background:linear-gradient(135deg,#2d1b54,#101223);display:flex;align-items:flex-end;padding:10px;gap:8px;}
+    .badge{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.16);background:rgba(0,0,0,.35);font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;}
+    .badge.shortlist{border-color:rgba(255,179,71,.6);color:#ffdfb0;}
+    .badge.planning{border-color:rgba(255,255,255,.2);color:#fff;}
+    .badge.booked{border-color:rgba(16,163,127,.55);color:#9ff1db;}
+    .badge.alert{border-color:rgba(255,84,84,.6);color:#ffb0b0;}
+    .hotel-body{padding:14px;display:flex;flex-direction:column;gap:8px;flex:1;}
+    .hotel-title{font-size:.95rem;letter-spacing:.08em;}
+    .hotel-meta{font-size:.75rem;color:var(--muted);letter-spacing:.08em;}
+    .hotel-price{font-size:.9rem;letter-spacing:.1em;}
+    .hotel-actions{margin-top:auto;display:flex;gap:8px;flex-wrap:wrap;}
+    .hotel-actions a{border-radius:10px;border:1px solid rgba(255,255,255,.16);padding:6px 10px;text-decoration:none;color:#fff;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;background:rgba(255,255,255,.06);}
+    .hotel-actions a.primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#050509;border:none;}
+
+    table{width:100%;border-collapse:collapse;font-size:.92rem;overflow:hidden;border-radius:18px;}
+    th,td{padding:12px;border:1px solid rgba(255,255,255,.08);vertical-align:top;}
+    thead{font-size:.7rem;text-transform:uppercase;letter-spacing:.25em;color:var(--muted);}
+    tbody tr:nth-child(even){background:rgba(255,255,255,.02);} 
+    .status{display:inline-flex;padding:3px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.16);font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;}
+    .planning{background:rgba(255,255,255,.06);} .booked{background:rgba(16,163,127,.14);border-color:rgba(16,163,127,.45);} .hold{background:rgba(255,179,71,.14);border-color:rgba(255,179,71,.45);}
+    .save{display:inline-flex;align-items:center;margin-left:8px;padding:2px 8px;border-radius:999px;border:1px solid rgba(16,163,127,.5);background:rgba(16,163,127,.15);color:#d7fff3;font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;}
+
+    button{border-radius:12px;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.08);color:#fff;padding:8px 12px;cursor:pointer;letter-spacing:.12em;font-size:.75rem;}
+
+    @media (max-width: 980px){.hero{grid-template-columns:repeat(2,1fr);} }
+    @media (max-width: 640px){.hero{grid-template-columns:1fr;} }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="glass-header">
+      <div>
+        <h1>Hotels</h1>
+        <div class="subtitle">Hotel budget tracking by city/night. Stable plan stays clean; alternatives can be saved when you find a deal.</div>
+      </div>
+      <div class="chipbar">
+        <a class="chip" href="/mission-control.html"><span class="ico">⟵</span>Mission</a>
+        <a class="chip" href="/mission-control-flight-plan.html"><span class="ico">✈</span>Flights</a>
+        <a class="chip" href="/mission-control-hotels.html" class="chip active"><span class="ico">🏨</span>Hotels</a>
+        <a class="chip" href="/mission-control-flight-deals.html"><span class="ico">🏷</span>Deals</a>
+        <a class="chip" href="/mission-control-city-briefs.html"><span class="ico">🗺</span>Briefs</a>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="hero-card">
+        <h3>Budget / night</h3>
+        <strong id="budget">—</strong>
+      </div>
+      <div class="hero-card">
+        <h3>Total hotel nights</h3>
+        <strong id="nights">—</strong>
+      </div>
+      <div class="hero-card">
+        <h3>Budget total (max)</h3>
+        <strong id="budgetTotal">—</strong>
+      </div>
+      <div class="hero-card">
+        <h3>Last checked</h3>
+        <strong id="checked">—</strong>
+        <div id="checkedResult" style="margin-top:8px;color:var(--muted);font-size:.75rem;letter-spacing:.12em;"></div>
+      </div>
+    </section>
+
+    <div style="display:flex;justify-content:flex-end;margin:10px 0 14px;">
+      <button id="check-now">Check now</button>
+    </div>
+
+    <section class="cards">
+      <div class="section-title">Shortlist / Plan</div>
+      <div id="hotel-cards" class="card-grid"></div>
+    </section>
+
+    <section class="cards" style="margin-top:22px;">
+      <div class="section-title">Alternatives</div>
+      <div id="alt-cards" class="card-grid"></div>
+    </section>
+
+  </div>
+
+<script>
+  async function loadPlan(){
+    const res = await fetch('travel-flight-plan.json');
+    return await res.json();
+  }
+  function fmt(n){
+    if (typeof n !== 'number' || !isFinite(n)) return '—';
+    return 'THB ' + Math.round(n).toLocaleString();
+  }
+  function statusClass(s){
+    if (s==='booked') return 'booked';
+    if (s==='on hold') return 'hold';
+    return 'planning';
+  }
+
+  function render(plan){
+    const meta = plan.meta || {};
+    const hotels = plan.hotels || [];
+    const budget = meta.hotel_budget_per_night_thb || 1500;
+    document.getElementById('budget').textContent = fmt(budget);
+
+    const nights = hotels.reduce((a,h)=>a + (h.nights||0),0);
+    document.getElementById('nights').textContent = String(nights);
+    document.getElementById('budgetTotal').textContent = fmt(nights * budget);
+
+    document.getElementById('checked').textContent = meta.hotels_last_checked || '—';
+    document.getElementById('checkedResult').textContent = meta.hotels_last_result || '';
+
+    const cardWrap = document.getElementById('hotel-cards');
+    const altWrap = document.getElementById('alt-cards');
+
+    const cardFor = (h, opts={}) => {
+      const target = (h.budget_per_night_thb || budget);
+      const current = h.current_price_per_night_thb;
+      const badge = (h.status || 'planning').toLowerCase();
+      const statusLabel = h.status || 'planning';
+      const priceLine = typeof current==='number' ? `${fmt(current)} / night` : (h.price_total_thb ? `${fmt(h.price_total_thb)} total` : '—');
+      const dates = h.check_in && h.check_out ? `${h.check_in} → ${h.check_out}` : (h.dates || 'Dates TBD');
+      const title = h.city ? `${h.city}` : (h.label || 'Hotel');
+      const subtitle = h.label && h.city ? h.label : (h.label || h.area || '');
+      const link = (h.provider_links && h.provider_links[0]) ? h.provider_links[0] : (h.url ? {label:'Open',url:h.url} : null);
+      const warn = (h.notes || '').toLowerCase().includes('adult') ? '<span class="badge alert">Adults-only</span>' : '';
+      return `
+        <div class="hotel-card">
+          <div class="hotel-media">
+            <span class="badge ${badge}">${statusLabel}</span>
+            ${warn}
+          </div>
+          <div class="hotel-body">
+            <div class="hotel-title">${title}</div>
+            <div class="hotel-meta">${subtitle}</div>
+            <div class="hotel-meta">${dates} • ${h.nights || ''} nights</div>
+            <div class="hotel-price">${priceLine}</div>
+            <div class="hotel-meta" style="color:var(--muted)">${h.notes || ''}</div>
+            <div class="hotel-actions">
+              ${link ? `<a class="primary" href="${link.url}" target="_blank">Open</a>` : ''}
+              ${h.status && h.status.toLowerCase()==='shortlist' ? '<a>Shortlist</a>' : ''}
+            </div>
+          </div>
+        </div>`;
+    };
+
+    cardWrap.innerHTML = hotels.map(h => cardFor(h)).join('');
+
+    const alts = (plan.hotel_alternatives || {});
+    const flat = [];
+    Object.keys(alts).forEach(k => {
+      alts[k].forEach(a => flat.push(a));
+    });
+    altWrap.innerHTML = flat.map(a => cardFor(a, {alt:true})).join('') || '<div style="color:var(--muted)">No alternatives logged yet.</div>';
+  }
+
+  async function checkNow(){
+    const btn = document.getElementById('check-now');
+    btn.disabled=true; btn.textContent='Checking…';
+    try{
+      const res = await fetch('/run/hotelwatch');
+      const data = await res.json();
+      alert(data.message || (data.success?'Done.':'Failed.'));
+    }catch(e){
+      alert('Failed to run hotel check.');
+    }finally{
+      btn.disabled=false; btn.textContent='Check now';
+      const plan = await loadPlan();
+      render(plan);
+    }
+  }
+
+  document.getElementById('check-now').addEventListener('click', checkNow);
+  loadPlan().then(render);
+</script>
+</body>
+</html>
