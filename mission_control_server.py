@@ -1,9 +1,4 @@
 
-@app.route('/mission-control')
-def mission_control_short():
-    return redirect('/mission-control.html')
-
-
 """Mission Control helper server."""
 import json
 import os
@@ -249,6 +244,13 @@ def _world_clear_unread(agent: str) -> Dict:
     return state
 
 app = Flask(__name__, static_folder=None)
+
+
+@app.route('/mission-control')
+def mission_control_short():
+    return redirect('/mission-control.html')
+
+
 
 COMMANDS: Dict[str, str] = {
     "travel": "openclaw agent --local --agent super-jobs --message \"Use Topic Monitor to watch Bangkok to Japan fares and surface the cheapest legs.\"",
