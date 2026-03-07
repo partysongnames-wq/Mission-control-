@@ -96,6 +96,28 @@ APPROVAL_KEYWORDS = [
 
 
 
+
+
+def _can_move(state: Dict, agent: str):
+    state.setdefault('moves', {})
+    today = _bkk_date_str()
+    m = state['moves'].get(agent) or {}
+    if m.get('date') != today:
+        m = {'date': today, 'count': 0}
+    count = int(m.get('count', 0))
+    remaining = max(0, WORLD_MAX_MOVES_PER_DAY - count)
+    return (count < WORLD_MAX_MOVES_PER_DAY), remaining
+
+
+def _record_move(state: Dict, agent: str) -> None:
+    state.setdefault('moves', {})
+    today = _bkk_date_str()
+    m = state['moves'].get(agent) or {}
+    if m.get('date') != today:
+        m = {'date': today, 'count': 0}
+    m['count'] = int(m.get('count', 0)) + 1
+    state['moves'][agent] = m
+
 def _bkk_date_str() -> str:
     return datetime.now(ZoneInfo('Asia/Bangkok')).date().isoformat()
 
