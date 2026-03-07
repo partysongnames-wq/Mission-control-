@@ -670,6 +670,53 @@ def api_world_ask():
     return jsonify(success=True, message='Queued'), HTTPStatus.ACCEPTED
 
 
+
+@app.route('/api/world/move-intent', methods=['POST'])
+def api_world_move_intent():
+    payload = request.get_json(silent=True) or {}
+    agent = (payload.get('agent') or '').strip()
+    zone = (payload.get('zone') or '').strip().lower()
+    reason = (payload.get('reason') or '').strip()
+
+    if not agent or not zone:
+        return jsonify(success=False, message='agent and zone required'), HTTPStatus.BAD_REQUEST
+
+    # allow shorthand 'desk'
+    if zone == 'desk':
+        zone = AGENT_DESK_ZONE.get(agent, 'sofa')
+
+    target = WORLD_ZONES.get(zone)
+    if not target:
+        return jsonify(success=False, message=f'unknown zone: {zone}'), HTTPStatus.BAD_REQUEST
+
+    # reuse core move logic (limit/clamp)
+    req = {'agent': agent, 'x': float(target['x']), 'y': float(target['y'])}
+    # inline the body of api_world_move by calling the function via request context is messy;
+    # just paste the move logic here in a small safe form.
+    with WORLD_STATE_LOCK:
+        state = _world_load()
+        # enforce per-day move limit using same helper
+        ok, remaining = _world_can_move(state, agent)
+        if not ok:
+            return jsonify(success=False, message='move limit reached', remaining=remaining), HTTPStatus.TOO_MANY_REQUESTS
+
+        x = max(WORLD_BOUNDS['minX'], min(WORLD_BOUNDS['maxX'], req['x']))
+        y = max(WORLD_BOUNDS['minY'], min(WORLD_BOUNDS['maxY'], req['y']))
+        state.setdefault('positions', {})
+        state['positions'][agent] = {'x': x, 'y': y}
+        _world_record_move(state, agent)
+        _world_save(state)
+
+    # Optional: leave a small note for intent (non-unread)
+    if reason:
+        try:
+            _world_note(agent, f"moved to {zone} — {reason}", level='info')
+        except Exception:
+            pass
+
+    return jsonify(success=True, agent=agent, zone=zone, pos={'x': x, 'y': y}, remaining=remaining)
+
+
 @app.route('/api/world/move', methods=['POST'])
 def api_world_move():
     payload = request.get_json(silent=True) or {}

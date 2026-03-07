@@ -371,7 +371,14 @@
     { key:'clawd', name:'Clawd', nick:'Creator', avatar:'/assets/clawd.jpg', action:'clawd' },
   ];
 
-  const layout = {
+  const ZONES = {
+      yoko_desk:{x:'26%',y:'28%'}, holly_desk:{x:'56%',y:'24%'}, jaz_desk:{x:'86%',y:'28%'},
+      joe_desk:{x:'26%',y:'78%'}, tj_desk:{x:'86%',y:'78%'}, clawd_desk:{x:'82%',y:'26%'},
+      watercooler:{x:'12%',y:'52%'}, sofa:{x:'50%',y:'52%'}, nap_pod:{x:'88%',y:'88%'},
+      pool:{x:'50%',y:'84%'}, office_door:{x:'88%',y:'50%'}, health:{x:'8%',y:'18%'}
+    };
+
+    const layout = {
     // desk rectangles
     desks: {
       trent: { left:'52%', top:'58%', transform:'translate(-50%,-50%)', size:'big' },
@@ -768,6 +775,13 @@ function moveToken(key, mode){
     }
     token.style.left = x;
     token.style.top = y;
+    // tiny wiggle while working (doesn't consume move limits; purely visual)
+    if (mode === 'running'){
+      const phase = (Date.now() / 900) + (key.charCodeAt(0) % 7);
+      token.style.transform = `translate(${Math.sin(phase)*1.2}px, ${Math.cos(phase)*1.2}px)`;
+    } else {
+      token.style.transform = '';
+    }
     token.classList.toggle('active', mode === 'running');
   }
 
