@@ -45,6 +45,11 @@ WORLD_BOUNDS = {
     'maxY': 0.90,
 }
 WORLD_MAX_MOVES_PER_DAY = 5
+
+# Quiet hours (Bangkok) — gentle nudge for non-urgent work
+QUIET_HOURS_START = (0, 30)  # 00:30
+QUIET_HOURS_END = (9, 30)    # 09:30
+
 WORLD_CHAT_LIMIT_PER_HOUR = 3
 WORLD_CHAT_MAX_LEN = 180
 
@@ -134,6 +139,24 @@ def _world_add_note(agent: str, note: str, level: str = 'info') -> Dict:
     _save_world_state(state)
     return state
 
+
+
+
+def _in_quiet_hours(now=None) -> bool:
+    try:
+        now = now or datetime.now(ZoneInfo('Asia/Bangkok'))
+    except Exception:
+        return False
+    start = now.replace(hour=QUIET_HOURS_START[0], minute=QUIET_HOURS_START[1], second=0, microsecond=0)
+    end = now.replace(hour=QUIET_HOURS_END[0], minute=QUIET_HOURS_END[1], second=0, microsecond=0)
+    # Quiet window is same-day (00:30 -> 09:30)
+    return start <= now <= end
+
+
+def _is_urgent_text(txt: str) -> bool:
+    t = (txt or '').lower()
+    urgent_markers = ['urgent', 'oauth', 'session file locked', 'lock', 'cannot send', 'down', 'error', 'failed', 'timeout']
+    return any(m in t for m in urgent_markers)
 
 def _send_telegram_message(text_msg: str) -> None:
     # Best-effort: send to the Open Claw Optimization Telegram group
@@ -544,6 +567,18 @@ def _collect_lock_files() -> List[Dict]:
             })
     locks.sort(key=lambda x: (x.get("pidAlive", False), -(x.get("ageSeconds") or 0)))
     return locks
+
+
+
+@app.route('/api/quiet-hours')
+def api_quiet_hours():
+    now = datetime.now(ZoneInfo('Asia/Bangkok'))
+    return jsonify({
+        'now': now.isoformat(),
+        'inQuietHours': _in_quiet_hours(now),
+        'start': {'hour': QUIET_HOURS_START[0], 'minute': QUIET_HOURS_START[1]},
+        'end': {'hour': QUIET_HOURS_END[0], 'minute': QUIET_HOURS_END[1]},
+    })
 
 
 @app.route('/api/world/state')
