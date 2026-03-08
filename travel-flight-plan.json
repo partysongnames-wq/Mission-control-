@@ -1321,10 +1321,13 @@
           "/assets/hotels/rest-kujo-osaka-trent-crop-2.jpg",
           "/assets/hotels/rest-kujo-osaka-trent-crop-3.jpg",
           "/assets/hotels/rest-kujo-osaka-trent-crop-4.jpg",
-          "/assets/hotels/rest-kujo-osaka-trent-crop-5.jpg"
+          "/assets/hotels/rest-kujo-osaka-trent-crop-5.jpg",
+          "/assets/hotels/rest-kujo-osaka-trent-crop-6.jpg",
+          "/assets/hotels/rest-kujo-osaka-trent-crop-7.jpg",
+          "/assets/hotels/rest-kujo-osaka-trent-crop-8.jpg"
         ],
         "photo_source": "Trent screenshots (cropped)",
-        "photo_count": 5,
+        "photo_count": 8,
         "notes": "Trent-provided set. 3 nights with taxes shown as THB 5,901."
       }
     ]
