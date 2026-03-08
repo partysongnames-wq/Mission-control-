@@ -1238,6 +1238,27 @@
         "smoking": "Non-smoking (filter applied)",
         "refundable": "Non-refundable",
         "verdict": "Avoid (does not meet double bed requirement)"
+      },
+      {
+        "label": "BRACKETS HOTEL Osaka Hommachi (Agoda)",
+        "area": "Hommachi, Osaka",
+        "provider": "Agoda",
+        "price_total_thb": 5196,
+        "current_price_total_thb": 5196,
+        "cancellation": "Free cancellation options available",
+        "bed": "Standard Double Non Smoking",
+        "rating": "8.5 (1,700+ reviews)",
+        "photo": "/assets/hotels/brackets-osaka-trent-crop-1.jpg",
+        "photos": [
+          "/assets/hotels/brackets-osaka-trent-crop-1.jpg",
+          "/assets/hotels/brackets-osaka-trent-crop-2.jpg",
+          "/assets/hotels/brackets-osaka-trent-crop-3.jpg",
+          "/assets/hotels/brackets-osaka-trent-crop-4.jpg",
+          "/assets/hotels/brackets-osaka-trent-crop-5.jpg"
+        ],
+        "photo_source": "Trent screenshots (cropped)",
+        "photo_count": 5,
+        "notes": "Trent-provided Brackets photo set. Strong location/reviews, higher price vs SEIHA/Airbnb."
       }
     ]
   }
