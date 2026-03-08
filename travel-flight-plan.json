@@ -1200,7 +1200,7 @@
         "label": "Luxury Elevator Apartment｜15 Min to USJ｜Sleeps 2 (Airbnb)",
         "url": "https://www.airbnb.com/rooms/1618541328655695000?unique_share_id=edb74f92-5136-460b-b574-6f87bcaf3d18&viralityEntryPoint=1&s=76",
         "saved_at": "2026-03-07 14:35 +07",
-        "notes": "From Nasha. Shortlist candidate, not locked. 2 guests, 1 bed, 1 private bath. New listing (no reviews yet).",
+        "notes": "From Nasha. Shortlist candidate, not locked. 2 guests, 1 bed, 1 private bath. New listing (no reviews yet). | Updated with Trent-provided photo set",
         "price_total_thb": 4046,
         "nights": 3,
         "check_in": "2026-04-13",
@@ -1210,7 +1210,15 @@
         "bed": "1 queen bed",
         "cancellation": "TBD (depends on selected dates/fare)",
         "verdict": "Preferred candidate (pending compare + confirm)",
-        "photo": "/assets/hotels/airbnb-osaka-1618541328655695000.jpg"
+        "photo": "/assets/hotels/airbnb-osaka-trent-crop-1.jpg",
+        "photos": [
+          "/assets/hotels/airbnb-osaka-trent-crop-1.jpg",
+          "/assets/hotels/airbnb-osaka-trent-crop-2.jpg",
+          "/assets/hotels/airbnb-osaka-trent-crop-3.jpg",
+          "/assets/hotels/airbnb-osaka-trent-crop-4.jpg"
+        ],
+        "photo_source": "Trent screenshots (cropped)",
+        "photo_count": 4
       },
       {
         "label": "KATSU HOTEL 新今宫# (Agoda)",
