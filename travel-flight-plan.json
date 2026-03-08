@@ -1154,6 +1154,24 @@
   "hotel_alternatives": {
     "osaka2": [
       {
+        "label": "SEIHA UMEDA by SpringRest (Agoda)",
+        "area": "Umeda, Osaka",
+        "provider": "Agoda",
+        "price_total_thb": 3952,
+        "current_price_total_thb": 3952,
+        "cancellation": "Free cancellation before 8 Apr",
+        "bed": "2 single beds (quadruple room)",
+        "rating": "8.9 (9 reviews)",
+        "photo": "/assets/hotels/seiha-umeda-trent-crop-1.jpg",
+        "photos": [
+          "/assets/hotels/seiha-umeda-trent-crop-1.jpg",
+          "/assets/hotels/seiha-umeda-trent-crop-2.jpg",
+          "/assets/hotels/seiha-umeda-trent-crop-3.jpg",
+          "/assets/hotels/seiha-umeda-trent-crop-4.jpg"
+        ],
+        "notes": "Trent-provided photo set. 3 nights (13–16 Apr), kitchen + private bathroom."
+      },
+      {
         "label": "HomeNest Hotel Tennoji (Agoda)",
         "url": "https://www.agoda.com/sp/HEVkqQ96FJz",
         "saved_at": "2026-03-07 20:26 +07",
