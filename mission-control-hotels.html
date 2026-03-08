@@ -292,7 +292,7 @@
   }
 
   function renderDestination(dest, altOptions){
-    const mainLooksLikePlaceholder = !dest.main?.label && !dest.main?.price_total_thb && !dest.main?.current_price_total_thb && !dest.main?.photo && !(dest.main?.photos && dest.main.photos.length);
+    const mainLooksLikePlaceholder = !dest.main?.label;
     const allCards = [ ...(mainLooksLikePlaceholder ? [] : [dest.main]), ...(altOptions || [])].filter(Boolean);
     allCards.sort((a,b) => (a.rank || 99) - (b.rank || 99));
     const urgency = new Date('2026-'+dest.check_in) < new Date('2026-04-10') ? '🔥 ' : '';
