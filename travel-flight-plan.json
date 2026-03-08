@@ -1259,6 +1259,19 @@
         "photo_source": "Trent screenshots (cropped)",
         "photo_count": 5,
         "notes": "Trent-provided Brackets photo set. Strong location/reviews, higher price vs SEIHA/Airbnb."
+      },
+      {
+        "label": "HOTEL MAGANDA (Agoda)",
+        "area": "Namba, Osaka",
+        "provider": "Agoda",
+        "status": "sold out",
+        "availability": "Sold out for Apr 13–16",
+        "rating": "8.6 (50 reviews)",
+        "flags": [
+          "adult-only",
+          "sold-out"
+        ],
+        "notes": "SOLD OUT now. Keep visible for reference only (was flagged adult-only)."
       }
     ]
   }
