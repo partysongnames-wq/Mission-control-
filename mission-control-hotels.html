@@ -64,6 +64,20 @@
     .badge.planning{border-color:rgba(255,255,255,.2);color:#fff;}
     .badge.booked{border-color:rgba(16,163,127,.55);color:#9ff1db;}
     .badge.alert{border-color:rgba(255,84,84,.6);color:#ffb0b0;}
+    .badge.photos{border-color:rgba(100,149,237,.6);color:#a8d0ff;cursor:pointer;}
+    .badge.photos:hover{background:rgba(100,149,237,.2);}
+
+    .photo-modal{position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,.92);display:none;justify-content:center;align-items:center;padding:40px;}
+    .photo-modal.active{display:flex;}
+    .photo-modal-content{position:relative;width:100%;max-width:900px;max-height:85vh;display:flex;flex-direction:column;gap:16px;}
+    .photo-modal-close{position:absolute;top:-40px;right:0;background:none;border:none;color:#fff;font-size:2rem;cursor:pointer;}
+    .photo-modal-main{width:100%;height:500px;object-fit:contain;border-radius:12px;}
+    .photo-modal-thumbs{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+    .photo-modal-thumb{width:80px;height:60px;object-fit:cover;border-radius:8px;border:2px solid transparent;cursor:pointer;opacity:.7;}
+    .photo-modal-thumb:hover,.photo-modal-thumb.active{opacity:1;border-color:#ffb347;}
+    .photo-modal-nav{display:flex;justify-content:center;gap:20px;align-items:center;color:#fff;}
+    .photo-modal-nav button{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;padding:8px 16px;border-radius:8px;cursor:pointer;font-size:1.2rem;}
+    .photo-modal-nav button:hover{background:rgba(255,255,255,.2);}
     .hotel-body{padding:14px;display:flex;flex-direction:column;gap:8px;flex:1;}
     .hotel-title{font-size:.95rem;letter-spacing:.08em;}
     .hotel-meta{font-size:.75rem;color:var(--muted);letter-spacing:.08em;}
@@ -86,7 +100,10 @@
 
     @media (max-width: 980px){.hero{grid-template-columns:repeat(2,1fr);} }
     @media (max-width: 640px){.hero{grid-template-columns:1fr;} .chipbar{justify-content:flex-start;} }
-  </style>
+  
+.hotelPhoto{width:96px;height:72px;border-radius:14px;object-fit:cover;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06)}
+.hotelPhoto.placeholder{display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.65);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase}
+</style>
 </head>
 <body>
   <div class="page">
@@ -107,19 +124,19 @@
     <section class="hero">
       <div class="hero-card">
         <h3>Budget / night</h3>
-        <strong id="budget">—</strong>
+        <strong id="budget">-</strong>
       </div>
       <div class="hero-card">
         <h3>Total hotel nights</h3>
-        <strong id="nights">—</strong>
+        <strong id="nights">-</strong>
       </div>
       <div class="hero-card">
         <h3>Budget total (max)</h3>
-        <strong id="budgetTotal">—</strong>
+        <strong id="budgetTotal">-</strong>
       </div>
       <div class="hero-card">
         <h3>Last checked</h3>
-        <strong id="checked">—</strong>
+        <strong id="checked">-</strong>
         <div id="checkedResult" style="margin-top:8px;color:var(--muted);font-size:.75rem;letter-spacing:.12em;"></div>
       </div>
     </section>
@@ -127,15 +144,29 @@
     <div id="statusMessage" class="status-message" data-state="loading">Loading hotel plan…</div>
 
     <section id="destinations" style="margin-top:22px;"><div class="empty-state">Waiting for your plan to load…</div></section>
-    
+
     <section class="help-card">
       <strong>How to add options</strong>
       <p>
         1. Search Agoda, Booking.com, or Airbnb for your dates<br>
         2. Send me the link + price + what you like about it<br>
-        3. I’ll add it as a card here with ranking
+        3. I'll add it as a card here with ranking
       </p>
     </section>
+
+    <!-- Photo Gallery Modal -->
+    <div id="photo-modal" class="photo-modal" onclick="if(event.target===this)closePhotoModal()">
+      <div class="photo-modal-content">
+        <button class="photo-modal-close" onclick="closePhotoModal()">&times;</button>
+        <img id="photo-modal-main" class="photo-modal-main" src="" alt="Hotel photo"/>
+        <div class="photo-modal-nav">
+          <button onclick="prevPhoto()">&#10094;</button>
+          <span id="photo-modal-counter">1 / 1</span>
+          <button onclick="nextPhoto()">&#10095;</button>
+        </div>
+        <div id="photo-modal-thumbs" class="photo-modal-thumbs"></div>
+      </div>
+    </div>
 
   </div>
 
@@ -145,7 +176,7 @@
   const destWrap = document.getElementById('destinations');
 
   function fmt(n){
-    if (typeof n !== 'number' || !isFinite(n)) return '—';
+    if (typeof n !== 'number' || !isFinite(n)) return '-';
     return 'THB ' + Math.round(n).toLocaleString();
   }
 
@@ -167,7 +198,7 @@
     const nights = (meta.hotels || []).reduce((acc, h) => acc + (h.nights || 0), 0);
     document.getElementById('nights').textContent = String(nights);
     document.getElementById('budgetTotal').textContent = fmt(nights * budget);
-    document.getElementById('checked').textContent = meta.hotels_last_checked || '—';
+    document.getElementById('checked').textContent = meta.hotels_last_checked || '-';
     document.getElementById('checkedResult').textContent = meta.hotels_last_result || '';
   }
 
@@ -188,13 +219,21 @@
     if (h.cancellation && h.cancellation.includes('Free')) flags.push('<span class="badge" style="border-color:rgba(16,163,127,.5);color:#86efac;">Free cancel</span>');
     if (h.rating) flags.push(`<span class="badge">⭐ ${h.rating}</span>`);
     if (h.rank) flags.push(`<span class="badge" style="background:rgba(250,204,21,.2);color:#facc15;border-color:rgba(250,204,21,.5);">#${h.rank} pick</span>`);
-    const photo = h.photo || h.image || '';
+
+    // Handle multiple photos
+    const allPhotos = h.photos || (h.photo ? [h.photo] : []);
+    const hasMultiplePhotos = allPhotos.length > 1;
+    const mainPhoto = allPhotos[0] || '';
+    if (hasMultiplePhotos) {
+      flags.push(`<span class="badge photos" onclick="openPhotoModal(${JSON.stringify(allPhotos).replace(/"/g, '&quot;')})">📷 ${allPhotos.length} photos</span>`);
+    }
+
     const bed = h.bed ? `<div class="hotel-meta">🛏 ${h.bed}</div>` : '';
 
     return `
       <div class="hotel-card">
-        <div class="hotel-media">
-          ${photo ? `<img src="${photo}" alt="${label}"/>` : ''}
+        <div class="hotel-media" ${mainPhoto ? `onclick="openPhotoModal(${JSON.stringify(allPhotos).replace(/"/g, '&quot;')})" style="cursor:pointer;"` : ''}>
+          ${mainPhoto ? `<img src="${mainPhoto}" alt="${label}"/>` : ''}
           <div class="badges">
             ${statusLabel}
             ${flags.join('')}
@@ -246,7 +285,7 @@
         <div class="destination-header">
           <div>
             <strong>${urgency}${dest.city}</strong>
-            <div class="destination-meta">${dest.check_in || 'TBD'} → ${dest.check_out || 'TBD'} • ${dest.nights || '—'} nights</div>
+            <div class="destination-meta">${dest.check_in || 'TBD'} → ${dest.check_out || 'TBD'} • ${dest.nights || '-'} nights</div>
           </div>
           <div class="destination-count">${allCards.length} option${allCards.length === 1 ? '' : 's'}</div>
         </div>
@@ -270,13 +309,13 @@
     });
 
     if (!plan){
-      destWrap.innerHTML = `<div class="empty-state">Couldn’t load the hotel plan. Try refreshing the page or re-uploading the data.</div>`;
+      destWrap.innerHTML = `<div class="empty-state">Couldn't load the hotel plan. Try refreshing the page or re-uploading the data.</div>`;
       setStatus('Could not load hotel plan.', 'error');
       return;
     }
 
     if (!hotels.length){
-      destWrap.innerHTML = `<div class="empty-state">No hotel options yet. Paste a link and I’ll add it to this list.</div>`;
+      destWrap.innerHTML = `<div class="empty-state">No hotel options yet. Paste a link and I'll add it to this list.</div>`;
       setStatus('No hotel stays are defined yet.', 'info');
       return;
     }
@@ -300,6 +339,54 @@
   }
 
   loadPlan();
+
+  // Photo gallery state
+  let currentPhotos = [];
+  let currentPhotoIndex = 0;
+
+  function openPhotoModal(photos, startIndex = 0) {
+    if (!photos || photos.length === 0) return;
+    currentPhotos = photos;
+    currentPhotoIndex = startIndex;
+    const modal = document.getElementById('photo-modal');
+    modal.classList.add('active');
+    updatePhotoModal();
+  }
+
+  function closePhotoModal(e) {
+    if (e && e.target !== e.currentTarget) return;
+    document.getElementById('photo-modal').classList.remove('active');
+    currentPhotos = [];
+  }
+
+  function updatePhotoModal() {
+    const mainImg = document.getElementById('photo-modal-main');
+    const counter = document.getElementById('photo-modal-counter');
+    const thumbsContainer = document.getElementById('photo-modal-thumbs');
+
+    mainImg.src = currentPhotos[currentPhotoIndex];
+    counter.textContent = `${currentPhotoIndex + 1} / ${currentPhotos.length}`;
+
+    thumbsContainer.innerHTML = currentPhotos.map((url, i) => `
+      <img src="${url}" class="photo-modal-thumb ${i === currentPhotoIndex ? 'active' : ''}"
+           onclick="jumpToPhoto(${i})" alt="Thumbnail ${i+1}"/>
+    `).join('');
+  }
+
+  function nextPhoto() {
+    currentPhotoIndex = (currentPhotoIndex + 1) % currentPhotos.length;
+    updatePhotoModal();
+  }
+
+  function prevPhoto() {
+    currentPhotoIndex = (currentPhotoIndex - 1 + currentPhotos.length) % currentPhotos.length;
+    updatePhotoModal();
+  }
+
+  function jumpToPhoto(index) {
+    currentPhotoIndex = index;
+    updatePhotoModal();
+  }
 </script>
 </body>
 </html>
