@@ -1175,7 +1175,7 @@
         "label": "HomeNest Hotel Tennoji (Agoda)",
         "url": "https://www.agoda.com/sp/HEVkqQ96FJz",
         "saved_at": "2026-03-07 20:26 +07",
-        "notes": "From Nasha via Trent. THB 4,751 total for 3 nights (13–16 Apr).",
+        "notes": "From Nasha via Trent. THB 4,751 total for 3 nights (13–16 Apr). | Updated with Trent-provided photo set",
         "price_total_thb": 4751,
         "nights": 3,
         "check_in": "2026-04-13",
@@ -1183,7 +1183,15 @@
         "price_per_night_thb": 1584,
         "area": "Tennoji",
         "verdict": "Shortlist candidate (pending compare + confirm)",
-        "photo": "/assets/hotels/agoda-homenest-tennoji.jpg"
+        "photo": "/assets/hotels/homenest-tennoji-trent-crop-1.jpg",
+        "photos": [
+          "/assets/hotels/homenest-tennoji-trent-crop-1.jpg",
+          "/assets/hotels/homenest-tennoji-trent-crop-2.jpg",
+          "/assets/hotels/homenest-tennoji-trent-crop-3.jpg",
+          "/assets/hotels/homenest-tennoji-trent-crop-4.jpg"
+        ],
+        "photo_source": "Trent screenshots (cropped)",
+        "photo_count": 4
       },
       {
         "label": "Luxury Elevator Apartment｜15 Min to USJ｜Sleeps 2 (Airbnb)",
