@@ -325,8 +325,20 @@
       opacity: 1;
     }
     .job-card.closed-track {
-      border-color: rgba(148, 163, 184, 0.28);
-      background: rgba(148, 163, 184, 0.06);
+      border-color: rgba(148, 163, 184, 0.55);
+      background: linear-gradient(160deg, rgba(148, 163, 184, 0.14), rgba(15, 23, 42, 0.2));
+      box-shadow: 0 0 0 1px rgba(148, 163, 184, 0.30), 0 20px 42px rgba(0, 0, 0, 0.42);
+    }
+    .job-card.closed-track::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 14px;
+      bottom: 14px;
+      width: 4px;
+      border-radius: 999px;
+      background: linear-gradient(180deg, #cbd5e1, #94a3b8);
+      opacity: 0.95;
     }
     .job-card h3 {
       margin: 0;
@@ -379,9 +391,10 @@
       border-color: rgba(247, 171, 10, 0.45);
     }
     .status-pill.closed {
-      background: rgba(148, 163, 184, 0.16);
-      color: #cbd5e1;
-      border-color: rgba(148, 163, 184, 0.40);
+      background: rgba(148, 163, 184, 0.30);
+      color: #e2e8f0;
+      border-color: rgba(148, 163, 184, 0.65);
+      font-weight: 700;
     }
     .notes {
       margin: 0;
