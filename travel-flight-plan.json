@@ -89,30 +89,30 @@
     {
       "id": "flight2",
       "party": "shared",
-      "date": "11 Apr",
+      "date": "10 Apr",
       "from_code": "HKG",
       "from_city": "Hong Kong",
-      "to_code": "KIX",
-      "to_city": "Osaka",
-      "airline": "Hong Kong Airlines",
-      "flight_number": "HX612",
-      "depart": "14:20",
-      "arrive": "19:20",
+      "to_code": "FUK",
+      "to_city": "Fukuoka",
+      "airline": "Greater Bay Airlines",
+      "flight_number": "HB2368",
+      "depart": "08:15",
+      "arrive": "12:45",
       "next_day": false,
       "route_type": "direct",
-      "status": "planned",
-      "price_per_person": 3015,
-      "price_total": 6030,
-      "baggage_included": "Cabin bag (checked bag varies by fare/provider)",
-      "notes": "Skyscanner TH live quote: HX612 HKG→KIX direct 14:20→19:20 from ฿3,015 total.",
+      "status": "book-now",
+      "price_per_person": 2815,
+      "price_total": 5630,
+      "baggage_included": "Carry-on only",
+      "notes": "Updated: flying to Fukuoka (Trip.com issuing ticket(s)).",
       "risk_flags": [],
       "booking_links": [
         {
-          "label": "Skyscanner (leg 2)",
-          "url": "https://www.skyscanner.co.th/transport/flights/hkg/osaa/260411/config/12191-2604111420--32229-0-13068-2604111920?adultsv2=1&cabinclass=economy&childrenv2=&ref=home&rtn=0&preferdirects=false&outboundaltsenabled=false&inboundaltsenabled=false"
+          "label": "Trip.com (HKG→FUK HB2368)",
+          "url": "https://www.trip.com/"
         }
       ],
-      "pnr": "PNR TBD",
+      "pnr": "Issuing ticket(s)",
       "price_history": [
         {
           "ts": "2026-03-04 23:49 +07",
@@ -532,43 +532,6 @@
         {
           "ts": "2026-03-07 18:17 +07",
           "price_per_person": 3171
-        }
-      ]
-    },
-    {
-      "id": "hkg-fuk-2026-04-10",
-      "party": "trent+nasha",
-      "date": "10 Apr 2026",
-      "from_code": "HKG",
-      "from_city": "Hong Kong",
-      "to_code": "FUK",
-      "to_city": "Fukuoka",
-      "airline": "Greater Bay Airlines",
-      "flight_number": "HB2368",
-      "depart": "08:15",
-      "arrive": "12:45",
-      "next_day": false,
-      "route_type": "direct",
-      "status": "book-now",
-      "price_per_person": 2815,
-      "price_total": 5630,
-      "baggage_included": "Carry-on only",
-      "notes": "From user screenshot: Trip.com showing issuing ticket(s). Passport-validity check pending airline written confirmation.",
-      "risk_flags": [
-        "passport_validity_confirmation_pending"
-      ],
-      "booking_links": [
-        {
-          "label": "Trip.com (HKG→FUK HB2368)",
-          "url": "https://www.trip.com/"
-        }
-      ],
-      "pnr": "Issuing ticket(s)",
-      "price_history": [
-        {
-          "ts": "2026-03-09 22:12 +07",
-          "price_per_person": 2815,
-          "price_total": 5630
         }
       ]
     }
