@@ -27,9 +27,98 @@
       gap: 2rem;
     }
     header {
-      max-width: 920px;
       margin-bottom: 1rem;
     }
+    .header-shell {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 340px;
+      gap: 1.5rem;
+      align-items: start;
+      max-width: 1200px;
+    }
+    @media (max-width: 980px) {
+      .header-shell { grid-template-columns: 1fr; }
+    }
+    .header-main { max-width: 920px; }
+
+    .apply-queue {
+      border-radius: 22px;
+      padding: 1.25rem;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(0, 0, 0, 0.45);
+      box-shadow: 0 30px 70px rgba(0, 0, 0, 0.55);
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+      min-height: 220px;
+    }
+    .apply-queue-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+    .apply-queue-kicker {
+      font-size: 0.7rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.7);
+    }
+    .apply-queue-title {
+      margin-top: 0.35rem;
+      font-weight: 650;
+      letter-spacing: 0.08em;
+    }
+    .apply-queue-meta {
+      margin-top: 0.35rem;
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      color: rgba(250, 204, 21, 0.85);
+      text-transform: uppercase;
+    }
+    .apply-queue-btn {
+      border: 1px solid rgba(250, 204, 21, 0.4);
+      background: rgba(250, 204, 21, 0.12);
+      color: #facc15;
+      border-radius: 999px;
+      padding: 0.45rem 0.9rem;
+      font-weight: 650;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+    .apply-queue-btn:hover { background: rgba(250, 204, 21, 0.18); }
+    .apply-queue-list { display: flex; flex-direction: column; gap: 0.75rem; }
+    .apply-queue-item {
+      border-radius: 16px;
+      padding: 0.9rem;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.04);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 0.75rem;
+      align-items: start;
+    }
+    .apply-queue-item.fade { opacity: 0.55; }
+    .apply-queue-item h4 { margin: 0; font-size: 1rem; letter-spacing: 0.04em; }
+    .apply-queue-item p { margin: 0.25rem 0 0; color: rgba(245,245,245,0.72); font-size: 0.85rem; }
+    .apply-queue-actions { display: flex; flex-direction: column; gap: 0.5rem; align-items: flex-end; }
+    .apply-queue-actions a, .apply-queue-actions button {
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border-radius: 999px;
+      padding: 0.35rem 0.75rem;
+      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(0,0,0,0.25);
+      color: rgba(245,245,245,0.9);
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .apply-queue-actions a:hover, .apply-queue-actions button:hover { border-color: rgba(250,204,21,0.5); }
+    .apply-queue-actions button.done { border-color: rgba(74,222,128,0.5); color: #86efac; }
+    .apply-queue-empty { color: rgba(245,245,245,0.65); letter-spacing: 0.08em; }
+    .apply-queue-foot { font-size: 0.75rem; color: rgba(245,245,245,0.55); letter-spacing: 0.06em; line-height: 1.4; }
     .tagline {
       letter-spacing: 0.2em;
       font-size: 0.75rem;
@@ -38,6 +127,65 @@
       display: inline-flex;
       gap: 0.5rem;
       align-items: center;
+    }
+    .hero {
+      position: relative;
+      border-radius: 28px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      min-height: 260px;
+      background: #05060e;
+      display: flex;
+      align-items: flex-end;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1454165205744-3b78555e5572?auto=format&fit=crop&w=1600&q=80');
+      background-size: cover;
+      background-position: center;
+      filter: contrast(1.05) saturate(1.2);
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.8));
+    }
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      padding: 2rem;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .hero-content h2 {
+      margin: 0;
+      font-size: clamp(2.5rem, 4vw, 3.5rem);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-family: 'Playfair Display', serif;
+    }
+    .hero-content p {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.9);
+      max-width: 640px;
+      letter-spacing: 0.05em;
+    }
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.35rem 0.9rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      background: rgba(0, 0, 0, 0.4);
     }
     header h1 {
       font-family: 'Playfair Display', serif;
@@ -82,6 +230,46 @@
       background: rgba(255, 255, 255, 0.04);
       border: 1px solid rgba(255, 255, 255, 0.08);
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    }
+    .active-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .active-card {
+      padding: 1.75rem;
+      border-radius: 26px;
+      background: linear-gradient(180deg, rgba(250, 204, 21, 0.15), rgba(15, 23, 42, 0.95));
+      border: 1px solid rgba(250, 204, 21, 0.4);
+      box-shadow: 0 45px 80px rgba(0, 0, 0, 0.55);
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+    .active-card h3 {
+      margin: 0;
+      font-size: 1.35rem;
+      letter-spacing: 0.04em;
+    }
+    .active-role {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 1rem;
+    }
+    .active-notes {
+      margin: 0;
+      font-size: 0.85rem;
+      color: rgba(245, 245, 245, 0.75);
+    }
+    .active-tasks {
+      margin: 0;
+      padding-left: 1.2rem;
+      color: rgba(245, 245, 245, 0.95);
+      font-size: 0.9rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
     }
     .summary-card h2 {
       margin: 0 0 0.5rem;
@@ -176,6 +364,11 @@
       color: #93c5fd;
       border-color: rgba(59, 130, 246, 0.45);
     }
+    .status-pill.interviewed {
+      background: rgba(167, 139, 250, 0.18);
+      color: #ddd6fe;
+      border-color: rgba(167, 139, 250, 0.50);
+    }
     .status-pill.demo {
       background: rgba(247, 171, 10, 0.2);
       color: #fcd34d;
@@ -248,16 +441,63 @@
 </head>
 <body>
   <div class="page">
-    <header>
-      <div class="tagline">The Standard · Job Lounge</div>
-      <h1>Opportunity Suite</h1>
-      <p>Curated from your 2026 tracker, this suite keeps every Bangkok role in the same cinematic vibe as The Standard Mission Control. Pockets of light highlight the high-salary tenants and upcoming interviews while the grid shows every application lined up like bespoke rooms.</p>
-      <div class="quick-links">
-        <a href="mission-control-standard.html">Mission Control</a>
-        <a href="/world-hybrid">Office View</a>
-        <a href="mission-control-calendar.html">Calendar</a>
+    <header class="header-shell">
+      <div class="header-main">
+        <div class="tagline">The Standard · Job Lounge</div>
+        <h1>Opportunity Suite</h1>
+        <p>Curated from your 2026 tracker, this suite keeps every Bangkok role in the same cinematic vibe as The Standard Mission Control. Pockets of light highlight the high-salary tenants and upcoming interviews while the grid shows every application lined up like bespoke rooms.</p>
+        <div class="quick-links">
+          <a href="/mission-control.html">Mission Control</a>
+          <a href="/world-hybrid">Office View</a>
+          <a href="mission-control-calendar.html">Calendar</a>
+        </div>
       </div>
+
+      <aside class="apply-queue" id="apply-queue">
+        <div class="apply-queue-head">
+          <div>
+            <div class="apply-queue-kicker">Apply queue</div>
+            <div class="apply-queue-title">Today’s not-applied-yet picks</div>
+            <div class="apply-queue-meta"><span id="apply-queue-stamp">—</span></div>
+          </div>
+          <button class="apply-queue-btn" id="apply-queue-refresh" type="button">Refresh</button>
+        </div>
+        <div class="apply-queue-list" id="apply-queue-list">
+          <div class="apply-queue-empty">Loading…</div>
+        </div>
+        <div class="apply-queue-foot">Picks persist until you mark them applied; items fade after ~14 days.</div>
+      </aside>
     </header>
+    <div class="hero">
+      <div class="hero-content">
+        <div class="hero-pill">Job Concierge</div>
+        <h2>Coordinating the career floor</h2>
+        <p>Each desk shows the latest leads, the demo timeline, and the token pulse for the agents managing your applications.</p>
+      </div>
+    </div>
+
+    <section class="active-grid">
+      <article class="active-card">
+        <h3>Creative Writing / Journalism (EPL)</h3>
+        <p class="active-role">High School English Teacher · Demo</p>
+        <p class="active-notes">20-minute online demo · rescheduling for Monday or Tuesday</p>
+        <ol class="active-tasks">
+          <li>Confirm the demo time, Zoom link, and any tech requirements.</li>
+          <li>Outline a tight 20-minute lesson: hook, modeling, practice prompt, and recap.</li>
+          <li>Share availability, ask who will be observing, and offer to send sample materials.</li>
+        </ol>
+      </article>
+      <article class="active-card">
+        <h3>BCC IEP (G9-10)</h3>
+        <p class="active-role">Interview completed · English Teacher (IEP)</p>
+        <p class="active-notes">Waiting for feedback · keep applying in parallel</p>
+        <ol class="active-tasks">
+          <li>Send a short thank-you / follow-up (if not sent yet).</li>
+          <li>Write 3 bullet points: what went well, what to tighten next time.</li>
+          <li>Keep the job pipeline moving (apply to 1–3 roles today regardless of outcome).</li>
+        </ol>
+      </article>
+    </section>
 
     <section class="summary">
       <article class="summary-card">
@@ -301,121 +541,26 @@
 
     <section class="jobs-grid">
       <article class="job-card">
-        <h3>BCC EIP (EP program)</h3>
-        <p class="job-role">English Teacher (EP, multi-subject)</p>
+        <h3>Anglo Singapore</h3>
+        <p class="job-role">Secondary Core English</p>
         <div class="meta">
-          <span>Applied Feb 7</span>
-          <span>Salary 59-75k</span>
-          <span>Location Surasak BTS</span>
-        </div>
-        <span class="status-pill applied">Applied</span>
-        <p class="notes">English Immersion Program — higher-tier opportunity for multi-subject support.</p>
-      </article>
-      <article class="job-card">
-        <h3>Essential Staffing</h3>
-        <p class="job-role">Secondary English (agency)</p>
-        <div class="meta">
-          <span>Applied Feb 7</span>
+          <span>Applied Mar 4</span>
           <span>Salary TBD</span>
-          <span>Location Silom area</span>
+          <span>Location Sukhumvit 64</span>
         </div>
         <span class="status-pill applied">Applied</span>
-        <p class="notes">Agency application—waiting to hear back on placements.</p>
+        <p class="notes">Hail Mary submission—big campus energy.</p>
       </article>
       <article class="job-card">
-        <h3>Wall Street English</h3>
-        <p class="job-role">English Teacher</p>
+        <h3>Srinakharinwirot University</h3>
+        <p class="job-role">NES English / SAT</p>
         <div class="meta">
-          <span>Applied Feb 9</span>
-          <span>Salary TBD</span>
+          <span>Applied Mar 3</span>
+          <span>Salary 65k (55k + 10k housing)</span>
+          <span>Location Prasarnmit / Asok</span>
         </div>
         <span class="status-pill applied">Applied</span>
-        <p class="notes">Adult learners focus—location TBD but strong name recognition.</p>
-      </article>
-      <article class="job-card">
-        <h3>EduFirst</h3>
-        <p class="job-role">Business English (break work)</p>
-        <div class="meta">
-          <span>Applied Feb 14</span>
-          <span>Rate 400/hr</span>
-          <span>Location Siam</span>
-        </div>
-        <span class="status-pill applied">Applied</span>
-        <p class="notes">Side income during break, flexible hours.</p>
-      </article>
-      <article class="job-card">
-        <h3>PRTR / Learning Designer</h3>
-        <p class="job-role">Learning Designer</p>
-        <div class="meta">
-          <span>Applied Feb 15</span>
-          <span>Salary TBD</span>
-          <span>Location Phrom Phong</span>
-        </div>
-        <span class="status-pill applied">Applied</span>
-        <p class="notes">Via JobsDB—PDPA consent already provided.</p>
-      </article>
-      <article class="job-card">
-        <h3>PRTR general</h3>
-        <p class="job-role">Agency recruitment</p>
-        <div class="meta">
-          <span>Applied Feb 15</span>
-          <span>Salary TBD</span>
-        </div>
-        <span class="status-pill applied">Applied</span>
-        <p class="notes">PDPA consent received—awaiting next steps.</p>
-      </article>
-      <article class="job-card">
-        <h3>British Council</h3>
-        <p class="job-role">Hourly Paid Instructor</p>
-        <div class="meta">
-          <span>Applied Feb 15</span>
-          <span>Rate 1000/hr</span>
-        </div>
-        <span class="status-pill applied">Applied</span>
-        <p class="notes">Prefers CELTA-certified folks but open to strong demos.</p>
-      </article>
-      <article class="job-card">
-        <h3>Schmoll Asia Pacific</h3>
-        <p class="job-role">In-House English Teacher</p>
-        <div class="meta">
-          <span>Applied Feb 18</span>
-          <span>Salary 55k+</span>
-          <span>Location Rama 3 / Sathorn</span>
-        </div>
-        <span class="status-pill applied">Applied</span>
-        <p class="notes">Corporate clients, engineers—bilingual team vibe.</p>
-      </article>
-      <article class="job-card">
-        <h3>Y Learning (Thailand)</h3>
-        <p class="job-role">Test Prep Tutor</p>
-        <div class="meta">
-          <span>Applied Feb 18</span>
-          <span>Rate 600/hr</span>
-          <span>Location Siam area</span>
-        </div>
-        <span class="status-pill applied">Applied</span>
-        <p class="notes">Part-time tutoring with test prep focus.</p>
-      </article>
-      <article class="job-card">
-        <h3>Pandora Production Co.</h3>
-        <p class="job-role">L&D / English Trainer</p>
-        <div class="meta">
-          <span>Applied Feb 19</span>
-          <span>Salary 60k</span>
-          <span>Location Prawet (hybrid)</span>
-        </div>
-        <span class="status-pill applied">Applied</span>
-        <p class="notes">Blends HR and training, hybrid schedule.</p>
-      </article>
-      <article class="job-card">
-        <h3>Modulo School</h3>
-        <p class="job-role">NES English Teacher</p>
-        <div class="meta">
-          <span>Applied Feb 19</span>
-          <span>Salary 45-60k</span>
-        </div>
-        <span class="status-pill applied">Applied</span>
-        <p class="notes">Multiple branches—flexible placement possibilities.</p>
+        <p class="notes">University-level role with housing stipend.</p>
       </article>
       <article class="job-card">
         <h3>Assumption College Bangrak</h3>
@@ -457,30 +602,126 @@
           <span>Salary 55-69k + 40k bonus</span>
           <span>Location Surasak BTS</span>
         </div>
-        <span class="status-pill interview">Interview</span>
-        <p class="notes">Interview Friday Mar 6 at 2pm — prepare IEP pitch & materials.</p>
+        <span class="status-pill interviewed">Interviewed</span>
+        <p class="notes">Interview completed (Fri Mar 6) — next step: wait for feedback / send follow-up.</p>
+      </article>
+      <article class="job-card highlight">
+        <h3>Modulo School</h3>
+        <p class="job-role">NES English Teacher</p>
+        <div class="meta">
+          <span>Applied Feb 19</span>
+          <span>Salary 45-60k</span>
+          <span>HR follow-up Mar 9</span>
+        </div>
+        <span class="status-pill interview">Screening</span>
+        <p class="notes">HR requested docs + Google Form (passport bio page, visa/work permit, degree/TESOL, criminal check, legalization status). Next move: submit form + attach docs bundle.</p>
       </article>
       <article class="job-card">
-        <h3>Srinakharinwirot University</h3>
-        <p class="job-role">NES English / SAT</p>
+        <h3>Pandora Production Co.</h3>
+        <p class="job-role">L&D / English Trainer</p>
         <div class="meta">
-          <span>Applied Mar 3</span>
-          <span>Salary 65k (55k + 10k housing)</span>
-          <span>Location Prasarnmit / Asok</span>
+          <span>Applied Feb 19</span>
+          <span>Salary 60k</span>
+          <span>Location Prawet (hybrid)</span>
         </div>
         <span class="status-pill applied">Applied</span>
-        <p class="notes">University-level role with housing stipend.</p>
+        <p class="notes">Blends HR and training, hybrid schedule.</p>
       </article>
       <article class="job-card">
-        <h3>Anglo Singapore</h3>
-        <p class="job-role">Secondary Core English</p>
+        <h3>Y Learning (Thailand)</h3>
+        <p class="job-role">Test Prep Tutor</p>
         <div class="meta">
-          <span>Applied Mar 4</span>
+          <span>Applied Feb 18</span>
+          <span>Rate 600/hr</span>
+          <span>Location Siam area</span>
+        </div>
+        <span class="status-pill applied">Applied</span>
+        <p class="notes">Part-time tutoring with test prep focus.</p>
+      </article>
+      <article class="job-card">
+        <h3>Schmoll Asia Pacific</h3>
+        <p class="job-role">In-House English Teacher</p>
+        <div class="meta">
+          <span>Applied Feb 18</span>
+          <span>Salary 55k+</span>
+          <span>Location Rama 3 / Sathorn</span>
+        </div>
+        <span class="status-pill applied">Applied</span>
+        <p class="notes">Corporate clients, engineers—bilingual team vibe.</p>
+      </article>
+      <article class="job-card">
+        <h3>British Council</h3>
+        <p class="job-role">Hourly Paid Instructor</p>
+        <div class="meta">
+          <span>Applied Feb 15</span>
+          <span>Rate 1000/hr</span>
+        </div>
+        <span class="status-pill applied">Applied</span>
+        <p class="notes">Prefers CELTA-certified folks but open to strong demos.</p>
+      </article>
+      <article class="job-card">
+        <h3>PRTR general</h3>
+        <p class="job-role">Agency recruitment</p>
+        <div class="meta">
+          <span>Applied Feb 15</span>
           <span>Salary TBD</span>
-          <span>Location Sukhumvit 64</span>
         </div>
         <span class="status-pill applied">Applied</span>
-        <p class="notes">Hail Mary submission—big campus energy.</p>
+        <p class="notes">PDPA consent received—awaiting next steps.</p>
+      </article>
+      <article class="job-card">
+        <h3>PRTR / Learning Designer</h3>
+        <p class="job-role">Learning Designer</p>
+        <div class="meta">
+          <span>Applied Feb 15</span>
+          <span>Salary TBD</span>
+          <span>Location Phrom Phong</span>
+        </div>
+        <span class="status-pill applied">Applied</span>
+        <p class="notes">Via JobsDB—PDPA consent already provided.</p>
+      </article>
+      <article class="job-card">
+        <h3>EduFirst</h3>
+        <p class="job-role">Business English (break work)</p>
+        <div class="meta">
+          <span>Applied Feb 14</span>
+          <span>Rate 400/hr</span>
+          <span>Location Siam</span>
+        </div>
+        <span class="status-pill applied">Applied</span>
+        <p class="notes">Side income during break, flexible hours.</p>
+      </article>
+      <article class="job-card">
+        <h3>Wall Street English</h3>
+        <p class="job-role">English Teacher</p>
+        <div class="meta">
+          <span>Applied Feb 9</span>
+          <span>Salary TBD</span>
+        </div>
+        <span class="status-pill applied">Applied</span>
+        <p class="notes">Adult learners focus—location TBD but strong name recognition.</p>
+      </article>
+      <article class="job-card">
+        <h3>Essential Staffing</h3>
+        <p class="job-role">Secondary English (agency)</p>
+        <div class="meta">
+          <span>Applied Feb 7</span>
+          <span>Salary TBD</span>
+          <span>Location Silom area</span>
+        </div>
+        <span class="status-pill applied">Applied</span>
+        <p class="notes">Agency application—waiting to hear back on placements.</p>
+      </article>
+      <article class="job-card">
+        <h3>BCC EIP (EP program)</h3>
+        <p class="job-role">English Teacher (EP, multi-subject)</p>
+        <div class="meta">
+          <span>Applied Feb 7</span>
+          <span>Salary 59-75k</span>
+          <span>Location Surasak BTS</span>
+        </div>
+        <span class="status-pill applied">Applied</span>
+        <p class="notes">English Immersion Program — higher-tier opportunity for multi-subject support.</p>
       </article>
     </section>
 
@@ -488,8 +729,123 @@
       <div>
         The Standard Job Lounge · Styled for Bangkok applications and hotel-grade polish.
       </div>
-      <a href="mission-control-widget.html">Return to the lobby</a>
+      <a href="/mission-control.html">Return to Mission Control</a>
     </footer>
   </div>
+  <script>
+    const SUGGESTIONS_URL = 'data/job-suggestions.json';
+    const STORAGE_KEY = 'jobLounge_applyQueue_v1';
+
+    function todayStamp(){
+      const d = new Date();
+      const y = d.getFullYear();
+      const m = String(d.getMonth()+1).padStart(2,'0');
+      const day = String(d.getDate()).padStart(2,'0');
+      return `${y}-${m}-${day}`;
+    }
+
+    function loadState(){
+      try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); }
+      catch { return {}; }
+    }
+
+    function saveState(state){
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    }
+
+    function seededPick(list, seedStr, count){
+      // tiny deterministic shuffle
+      let seed = 0;
+      for (const ch of seedStr) seed = (seed * 31 + ch.charCodeAt(0)) >>> 0;
+      const arr = list.slice();
+      for (let i = arr.length - 1; i > 0; i--) {
+        seed = (seed * 1664525 + 1013904223) >>> 0;
+        const j = seed % (i + 1);
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr.slice(0, count);
+    }
+
+    function daysBetween(tsMsA, tsMsB){
+      const MS = 24*60*60*1000;
+      return Math.floor(Math.abs(tsMsA - tsMsB) / MS);
+    }
+
+    async function loadSuggestions(){
+      try {
+        const res = await fetch(SUGGESTIONS_URL);
+        if (!res.ok) throw new Error('failed');
+        const data = await res.json();
+        if (!Array.isArray(data)) throw new Error('bad');
+        return data;
+      } catch (e) {
+        return [];
+      }
+    }
+
+    function renderApplyQueue(items, state, stamp){
+      const wrap = document.getElementById('apply-queue-list');
+      const stampEl = document.getElementById('apply-queue-stamp');
+      if (stampEl) stampEl.textContent = `Updated: ${stamp}`;
+
+      const now = Date.now();
+      const filtered = items.filter(it => !state.applied?.[it.id]);
+      if (!filtered.length){
+        wrap.innerHTML = `<div class="apply-queue-empty">No pending picks right now — nice. Hit Refresh to reshuffle.</div>`;
+        return;
+      }
+
+      wrap.innerHTML = filtered.map(it => {
+        const firstSeen = state.firstSeen?.[it.id];
+        const ageDays = firstSeen ? daysBetween(now, firstSeen) : 0;
+        const fade = ageDays >= 14;
+        const source = it.source ? `<span style="opacity:.7; font-size:.75rem; letter-spacing:.12em; text-transform:uppercase;">${it.source}</span>` : '';
+        return `
+          <div class="apply-queue-item${fade ? ' fade' : ''}">
+            <div>
+              <h4>${it.title}</h4>
+              <p>${it.why || ''}</p>
+              <div style="margin-top:.45rem; display:flex; gap:.6rem; flex-wrap:wrap; align-items:center;">${source}${firstSeen ? `<span style="opacity:.55; font-size:.75rem; letter-spacing:.12em;">Seen ${ageDays}d ago</span>` : ''}</div>
+            </div>
+            <div class="apply-queue-actions">
+              ${it.url ? `<a href="${it.url}" target="_blank" rel="noopener">Open</a>` : ''}
+              <button class="done" data-apply-id="${it.id}">Applied</button>
+            </div>
+          </div>`;
+      }).join('');
+
+      wrap.querySelectorAll('button[data-apply-id]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const id = btn.getAttribute('data-apply-id');
+          state.applied = state.applied || {};
+          state.applied[id] = { ts: Date.now() };
+          saveState(state);
+          // re-render
+          renderApplyQueue(items, state, stamp);
+        });
+      });
+    }
+
+    async function initApplyQueue(mode){
+      const state = loadState();
+      const stamp = todayStamp();
+      const suggestions = await loadSuggestions();
+
+      // firstSeen tracking
+      state.firstSeen = state.firstSeen || {};
+      state.applied = state.applied || {};
+
+      const seed = mode === 'refresh' ? `${stamp}-${Date.now()}` : stamp;
+      const picks = seededPick(suggestions, seed, 4);
+      for (const it of picks){
+        if (!state.firstSeen[it.id]) state.firstSeen[it.id] = Date.now();
+      }
+      saveState(state);
+      renderApplyQueue(picks, state, stamp);
+    }
+
+    document.getElementById('apply-queue-refresh')?.addEventListener('click', () => initApplyQueue('refresh'));
+    initApplyQueue('daily');
+  </script>
 </body>
 </html>
