@@ -100,11 +100,11 @@
       "arrive": "12:45",
       "next_day": false,
       "route_type": "direct",
-      "status": "book-now",
+      "status": "booked",
       "price_per_person": 2815,
       "price_total": 5630,
       "baggage_included": "Carry-on only",
-      "notes": "Updated: flying to Fukuoka (Trip.com issuing ticket(s)).",
+      "notes": "Updated: flying to Fukuoka (Trip.com issuing ticket(s)). Confirmed booked by user.",
       "risk_flags": [],
       "booking_links": [
         {
