@@ -537,17 +537,40 @@
     },
     {
       "id": "hkg-fuk-2026-04-10",
-      "from": "HKG",
-      "to": "FUK",
-      "date": "2026-04-10",
-      "depart_time_local": "08:15",
-      "arrive_time_local": "12:45",
-      "flight_no": "HB2368",
-      "provider": "Trip.com",
-      "price_thb": 5630,
+      "party": "trent+nasha",
+      "date": "10 Apr 2026",
+      "from_code": "HKG",
+      "from_city": "Hong Kong",
+      "to_code": "FUK",
+      "to_city": "Fukuoka",
+      "airline": "Greater Bay Airlines",
+      "flight_number": "HB2368",
+      "depart": "08:15",
+      "arrive": "12:45",
+      "next_day": false,
+      "route_type": "direct",
       "status": "book-now",
-      "booking_state": "Issuing ticket(s)",
-      "notes": "Added from user screenshot."
+      "price_per_person": 2815,
+      "price_total": 5630,
+      "baggage_included": "Carry-on only",
+      "notes": "From user screenshot: Trip.com showing issuing ticket(s). Passport-validity check pending airline written confirmation.",
+      "risk_flags": [
+        "passport_validity_confirmation_pending"
+      ],
+      "booking_links": [
+        {
+          "label": "Trip.com (HKG→FUK HB2368)",
+          "url": "https://www.trip.com/"
+        }
+      ],
+      "pnr": "Issuing ticket(s)",
+      "price_history": [
+        {
+          "ts": "2026-03-09 22:12 +07",
+          "price_per_person": 2815,
+          "price_total": 5630
+        }
+      ]
     }
   ],
   "decisions": [
