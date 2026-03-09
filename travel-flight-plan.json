@@ -7,9 +7,9 @@
     "baggage_plan": "Outbound: carry-on only (7kg each on HK Express). Return: bring foldable duffel; add checked bag only on the leg we need (likely return).",
     "return_plan": "Return may be separate: Nasha PUS→BKK option A • Trent PUS→BKK option B (no Vietnam transit for Trent).",
     "notes": "Latest plan: HK 9–11, Osaka 11–16 (stay Osaka on 14), Busan transit 16, Jeju 16–18, Busan 18–19, return 19. Hiroshima by JR (Kansai–Hiroshima pass).",
-    "prices_last_checked": "2026-03-07 18:17 +07",
+    "prices_last_checked": "2026-03-09 18:03 +07",
     "prices_source": "Skyscanner",
-    "prices_last_result": "Automated check: Skyscanner PerimeterX captcha encountered on skyscanner.app.link redirects (unable to read live cheapest prices). No price updates applied.",
+    "prices_last_result": "Automated check: Skyscanner bot check / captcha encountered (Are you a person or a robot?). Unable to read live cheapest prices. No price updates applied.",
     "prices_last_changes": [
       {
         "flight_id": "flight7",
@@ -534,6 +534,20 @@
           "price_per_person": 3171
         }
       ]
+    },
+    {
+      "id": "hkg-fuk-2026-04-10",
+      "from": "HKG",
+      "to": "FUK",
+      "date": "2026-04-10",
+      "depart_time_local": "08:15",
+      "arrive_time_local": "12:45",
+      "flight_no": "HB2368",
+      "provider": "Trip.com",
+      "price_thb": 5630,
+      "status": "book-now",
+      "booking_state": "Issuing ticket(s)",
+      "notes": "Added from user screenshot."
     }
   ],
   "decisions": [
