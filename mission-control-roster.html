@@ -253,8 +253,10 @@
         const model = agent.model || (tokenRow ? tokenRow.model : 'unknown');
         const percent = tokenRow ? Math.round(tokenRow.percent * 100) : 0;
         const headroom = tokenRow ? tokenRow.limit - tokenRow.used : 0;
-        const used2h = tokenRow ? Math.round(tokenRow.used2h || 0) : 0;
-        const used24h = tokenRow ? Math.round(tokenRow.used24h || 0) : 0;
+        const used2hReady = tokenRow ? !!tokenRow.used2hReady : false;
+        const used24hReady = tokenRow ? !!tokenRow.used24hReady : false;
+        const used2h = tokenRow && typeof tokenRow.used2h === 'number' ? Math.round(tokenRow.used2h) : 0;
+        const used24h = tokenRow && typeof tokenRow.used24h === 'number' ? Math.round(tokenRow.used24h) : 0;
         const primaryStatusKey = agent.action || (agent.actions ? agent.actions[0] : '') || '';
         const state = statuses[primaryStatusKey]?.state || 'idle';
         const detail = statuses[primaryStatusKey]?.detail || 'Standing by';
@@ -281,8 +283,8 @@
             <p>${agent.desc}</p>
             <div class="model">Model: ${model.replace('openai-codex/','').replace('openai/','')}</div>
             ${percent > 0 || headroom > 0 ? `<div class="badge-row"><span class="badge">${percent}% usage</span><span class="badge">${headroom.toLocaleString()} remaining</span></div>` : ''}
-            ${used2h > 0 ? `<div class="badge-row"><span class="badge">${used2h.toLocaleString()} tokens · 2h</span></div>` : ''}
-            ${used24h > 0 ? `<div class="badge-row"><span class="badge">${used24h.toLocaleString()} tokens · 24h</span></div>` : ''}
+            ${used2hReady ? `<div class="badge-row"><span class="badge">${used2h.toLocaleString()} tokens · 2h</span></div>` : `<div class="badge-row"><span class="badge">2h tokens: collecting…</span></div>`}
+            ${used24hReady ? `<div class="badge-row"><span class="badge">${used24h.toLocaleString()} tokens · 24h</span></div>` : ''}
             <div class="actions">${actionButtons}</div>
           </article>
         `;

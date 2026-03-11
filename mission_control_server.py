@@ -365,9 +365,10 @@ def _record_token_snapshot(rows: List[Dict]) -> None:
     _save_token_history(history)
 
 
-def _delta_for_key(key: str, used_now: float, history: List[Dict], seconds: int) -> float:
+def _delta_for_key(key: str, used_now: float, history: List[Dict], seconds: int):
+    """Return delta tokens over `seconds`, or None if we don't have an old-enough snapshot yet."""
     if not key or used_now is None or not seconds:
-        return 0.0
+        return None
     target_ts = datetime.utcnow().timestamp() - float(seconds)
 
     # Find snapshot closest to (but not after) target_ts.
@@ -379,7 +380,7 @@ def _delta_for_key(key: str, used_now: float, history: List[Dict], seconds: int)
         if ts <= target_ts:
             prior = h
     if not prior:
-        return 0.0
+        return None
 
     used_then = None
     for r in prior.get('rows', []):
@@ -387,7 +388,7 @@ def _delta_for_key(key: str, used_now: float, history: List[Dict], seconds: int)
             used_then = r.get('used')
             break
     if not isinstance(used_then, (int, float)):
-        return 0.0
+        return None
 
     return max(float(used_now) - float(used_then), 0.0)
 
@@ -431,8 +432,12 @@ def fetch_token_usage() -> List[Dict]:
     for row in usage:
         key = row.get('key')
         used = row.get('used')
-        row['used2h'] = round(_delta_for_key(key, used, history, 2 * 3600), 0)
-        row['used24h'] = round(_delta_for_key(key, used, history, 24 * 3600), 0)
+        d2 = _delta_for_key(key, used, history, 2 * 3600)
+        d24 = _delta_for_key(key, used, history, 24 * 3600)
+        row['used2h'] = round(d2, 0) if isinstance(d2, (int, float)) else None
+        row['used24h'] = round(d24, 0) if isinstance(d24, (int, float)) else None
+        row['used2hReady'] = d2 is not None
+        row['used24hReady'] = d24 is not None
 
     usage.sort(key=lambda entry: entry["percent"], reverse=True)
     return usage[:200]
