@@ -23,9 +23,9 @@
       ],
       "notes": "Valid seven consecutive days; perfect for the Kansai → Hiroshima → Fukuoka corridor."
     },
-    "prices_last_checked": "2026-03-11 12:56 +07",
+    "prices_last_checked": "2026-03-11 17:35 +07",
     "prices_source": "Skyscanner",
-    "prices_last_result": "Manual update: flight7 (PUS→BKK direct, 19 Apr) now THB 4,636 via Traveloka (TeaFlight THB 4,680).",
+    "prices_last_result": "Manual update: KIX→CJU (Plan B) now THB 4,151 via Agoda; Kiwi at THB 4,305. T'way Air 12:00–14:00 direct.",
     "prices_last_changes": [
       {
         "flight_id": "flight7",
@@ -329,17 +329,17 @@
       "from_city": "Osaka",
       "to_code": "CJU",
       "to_city": "Jeju",
-      "airline": "TBD",
+      "airline": "T'way Air",
       "flight_number": "TBD",
-      "depart": "TBD",
-      "arrive": "TBD",
+      "depart": "12:00",
+      "arrive": "14:00",
       "next_day": false,
       "route_type": "direct",
       "status": "planned",
-      "price_per_person": 0,
-      "price_total": 0,
+      "price_per_person": 4151,
+      "price_total": 8302,
       "baggage_included": "Carry-on (TBD)",
-      "notes": "Plan B direct option: Osaka → Jeju (replace Busan transit on 16 Apr when using Plan B).",
+      "notes": "Plan B direct option: Osaka → Jeju. Updated 11 Mar 17:35 from Trent screenshot: Agoda THB 4,151 (Kiwi THB 4,305), T'way Air 12:00–14:00 direct.",
       "risk_flags": [
         "option",
         "price-tbd"
@@ -355,6 +355,10 @@
         {
           "ts": "2026-03-11 00:03 +07",
           "price_per_person": 0
+        },
+        {
+          "ts": "2026-03-11 17:35 +07",
+          "price_per_person": 4151
         }
       ],
       "plan_tag": "Plan B"
