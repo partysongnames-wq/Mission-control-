@@ -212,14 +212,14 @@
     const AGENTS = [
       // Pinned / top-of-roster
       { id: 'director', name: 'Trent', nickname: 'TR', desc: 'Director / approves changes', avatar: '/assets/trent-avatar.jpg', model: 'CEO' },
-      { id: '-5287663927', name: 'Yoko', nickname: 'Yoko', desc: 'Multi‑role agent (ops + watch desk + travel coordination). Models: gpt‑5.2 / gpt‑5.3 depending on group.', roles: ['Ops', 'Watch desk', 'Travel'], actions: ['watch','travel','manifesto'], avatar: '/assets/yoko.jpg', model: 'openai-codex/gpt-5.2', groups: ['Design & Y Skills','Yoko + TJ','Main Ops'] },
-      { id: 'yoko-lite', name: 'Yuki', nickname: 'Yuki', desc: 'Yoko’s little sister (lite). Fast scans only. Model: gpt‑5.1‑mini (upgradeable).', roles: ['Lite scans'], actions: ['watch'], avatar: '/assets/yoko.jpg', model: 'gpt-5.1-codex-mini', groups: ['Design & Y Skills','Yoko + TJ'] },
+      { id: '-5287663927', name: 'Yoko', nickname: 'Yoko', desc: 'Ops + travel coordination. Models: 5.2 / 5.3.', roles: ['Ops', 'Travel'], actions: ['watch','travel','manifesto'], avatar: '/assets/yoko.jpg', model: 'openai-codex/gpt-5.2', groups: ['Design & Y Skills','Yoko + TJ','Main Ops'] },
+      { id: 'yoko-lite', name: 'Yuki', nickname: 'Yuki', desc: 'Lite scan bot. Model: 5.1‑mini (upgradeable).', roles: ['Lite scans'], actions: ['watch'], avatar: '/assets/yoko.jpg', model: 'gpt-5.1-codex-mini', groups: ['Design & Y Skills','Yoko + TJ'] },
 
       // Crew
-      { id: '-5275095885', name: 'Trent Assistant', nickname: 'TJ', desc: 'Trent’s mysterious assistant — travel scans + quiet ops.', action: 'travel', avatar: '/assets/tj.jpg', model: 'gpt-5.2', groups: ['Yoko + TJ'] },
-      { id: '-5158792881', name: 'Jasper Assistant', nickname: 'Jas', desc: 'Manifesto + calm top 3', action: 'manifesto', avatar: '/assets/jaz.jpg', model: 'openai-codex/gpt-5.2' },
+      { id: '-5275095885', name: 'TJ', nickname: 'TJ', desc: 'Trent Assistant — travel scans + quiet ops.', action: 'travel', avatar: '/assets/tj.jpg', model: 'gpt-5.2', groups: ['Yoko + TJ'] },
+      { id: '-5158792881', name: 'Jaz', nickname: 'Jaz', desc: 'Jasper Assistant — manifesto + calm top 3', action: 'manifesto', avatar: '/assets/jaz.jpg', model: 'openai-codex/gpt-5.2' },
       { id: '-5181843441', name: 'Holly', nickname: 'Holly', desc: 'Japan Holiday — Japan trip + memories', action: 'memory', avatar: '/assets/holly.jpg', model: 'openai-codex/gpt-5.3-codex' },
-      { id: '-5254836070', name: 'Side Jobs – Joe', nickname: 'Joe', desc: 'Job hunt + follow-ups', avatar: '/assets/joe.jpg', model: 'openai-codex/gpt-5.3-codex' },
+      { id: '-5254836070', name: 'Joe', nickname: 'Joe', desc: 'Side Jobs — job hunt + follow-ups', avatar: '/assets/joe.jpg', model: 'openai-codex/gpt-5.3-codex' },
       { id: '-5271777981', name: 'Clawd', nickname: 'Clawd', desc: 'Original creator + designer — builds the dashboards, keeps the cron fleet humming, and turns instincts into clickable tools.', action: 'watch', avatar: '/assets/clawd.jpg', model: 'openai-codex/gpt-5.2' },
     ];
 
