@@ -51,8 +51,8 @@
     "baseline_set_at": "2026-03-05 00:17 +07",
     "price_watch_scope": "Skip booked flights; watch remaining legs only.",
     "hotel_budget_per_night_thb": 1500,
-    "hotels_last_checked": "2026-03-11 16:57 +07",
-    "hotels_last_result": "Price update: Rest Kujo Apartment (Osaka) now THB 5,347 total for 3 nights (Agoda screenshot).",
+    "hotels_last_checked": "2026-03-11 17:03 +07",
+    "hotels_last_result": "Added CHISUN STANDARD Osaka Shin Imamiya option with 5 cropped photos and THB 5,119 total (3 nights).",
     "active_plan_mode": "dual-scenario",
     "plan_options": [
       {
@@ -1684,6 +1684,37 @@
         ],
         "photo_source": "Trent screenshots (cropped unusual bits / bars)",
         "photo_count": 8
+      },
+      {
+        "label": "CHISUN STANDARD Osaka Shin Imamiya (Agoda)",
+        "url": "https://www.agoda.com/sp/q2XbFvG1p7r",
+        "saved_at": "2026-03-11 17:03 +07",
+        "notes": "Sent by Nasha (found earlier, reviewed now). Good visual standard but location check still pending vs your Osaka priorities. Screenshot shows only 1 room left.",
+        "price_total_thb": 5119,
+        "current_price_total_thb": 5119,
+        "nights": 3,
+        "check_in": "2026-04-13",
+        "check_out": "2026-04-16",
+        "price_per_night_thb": 1706,
+        "area": "Shin-Imamiya / Namba side (confirm exact walking routes)",
+        "bed": "Standard Semi-Double Room (Non-Smoking)",
+        "cancellation": "Free cancellation (per screenshot)",
+        "rating": "8.6 (6,914 reviews)",
+        "verdict": "Shortlist candidate (location verification pending)",
+        "photo": "/assets/hotels/osaka-chisun-shin-imamiya-crop-1.jpg",
+        "photos": [
+          "/assets/hotels/osaka-chisun-shin-imamiya-crop-1.jpg",
+          "/assets/hotels/osaka-chisun-shin-imamiya-crop-2.jpg",
+          "/assets/hotels/osaka-chisun-shin-imamiya-crop-3.jpg",
+          "/assets/hotels/osaka-chisun-shin-imamiya-crop-4.jpg",
+          "/assets/hotels/osaka-chisun-shin-imamiya-crop-5.jpg"
+        ],
+        "photo_source": "Trent screenshots (cropped unusual bits / bars)",
+        "photo_count": 5,
+        "flags": [
+          "location-check-pending",
+          "selling-fast"
+        ]
       }
     ],
     "busan2": [
