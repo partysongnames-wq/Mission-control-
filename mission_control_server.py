@@ -2,6 +2,7 @@
 """Mission Control helper server."""
 import json
 import os
+import re
 import shlex
 import signal
 import subprocess
@@ -354,10 +355,28 @@ def fetch_token_usage() -> List[Dict]:
     return usage[:200]
 
 
+def _strip_ansi(s: str) -> str:
+    # Remove ANSI color codes that can leak into UI strings.
+    return re.sub(r"\x1b\[[0-9;]*m", "", s or "")
+
+
 def set_status(action: str, state: str, detail: str) -> None:
-    if action in statuses:
-        statuses[action]["state"] = state
-        statuses[action]["detail"] = detail
+    if action not in statuses:
+        return
+
+    clean = _strip_ansi(detail)
+
+    # Friendly downgrade for known transient errors.
+    if "session file locked" in clean.lower():
+        clean = "Busy (session locked) — try again in a moment"
+
+    # Keep roster cards tidy.
+    clean = (clean or "").strip()
+    if len(clean) > 160:
+        clean = clean[:157] + "…"
+
+    statuses[action]["state"] = state
+    statuses[action]["detail"] = clean
 
 
 world_action_map = {

@@ -119,6 +119,8 @@
       font-size:1.2rem;
       margin:0;
       letter-spacing:.2em;
+      color:var(--text);
+      opacity:1;
     }
     .card span.nickname{
       font-family:'Press Start 2P',monospace;
@@ -208,12 +210,16 @@
   </div>
   <script>
     const AGENTS = [
-      { id: 'director', name: 'Trent', nickname: 'TR', desc: 'Director / approves changes', avatar: '/assets/trent-avatar.jpg', model: 'openai-codex/gpt-5.2' },
-      { id: '-5181843441', name: 'Japan Holiday', nickname: 'Holly', desc: 'Japan trip + memories', action: 'memory', avatar: '/assets/holly.jpg', model: 'openai-codex/gpt-5.2' },
-      { id: '-5275095885', name: 'Trent Assistant', nickname: 'TJ', desc: 'Trent’s mysterious assistant — travel scans + quiet ops.', action: 'travel', avatar: '/assets/tj.jpg', model: 'gpt-5.2' },
+      // Pinned / top-of-roster
+      { id: 'director', name: 'Trent', nickname: 'TR', desc: 'Director / approves changes', avatar: '/assets/trent-avatar.jpg', model: 'CEO' },
+      { id: '-5287663927', name: 'Yoko', nickname: 'Yoko', desc: 'Multi‑role agent (ops + watch desk + travel coordination). Models: gpt‑5.2 / gpt‑5.3 depending on group.', roles: ['Ops', 'Watch desk', 'Travel'], actions: ['watch','travel','manifesto'], avatar: '/assets/yoko.jpg', model: 'openai-codex/gpt-5.2', groups: ['Design & Y Skills','Yoko + TJ','Main Ops'] },
+      { id: 'yoko-lite', name: 'Yuki', nickname: 'Yuki', desc: 'Yoko’s little sister (lite). Fast scans only. Model: gpt‑5.1‑mini (upgradeable).', roles: ['Lite scans'], actions: ['watch'], avatar: '/assets/yoko.jpg', model: 'gpt-5.1-codex-mini', groups: ['Design & Y Skills','Yoko + TJ'] },
+
+      // Crew
+      { id: '-5275095885', name: 'Trent Assistant', nickname: 'TJ', desc: 'Trent’s mysterious assistant — travel scans + quiet ops.', action: 'travel', avatar: '/assets/tj.jpg', model: 'gpt-5.2', groups: ['Yoko + TJ'] },
       { id: '-5158792881', name: 'Jasper Assistant', nickname: 'Jas', desc: 'Manifesto + calm top 3', action: 'manifesto', avatar: '/assets/jaz.jpg', model: 'openai-codex/gpt-5.2' },
-      { id: '-5287663927', name: 'Yoko', nickname: 'Trip Buddy', desc: 'Ops / watch desk / queries (running as Trip Buddy)', action: 'watch', avatar: '/assets/yoko.jpg', model: 'openai-codex/gpt-5.2' },
-      { id: '-5254836070', name: 'Side Jobs – Joe', nickname: 'Joe', desc: 'Job hunt + follow-ups', avatar: '/assets/joe.jpg', model: 'openai-codex/gpt-5.2' },
+      { id: '-5181843441', name: 'Japan Holiday', nickname: 'Holly', desc: 'Japan trip + memories', action: 'memory', avatar: '/assets/holly.jpg', model: 'openai-codex/gpt-5.3-codex' },
+      { id: '-5254836070', name: 'Side Jobs – Joe', nickname: 'Joe', desc: 'Job hunt + follow-ups', avatar: '/assets/joe.jpg', model: 'openai-codex/gpt-5.3-codex' },
       { id: '-5271777981', name: 'Clawd', nickname: 'Clawd', desc: 'Original creator + designer — builds the dashboards, keeps the cron fleet humming, and turns instincts into clickable tools.', action: 'watch', avatar: '/assets/clawd.jpg', model: 'openai-codex/gpt-5.2' },
     ];
 
@@ -232,29 +238,39 @@
         const model = agent.model || (tokenRow ? tokenRow.model : 'unknown');
         const percent = tokenRow ? Math.round(tokenRow.percent * 100) : 0;
         const headroom = tokenRow ? tokenRow.limit - tokenRow.used : 0;
-        const statusKey = agent.action || '';
-        const state = statuses[statusKey]?.state || 'idle';
-        const detail = statuses[statusKey]?.detail || 'Standing by';
+        const primaryStatusKey = agent.action || (agent.actions ? agent.actions[0] : '') || '';
+        const state = statuses[primaryStatusKey]?.state || 'idle';
+        const detail = statuses[primaryStatusKey]?.detail || 'Standing by';
         const stateClass = state === 'running' ? 'active' : 'idle';
+
+        const roleBadges = (agent.roles || []).map(r => `<span class="badge">${r}</span>`).join('');
+        const groupBadges = (agent.groups || []).map(g => `<span class="badge">${g}</span>`).join('');
+        const actionList = agent.actions || (agent.action ? [agent.action] : []);
+        const actionButtons = actionList.length
+          ? actionList.map(a => {
+              const label = a === 'watch' ? 'Launch Watch' : (a === 'travel' ? 'Run Travel' : (a === 'manifesto' ? 'Run Manifesto' : `Run ${a}`));
+              return `<button onclick=\"trigger('${a}')\">${label}</button>`;
+            }).join('')
+          : `<button disabled style=\"opacity:.5;cursor:default;\">Director</button>`;
+
         return `
           <article class="card">
             <div class="avatar" style="background-image:url('${agent.avatar}');"></div>
             <div class="badge-row">
               <span class="badge">${stateClass === 'active' ? 'Active' : 'Idle'}</span>
               <span class="badge">${agent.nickname}</span>
+              ${roleBadges}
             </div>
+            ${groupBadges ? `<div class="badge-row" style="opacity:.7;">${groupBadges}</div>` : ''}
             <strong>${agent.name}</strong>
-            <span class="nickname">${agent.nickname}</span>
             <p>${agent.desc}</p>
-            <div class="model">Model: ${model}</div>
+            <div class="model">Model: ${model.replace('openai-codex/','').replace('openai/','')}</div>
             <div class="badge-row">
               <span class="badge">${percent}% usage</span>
-              <span class="badge">${headroom.toLocaleString()} left</span>
+              <span class="badge">${headroom.toLocaleString()} remaining</span>
             </div>
-            <div class="status-pill ${stateClass}">${state === 'running' ? 'Working now' : detail}</div>
-            <div class="actions">
-              ${agent.action ? `<button onclick=\"trigger('`+agent.action+`')\">Trigger ${agent.nickname || agent.name}</button>` : `<button disabled style=\"opacity:.5;cursor:default;\">Director</button>`}
-            </div>
+            <div class="status-pill ${stateClass}">${state === 'running' ? 'In motion' : 'Standing by'}</div>
+            <div class="actions">${actionButtons}</div>
           </article>
         `;
       }).join('');
