@@ -21,6 +21,9 @@ BASE_DIR = Path(__file__).parent.resolve()
 WORLD_STATE_PATH = BASE_DIR / 'mission-control-world-state.json'
 WORLD_STATE_LOCK = threading.Lock()
 
+TOKEN_HISTORY_PATH = BASE_DIR / 'mission-control-token-history.json'
+TOKEN_HISTORY_LOCK = threading.Lock()
+
 WELLBEING_STATE_PATH = BASE_DIR / 'mission-control-wellbeing-state.json'
 WELLBEING_LOCK = threading.Lock()
 
@@ -323,9 +326,75 @@ def _fetch_sessions_json() -> List[Dict]:
     return data.get("sessions", [])
 
 
+def _load_token_history() -> List[Dict]:
+    with TOKEN_HISTORY_LOCK:
+        if not TOKEN_HISTORY_PATH.exists():
+            return []
+        try:
+            data = json.loads(TOKEN_HISTORY_PATH.read_text(encoding='utf-8'))
+            if isinstance(data, list):
+                return data
+        except Exception:
+            return []
+    return []
+
+
+def _save_token_history(history: List[Dict]) -> None:
+    with TOKEN_HISTORY_LOCK:
+        TOKEN_HISTORY_PATH.write_text(json.dumps(history, ensure_ascii=False), encoding='utf-8')
+
+
+def _record_token_snapshot(rows: List[Dict]) -> None:
+    """Append a lightweight snapshot to enable 24h deltas (best effort)."""
+    now = datetime.utcnow().timestamp()
+    snap = {
+        'ts': now,
+        # store only what we need to compute deltas
+        'rows': [{'key': r.get('key'), 'used': r.get('used')} for r in rows if r.get('key')],
+    }
+
+    history = _load_token_history()
+    history.append(snap)
+
+    # Prune: keep ~30h or last 300 snapshots (whichever is smaller).
+    cutoff = now - (30 * 3600)
+    history = [h for h in history if isinstance(h, dict) and h.get('ts', 0) >= cutoff]
+    if len(history) > 300:
+        history = history[-300:]
+
+    _save_token_history(history)
+
+
+def _delta_24h_for_key(key: str, used_now: float, history: List[Dict]) -> float:
+    if not key or used_now is None:
+        return 0.0
+    target_ts = datetime.utcnow().timestamp() - (24 * 3600)
+
+    # Find snapshot closest to (but not after) target_ts.
+    prior = None
+    for h in history:
+        ts = h.get('ts')
+        if not isinstance(ts, (int, float)):
+            continue
+        if ts <= target_ts:
+            prior = h
+    if not prior:
+        return 0.0
+
+    used_then = None
+    for r in prior.get('rows', []):
+        if r.get('key') == key:
+            used_then = r.get('used')
+            break
+    if not isinstance(used_then, (int, float)):
+        return 0.0
+
+    return max(float(used_now) - float(used_then), 0.0)
+
+
 def fetch_token_usage() -> List[Dict]:
     sessions = _fetch_sessions_json()
-    usage = []
+    usage: List[Dict] = []
     for session in sessions:
         total = session.get("totalTokens")
         limit = session.get("contextTokens")
@@ -351,6 +420,17 @@ def fetch_token_usage() -> List[Dict]:
                 "groupSuffix": suffix,
             }
         )
+
+    # Record snapshot for future deltas (best effort).
+    try:
+        _record_token_snapshot(usage)
+    except Exception:
+        pass
+
+    history = _load_token_history()
+    for row in usage:
+        row['used24h'] = round(_delta_24h_for_key(row.get('key'), row.get('used'), history), 0)
+
     usage.sort(key=lambda entry: entry["percent"], reverse=True)
     return usage[:200]
 

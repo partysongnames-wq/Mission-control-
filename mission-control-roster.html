@@ -253,6 +253,7 @@
         const model = agent.model || (tokenRow ? tokenRow.model : 'unknown');
         const percent = tokenRow ? Math.round(tokenRow.percent * 100) : 0;
         const headroom = tokenRow ? tokenRow.limit - tokenRow.used : 0;
+        const used24h = tokenRow ? Math.round(tokenRow.used24h || 0) : 0;
         const primaryStatusKey = agent.action || (agent.actions ? agent.actions[0] : '') || '';
         const state = statuses[primaryStatusKey]?.state || 'idle';
         const detail = statuses[primaryStatusKey]?.detail || 'Standing by';
@@ -279,6 +280,7 @@
             <p>${agent.desc}</p>
             <div class="model">Model: ${model.replace('openai-codex/','').replace('openai/','')}</div>
             ${percent > 0 || headroom > 0 ? `<div class="badge-row"><span class="badge">${percent}% usage</span><span class="badge">${headroom.toLocaleString()} remaining</span></div>` : ''}
+            ${used24h > 0 ? `<div class="badge-row"><span class="badge">${used24h.toLocaleString()} tokens · 24h</span></div>` : ''}
             <div class="actions">${actionButtons}</div>
           </article>
         `;
