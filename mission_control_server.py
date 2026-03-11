@@ -365,10 +365,10 @@ def _record_token_snapshot(rows: List[Dict]) -> None:
     _save_token_history(history)
 
 
-def _delta_24h_for_key(key: str, used_now: float, history: List[Dict]) -> float:
-    if not key or used_now is None:
+def _delta_for_key(key: str, used_now: float, history: List[Dict], seconds: int) -> float:
+    if not key or used_now is None or not seconds:
         return 0.0
-    target_ts = datetime.utcnow().timestamp() - (24 * 3600)
+    target_ts = datetime.utcnow().timestamp() - float(seconds)
 
     # Find snapshot closest to (but not after) target_ts.
     prior = None
@@ -429,7 +429,10 @@ def fetch_token_usage() -> List[Dict]:
 
     history = _load_token_history()
     for row in usage:
-        row['used24h'] = round(_delta_24h_for_key(row.get('key'), row.get('used'), history), 0)
+        key = row.get('key')
+        used = row.get('used')
+        row['used2h'] = round(_delta_for_key(key, used, history, 2 * 3600), 0)
+        row['used24h'] = round(_delta_for_key(key, used, history, 24 * 3600), 0)
 
     usage.sort(key=lambda entry: entry["percent"], reverse=True)
     return usage[:200]
