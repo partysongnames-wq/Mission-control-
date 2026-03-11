@@ -23,9 +23,9 @@
       ],
       "notes": "Valid seven consecutive days; perfect for the Kansai → Hiroshima → Fukuoka corridor."
     },
-    "prices_last_checked": "2026-03-11 17:35 +07",
+    "prices_last_checked": "2026-03-11 17:54 +07",
     "prices_source": "Skyscanner",
-    "prices_last_result": "Manual update: KIX→CJU (Plan B) now THB 4,151 via Agoda; Kiwi at THB 4,305. T'way Air 12:00–14:00 direct.",
+    "prices_last_result": "Manual add: FUK→CJU option at THB 3,319 (T'way Air) spotted; ~THB 832 cheaper than current KIX→CJU quote before transfer costs.",
     "prices_last_changes": [
       {
         "flight_id": "flight7",
@@ -781,6 +781,10 @@
     {
       "label": "Protect Osaka 14–16 Apr for Andrew + family meetup (USJ 15th, baseball evening 16th).",
       "done": false
+    },
+    {
+      "label": "Evaluate reroute option: Osaka/Fukuoka positioning for FUK→CJU if net savings stay positive after airport transfers.",
+      "done": false
     }
   ],
   "risks": [
@@ -794,6 +798,10 @@
     },
     {
       "label": "Self-transfer days: plan airport→hotel transfers + check-in cutoffs",
+      "active": true
+    },
+    {
+      "label": "Airport transfer costs not covered by JR pass (especially KIX access) may change true cheapest route.",
       "active": true
     }
   ],
@@ -1324,6 +1332,20 @@
         "saved_at": "2026-03-11 12:53 +07",
         "savings_vs_baseline": -1449,
         "notes": "Trent screenshot option. Marked long wait (~10h25 total) + self-transfer risk."
+      }
+    ],
+    "flight3b": [
+      {
+        "route": "FUK→CJU",
+        "date": "16 Apr",
+        "airline": "T'way Air",
+        "times": "10:30 → 11:50",
+        "stops": "Direct",
+        "price_per_person": 3319,
+        "url": "https://www.trip.com/",
+        "saved_at": "2026-03-11 17:54 +07",
+        "savings_vs_baseline": 832,
+        "notes": "Potential reroute: start Korea leg from Fukuoka instead of KIX. Screenshot fare THB 3,319 pp (about THB 832 cheaper vs KIX→CJU 4,151). Early departure required."
       }
     ]
   },
