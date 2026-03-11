@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Well‑Being Studio · Thai Corner</title>
   <style>
-    :root{
+    :root {
       --bg:#02030a;
       --panel:#0b0f1e;
       --card:#141a32;
@@ -15,8 +15,8 @@
       --gold:#f59c00;
       --green:#10a37f;
     }
-    *{box-sizing:border-box;}
-    body{
+    * { box-sizing:border-box; }
+    body {
       margin:0;
       min-height:100vh;
       font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto;
@@ -26,92 +26,214 @@
       justify-content:center;
       padding:18px;
     }
-    .shell{
-      width:min(1200px, calc(100vw - 24px));
+    .shell {
+      width:min(1200px, calc(100vw - 32px));
       border-radius:34px;
       overflow:hidden;
-      border:1px solid rgba(255,255,255,.10);
-      box-shadow:0 40px 90px rgba(0,0,0,.65);
-      background:linear-gradient(180deg,rgba(255,255,255,.03),transparent 35%), rgba(9,12,28,.96);
+      border:1px solid rgba(255,255,255,.12);
+      box-shadow:0 40px 100px rgba(0,0,0,.7);
+      background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(6,8,19,.95));
     }
-    header{
+    header {
       position:relative;
-      height:190px;
+      height:220px;
       border-bottom:1px solid rgba(255,255,255,.08);
-    }
-    header::before{
-      content:''; position:absolute; inset:0;
       background-image:url('/assets/standard-crew-hero.jpg');
-      background-size:cover; background-position:center;
-      filter:saturate(1.05) contrast(1.05);
-      opacity:.95;
+      background-size:cover;
+      background-position:center;
     }
-    header::after{
-      content:''; position:absolute; inset:0;
-      background:linear-gradient(180deg,rgba(2,3,10,.30),rgba(2,3,10,.94));
+    header::after {
+      content:'';
+      position:absolute;
+      inset:0;
+      background:linear-gradient(180deg,rgba(2,3,10,.35),rgba(2,3,10,.95));
     }
-    .hinner{position:relative; z-index:1; height:100%; padding:16px 18px; display:flex; flex-direction:column; justify-content:space-between; gap:10px;}
-    .top{display:flex; justify-content:space-between; gap:12px; align-items:flex-start; flex-wrap:wrap;}
-    .kicker{letter-spacing:.34em; text-transform:uppercase; font-weight:900; font-size:.7rem; color:rgba(255,255,255,.78);}    
-    h1{margin:6px 0 0; letter-spacing:.24em; text-transform:uppercase; font-size:1.7rem;}
-    p{margin:8px 0 0; color:rgba(255,255,255,.82); max-width:820px; line-height:1.35; letter-spacing:.06em; font-size:.92rem;}
-    nav{display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end;}
-    nav a{ text-decoration:none; color:rgba(255,255,255,.86); font-size:.7rem; letter-spacing:.22em; text-transform:uppercase; padding:7px 11px; border-radius:999px; border:1px solid rgba(255,255,255,.18); background:rgba(0,0,0,.20); backdrop-filter:blur(6px);}    
-
-    main{padding:16px 18px 22px; display:grid; grid-template-columns: 1fr 1fr; gap:14px;}
-    @media (max-width: 980px){ main{ grid-template-columns:1fr; } }
-
-    .card{border-radius:24px; border:1px solid rgba(255,255,255,.08); background:rgba(14,18,40,.55); padding:14px;}
-    .card h2{margin:0 0 10px; font-size:.8rem; letter-spacing:.26em; text-transform:uppercase; color:var(--muted);}    
-
-    .row{display:flex; gap:10px; flex-wrap:wrap; align-items:center;}
-    .pill{display:inline-flex; align-items:center; gap:8px; padding:6px 10px; border-radius:999px; font-size:.7rem; font-weight:900; letter-spacing:.18em; text-transform:uppercase; border:1px solid rgba(255,255,255,.16); background:rgba(255,255,255,.06);}    
-    .btn{border:none; border-radius:14px; padding:10px 12px; cursor:pointer; font-weight:900; letter-spacing:.18em; text-transform:uppercase; font-size:.7rem; background:linear-gradient(135deg,#f59c00,#ffd27a); color:#0a0a11;}
-    .btn.ghost{background:rgba(255,255,255,.10); color:var(--text); border:1px solid rgba(255,255,255,.14);}    
-
-    .thaiWord{display:grid; grid-template-columns: 1fr; gap:8px;}
-    /* Romanization is the primary readable line (tone marks). */
-    .thaiRoman{font-size:1.45rem; font-weight:900; color:rgba(255,255,255,.92);}
-    .thaiScript{font-size:1.7rem; font-weight:900; letter-spacing:.04em; opacity:.95;}
-    .thaiMeta{color:var(--muted); line-height:1.35;}
-    .exampleRow{color:rgba(255,255,255,.82); font-size:.9rem; padding-top:0;}
-
-    table{width:100%; border-collapse:collapse;}
-    th,td{padding:10px 10px; border-bottom:1px solid rgba(255,255,255,.08); text-align:left; vertical-align:top;}
-    th{color:var(--muted); font-size:.7rem; letter-spacing:.22em; text-transform:uppercase;}
-    td{font-size:.95rem;}
-    .mono{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size:.9rem;}
+    .hinner {
+      position:relative;
+      z-index:1;
+      height:100%;
+      padding:22px 26px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+    }
+    .hinner .kicker {
+      margin:0;
+      letter-spacing:.34em;
+      text-transform:uppercase;
+      font-size:.7rem;
+      color:rgba(255,255,255,.78);
+    }
+    .hinner h1 {
+      margin:8px 0 0;
+      letter-spacing:.24em;
+      text-transform:uppercase;
+      font-size:2rem;
+    }
+    .hinner p {
+      margin:8px 0 0;
+      max-width:700px;
+      color:rgba(255,255,255,.82);
+      letter-spacing:.06em;
+      font-size:.92rem;
+    }
+    .ribbon {
+      margin-top:10px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+    }
+    .pill {
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      padding:6px 14px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.25);
+      font-weight:900;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      font-size:.75rem;
+      background:rgba(0,0,0,.35);
+    }
+    .btn {
+      border:none;
+      border-radius:16px;
+      padding:10px 14px;
+      cursor:pointer;
+      font-weight:900;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      font-size:.7rem;
+      background:linear-gradient(135deg,var(--gold),#ffd27a);
+      color:#0b0b12;
+    }
+    main {
+      padding:28px;
+      display:grid;
+      gap:18px;
+      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    }
+    .card {
+      border-radius:24px;
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(8,11,26,.9);
+      padding:18px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      min-height:180px;
+    }
+    .card h2 {
+      margin:0;
+      font-size:.85rem;
+      letter-spacing:.22em;
+      text-transform:uppercase;
+      color:var(--muted);
+    }
+    .thaiWord {
+      display:flex;
+      flex-direction:column;
+      gap:4px;
+    }
+    .thaiRoman {
+      font-size:2rem;
+      font-weight:900;
+      letter-spacing:.1em;
+    }
+    .thaiScript {
+      font-size:2.6rem;
+      font-weight:900;
+      letter-spacing:.08em;
+    }
+    .thaiMeta {
+      color:rgba(255,255,255,.85);
+      font-size:.92rem;
+    }
+    .glossary {
+      width:100%;
+      border-collapse:collapse;
+      font-size:.9rem;
+    }
+    .glossary th, .glossary td {
+      padding:10px 8px;
+      border-bottom:1px solid rgba(255,255,255,.06);
+      text-align:left;
+    }
+    .glossary th {
+      color:var(--muted);
+      font-size:.7rem;
+      letter-spacing:.2em;
+      text-transform:uppercase;
+    }
+    .glossary tbody tr:last-child td { border-bottom:none; }
+    .tips {
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+      gap:10px;
+    }
+    .tip {
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,.07);
+      padding:12px;
+      background:rgba(255,255,255,.03);
+      font-size:.85rem;
+      letter-spacing:.12em;
+      color:rgba(255,255,255,.78);
+    }
+    .mini-card {
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,.08);
+      padding:14px;
+      background:linear-gradient(180deg,rgba(16,163,127,.18),rgba(10,8,18,.85));
+    }
+    .mini-card p {
+      margin:0;
+      color:rgba(255,255,255,.85);
+      letter-spacing:.06em;
+      font-size:.85rem;
+    }
+    .phrase-grid {
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+      gap:10px;
+    }
+    .phrase {
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.1);
+      padding:12px;
+      background:rgba(255,255,255,.04);
+      font-size:.86rem;
+      letter-spacing:.08em;
+      color:rgba(255,255,255,.8);
+    }
+    .glossary-empty {
+      color:var(--muted);
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      font-size:.75rem;
+    }
   </style>
 </head>
 <body>
   <div class="shell">
     <header>
       <div class="hinner">
-        <div class="top">
-          <div>
-            <div class="kicker">The Standard · Well‑Being Studio</div>
-            <h1>Thai Corner</h1>
-            <p>Light, daily rituals. A calm place to keep your Thai words (tone marks included) and a tiny check‑in.</p>
-          </div>
-          <nav>
-            <a href="/mission-control.html">Mission Control</a>
-            <a href="/world-hybrid">Office World</a>
-            <a href="/mission-control-roster.html">Crew</a>
-          </nav>
+        <div>
+          <p class="kicker">The Standard · Well‑Being Studio</p>
+          <h1>Thai Corner</h1>
+          <p>Collect your favorite Thai words, rituals, and playful nuggets—tone marks included. This page is your calm corner in Mission Control when you want to slow down, learn one line, and feel ready to chat like a local.</p>
         </div>
-        <div class="row">
+        <div class="ribbon">
           <span class="pill" id="todayPill">Today · Loading…</span>
-          <button class="btn ghost" id="refreshBtn">Refresh</button>
+          <button class="btn ghost" id="refreshBtn" style="border:1px solid rgba(255,255,255,.24); background:rgba(0,0,0,.35); color:var(--text);">Refresh</button>
         </div>
       </div>
     </header>
-
     <main>
-      <section class="card">
-        <div class="row" style="justify-content:space-between; align-items:center; margin-bottom:6px;">
-          <h2 style="margin:0;">Thai word of the day</h2>
-          <button class="btn ghost" id="saveWodBtn" title="Save today’s word into your glossary">Save to glossary</button>
-        </div>
+      <section class="card" id="wordCard">
+        <h2>Thai word of the day</h2>
         <div class="thaiWord">
           <div class="thaiRoman mono" id="wRoman">—</div>
           <div class="thaiScript" id="wScript">—</div>
@@ -119,22 +241,52 @@
           <div class="thaiMeta" id="wExample">—</div>
           <div class="thaiMeta" id="wodStatus" style="min-height:1.2em;"></div>
         </div>
+        <button class="btn" id="saveWodBtn">Save to glossary</button>
       </section>
 
       <section class="card">
-        <h2>My Thai glossary</h2>
-        <div class="row" style="margin-bottom:10px;">
-          <input id="q" placeholder="Search…" style="flex:1; min-width:220px; padding:10px 12px; border-radius:14px; border:1px solid rgba(255,255,255,.14); background:rgba(0,0,0,.20); color:var(--text);" />
-          <button class="btn" id="addBtn">Add word</button>
+        <h2>Mini rituals</h2>
+        <div class="tips" id="ritualList">
+          <!-- dynamic tips -->
         </div>
-        <div style="overflow:auto; max-height:42vh;">
-          <table>
+      </section>
+
+      <section class="card">
+        <h2>Thai corner soundtrack</h2>
+        <p>Thai corner track</p>
+        <iframe
+          width="100%"
+          height="180"
+          src="https://www.youtube.com/embed/Bn5JCe-7aIg?autoplay=1&mute=1"
+          title="Thai corner soundtrack"
+          frameborder="0"
+          allow="autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          loading="lazy"
+          allowfullscreen
+        ></iframe>
+        <p class="glossary-empty"><a href="https://www.youtube.com/watch?v=Bn5JCe-7aIg" target="_blank" rel="noreferrer">Open on YouTube</a> · Click the player to unmute.</p>
+      </section>
+
+      <section class="card mini-card">
+        <h2>Today’s tone map</h2>
+        <p id="toneMap">Loading vibe…</p>
+      </section>
+
+      <section class="card">
+        <h2>Quick phrases</h2>
+        <div class="phrase-grid" id="phraseGrid"></div>
+      </section>
+
+      <section class="card">
+        <h2>Thai glossary</h2>
+        <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:10px;">
+          <input id="q" placeholder="Search…" style="flex:1;min-width:200px;border-radius:14px;border:1px solid rgba(255,255,255,.14);background:rgba(0,0,0,.22);color:var(--text);padding:10px 12px;letter-spacing:.08em;" />
+          <button class="btn ghost" id="addBtn" style="border:1px solid rgba(255,255,255,.18);background:rgba(0,0,0,.35);">Add word</button>
+        </div>
+        <div style="overflow:auto;max-height:260px;">
+          <table class="glossary">
             <thead>
-              <tr>
-                <th>Roman (tone)</th>
-                <th>Thai</th>
-                <th>Meaning</th>
-              </tr>
+              <tr><th>Roman (tone)</th><th>Thai</th><th>Meaning</th></tr>
             </thead>
             <tbody id="rows"></tbody>
           </table>
@@ -143,118 +295,161 @@
     </main>
   </div>
 
-  <!-- Add modal -->
-  <div id="addModal" style="display:none; position:fixed; inset:0; z-index:9999; background:rgba(0,0,0,.55); backdrop-filter: blur(6px);">
-    <div style="max-width:720px; margin:10vh auto; background:rgba(12,16,35,.96); border:1px solid rgba(255,255,255,.14); border-radius:22px; box-shadow:0 40px 90px rgba(0,0,0,.6); overflow:hidden;">
-      <div style="padding:14px 16px; display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid rgba(255,255,255,.10);">
-        <div style="font-weight:900; letter-spacing:.18em; text-transform:uppercase; font-size:.82rem; color:rgba(255,255,255,.85);">Add Thai word</div>
-        <button id="closeAdd" class="btn ghost">Close</button>
+  <div id="addModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);backdrop-filter:blur(6px);">
+    <div style="max-width:720px;margin:10vh auto;background:rgba(12,16,35,.95);border:1px solid rgba(255,255,255,.14);border-radius:22px;overflow:hidden;">
+      <div style="padding:14px 16px;background:rgba(255,255,255,.03);display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(255,255,255,.08);">
+        <div style="font-weight:900;letter-spacing:.18em;text-transform:uppercase;font-size:.82rem;">Add Thai word</div>
+        <button id="closeAdd" class="btn ghost" style="border:1px solid rgba(255,255,255,.2);background:rgba(0,0,0,.4);">Close</button>
       </div>
-      <div style="padding:14px 16px; display:grid; gap:10px;">
-        <input id="inThai" placeholder="Thai script (e.g., สบายดี)" style="padding:10px 12px; border-radius:14px; border:1px solid rgba(255,255,255,.14); background:rgba(0,0,0,.20); color:var(--text);" />
-        <input id="inRoman" placeholder="Tone-mark romanization (e.g., sà-baai-dee)" style="padding:10px 12px; border-radius:14px; border:1px solid rgba(255,255,255,.14); background:rgba(0,0,0,.20); color:var(--text);" />
-        <input id="inMeaning" placeholder="Meaning" style="padding:10px 12px; border-radius:14px; border:1px solid rgba(255,255,255,.14); background:rgba(0,0,0,.20); color:var(--text);" />
-        <input id="inExample" placeholder="Example sentence (optional)" style="padding:10px 12px; border-radius:14px; border:1px solid rgba(255,255,255,.14); background:rgba(0,0,0,.20); color:var(--text);" />
-        <div class="row" style="justify-content:space-between;">
-          <div id="addStatus" style="color:var(--muted);">—</div>
+      <div style="padding:14px 16px;display:grid;gap:10px;">
+        <input id="inThai" placeholder="Thai script (e.g., สบายดี)" style="padding:10px 12px;border-radius:14px;border:1px solid rgba(255,255,255,.14);background:rgba(0,0,0,.17);color:var(--text);" />
+        <input id="inRoman" placeholder="Tone-mark romanization (sà-baai-dee)" style="padding:10px 12px;border-radius:14px;border:1px solid rgba(255,255,255,.14);background:rgba(0,0,0,.17);color:var(--text);" />
+        <input id="inMeaning" placeholder="Meaning" style="padding:10px 12px;border-radius:14px;border:1px solid rgba(255,255,255,.14);background:rgba(0,0,0,.17);color:var(--text);" />
+        <input id="inExample" placeholder="Example sentence (optional)" style="padding:10px 12px;border-radius:14px;border:1px solid rgba(255,255,255,.14);background:rgba(0,0,0,.17);color:var(--text);" />
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div id="addStatus" style="color:var(--muted);letter-spacing:.08em;font-size:.78rem;">—</div>
           <button id="saveAdd" class="btn">Save</button>
         </div>
       </div>
     </div>
   </div>
 
-<script>
-  let state = {thai: {words: [], wordOfDay: null}};
+  <script>
+    let state = { thai: { words: [], wordOfDay: null } };
 
-  function openAdd(){ document.getElementById('addModal').style.display='block'; }
-  function closeAdd(){ document.getElementById('addModal').style.display='none'; }
+    const ritualIdeas = [
+      'Say “sà-wàt-dee kráp/ka” to greet the day and stretch your Thai syllables.',
+      'Order a coconut iced coffee and whisper the Thai word for “sweet” (หวาน / wăan).',
+      'Drop by the Thai corner playlist: slow phin strings + downbeat, no distractions.',
+    ];
 
-  function render(){
-    const w = (state.thai && state.thai.wordOfDay) ? state.thai.wordOfDay : null;
-    document.getElementById('todayPill').textContent = `Today · ${new Date().toLocaleDateString()}`;
+    const phraseIdeas = [
+      { thai: 'ขอบคุณครับ/ค่ะ', roman: 'khàawp-khun kráp/ka', meaning: 'Thank you' },
+      { thai: 'ไม่เผ็ด', roman: 'mâi pèt', meaning: 'Not spicy' },
+      { thai: 'เช็คบิล', roman: 'chék-bin', meaning: 'Check please' },
+      { thai: 'ไป…ยังไง', roman: 'bpai… yang-ngai', meaning: 'How do I get to…?' },
+    ];
 
-    document.getElementById('wScript').textContent = w?.thai || '—';
-    document.getElementById('wRoman').textContent = w?.roman || '—';
-    document.getElementById('wMeaning').textContent = w?.meaning ? `Meaning: ${w.meaning}` : '—';
-    document.getElementById('wExample').textContent = w?.example ? `Example: ${w.example}` : '';
+    function render() {
+      const w = state.thai.wordOfDay || null;
+      document.getElementById('todayPill').textContent = `Today · ${new Date().toLocaleDateString('en-GB', { day:'numeric', month:'short' })}`;
+      document.getElementById('wRoman').textContent = w?.roman || '—';
+      document.getElementById('wScript').textContent = w?.thai || '—';
+      document.getElementById('wMeaning').textContent = w?.meaning ? `Meaning: ${w.meaning}` : 'Meaning pending iteration.';
+      document.getElementById('wExample').textContent = w?.example ? `Example: ${w.example}` : 'Example: (add one to keep it fresh).';
+      document.getElementById('wodStatus').textContent = w?.ts ? `Saved ${new Date(w.ts).toLocaleTimeString('en-GB', { hour:'2-digit', minute:'2-digit' })}` : 'Word not saved yet.';
 
-    const q = (document.getElementById('q').value || '').trim().toLowerCase();
-    const rows = document.getElementById('rows');
-    rows.innerHTML = '';
+      const rows = document.getElementById('rows');
+      const query = (document.getElementById('q').value || '').trim().toLowerCase();
+      const words = [...state.thai.words].reverse();
+      const filtered = query ? words.filter(x => (`${x.thai} ${x.roman} ${x.meaning}`).toLowerCase().includes(query)) : words;
+      if (!filtered.length) {
+        rows.innerHTML = '<tr><td colspan="3" class="glossary-empty">No words yet.</td></tr>';
+      } else {
+        rows.innerHTML = filtered.map(word => `
+          <tr>
+            <td class="mono" style="font-weight:900;">${word.roman || ''}</td>
+            <td style="font-weight:900;">${word.thai || ''}</td>
+            <td>${word.meaning || ''}</td>
+          </tr>
+          ${word.example ? `<tr><td colspan="3" class="exampleRow" style="color:rgba(255,255,255,.7);font-size:.78rem;">Example: ${word.example}</td></tr>` : ''}`)
+        .join('');
+      }
 
-    const words = (state.thai?.words || []).slice().reverse();
-    const filtered = q ? words.filter(x => `${x.thai} ${x.roman} ${x.meaning}`.toLowerCase().includes(q)) : words;
+      const ritList = document.getElementById('ritualList');
+      ritList.innerHTML = ritualIdeas.map((tip, idx) => `<div class="tip">${idx + 1}. ${tip}</div>`).join('');
 
-    if (!filtered.length){
-      rows.innerHTML = `<tr><td colspan="3" style="color:var(--muted)">No words yet.</td></tr>`;
-      return;
-    }
+      const toneEl = document.getElementById('toneMap');
+      toneEl.textContent = w ? `Use it when you want to sound empathetic. Bonus tip: pair with a gentle nod and soft smile—tone + body language = friendly.` : 'Add a word to unlock the day’s tone map.';
 
-    for (const w of filtered){
-      rows.innerHTML += `<tr><td class="mono" style="font-weight:900;">${w.roman || ''}</td><td style="font-weight:900;">${w.thai || ''}</td><td>${w.meaning || ''}</td></tr>`;
-      if (w.example){
-        rows.innerHTML += `<tr><td colspan="3" class="exampleRow">Example: ${w.example}</td></tr>`;
+      const phraseGrid = document.getElementById('phraseGrid');
+      if (phraseGrid) {
+        phraseGrid.innerHTML = phraseIdeas.map(item => `
+          <div class="phrase">
+            <div style="font-weight:900; letter-spacing:.14em;">${item.thai}</div>
+            <div style="color:rgba(255,255,255,.7); font-size:.78rem;">${item.roman}</div>
+            <div style="color:var(--muted); font-size:.78rem;">${item.meaning}</div>
+          </div>
+        `).join('');
       }
     }
-  }
 
-  async function refresh(){
-    const res = await fetch('/api/wellbeing/state');
-    state = await res.json();
-    render();
-  }
-
-  async function saveWodToGlossary(){
-    const w = state?.thai?.wordOfDay;
-    const el = document.getElementById('wodStatus');
-    if (!w?.thai || !w?.roman || !w?.meaning){
-      el.textContent = 'No word to save yet.';
-      return;
+    async function refresh() {
+      try {
+        const res = await fetch('/api/wellbeing/state');
+        if (res.ok) {
+          state = await res.json();
+          render();
+        }
+      } catch (e) {
+        console.error(e);
+      }
     }
-    el.textContent = 'Saving…';
-    try{
-      await fetch('/api/wellbeing/thai/add', {
-        method:'POST',
-        headers:{'Content-Type':'application/json'},
-        body: JSON.stringify({thai: w.thai, roman: w.roman, meaning: w.meaning, example: w.example || ''})
-      });
-      el.textContent = 'Saved to glossary.';
-      await refresh();
-    }catch(e){
-      el.textContent = 'Save failed.';
+
+    async function saveWodToGlossary() {
+      const w = state?.thai?.wordOfDay;
+      const status = document.getElementById('wodStatus');
+      if (!w?.thai || !w?.roman || !w?.meaning) {
+        status.textContent = 'Word incomplete.';
+        return;
+      }
+      status.textContent = 'Saving…';
+      try {
+        await fetch('/api/wellbeing/thai/add', {
+          method:'POST',
+          headers:{'Content-Type':'application/json'},
+          body: JSON.stringify({ thai: w.thai, roman: w.roman, meaning: w.meaning, example: w.example || '' })
+        });
+        status.textContent = 'Saved to glossary.';
+        await refresh();
+      } catch (err) {
+        status.textContent = 'Save failed.';
+      }
     }
-  }
 
-  async function saveWord(){
-    const thai = (document.getElementById('inThai').value || '').trim();
-    const roman = (document.getElementById('inRoman').value || '').trim();
-    const meaning = (document.getElementById('inMeaning').value || '').trim();
-    const example = (document.getElementById('inExample').value || '').trim();
-    if (!thai || !roman || !meaning){
-      document.getElementById('addStatus').textContent = 'Thai + roman + meaning required.';
-      return;
+    function openAdd() {
+      document.getElementById('addModal').style.display = 'block';
     }
-    document.getElementById('addStatus').textContent = 'Saving…';
-    await fetch('/api/wellbeing/thai/add', {
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({thai, roman, meaning, example})
-    });
-    document.getElementById('addStatus').textContent = 'Saved.';
-    closeAdd();
-    await refresh();
-  }
+    function closeAdd() {
+      document.getElementById('addModal').style.display = 'none';
+      document.getElementById('addStatus').textContent = '—';
+    }
 
-  document.getElementById('refreshBtn').addEventListener('click', refresh);
-  document.getElementById('saveWodBtn').addEventListener('click', saveWodToGlossary);
-  document.getElementById('q').addEventListener('input', render);
-  document.getElementById('addBtn').addEventListener('click', openAdd);
-  document.getElementById('closeAdd').addEventListener('click', closeAdd);
-  document.getElementById('saveAdd').addEventListener('click', saveWord);
-  document.getElementById('addModal').addEventListener('click', (e) => { if (e.target.id==='addModal') closeAdd(); });
-  document.addEventListener('keydown', (e) => { if (e.key==='Escape') closeAdd(); });
+    async function saveWord() {
+      const thai = (document.getElementById('inThai').value || '').trim();
+      const roman = (document.getElementById('inRoman').value || '').trim();
+      const meaning = (document.getElementById('inMeaning').value || '').trim();
+      const example = (document.getElementById('inExample').value || '').trim();
+      const status = document.getElementById('addStatus');
+      if (!thai || !roman || !meaning) {
+        status.textContent = 'Thai + roman + meaning required.';
+        return;
+      }
+      status.textContent = 'Saving…';
+      try {
+        await fetch('/api/wellbeing/thai/add', {
+          method:'POST',
+          headers:{'Content-Type':'application/json'},
+          body: JSON.stringify({ thai, roman, meaning, example })
+        });
+        status.textContent = 'Saved.';
+        closeAdd();
+        render();
+      } catch (err) {
+        status.textContent = 'Save failed.';
+      }
+    }
 
-  refresh();
-</script>
+    document.getElementById('refreshBtn').addEventListener('click', refresh);
+    document.getElementById('saveWodBtn').addEventListener('click', saveWodToGlossary);
+    document.getElementById('q').addEventListener('input', render);
+    document.getElementById('addBtn').addEventListener('click', openAdd);
+    document.getElementById('closeAdd').addEventListener('click', closeAdd);
+    document.getElementById('saveAdd').addEventListener('click', saveWord);
+    document.getElementById('addModal').addEventListener('click', (e) => { if (e.target.id === 'addModal') closeAdd(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeAdd(); });
+
+    refresh();
+  </script>
 </body>
 </html>
