@@ -125,6 +125,28 @@
     }
     .nav { display:flex; gap:12px; flex-wrap:wrap; font-size:.7rem; letter-spacing:.3em; text-transform:uppercase; }
     .nav a { color:var(--accent); text-decoration:none; border:1px solid rgba(255,255,255,.2); padding:6px 14px; border-radius:999px; }
+    .wellbeing-section { border:1px solid rgba(255,255,255,.08); border-radius:22px; padding:24px; background:rgba(255,255,255,.02); display:flex; flex-direction:column; gap:22px; }
+    .wellbeing-header { display:flex; align-items:flex-start; justify-content:space-between; gap:16px; }
+    .wellbeing-header h2 { margin:0; font-size:1.1rem; letter-spacing:.3em; text-transform:uppercase; }
+    .wellbeing-subtitle { margin:6px 0 0; color:var(--muted); font-size:.85rem; max-width:620px; letter-spacing:.1em; }
+    .wellbeing-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:18px; }
+    .wellbeing-card { background:rgba(255,255,255,.01); border:1px solid rgba(255,255,255,.08); border-radius:18px; padding:18px; display:flex; flex-direction:column; gap:12px; }
+    .wellbeing-card h3 { margin:0; font-size:.75rem; letter-spacing:.32em; text-transform:uppercase; color:var(--accent); }
+    .wellbeing-card p { margin:0; color:var(--muted); font-size:.75rem; letter-spacing:.14em; }
+    .wellbeing-card ol, .wellbeing-card ul { margin:0; padding-left:18px; line-height:1.45; font-size:.9rem; }
+    .wellbeing-card li { margin-bottom:6px; }
+    .wellbeing-card li strong { letter-spacing:.12em; }
+    .wellbeing-card .badge { display:inline-flex; align-items:center; gap:6px; padding:3px 10px; border-radius:999px; background:rgba(16,163,127,.16); color:#d7fff3; font-size:.65rem; letter-spacing:.2em; text-transform:uppercase; }
+    .wellbeing-schedule { list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:8px; }
+    .wellbeing-schedule li { display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid rgba(255,255,255,.08); font-size:.85rem; letter-spacing:.1em; }
+    .wellbeing-schedule li:last-child { border-bottom:none; }
+    .wellbeing-check { display:flex; flex-direction:column; gap:12px; }
+    .wellbeing-check-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(120px,1fr)); gap:8px; }
+    .wellbeing-check-grid label { display:inline-flex; align-items:center; gap:6px; font-size:.8rem; letter-spacing:.15em; }
+    .wellbeing-check textarea, .wellbeing-check input[type=text] { width:100%; border-radius:10px; border:1px solid rgba(255,255,255,.2); background:rgba(0,0,0,.3); color:#fff; padding:8px 10px; font-family:'Space Grotesk','Inter',system-ui; }
+    .wellbeing-check button { align-self:flex-start; border-radius:14px; border:none; background:linear-gradient(135deg,#ffb347,#10a37f); padding:10px 20px; color:#050509; font-size:.8rem; letter-spacing:.2em; text-transform:uppercase; cursor:pointer; }
+    .wellbeing-status { font-size:.85rem; letter-spacing:.18em; color:var(--muted); }
+    .wellbeing-note { font-size:.8rem; color:var(--muted); letter-spacing:.12em; }
   </style>
 </head>
 <body>
@@ -181,6 +203,119 @@
       </div>
     </div>
     <div class="log-note">Want this timeline appended automatically? I can roll the logic into the helper server so any future token swap or restart writes a new row with the timestamp and why it happened.</div>
+    <div class="wellbeing-section" id="wellbeing">
+      <div class="wellbeing-header">
+        <div>
+          <h2>Well-being corner</h2>
+          <p class="wellbeing-subtitle">Your personal care plan lives here—paired with the mission health updates so the system and you stay steady together.</p>
+        </div>
+        <span class="status-pill healthy">Care rhythm active</span>
+      </div>
+      <div class="wellbeing-grid">
+        <div class="wellbeing-card">
+          <h3>March 2026 goals</h3>
+          <ol id="goal-list"></ol>
+          <p class="wellbeing-note">Job apps recorded: <strong id="jobs-done">5</strong> / 15 planned.</p>
+        </div>
+        <div class="wellbeing-card">
+          <h3>Scheduled nudges</h3>
+          <ul class="wellbeing-schedule" id="wellbeing-schedule"></ul>
+          <p class="wellbeing-note">Nudges pop around 14:30, 16:30, 18:30 for check-ins.</p>
+        </div>
+        <div class="wellbeing-card">
+          <h3>Daily upkeep</h3>
+          <ul id="routine-list"></ul>
+          <form class="wellbeing-check" id="wellbeing-check">
+            <div class="wellbeing-check-grid">
+              <label><input type="checkbox" name="task" value="Brush / shower"> Brush / shower</label>
+              <label><input type="checkbox" name="task" value="Movement / stretch"> Movement / stretch</label>
+              <label><input type="checkbox" name="task" value="Hydration / supplements"> Hydration / supplements</label>
+              <label><input type="checkbox" name="task" value="Tech break"> Tech break</label>
+            </div>
+            <input type="text" name="note" placeholder="Quick note (optional)"> 
+            <button type="submit">Log check-in</button>
+          </form>
+          <div class="wellbeing-status">Last check: <span id="wellbeing-last-check">—</span></div>
+        </div>
+        <div class="wellbeing-card">
+          <h3>Thai corner soundtrack</h3>
+          <p>ภูมิแพ้กรุงเทพ (Bum Pae Krungthep) — Polycat</p>
+          <iframe
+            width="100%"
+            height="180"
+            src="https://www.youtube.com/embed/7j5Q3G6C9pE?autoplay=1&mute=1"
+            title="ภูมิแพ้กรุงเทพ"
+            frameborder="0"
+            allow="autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            loading="lazy"
+            allowfullscreen
+          ></iframe>
+          <p class="wellbeing-note"><a href="https://www.youtube.com/watch?v=7j5Q3G6C9pE" target="_blank" rel="noreferrer">Open on YouTube</a> · Click the player to unmute.</p>
+        </div>
+      </div>
+    </div>
   </div>
+  <script>
+    const marchGoals = [
+      'Apply for 15 jobs (5 done already)',
+      'Romance with Nasha',
+      'Decide on condo',
+      'Keep AI/OpenClaw purposeful',
+      'Stay present and calm',
+      'Research TRT',
+      'Declutter — live like it’s the new place',
+      'Refocus on 12 resolutions daily',
+      'Time discipline — alarms, timesheets, no wasted days',
+      'Explore side income / wealth creation',
+      'Thai language',
+      'Gym / exercise'
+    ];
+
+    const routineItems = [
+      'Brush or shower for a clear head',
+      'Move, stretch, or tidy up to reset your body',
+      'Supplements + water carefully spaced',
+      'Tech break (phone / screen pause) to clear the mind'
+    ];
+
+    const scheduleBlocks = [
+      { time: '14:30', detail: 'Quick wellbeing check-in + every-five-messages reminder' },
+      { time: '16:30', detail: 'System/health maintenance sweep' },
+      { time: '18:30', detail: 'Wind-down review + tech timeout' }
+    ];
+
+    const goalList = document.getElementById('goal-list');
+    const jobsDoneEl = document.getElementById('jobs-done');
+    goalList.innerHTML = marchGoals.map((goal, index) => `<li><strong>${String(index+1).padStart(2, '0')}</strong> ${goal}</li>`).join('');
+    jobsDoneEl.textContent = '5';
+
+    const routineList = document.getElementById('routine-list');
+    routineList.innerHTML = routineItems.map(item => `<li>${item}</li>`).join('');
+
+    const scheduleEl = document.getElementById('wellbeing-schedule');
+    scheduleEl.innerHTML = scheduleBlocks.map(block => `<li><span>${block.time}</span><span>${block.detail}</span></li>`).join('');
+
+    const lastCheckEl = document.getElementById('wellbeing-last-check');
+    const savedCheck = localStorage.getItem('wellbeing-last-check');
+    if (savedCheck) lastCheckEl.textContent = savedCheck;
+
+    const logCheck = (summary) => {
+      const ts = new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+      const message = `${ts} · ${summary}`;
+      lastCheckEl.textContent = message;
+      localStorage.setItem('wellbeing-last-check', message);
+    };
+
+    document.getElementById('wellbeing-check').addEventListener('submit', (event) => {
+      event.preventDefault();
+      const form = event.target;
+      const selected = Array.from(form.querySelectorAll('input[name=task]:checked')).map(input => input.value);
+      const note = (form.note.value || '').trim();
+      const summary = selected.length ? selected.join(', ') : 'Mindful pause';
+      const entry = note ? `${summary} — ${note}` : summary;
+      logCheck(entry);
+      form.reset();
+    });
+  </script>
 </body>
 </html>
