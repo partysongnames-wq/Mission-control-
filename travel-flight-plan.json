@@ -602,28 +602,28 @@
       "city": "Hong Kong",
       "lat": 22.308,
       "lng": 113.9185,
-      "photo": "/assets/cities/hong-kong.svg"
+      "photo": "assets/cities/hong-kong.svg"
     },
     {
       "code": "KIX",
       "city": "Osaka",
       "lat": 34.4347,
       "lng": 135.2441,
-      "photo": "/assets/cities/osaka.svg"
+      "photo": "assets/cities/osaka.svg"
     },
     {
       "code": "PUS",
       "city": "Busan",
       "lat": 35.1796,
       "lng": 129.0756,
-      "photo": "/assets/cities/busan.svg"
+      "photo": "assets/cities/busan.svg"
     },
     {
       "code": "CJU",
       "city": "Jeju",
       "lat": 33.5113,
       "lng": 126.493,
-      "photo": "/assets/cities/jeju.svg"
+      "photo": "assets/cities/jeju.svg"
     }
   ],
   "message_summary": "Updated itinerary loaded. Prices will be checked via Skyscanner app.link trackers every 6h; updates only when Δ ≥ THB 300 pp.",
@@ -777,7 +777,7 @@
         "Dim sum",
         "Roast goose / char siu"
       ],
-      "photo": "/assets/cities/hong-kong-photo.jpg",
+      "photo": "assets/cities/hong-kong-photo.jpg",
       "nasha_hook": "Street seafood + dim sum city. Easy to do local spots + one nicer harbour meal without making it formal.",
       "seafood_street_hits": [
         "Temple Street / Jordan: claypot + seafood stir-fries (go where it’s busy).",
@@ -796,7 +796,7 @@
           "url": "https://www.google.com/maps/search/?api=1&query=Jordan%20Hong%20Kong%20restaurants"
         }
       ],
-      "image": "/assets/cities/hong-kong.svg"
+      "image": "assets/cities/hong-kong.svg"
     },
     {
       "city": "Osaka",
@@ -824,7 +824,7 @@
         "Takoyaki + okonomiyaki",
         "Late-night ramen"
       ],
-      "photo": "/assets/cities/osaka.jpg",
+      "photo": "assets/cities/osaka.jpg",
       "nasha_hook": "Kuromon Market for seafood street snacking + late-night izakaya plates. Very “eat as you walk”.",
       "seafood_street_hits": [
         "Kuromon Ichiba: grilled scallops, uni, oysters (sample-and-go).",
@@ -843,7 +843,7 @@
           "url": "https://www.google.com/maps/search/?api=1&query=Dotonbori"
         }
       ],
-      "image": "/assets/cities/osaka.jpg"
+      "image": "assets/cities/osaka.jpg"
     },
     {
       "city": "Hiroshima",
@@ -864,7 +864,7 @@
       "food": [
         "Oysters dinner (plan)"
       ],
-      "photo": "/assets/cities/hiroshima-oysters.jpg",
+      "photo": "assets/cities/hiroshima-oysters.jpg",
       "nasha_hook": "This is the Japan “oyster chapter”. We lean into it hard.",
       "seafood_street_hits": [
         "Hiroshima oysters: grilled/fried/raw depending on comfort level.",
@@ -882,7 +882,7 @@
           "url": "https://www.google.com/maps/search/?api=1&query=Itsukushima%20Shrine"
         }
       ],
-      "image": "/assets/cities/hiroshima.jpg"
+      "image": "assets/cities/hiroshima.jpg"
     },
     {
       "city": "Busan",
@@ -907,7 +907,7 @@
       "food": [
         "Seafood markets"
       ],
-      "photo": "/assets/cities/busan.jpg",
+      "photo": "assets/cities/busan.jpg",
       "nasha_hook": "Korea’s seafood playground: market wow-factor + coastal dinner photos.",
       "seafood_street_hits": [
         "Jagalchi Fish Market: pick seafood + eat it fresh (iconic).",
@@ -948,7 +948,7 @@
           "url": "https://www.google.com/maps/search/?api=1&query=Gijang%20Busan"
         }
       ],
-      "image": "/assets/cities/busan.jpg"
+      "image": "assets/cities/busan.jpg"
     },
     {
       "city": "Jeju",
@@ -974,7 +974,7 @@
         "Black pork BBQ",
         "Seafood + tangerine snacks"
       ],
-      "photo": "/assets/cities/jeju-photo.jpg",
+      "photo": "assets/cities/jeju-photo.jpg",
       "nasha_hook": "Jeju is the “island food” leg: abalone + seafood soups + coastal cafes.",
       "seafood_street_hits": [
         "Abalone porridge (classic Jeju breakfast).",
@@ -993,7 +993,7 @@
           "url": "https://www.google.com/maps/search/?api=1&query=Seogwipo"
         }
       ],
-      "image": "/assets/cities/jeju.svg"
+      "image": "assets/cities/jeju.svg"
     }
   ],
   "alternatives": {
@@ -1139,11 +1139,11 @@
       "label": "Dorsett Wanchai Hong Kong",
       "area": "Wan Chai, Hong Kong Island",
       "bed": "Private room with bath",
-      "photo": "/assets/hotels/dorsett-wanchai-1.jpg",
+      "photo": "assets/hotels/dorsett-wanchai-1.jpg",
       "photos": [
-        "/assets/hotels/dorsett-wanchai-1.jpg",
-        "/assets/hotels/dorsett-wanchai-2.jpg",
-        "/assets/hotels/dorsett-wanchai-3.jpg"
+        "assets/hotels/dorsett-wanchai-1.jpg",
+        "assets/hotels/dorsett-wanchai-2.jpg",
+        "assets/hotels/dorsett-wanchai-3.jpg"
       ],
       "photo_source": "Trent screenshots"
     },
@@ -1169,13 +1169,13 @@
           "url": "https://www.agoda.com/hotel-livemax-kokura-ekimae/hotel/kitakyushu-jp.html"
         }
       ],
-      "photo": "/assets/hotels/livemax-kokura-1.jpg",
+      "photo": "assets/hotels/livemax-kokura-1.jpg",
       "photos": [
-        "/assets/hotels/livemax-kokura-1.jpg",
-        "/assets/hotels/livemax-kokura-2.jpg",
-        "/assets/hotels/livemax-kokura-3.jpg",
-        "/assets/hotels/livemax-kokura-4.jpg",
-        "/assets/hotels/livemax-kokura-5.jpg"
+        "assets/hotels/livemax-kokura-1.jpg",
+        "assets/hotels/livemax-kokura-2.jpg",
+        "assets/hotels/livemax-kokura-3.jpg",
+        "assets/hotels/livemax-kokura-4.jpg",
+        "assets/hotels/livemax-kokura-5.jpg"
       ],
       "photo_source": "Trent screenshots",
       "rank": 1
@@ -1204,14 +1204,14 @@
           "url": "https://www.agoda.com/sp/Xc7GcRgaydw"
         }
       ],
-      "photo": "/assets/hotels/quintessa-hiroshima-trent-crop-1.jpg",
+      "photo": "assets/hotels/quintessa-hiroshima-trent-crop-1.jpg",
       "photos": [
-        "/assets/hotels/quintessa-hiroshima-trent-crop-1.jpg",
-        "/assets/hotels/quintessa-hiroshima-trent-crop-2.jpg",
-        "/assets/hotels/quintessa-hiroshima-trent-crop-3.jpg",
-        "/assets/hotels/quintessa-hiroshima-trent-crop-4.jpg",
-        "/assets/hotels/quintessa-hiroshima-trent-crop-5.jpg",
-        "/assets/hotels/quintessa-hiroshima-trent-crop-6.jpg"
+        "assets/hotels/quintessa-hiroshima-trent-crop-1.jpg",
+        "assets/hotels/quintessa-hiroshima-trent-crop-2.jpg",
+        "assets/hotels/quintessa-hiroshima-trent-crop-3.jpg",
+        "assets/hotels/quintessa-hiroshima-trent-crop-4.jpg",
+        "assets/hotels/quintessa-hiroshima-trent-crop-5.jpg",
+        "assets/hotels/quintessa-hiroshima-trent-crop-6.jpg"
       ],
       "rank": 1,
       "photo_source": "Trent screenshots (cropped)",
@@ -1240,12 +1240,12 @@
           "url": "https://www.agoda.com/search?q=Hotel%20LiveMax%20Okayama%20Kurashiki-Ekimae"
         }
       ],
-      "photo": "/assets/hotels/livemax-kurashiki-3.jpg",
+      "photo": "assets/hotels/livemax-kurashiki-3.jpg",
       "photos": [
-        "/assets/hotels/livemax-kurashiki-3.jpg",
-        "/assets/hotels/livemax-kurashiki-2.jpg",
-        "/assets/hotels/livemax-kurashiki-1.jpg",
-        "/assets/hotels/livemax-kurashiki-4.jpg"
+        "assets/hotels/livemax-kurashiki-3.jpg",
+        "assets/hotels/livemax-kurashiki-2.jpg",
+        "assets/hotels/livemax-kurashiki-1.jpg",
+        "assets/hotels/livemax-kurashiki-4.jpg"
       ],
       "photo_source": "Trent screenshots",
       "photo_count": 4,
@@ -1284,10 +1284,10 @@
           "url": "https://www.agoda.com/leopard-shinsaibashi/hotel/osaka-jp.html"
         }
       ],
-      "photo": "/assets/hotels/leopard-shinsaibashi-1.jpg",
+      "photo": "assets/hotels/leopard-shinsaibashi-1.jpg",
       "photos": [
-        "/assets/hotels/leopard-shinsaibashi-1.jpg",
-        "/assets/hotels/leopard-shinsaibashi-2.jpg"
+        "assets/hotels/leopard-shinsaibashi-1.jpg",
+        "assets/hotels/leopard-shinsaibashi-2.jpg"
       ],
       "photo_source": "Trent screenshots",
       "photo_count": 2,
@@ -1321,11 +1321,11 @@
           "url": "https://www.agoda.com/browndot-haeundae/hotel/busan-kr.html"
         }
       ],
-      "photo": "/assets/hotels/browndot-haeundae-bed.jpg",
+      "photo": "assets/hotels/browndot-haeundae-bed.jpg",
       "photos": [
-        "/assets/hotels/browndot-haeundae-bed.jpg",
-        "/assets/hotels/browndot-haeundae-pool.jpg",
-        "/assets/hotels/browndot-haeundae-lobby.jpg"
+        "assets/hotels/browndot-haeundae-bed.jpg",
+        "assets/hotels/browndot-haeundae-pool.jpg",
+        "assets/hotels/browndot-haeundae-lobby.jpg"
       ],
       "photo_source": "Trent screenshots",
       "photo_count": 3
@@ -1358,16 +1358,18 @@
           "url": "https://www.agoda.com/busan-gijang-the-club-hotel/hotel/busan-kr.html"
         }
       ],
-      "photo": "/assets/hotels/gijang-club-hotel-1.jpg",
+      "photo": "assets/hotels/gijang-club-hotel-1.jpg",
       "photos": [
-        "/assets/hotels/gijang-club-hotel-1.jpg",
-        "/assets/hotels/gijang-club-hotel-2.jpg",
-        "/assets/hotels/gijang-club-hotel-3.jpg",
-        "/assets/hotels/gijang-club-hotel-4.jpg",
-        "/assets/hotels/gijang-club-hotel-5.jpg"
+        "assets/hotels/gijang-club-hotel-1.jpg",
+        "assets/hotels/gijang-club-hotel-2.jpg",
+        "assets/hotels/gijang-club-hotel-3.jpg",
+        "assets/hotels/gijang-club-hotel-4.jpg",
+        "assets/hotels/gijang-club-hotel-5.jpg",
+        "assets/hotels/gijang-club-hotel-6.jpg",
+        "assets/hotels/gijang-club-hotel-7.jpg"
       ],
       "photo_source": "Trent screenshots",
-      "photo_count": 5
+      "photo_count": 7
     }
   ],
   "hotel_alternatives": {
@@ -1381,12 +1383,12 @@
         "cancellation": "Free cancellation before 8 Apr",
         "bed": "2 single beds (quadruple room)",
         "rating": "8.9 (9 reviews)",
-        "photo": "/assets/hotels/seiha-umeda-trent-crop-1.jpg",
+        "photo": "assets/hotels/seiha-umeda-trent-crop-1.jpg",
         "photos": [
-          "/assets/hotels/seiha-umeda-trent-crop-1.jpg",
-          "/assets/hotels/seiha-umeda-trent-crop-2.jpg",
-          "/assets/hotels/seiha-umeda-trent-crop-3.jpg",
-          "/assets/hotels/seiha-umeda-trent-crop-4.jpg"
+          "assets/hotels/seiha-umeda-trent-crop-1.jpg",
+          "assets/hotels/seiha-umeda-trent-crop-2.jpg",
+          "assets/hotels/seiha-umeda-trent-crop-3.jpg",
+          "assets/hotels/seiha-umeda-trent-crop-4.jpg"
         ],
         "notes": "Trent-provided photo set. 3 nights (13–16 Apr), kitchen + private bathroom."
       },
@@ -1402,15 +1404,15 @@
         "price_per_night_thb": 1584,
         "area": "Tennoji",
         "verdict": "Shortlist candidate (pending compare + confirm)",
-        "photo": "/assets/hotels/homenest-tennoji-trent-crop-1.jpg",
+        "photo": "assets/hotels/homenest-tennoji-trent-crop-1.jpg",
         "photos": [
-          "/assets/hotels/homenest-tennoji-trent-crop-1.jpg",
-          "/assets/hotels/homenest-tennoji-trent-crop-2.jpg",
-          "/assets/hotels/homenest-tennoji-trent-crop-3.jpg",
-          "/assets/hotels/homenest-tennoji-trent-crop-4.jpg",
-          "/assets/hotels/homenest-tennoji-trent-crop-5.jpg",
-          "/assets/hotels/homenest-tennoji-trent-crop-6.jpg",
-          "/assets/hotels/homenest-tennoji-trent-crop-7.jpg"
+          "assets/hotels/homenest-tennoji-trent-crop-1.jpg",
+          "assets/hotels/homenest-tennoji-trent-crop-2.jpg",
+          "assets/hotels/homenest-tennoji-trent-crop-3.jpg",
+          "assets/hotels/homenest-tennoji-trent-crop-4.jpg",
+          "assets/hotels/homenest-tennoji-trent-crop-5.jpg",
+          "assets/hotels/homenest-tennoji-trent-crop-6.jpg",
+          "assets/hotels/homenest-tennoji-trent-crop-7.jpg"
         ],
         "photo_source": "Trent screenshots (cropped)",
         "photo_count": 7
@@ -1429,15 +1431,15 @@
         "bed": "1 queen bed",
         "cancellation": "TBD (depends on selected dates/fare)",
         "verdict": "Preferred candidate (pending compare + confirm)",
-        "photo": "/assets/hotels/airbnb-osaka-trent-crop-1.jpg",
+        "photo": "assets/hotels/airbnb-osaka-trent-crop-1.jpg",
         "photos": [
-          "/assets/hotels/airbnb-osaka-trent-crop-1.jpg",
-          "/assets/hotels/airbnb-osaka-trent-crop-2.jpg",
-          "/assets/hotels/airbnb-osaka-trent-crop-3.jpg",
-          "/assets/hotels/airbnb-osaka-trent-crop-4.jpg",
-          "/assets/hotels/airbnb-osaka-trent-crop-5.jpg",
-          "/assets/hotels/airbnb-osaka-trent-crop-6.jpg",
-          "/assets/hotels/airbnb-osaka-trent-crop-7.jpg"
+          "assets/hotels/airbnb-osaka-trent-crop-1.jpg",
+          "assets/hotels/airbnb-osaka-trent-crop-2.jpg",
+          "assets/hotels/airbnb-osaka-trent-crop-3.jpg",
+          "assets/hotels/airbnb-osaka-trent-crop-4.jpg",
+          "assets/hotels/airbnb-osaka-trent-crop-5.jpg",
+          "assets/hotels/airbnb-osaka-trent-crop-6.jpg",
+          "assets/hotels/airbnb-osaka-trent-crop-7.jpg"
         ],
         "photo_source": "Trent screenshots (cropped)",
         "photo_count": 7
@@ -1457,14 +1459,14 @@
         "smoking": "Non-smoking (filter applied)",
         "refundable": "Non-refundable",
         "verdict": "Avoid (does not meet double bed requirement)",
-        "photo": "/assets/hotels/katsu-osaka-trent-crop-1.jpg",
+        "photo": "assets/hotels/katsu-osaka-trent-crop-1.jpg",
         "photos": [
-          "/assets/hotels/katsu-osaka-trent-crop-1.jpg",
-          "/assets/hotels/katsu-osaka-trent-crop-2.jpg",
-          "/assets/hotels/katsu-osaka-trent-crop-3.jpg",
-          "/assets/hotels/katsu-osaka-trent-crop-4.jpg",
-          "/assets/hotels/katsu-osaka-trent-crop-5.jpg",
-          "/assets/hotels/katsu-osaka-trent-crop-6.jpg"
+          "assets/hotels/katsu-osaka-trent-crop-1.jpg",
+          "assets/hotels/katsu-osaka-trent-crop-2.jpg",
+          "assets/hotels/katsu-osaka-trent-crop-3.jpg",
+          "assets/hotels/katsu-osaka-trent-crop-4.jpg",
+          "assets/hotels/katsu-osaka-trent-crop-5.jpg",
+          "assets/hotels/katsu-osaka-trent-crop-6.jpg"
         ],
         "photo_source": "Trent screenshots (cropped)",
         "photo_count": 6,
@@ -1481,13 +1483,13 @@
         "cancellation": "Free cancellation options available",
         "bed": "Standard Double Non Smoking",
         "rating": "8.5 (1,700+ reviews)",
-        "photo": "/assets/hotels/brackets-osaka-trent-crop-1.jpg",
+        "photo": "assets/hotels/brackets-osaka-trent-crop-1.jpg",
         "photos": [
-          "/assets/hotels/brackets-osaka-trent-crop-1.jpg",
-          "/assets/hotels/brackets-osaka-trent-crop-2.jpg",
-          "/assets/hotels/brackets-osaka-trent-crop-3.jpg",
-          "/assets/hotels/brackets-osaka-trent-crop-4.jpg",
-          "/assets/hotels/brackets-osaka-trent-crop-5.jpg"
+          "assets/hotels/brackets-osaka-trent-crop-1.jpg",
+          "assets/hotels/brackets-osaka-trent-crop-2.jpg",
+          "assets/hotels/brackets-osaka-trent-crop-3.jpg",
+          "assets/hotels/brackets-osaka-trent-crop-4.jpg",
+          "assets/hotels/brackets-osaka-trent-crop-5.jpg"
         ],
         "photo_source": "Trent screenshots (cropped)",
         "photo_count": 5,
@@ -1515,16 +1517,16 @@
         "cancellation": "Free cancellation",
         "bed": "Double room",
         "rating": "8.9 (2,038 reviews)",
-        "photo": "/assets/hotels/rest-kujo-osaka-trent-crop-1.jpg",
+        "photo": "assets/hotels/rest-kujo-osaka-trent-crop-1.jpg",
         "photos": [
-          "/assets/hotels/rest-kujo-osaka-trent-crop-1.jpg",
-          "/assets/hotels/rest-kujo-osaka-trent-crop-2.jpg",
-          "/assets/hotels/rest-kujo-osaka-trent-crop-3.jpg",
-          "/assets/hotels/rest-kujo-osaka-trent-crop-4.jpg",
-          "/assets/hotels/rest-kujo-osaka-trent-crop-5.jpg",
-          "/assets/hotels/rest-kujo-osaka-trent-crop-6.jpg",
-          "/assets/hotels/rest-kujo-osaka-trent-crop-7.jpg",
-          "/assets/hotels/rest-kujo-osaka-trent-crop-8.jpg"
+          "assets/hotels/rest-kujo-osaka-trent-crop-1.jpg",
+          "assets/hotels/rest-kujo-osaka-trent-crop-2.jpg",
+          "assets/hotels/rest-kujo-osaka-trent-crop-3.jpg",
+          "assets/hotels/rest-kujo-osaka-trent-crop-4.jpg",
+          "assets/hotels/rest-kujo-osaka-trent-crop-5.jpg",
+          "assets/hotels/rest-kujo-osaka-trent-crop-6.jpg",
+          "assets/hotels/rest-kujo-osaka-trent-crop-7.jpg",
+          "assets/hotels/rest-kujo-osaka-trent-crop-8.jpg"
         ],
         "photo_source": "Trent screenshots (cropped)",
         "photo_count": 8,
@@ -1547,16 +1549,16 @@
         "cancellation": "Free cancellation (per screenshot)",
         "rating": "4.7 (46 reviews)",
         "verdict": "Shortlist candidate",
-        "photo": "/assets/hotels/osaka-airbnb-tamade8-crop-1.jpg",
+        "photo": "assets/hotels/osaka-airbnb-tamade8-crop-1.jpg",
         "photos": [
-          "/assets/hotels/osaka-airbnb-tamade8-crop-1.jpg",
-          "/assets/hotels/osaka-airbnb-tamade8-crop-2.jpg",
-          "/assets/hotels/osaka-airbnb-tamade8-crop-3.jpg",
-          "/assets/hotels/osaka-airbnb-tamade8-crop-4.jpg",
-          "/assets/hotels/osaka-airbnb-tamade8-crop-5.jpg",
-          "/assets/hotels/osaka-airbnb-tamade8-crop-6.jpg",
-          "/assets/hotels/osaka-airbnb-tamade8-crop-7.jpg",
-          "/assets/hotels/osaka-airbnb-tamade8-crop-8.jpg"
+          "assets/hotels/osaka-airbnb-tamade8-crop-1.jpg",
+          "assets/hotels/osaka-airbnb-tamade8-crop-2.jpg",
+          "assets/hotels/osaka-airbnb-tamade8-crop-3.jpg",
+          "assets/hotels/osaka-airbnb-tamade8-crop-4.jpg",
+          "assets/hotels/osaka-airbnb-tamade8-crop-5.jpg",
+          "assets/hotels/osaka-airbnb-tamade8-crop-6.jpg",
+          "assets/hotels/osaka-airbnb-tamade8-crop-7.jpg",
+          "assets/hotels/osaka-airbnb-tamade8-crop-8.jpg"
         ],
         "photo_source": "Trent screenshots (cropped unusual bits / bars)",
         "photo_count": 8
@@ -1577,13 +1579,13 @@
         "cancellation": "Free cancellation (per screenshot)",
         "rating": "8.6 (6,914 reviews)",
         "verdict": "Shortlist candidate (location verification pending)",
-        "photo": "/assets/hotels/osaka-chisun-shin-imamiya-crop-1.jpg",
+        "photo": "assets/hotels/osaka-chisun-shin-imamiya-crop-1.jpg",
         "photos": [
-          "/assets/hotels/osaka-chisun-shin-imamiya-crop-1.jpg",
-          "/assets/hotels/osaka-chisun-shin-imamiya-crop-2.jpg",
-          "/assets/hotels/osaka-chisun-shin-imamiya-crop-3.jpg",
-          "/assets/hotels/osaka-chisun-shin-imamiya-crop-4.jpg",
-          "/assets/hotels/osaka-chisun-shin-imamiya-crop-5.jpg"
+          "assets/hotels/osaka-chisun-shin-imamiya-crop-1.jpg",
+          "assets/hotels/osaka-chisun-shin-imamiya-crop-2.jpg",
+          "assets/hotels/osaka-chisun-shin-imamiya-crop-3.jpg",
+          "assets/hotels/osaka-chisun-shin-imamiya-crop-4.jpg",
+          "assets/hotels/osaka-chisun-shin-imamiya-crop-5.jpg"
         ],
         "photo_source": "Trent screenshots (cropped unusual bits / bars)",
         "photo_count": 5,
@@ -1603,11 +1605,11 @@
         "cancellation": "Free cancellation",
         "bed": "Standard room",
         "rating": "8.9 (847 reviews)",
-        "photo": "/assets/hotels/browndot-haeundae-bed.jpg",
+        "photo": "assets/hotels/browndot-haeundae-bed.jpg",
         "photos": [
-          "/assets/hotels/browndot-haeundae-bed.jpg",
-          "/assets/hotels/browndot-haeundae-pool.jpg",
-          "/assets/hotels/browndot-haeundae-lobby.jpg"
+          "assets/hotels/browndot-haeundae-bed.jpg",
+          "assets/hotels/browndot-haeundae-pool.jpg",
+          "assets/hotels/browndot-haeundae-lobby.jpg"
         ],
         "photo_source": "Trent screenshots",
         "photo_count": 3,
@@ -1641,10 +1643,10 @@
         "cancellation": "Free cancellation available",
         "verdict": "Shortlist candidate",
         "photos": [
-          "/assets/hotels/25hours-busan-trent-4-crop.jpg",
-          "/assets/hotels/25hours-busan-trent-5-crop.jpg",
-          "/assets/hotels/25hours-busan-trent-6-crop.jpg",
-          "/assets/hotels/25hours-busan-trent-7-crop.jpg"
+          "assets/hotels/25hours-busan-trent-4-crop.jpg",
+          "assets/hotels/25hours-busan-trent-5-crop.jpg",
+          "assets/hotels/25hours-busan-trent-6-crop.jpg",
+          "assets/hotels/25hours-busan-trent-7-crop.jpg"
         ],
         "photo_source": "Trent screenshots (uploaded 2026-03-10)",
         "photo_count": 5,
@@ -1654,7 +1656,7 @@
         "price_total_thb": 2051,
         "current_price_total_thb": 2051,
         "price_per_night_thb": 2051,
-        "photo": "/assets/hotels/25hours-busan-trent-4-crop.jpg",
+        "photo": "assets/hotels/25hours-busan-trent-4-crop.jpg",
         "description_facts": {
           "source": "Agoda",
           "rating": "8.8 (1,983 reviews)",
