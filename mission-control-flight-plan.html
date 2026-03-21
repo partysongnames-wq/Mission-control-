@@ -47,6 +47,7 @@
     .timeline table{width:100%;border-collapse:collapse;font-size:.9rem;}
     .timeline th,.timeline td{padding:12px;border:1px solid rgba(255,255,255,.08);}
     .flight-row.shared{background:rgba(255,255,255,.02);}
+    .flight-row.planb{background:rgba(168,85,247,.16)!important;border-left:3px solid #c084fc;}
     .flight-row.trent{background:rgba(16,163,127,.12);}
     .flight-row.nasha{background:rgba(255,179,71,.12);}
     .flight-row.trent:hover{background:rgba(16,163,127,.18);}
@@ -58,6 +59,9 @@
     .status-pill.booked{background:rgba(16,163,127,.2);border:1px solid rgba(16,163,127,.5);color:#10a37f;}
     .status-pill.on{background:rgba(255,179,71,.18);border:1px solid rgba(255,179,71,.4);color:#ffb347;}
     .status-pill.planned{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);color:#f5f7ff;}
+    .plan-chip{display:inline-flex;margin-top:4px;padding:2px 8px;border-radius:999px;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;border:1px solid rgba(255,255,255,.25);}
+    .plan-chip.a{color:#93c5fd;border-color:#60a5fa;background:rgba(96,165,250,.15);} 
+    .plan-chip.b{color:#e9d5ff;border-color:#c084fc;background:rgba(192,132,252,.2);}
     .decisions,.risks,.costs,.links,.message-hero{border-radius:20px;border:1px solid var(--border);background:var(--card);padding:22px;}
     .decisions ul,.risks ul,.links ul{list-style:none;margin:12px 0 0;padding:0;display:grid;gap:12px;}
     .decisions li{display:flex;align-items:center;gap:10px;}
@@ -66,9 +70,11 @@
     .risks li.active{border:1px solid var(--accent2);box-shadow:0 0 10px rgba(16,163,127,.4);}
     .cost-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-top:12px;}
     .cost-card{padding:16px;background:rgba(255,255,255,.02);border-radius:16px;border:1px solid rgba(255,255,255,.08);}
-    .map-panel{display:flex;flex-direction:column;gap:16px;border-radius:22px;border:1px solid var(--border);padding:22px;background-image:url(https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=900&q=80);background-size:cover;background-position:center;box-shadow:inset 0 0 40px rgba(0,0,0,.5);position:relative;overflow:hidden;} .map-panel::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(3,3,8,.3),rgba(3,3,8,.85));pointer-events:none;} .map-panel > *{position:relative;z-index:1;}
+    .map-panel{display:flex;flex-direction:column;gap:16px;border-radius:22px;border:1px solid var(--border);padding:22px;background-image:url(https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=900&q=80);background-size:cover;background-position:center;box-shadow:inset 0 0 40px rgba(0,0,0,.5);position:relative;overflow:hidden;min-height:280px;}
+    .map-panel::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(3,3,8,.3),rgba(3,3,8,.85));pointer-events:none;}
+    .map-panel > *{position:relative;z-index:1;}
     #flight-map{flex:1;border-radius:18px;}
-    #leaflet-map{width:100%;min-height:70vh;height:70vh;border-radius:18px;overflow:hidden;}
+    #leaflet-map{width:100%;height:320px;border-radius:18px;overflow:hidden;background:var(--bg);}
     .photo-marker{width:46px;height:46px;border-radius:999px;border:2px solid rgba(255,179,71,.85);box-shadow:0 10px 26px rgba(0,0,0,.45);background-size:cover;background-position:center;overflow:hidden;}
     .photo-marker.trent{border-color:rgba(16,163,127,.9);}
     .photo-marker.shared{border-color:rgba(98,168,255,.9);}
@@ -78,6 +84,10 @@
 
     .map-legend{width:100%;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;}
     .map-legend button{border:none;background:rgba(255,255,255,.08);color:#fff;padding:10px 12px;border-radius:12px;cursor:pointer;font-size:.8rem;letter-spacing:.3em;}
+    .station-strip{width:100%;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;}
+    .station-card{padding:12px;border-radius:14px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.04);font-size:.78rem;letter-spacing:.08em;line-height:1.45;}
+    .station-card strong{display:block;letter-spacing:.22em;text-transform:uppercase;font-size:.7rem;color:rgba(255,255,255,.8);}
+    .station-card a{color:#ffd9a1;text-decoration:none;letter-spacing:.18em;text-transform:uppercase;font-size:.65rem;}
     .links button{border-radius:12px;border:1px solid var(--border);background:transparent;color:#fff;padding:8px 16px;cursor:pointer;letter-spacing:.15em;font-size:.75rem;}
     .history-link{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:10px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.06);color:#fff;text-decoration:none;margin-left:8px;}
     .history-link:hover{background:rgba(255,255,255,.10);}
@@ -85,6 +95,13 @@
     .alt-link:hover{background:rgba(255,255,255,.10);}
     .links .primary{background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;color:#050509;}
     .message-block{margin-top:12px;padding:16px;background:rgba(255,255,255,.04);border-radius:16px;font-family:'JetBrains Mono','SFMono-Regular',monospace;font-size:.8rem;line-height:1.5;}
+    .plan-options{border-radius:20px;border:1px solid var(--border);background:var(--card);padding:18px;margin-bottom:22px;}
+    .plan-options h3{margin:0 0 12px 0;font-size:.8rem;letter-spacing:.28em;text-transform:uppercase;color:var(--muted);}
+    .plan-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;}
+    .plan-item{border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.03);border-radius:14px;padding:12px;}
+    .plan-item .tag{display:inline-block;padding:3px 8px;border-radius:999px;font-size:.65rem;letter-spacing:.16em;text-transform:uppercase;border:1px solid rgba(16,163,127,.6);color:#9ff1db;background:rgba(16,163,127,.15);margin-bottom:6px;}
+    .plan-item .label{font-weight:600;letter-spacing:.03em;}
+    .plan-item .summary{color:var(--muted);font-size:.82rem;line-height:1.35;margin-top:6px;}
   
     .glass-header{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;flex-wrap:wrap;
       padding:14px 14px;border-radius:22px;border:1px solid rgba(255,255,255,.14);
@@ -119,7 +136,9 @@
         <a class="chip" href="/mission-control-flight-deals.html" class="chip"><span class="ico">🏷</span>Deals</a>
         <a class="chip" href="/mission-control-city-briefs.html"><span class="ico">🗺</span>Briefs</a>
         <a class="chip" href="/mission-control-flight-alternatives.html"><span class="ico">⎇</span>Alts</a>
+        <a class="chip" href="/mission-control-rail-options.html"><span class="ico">🚆</span>Rail</a>
         <a class="chip" href="/mission-control-hotels.html"><span class="ico">🏨</span>Hotels</a>
+        <a class="chip" href="/mission-control-food.html"><span class="ico">🍜</span>Food</a>
       </div>
     </div>
         <p>One-screen mission control for the April Japan trip—timelines, costs, risks, and the live route map. Update the JSON and the UI follows.</p>
@@ -160,6 +179,12 @@
       <div class="hero-card">
         <h3>Trip notes</h3>
         <p id="trip-notes" style="margin:0;font-size:.85rem;letter-spacing:.1em;color:var(--muted);">Loading…</p>
+      </div>
+    </section>
+    <section class="plan-options">
+      <h3>Plan scenarios</h3>
+      <div id="plan-options-list" class="plan-list">
+        <div class="plan-item"><div class="summary">Loading plan options…</div></div>
       </div>
     </section>
     <section class="timeline">
@@ -221,8 +246,30 @@
       <div class="message-block" id="message-summary"></div>
     </section>
     <section class="map-panel">
-      <div id="leaflet-map"></div>
+      <div style="position:relative;z-index:1;">
+        <strong style="letter-spacing:.35em;text-transform:uppercase;">Route Overview</strong>
+        <p style="margin:8px 0 0;opacity:.8;">BKK → HKG → KIX → PUS → CJU → PUS → BKK</p>
+        <p style="margin:12px 0 0;font-size:.85rem;opacity:.7;">Live route map with party coloring + quick flight highlights.</p>
+      </div>
+      <div id="leaflet-map" aria-label="Flight route map"></div>
       <div class="map-legend" id="map-legend"></div>
+      <div class="station-strip" id="station-strip">
+        <div class="station-card">
+          <strong>Hakata (10 Apr)</strong>
+          Train to Kokura (11 Apr)
+          <div><a href="https://travel.yahoo.co.jp/station/ms1190101/" target="_blank" rel="noreferrer">Hakata station</a></div>
+        </div>
+        <div class="station-card">
+          <strong>Kokura (11 Apr)</strong>
+          Train to Hiroshima (12 Apr)
+          <div><a href="https://travel.yahoo.co.jp/station/ms1190205/" target="_blank" rel="noreferrer">Kokura station</a></div>
+        </div>
+        <div class="station-card">
+          <strong>Hiroshima Station (12 Apr)</strong>
+          Train to Osaka (13 Apr)
+          <div><a href="https://travel.yahoo.co.jp/station/ms1161115/" target="_blank" rel="noreferrer">Hiroshima station</a></div>
+        </div>
+      </div>
     </section>
   </div>
   <script>
@@ -243,15 +290,22 @@
     }
 
     async function loadPlan() {
+      try {
       const res = await fetch('travel-flight-plan.json');
+      if (!res.ok) throw new Error('HTTP ' + res.status);
       const plan = await res.json();
       renderHero(plan.meta, plan.flights || []);
+      renderPlanOptions(plan.meta || {});
       renderFlights(plan.flights);
       renderDecisions(plan.decisions);
       renderRisks(plan.risks);
       renderCosts(plan.cost_breakdown);
       renderMessage(plan.message_summary);
       renderMap(plan.map_points, plan.flights);
+      } catch (e) {
+        console.error('LoadPlan error:', e);
+        document.getElementById('flight-rows').innerHTML = '<tr><td colspan="9" style="text-align:center;color:#ff6b6b;">Error loading data: ' + e.message + '</td></tr>';
+      }
     }
     function computeTotals(flights){
       const shared = flights.filter(f => (f.party||'shared')==='shared');
@@ -274,17 +328,24 @@
       const s1 = document.getElementById('total-shared-line');
       const s2 = document.getElementById('total-nasha-line');
       const s3 = document.getElementById('total-trent-line');
+      
+      // Show both return options
+      const optA = meta.total_cost_nasha_separate || t.nashaSum;
+      const optB = meta.total_cost_trent_separate || t.trentSum;
+      const together = meta.total_cost_together_each || t.trentSum;
+      const premium = meta.together_premium || (together * 2 - optA - optB);
+      
       if (totalEl) {
-        totalEl.textContent = fmt(t.combinedTotal);
+        totalEl.innerHTML = `<div style="font-size:1.1rem;opacity:.7;margin-bottom:4px;">OPTION A: Separate (cheaper)</div>${fmt(optA)} <span style="opacity:.5">/</span> ${fmt(optB)}`;
       }
-      if (s1) s1.textContent = fmt(t.sharedSum);
-      if (s2) s2.textContent = fmt(t.nashaSum);
-      if (s3) s3.textContent = fmt(t.trentSum);
-      const br = document.getElementById('total-bracket');
-      if (br){
-        const lo = Math.min(t.nashaSum, t.trentSum);
-        const hi = Math.max(t.nashaSum, t.trentSum);
-        br.textContent = `Per person: ${fmt(lo)}–${fmt(hi).replace('THB ','')}`;
+      if (s1) s1.innerHTML = `<span style="opacity:.7">Shared flights:</span> ${fmt(t.sharedSum)}`;
+      if (s2) s2.innerHTML = `<span style="opacity:.7">Nasha:</span> ${fmt(optA)} <span style="font-size:.7rem;opacity:.5">(Vietnam Airlines)</span>`;
+      if (s3) s3.innerHTML = `<span style="opacity:.7">Trent:</span> ${fmt(optB)} <span style="font-size:.7rem;opacity:.5">(Jeju Air)</span>`;
+      
+      // Add Option B display
+      const bracket = document.getElementById('total-bracket');
+      if (bracket){
+        bracket.innerHTML = `<div style="margin-bottom:8px;padding:8px 12px;background:rgba(250,204,21,.12);border-radius:12px;border:1px solid rgba(250,204,21,.3);"><strong>OPTION B: Fly together</strong><br/>Both: ${fmt(together)} each <span style="opacity:.6">(+${fmt(premium)} THB total)</span><br/><span style="font-size:.75rem;opacity:.7">More Busan time, arrive together, Nasha takes bag</span></div>`;
       }
       document.getElementById('trip-notes').textContent = meta.notes;
       const plc = document.getElementById('prices-last-checked');
@@ -298,6 +359,23 @@
       document.getElementById('baggage-plan').textContent = meta.baggage_plan;
       document.getElementById('return-plan').textContent = meta.return_plan;
     }
+    function renderPlanOptions(meta){
+      const wrap = document.getElementById('plan-options-list');
+      if (!wrap) return;
+      const opts = Array.isArray(meta.plan_options) ? meta.plan_options : [];
+      if (!opts.length){
+        wrap.innerHTML = '<div class="plan-item"><div class="summary">Single active plan (no scenario split set).</div></div>';
+        return;
+      }
+      wrap.innerHTML = opts.map(o => `
+        <div class="plan-item">
+          <div class="tag">${o.status || 'active'}</div>
+          <div class="label">${o.label || o.id || 'Plan option'}</div>
+          <div class="summary">${o.summary || ''}</div>
+        </div>
+      `).join('');
+    }
+
     function renderFlights(flights) {
       const tbody = document.getElementById('flight-rows');
       tbody.innerHTML = flights.map(flight => {
@@ -307,10 +385,13 @@
         const routeDesc = `${flight.from_code} → ${flight.to_code} (${flight.from_city} → ${flight.to_city})`;
         const stops = flight.route_type === 'direct' ? 'Direct' : `Stop: ${flight.route_type}`;
         const bookingLink = flight.booking_links && flight.booking_links.length ? `<br><small><a href="${flight.booking_links[0].url}" style="color:var(--accent);letter-spacing:.1em;font-size:.75rem;" target="_blank">${flight.booking_links[0].label}</a></small>` : '';
+        const planTag = (flight.plan_tag || '').toLowerCase();
+        const isPlanB = planTag.includes('plan b');
+        const planChip = flight.plan_tag ? `<br><span class="plan-chip ${isPlanB ? 'b' : 'a'}">${flight.plan_tag}</span>` : '';
         return `
-          <tr class="flight-row ${party}">
+          <tr class="flight-row ${party} ${isPlanB ? 'planb' : ''}">
             <td>${flight.date}</td>
-            <td>${routeDesc}</td>
+            <td>${routeDesc}${planChip}</td>
             <td>${flight.airline} ${flight.flight_number}<br><small>${flight.pnr || 'PNR TBD'}</small></td>
             <td>${timeRange}</td>
             <td>${stops}</td>
@@ -329,7 +410,7 @@
               } catch(e){ return ''; }
             })()}<a class="history-link" title="Price history" href="/mission-control-flight-history.html?id=${flight.id}" target="_blank">⟲</a></td>
             <td>${flight.baggage_included}</td>
-            <td>${flight.notes}${bookingLink}</td>
+            <td>${flight.notes}${flight.plan_tag ? `<br><small style="color:#a8d0ff;letter-spacing:.12em;">${flight.plan_tag}</small>` : ''}${bookingLink}</td>
           </tr>`;
       }).join('');
     }

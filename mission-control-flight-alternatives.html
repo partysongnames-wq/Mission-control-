@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Flight Alternatives · Mission Control</title>
+  <style>
+    :root {
+      --bg:#030308;
+      --panel:#0f1121;
+      --card:#1d2135;
+      --card-alt:#161827;
+      --border:rgba(255,255,255,.12);
+      --muted:#a0a8c5;
+      --accent:#ffb347;
+      --accent2:#10a37f;
+      --highlight:rgba(255,179,71,.15);
+      font-family:'Space Grotesk','Inter',system-ui;
+    }
+    * { box-sizing:border-box; }
+    body {
+      margin:0;
+      min-height:100vh;
+      background:radial-gradient(circle at top,#2d1b54,#030308 55%);
+      color:#f5f7ff;
+      display:flex;
+      justify-content:center;
+      padding:32px 20px 40px;
+    }
+    .shell {
+      width:min(1200px,calc(100vw - 32px));
+      background:linear-gradient(180deg,#11142b 0%,#0b0d1f 65%,#05060c 100%);
+      border-radius:34px;
+      border:1px solid rgba(255,255,255,.05);
+      box-shadow:0 40px 120px rgba(0,0,0,.65);
+      overflow:hidden;
+      padding-bottom:28px;
+    }
+    header {
+      padding:28px 32px 20px;
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
+    .hero {
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
+    .hero h1 {
+      margin:0;
+      font-size:2rem;
+      letter-spacing:.24em;
+      text-transform:uppercase;
+    }
+    .hero p {
+      margin:0;
+      color:rgba(255,255,255,.75);
+      letter-spacing:.08em;
+      font-size:.95rem;
+    }
+    .chipbar {
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      align-items:center;
+    }
+    .chipbar a {
+      font-size:.68rem;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+      text-decoration:none;
+      color:#fff;
+      padding:6px 14px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.2);
+      background:rgba(255,255,255,.02);
+      transition:.2s ease;
+    }
+    .chipbar a:hover { border-color:rgba(255,255,255,.45); }
+    .hero-actions {
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      align-items:center;
+      justify-content:space-between;
+      margin-top:12px;
+    }
+    .hero-actions .pill {
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:6px 12px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.2);
+      font-size:.68rem;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      color:rgba(255,255,255,.75);
+      background:rgba(255,255,255,.04);
+    }
+    .hero-actions .cta {
+      padding:8px 16px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.2);
+      background:linear-gradient(135deg,#ffb347,#ffd18a);
+      color:#20120a;
+      font-weight:900;
+      font-size:.68rem;
+      letter-spacing:.2em;
+      text-transform:uppercase;
+      text-decoration:none;
+    }
+    .hero-stats {
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+      gap:14px;
+      margin-top:16px;
+    }
+    .stat-card {
+      padding:16px;
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,.07);
+      background:rgba(255,255,255,.04);
+      min-height:90px;
+    }
+    .stat-card strong {
+      display:block;
+      font-size:1.6rem;
+      letter-spacing:.12em;
+      font-weight:900;
+    }
+    .stat-card small {
+      color:var(--muted);
+      letter-spacing:.18em;
+    }
+    main {
+      display:grid;
+      grid-template-columns:320px 1fr;
+      gap:0;
+      padding:28px 32px 0;
+    }
+    @media (max-width: 1020px) {
+      main { grid-template-columns:1fr; }
+      .detail-panel { order:-1; }
+    }
+    .panel {
+      border-radius:24px;
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(12,14,24,.8);
+      padding:18px;
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+    }
+    .panel h2 {
+      margin:0;
+      font-size:.82rem;
+      letter-spacing:.24em;
+      text-transform:uppercase;
+      color:var(--muted);
+    }
+    .flight-list {
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      max-height:65vh;
+      overflow:auto;
+      padding-right:4px;
+    }
+    .flight-card {
+      padding:12px 14px;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(255,255,255,.02);
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+      cursor:pointer;
+      transition:.15s ease;
+    }
+    .flight-card.active {
+      border-color:rgba(255,179,71,.6);
+      background:rgba(255,179,71,.08);
+    }
+    .flight-card small {
+      color:var(--muted);
+      letter-spacing:.1em;
+    }
+    .flight-card .tag {
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      padding:3px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.25);
+      font-size:.7rem;
+      text-transform:uppercase;
+      letter-spacing:.14em;
+      background:rgba(255,255,255,.05);
+    }
+    .status-pill {
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      padding:3px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,179,71,.55);
+      font-size:.65rem;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      background:rgba(255,179,71,.12);
+      color:#ffd9a1;
+    }
+    .status-pill.booked {
+      border-color:rgba(16,163,127,.7);
+      background:rgba(16,163,127,.15);
+      color:#bff4e4;
+    }
+    .status-pill.planned {
+      border-color:rgba(255,255,255,.25);
+      background:rgba(255,255,255,.06);
+      color:rgba(255,255,255,.8);
+    }
+    .status-pill.watch {
+      border-color:rgba(255,255,255,.35);
+      background:rgba(255,255,255,.08);
+      color:rgba(255,255,255,.85);
+    }
+    .status-pill.alert {
+      border-color:rgba(255,120,120,.75);
+      background:rgba(255,120,120,.18);
+      color:#ffd6d6;
+    }
+    .detail-panel {
+      background:rgba(13,16,30,.9);
+      border:1px solid rgba(255,255,255,.08);
+      min-height:480px;
+      position:relative;
+    }
+    .detail-panel .detail-scroll {
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      max-height:70vh;
+      overflow:auto;
+      padding-right:4px;
+    }
+    .detail-panel .meta, .detail-panel .empty { color:var(--muted); }
+    .alt-card {
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.08);
+      background:var(--card-alt);
+      padding:16px;
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+    }
+    .alt-card h3 {
+      margin:0;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      font-size:.75rem;
+      color:rgba(255,255,255,.75);
+    }
+    .alt-card strong {
+      font-size:1.4rem;
+      letter-spacing:.12em;
+    }
+    .savings {
+      color:#10a37f;
+      font-size:.8rem;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+    }
+    .timeline {
+      border-radius:16px;
+      border:1px dashed rgba(255,179,71,.4);
+      padding:12px 14px;
+      background:rgba(255,179,71,.04);
+      font-size:.8rem;
+      letter-spacing:.12em;
+    }
+    .timeline strong {
+      display:block;
+      font-size:1rem;
+      margin-bottom:6px;
+    }
+    .empty-state {
+      color:var(--muted);
+      text-transform:uppercase;
+      letter-spacing:.2em;
+      font-size:.78rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header>
+      <div class="hero">
+        <div class="hero-top">
+          <p class="eyebrow">Flight alternatives • Mission Control</p>
+          <h1>Flight Alternatives</h1>
+          <p>Keep the core flight plan stable, while tracking promising backups that stay within budget and timing. Any new saved deal automatically populates here for quick review.</p>
+        </div>
+        <div class="chipbar">
+          <a class="chip" href="/mission-control.html"><span class="ico">⟵</span>Mission</a>
+          <a class="chip" href="/mission-control-flight-plan.html"><span class="ico">✈</span>Plan</a>
+          <a class="chip" href="/mission-control-flight-deals.html"><span class="ico">🏷</span>Deals</a>
+          <a class="chip" href="/mission-control-city-briefs.html"><span class="ico">🗺</span>Briefs</a>
+          <a class="chip active" href="/mission-control-flight-alternatives.html">⎇ Alts</a>
+          <a class="chip" href="/mission-control-food.html"><span class="ico">🍜</span>Food</a>
+        </div>
+        <div class="hero-actions">
+          <span class="pill" id="last-sync">Last sync · —</span>
+          <button class="pill" id="toggleBooked" type="button">Booked legs · —</button>
+          <a class="cta" href="/mission-control-flight-deals.html">Add alternate</a>
+        </div>
+        <div class="hero-stats">
+          <article class="stat-card">
+            <small>Flights tracked</small>
+            <strong id="stat-flights">—</strong>
+          </article>
+          <article class="stat-card">
+            <small>Total alternates</small>
+            <strong id="stat-alts">—</strong>
+          </article>
+          <article class="stat-card">
+            <small>Booked legs</small>
+            <strong id="stat-booked">—</strong>
+          </article>
+          <article class="stat-card">
+            <small>Watching now</small>
+            <strong id="stat-watch">—</strong>
+          </article>
+        </div>
+      </div>
+    </header>
+    <main>
+      <section class="panel list-panel">
+        <div class="panel-head">
+          <h2>Flight list</h2>
+          <p class="meta">Select a leg to see its backup roster.</p>
+        </div>
+        <div class="flight-list" id="flight-list"></div>
+      </section>
+      <section class="panel detail-panel">
+        <div class="panel-head">
+          <h2 id="detail-title">Select a flight</h2>
+          <p class="meta" id="detail-meta">No flight selected yet.</p>
+          <p class="meta" id="detail-status"></p>
+        </div>
+        <div class="detail-scroll" id="alt-list"></div>
+        <div class="timeline" id="alt-timeline" style="display:none;"></div>
+      </section>
+    </main>
+  </div>
+  <script>
+    const fmtCurrency = (n) => {
+      if (typeof n !== 'number' || !isFinite(n)) return '—';
+      return 'THB ' + Math.round(n).toLocaleString();
+    };
+
+    const state = { selectedId: null, showBooked: false };
+
+    function renderSummary(plan) {
+      const flights = plan.flights || [];
+      const alts = plan.alternatives || {};
+      const totalFlights = flights.length;
+      const totalAlts = Object.values(alts).reduce((sum, arr) => sum + (arr?.length || 0), 0);
+      const bookedCount = flights.filter(f => (f.status || '').toLowerCase() === 'booked').length;
+      const watchCount = flights.filter(f => (f.status || '').toLowerCase() !== 'booked' && f.track_price !== false).length;
+      document.getElementById('stat-flights').textContent = totalFlights || '—';
+      document.getElementById('stat-alts').textContent = totalAlts || '—';
+      document.getElementById('stat-booked').textContent = bookedCount || '—';
+      document.getElementById('stat-watch').textContent = watchCount || '—';
+      const syncText = plan?.meta?.prices_last_checked || plan?.meta?.deals_last_checked || '—';
+      document.getElementById('last-sync').textContent = `Last sync · ${syncText}`;
+      const bookedToggle = document.getElementById('toggleBooked');
+      if (bookedToggle) {
+        bookedToggle.textContent = `${state.showBooked ? 'Hide' : 'Show'} booked · ${bookedCount}`;
+      }
+    }
+
+    function createFlightCard(flight, active) {
+      const div = document.createElement('button');
+      div.type = 'button';
+      div.className = `flight-card${active ? ' active' : ''}`;
+      const status = (flight.status || 'planned').toLowerCase();
+      const statusLabel = status === 'booked' ? 'Booked' : status === 'planned' ? 'Planned' : status;
+      const statusClass = status === 'booked' ? 'booked' : 'planned';
+      const tracking = (status === 'booked' || flight.track_price === false) ? 'Tracking off' : 'Watching';
+      const trackingClass = (status === 'booked' || flight.track_price === false) ? 'planned' : 'watch';
+      const riskFlags = (flight.risk_flags || []).join(' ');
+      const riskPill = riskFlags.includes('price_spike') ? '<span class="status-pill alert">Price spike</span>' : '';
+      div.innerHTML = `
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;">
+          <div><strong>${flight.from_code}→${flight.to_code}</strong><br><small>${flight.airline || 'TBD'} · ${flight.route_type || 'route'}</small></div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end;">
+            <span class="tag">${(flight.alternate || 'Standby').toUpperCase()}</span>
+            <span class="status-pill ${statusClass}">${statusLabel}</span>
+            ${riskPill}
+          </div>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;">
+          <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;">
+            <span class="tag">${flight.date || 'TBD'}</span>
+            <span class="status-pill ${trackingClass}">${tracking}</span>
+          </div>
+          <div style="text-align:right;"><strong>${fmtCurrency(flight.price_per_person)}</strong><br><small>${flight.depart || '—'} → ${flight.arrive || '—'}</small></div>
+        </div>`;
+      return div;
+    }
+
+    function renderFlightList(plan) {
+      const flights = plan.flights || [];
+      const list = document.getElementById('flight-list');
+      list.innerHTML = '';
+      const filtered = state.showBooked ? flights : flights.filter(f => (f.status || '').toLowerCase() !== 'booked');
+      if (!filtered.length) {
+        list.innerHTML = '<div class="empty-state">No unbooked flights yet.</div>';
+        return;
+      }
+      filtered.forEach(flight => {
+        const card = createFlightCard(flight, state.selectedId === flight.id);
+        card.addEventListener('click', () => {
+          state.selectedId = flight.id;
+          renderDetail(plan, flight.id);
+          renderFlightList(plan);
+        });
+        list.appendChild(card);
+      });
+    }
+
+    function renderDetail(plan, id) {
+      const flights = plan.flights || [];
+      const altsMap = plan.alternatives || {};
+      const flight = flights.find(f => f.id === id);
+      const altList = document.getElementById('alt-list');
+      const title = document.getElementById('detail-title');
+      const meta = document.getElementById('detail-meta');
+      const statusLine = document.getElementById('detail-status');
+      const timeline = document.getElementById('alt-timeline');
+
+      if (!flight) {
+        title.textContent = 'Select a flight';
+        meta.textContent = 'Choose a leg from the list to see backup fares.';
+        statusLine.textContent = '';
+        altList.innerHTML = '<div class="empty-state">No flight selected.</div>';
+        timeline.style.display = 'none';
+        return;
+      }
+
+      const status = (flight.status || 'planned').toLowerCase();
+      const statusLabel = status === 'booked' ? 'Booked' : status === 'planned' ? 'Planned' : status;
+      const statusClass = status === 'booked' ? 'booked' : 'planned';
+      const tracking = (status === 'booked' || flight.track_price === false) ? 'Tracking off' : 'Watching';
+      const trackingClass = (status === 'booked' || flight.track_price === false) ? 'planned' : 'watch';
+      const riskFlags = (flight.risk_flags || []).join(' ');
+      const riskPill = riskFlags.includes('price_spike') ? '<span class="status-pill alert">Price spike</span>' : '';
+
+      title.textContent = `${flight.date || 'Date TBD'} · ${flight.from_code}→${flight.to_code}`;
+      meta.textContent = `${flight.airline || 'Carrier TBD'} · ${flight.depart || '—'} → ${flight.arrive || '—'}`;
+      statusLine.innerHTML = `Status: <span class="status-pill ${statusClass}">${statusLabel}</span> · <span class="status-pill ${trackingClass}">${tracking}</span> ${riskPill}`;
+
+      const items = altsMap[id] || [];
+      if (!items.length) {
+        altList.innerHTML = '<div class="empty-state">No alternatives saved yet. Add one via the deals radar or paste a link into the data file.</div>';
+        timeline.style.display = 'block';
+        timeline.innerHTML = `<strong>Updates</strong><small>No alternates logged for this leg.</small>`;
+        return;
+      }
+
+      altList.innerHTML = items.map(item => {
+        const price = fmtCurrency(item.price_per_person);
+        const savings = typeof item.savings_vs_baseline === 'number' ? Math.round(item.savings_vs_baseline).toLocaleString() : '—';
+        const route = [item.from_code, item.to_code].filter(Boolean).join('→') || flight.from_code + '→' + flight.to_code;
+        const stops = item.stops ? `${item.stops} stop${item.stops === 1 ? '' : 's'}` : 'direct';
+        const tag = item.type ? item.type.toUpperCase() : 'ALT';
+        const link = item.url ? `· <a href="${item.url}" target="_blank" rel="noreferrer">Open</a>` : '';
+        const note = item.notes ? `<div style="color:rgba(255,255,255,.75);font-size:.8rem;">${item.notes}</div>` : '';
+        return `
+          <article class="alt-card">
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <div>
+                <h3>${route}</h3>
+                <small>${stops} · ${item.airline || 'airline TBD'}</small>
+              </div>
+              <div style="text-align:right;"><strong>${price}</strong><br><span class="savings">Save ${savings} THB</span></div>
+            </div>
+            <div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;">
+              <div class="tag">${tag}</div>
+              <div style="color:var(--muted);letter-spacing:.12em;font-size:.7rem;">${item.saved_at || 'saved just now'}</div>
+            </div>
+            ${note}
+            <div style="display:flex;gap:10px;flex-wrap:wrap;">
+              <button onclick="navigator.clipboard.writeText('${(item.url||'')}')">Copy link</button>
+              ${link ? `<span style="color:var(--accent);font-size:.75rem;letter-spacing:.08em;">${item.provider || 'source'}</span>` : ''}
+            </div>
+          </article>`;
+      }).join('');
+
+      const latest = items[items.length - 1];
+      timeline.style.display = 'block';
+      timeline.innerHTML = `<strong>Latest alternate</strong><small>${latest?.saved_at || 'recently saved'} · ${latest?.airline || 'airline TBD'} · ${fmtCurrency(latest?.price_per_person) || 'price pending'}</small>`;
+    }
+
+    async function loadPlan() {
+      try {
+        const res = await fetch('travel-flight-plan.json', { cache: 'no-store' });
+        if (!res.ok) throw new Error(`Server responded ${res.status}`);
+        return await res.json();
+      } catch (err) {
+        console.error(err);
+        return null;
+      }
+    }
+
+    async function init() {
+      const plan = await loadPlan();
+      if (!plan) {
+        document.getElementById('flight-list').innerHTML = '<div class="empty-state">Could not load plan.</div>';
+        document.getElementById('alt-list').innerHTML = '<div class="empty-state">Could not load plan.</div>';
+        return;
+      }
+      renderSummary(plan);
+      const firstUnbooked = (plan.flights || []).find(f => (f.status || '').toLowerCase() !== 'booked');
+      state.selectedId = firstUnbooked?.id || plan.flights?.[0]?.id || null;
+      renderFlightList(plan);
+      renderDetail(plan, state.selectedId);
+
+      const toggle = document.getElementById('toggleBooked');
+      if (toggle) {
+        toggle.addEventListener('click', () => {
+          state.showBooked = !state.showBooked;
+          renderSummary(plan);
+          renderFlightList(plan);
+          if (!state.showBooked && (plan.flights || []).find(f => f.id === state.selectedId && (f.status || '').toLowerCase() === 'booked')) {
+            state.selectedId = firstUnbooked?.id || null;
+            renderDetail(plan, state.selectedId);
+          }
+        });
+      }
+    }
+
+    init();
+  </script>
+</body>
+</html>

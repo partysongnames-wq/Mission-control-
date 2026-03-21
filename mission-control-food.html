@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Food Spots · Mission Control</title>
+  <style>
+    :root{
+      --bg:#030308;
+      --panel:#101223;
+      --card:#1d2135;
+      --muted:#a0a8c5;
+      --border:rgba(255,255,255,.12);
+      --accent:#ffb347;
+      --accent2:#10a37f;
+      font-family:'Space Grotesk','Inter',system-ui;
+    }
+    *{box-sizing:border-box;}
+    body{margin:0;min-height:100vh;background:radial-gradient(circle at top,#2d1b54,#030308 45%);color:#f5f7ff;display:flex;justify-content:center;padding:24px;}
+    .page{width:min(1240px,calc(100vw-32px));background:var(--panel);border-radius:32px;padding:28px;border:1px solid var(--border);box-shadow:0 30px 80px rgba(0,0,0,.7);}
+
+    .glass-header{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;flex-wrap:wrap;
+      padding:14px 14px;border-radius:22px;border:1px solid rgba(255,255,255,.14);
+      background:linear-gradient(135deg,rgba(255,255,255,.10),rgba(255,255,255,.04));
+      box-shadow:0 20px 50px rgba(0,0,0,.45);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+    h1{margin:0;font-size:1.5rem;letter-spacing:.22em;text-transform:uppercase;}
+    .subtitle{color:var(--muted);max-width:880px;line-height:1.5;letter-spacing:.06em;margin-top:8px;}
+    .chipbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:flex-end;}
+    .chip{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;
+      border:1px solid rgba(255,255,255,.16);
+      background:rgba(12,14,24,.28);
+      color:#fff;text-decoration:none;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.08);
+      transition:transform .15s ease, background .15s ease, border-color .15s ease;
+    }
+    .chip:hover{transform:translateY(-1px);background:rgba(255,255,255,.10);border-color:rgba(255,255,255,.26);}
+    .chip.active{background:rgba(255,179,71,.14);border-color:rgba(255,179,71,.50);}    
+
+    .hero{display:grid;grid-template-columns:repeat(4,minmax(200px,1fr));gap:12px;margin:16px 0;}
+    .hero-card{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.10);border-radius:18px;padding:14px;}
+    .hero-card h3{margin:0;font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);}
+    .hero-card strong{display:block;margin-top:8px;font-size:1.2rem;letter-spacing:.12em;}
+
+    .status-message{margin:4px 0 20px;padding:10px 14px;border-radius:14px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;}
+
+    .city-section{margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid var(--border);}    
+    .city-header{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;margin-bottom:16px;}
+    .city-header strong{font-size:1.2rem;letter-spacing:.08em;}
+    .city-meta{color:var(--muted);font-size:.85rem;margin-top:6px;}
+    .city-count{font-size:.75rem;color:var(--muted);letter-spacing:.3em;text-transform:uppercase;}
+
+    .card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;}
+    @media (min-width: 1100px){
+      .card-grid{grid-template-columns:repeat(3, minmax(0, 1fr));}
+    }
+    .spot-card{background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:10px;min-height:190px;overflow:hidden;}
+    .spot-photo{width:180px;height:180px;border-radius:14px;object-fit:cover;object-position:center;box-shadow:0 6px 16px rgba(0,0,0,.3);} 
+    .spot-photo-grid{display:flex;gap:10px;flex-wrap:wrap;}
+    .spot-title{font-size:1rem;letter-spacing:.08em;}
+    .spot-type{font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:#ffdfb0;}
+    .spot-notes{font-size:.82rem;line-height:1.5;color:var(--muted);}
+    .spot-meta{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;}
+    .pill{display:inline-flex;align-items:center;padding:3px 8px;border-radius:999px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.06);}    
+    .pill.priority{border-color:rgba(255,179,71,.5);color:#ffdfb0;background:rgba(255,179,71,.15);}    
+    .pill.visited{border-color:rgba(16,163,127,.5);color:#9ff1db;background:rgba(16,163,127,.12);}    
+    .pill.saved{border-color:rgba(255,255,255,.22);color:#fff;background:rgba(255,255,255,.08);}    
+    .spot-link{color:#ffd9a1;text-decoration:none;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;}
+    .spot-link:hover{text-decoration:underline;}
+    .spot-extra{font-size:.7rem;letter-spacing:.12em;color:var(--muted);text-transform:uppercase;display:flex;gap:6px;align-items:center;flex-wrap:wrap;}
+    .spot-extra-link{color:#ffd9a1;text-decoration:none;border:1px solid rgba(255,255,255,.18);padding:2px 6px;border-radius:999px;}
+    .spot-extra-link:hover{background:rgba(255,255,255,.1);} 
+
+    .empty-state{padding:20px;border-radius:18px;border:1px dashed rgba(255,255,255,.18);color:var(--muted);font-size:.8rem;letter-spacing:.12em;text-align:center;background:rgba(255,255,255,.02);}    
+
+    @media (max-width: 720px){
+      .hero{grid-template-columns:1fr 1fr;}
+      .chipbar{justify-content:flex-start;}
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="glass-header">
+      <div>
+        <h1>Food Spots</h1>
+        <div class="subtitle">Restaurants, cafés, and food finds across the trip. Drop in links from Nasha and the list stays organized by city.</div>
+      </div>
+      <div class="chipbar">
+        <a class="chip" href="/mission-control.html"><span class="ico">⟵</span>Mission</a>
+        <a class="chip" href="/mission-control-flight-deals.html"><span class="ico">🏷</span>Deals</a>
+        <a class="chip" href="/mission-control-city-briefs.html"><span class="ico">🗺</span>Briefs</a>
+        <a class="chip" href="/mission-control-flight-alternatives.html"><span class="ico">⎇</span>Alts</a>
+        <a class="chip" href="/mission-control-rail-options.html"><span class="ico">🚆</span>Rail</a>
+        <a class="chip" href="/mission-control-hotels.html"><span class="ico">🏨</span>Hotels</a>
+        <a class="chip active" href="/mission-control-food.html"><span class="ico">🍜</span>Food</a>
+      </div>
+    </div>
+
+    <section class="hero">
+      <div class="hero-card">
+        <h3>Total spots</h3>
+        <strong id="total-spots">—</strong>
+      </div>
+      <div class="hero-card">
+        <h3>Cities tracked</h3>
+        <strong id="city-count">—</strong>
+      </div>
+      <div class="hero-card">
+        <h3>Priority picks</h3>
+        <strong id="priority-count">—</strong>
+      </div>
+      <div class="hero-card">
+        <h3>Last updated</h3>
+        <strong id="last-updated">—</strong>
+      </div>
+    </section>
+
+    <div id="status" class="status-message">Loading food spots…</div>
+    <div id="food-list"></div>
+  </div>
+
+  <script>
+    const statusEl = document.getElementById('status');
+    const listEl = document.getElementById('food-list');
+    const totalEl = document.getElementById('total-spots');
+    const cityEl = document.getElementById('city-count');
+    const priorityEl = document.getElementById('priority-count');
+    const updatedEl = document.getElementById('last-updated');
+
+    const statusClass = (status = '') => {
+      const key = (status || 'saved').toLowerCase();
+      if (key === 'priority') return 'pill priority';
+      if (key === 'visited') return 'pill visited';
+      return 'pill saved';
+    };
+
+    const prettyStatus = (status = '') => {
+      if (!status) return 'saved';
+      return status;
+    };
+
+    // Convert yen to baht (roughly ¥100 = ฿23-25, using 0.24 rate)
+    const formatPrice = (priceStr) => {
+      if (!priceStr) return '';
+      // Check if it has yen
+      const hasYen = priceStr.includes('¥');
+      const hasBaht = priceStr.includes('฿');
+      
+      if (hasBaht) return priceStr; // Already has baht
+      
+      if (hasYen) {
+        // Extract yen amounts and convert
+        return priceStr.replace(/¥([\d,]+)/g, (match, yen) => {
+          const yenNum = parseInt(yen.replace(/,/g, ''), 10);
+          const baht = Math.round(yenNum * 0.24);
+          return `¥${yen} (~฿${baht.toLocaleString()})`;
+        });
+      }
+      
+      return priceStr;
+    };
+
+    fetch('travel-food-spots.json', { cache: 'no-store' })
+      .then(res => res.json())
+      .then(data => {
+        const spots = Array.isArray(data.spots) ? data.spots : [];
+        const byCity = spots.reduce((acc, spot) => {
+          const city = (spot.city || 'Unsorted').trim() || 'Unsorted';
+          if (!acc[city]) acc[city] = [];
+          acc[city].push(spot);
+          return acc;
+        }, {});
+
+        totalEl.textContent = spots.length || '0';
+        cityEl.textContent = Object.keys(byCity).length || '0';
+        priorityEl.textContent = spots.filter(s => (s.status || '').toLowerCase() === 'priority').length || '0';
+        updatedEl.textContent = data.updated || '—';
+
+        if (!spots.length) {
+          statusEl.textContent = 'No food spots saved yet — send links and I’ll log them.';
+          listEl.innerHTML = '<div class="empty-state">Drop in links or names and I’ll track them here by city.</div>';
+          return;
+        }
+
+        statusEl.textContent = data.notes || 'Food spots loaded.';
+
+        listEl.innerHTML = Object.entries(byCity).map(([city, items]) => {
+          const cards = items.map(spot => {
+            const name = spot.name || 'Untitled spot';
+            const type = spot.type || 'Food';
+            const notes = spot.notes || '';
+            const mustTry = spot.must_try ? `Must-try: ${spot.must_try}` : '';
+            const link = spot.link ? `<a class="spot-link" href="${spot.link}" target="_blank" rel="noopener">Open link</a>` : '';
+            const status = prettyStatus(spot.status);
+            const photos = Array.isArray(spot.photos) ? spot.photos : (spot.photo ? [spot.photo] : []);
+            const previewPhotos = photos.slice(0, 2);
+            const extraPhotos = photos.slice(2);
+            const photoBlock = previewPhotos.length ? `<div class="spot-photo-grid">${previewPhotos.map(src => `<img class=\"spot-photo\" src=\"${src}\" alt=\"${name}\" />`).join('')}</div>` : '';
+            const extraLinks = extraPhotos.length ? `<div class=\"spot-extra\">More photos: ${extraPhotos.map((src, i) => `<a class=\\\"spot-extra-link\\\" href=\\\"${src}\\\" target=\\\"_blank\\\" rel=\\\"noopener\\\">${i + 3}</a>`).join(' ')}</div>` : '';
+            return `
+              <div class="spot-card">
+                ${photoBlock}
+                ${extraLinks}
+                <div class="spot-type">${type}</div>
+                <div class="spot-title">${name}</div>
+                ${spot.price ? `<div class="spot-price" style="font-size:.78rem;color:#ffd9a1;letter-spacing:.06em;margin-top:2px;">${formatPrice(spot.price)}</div>` : ''}
+                <div class="spot-meta">
+                  <span class="pill">${city}</span>
+                  <span class="${statusClass(status)}">${status}</span>
+                </div>
+                <div class="spot-notes">${[notes, mustTry].filter(Boolean).join(' · ') || 'No notes yet.'}</div>
+                ${link}
+              </div>
+            `;
+          }).join('');
+
+          return `
+            <section class="city-section">
+              <div class="city-header">
+                <div>
+                  <strong>${city}</strong>
+                  <div class="city-meta">${items.length} spot${items.length === 1 ? '' : 's'}</div>
+                </div>
+                <div class="city-count">${items.length} total</div>
+              </div>
+              <div class="card-grid">${cards}</div>
+            </section>
+          `;
+        }).join('');
+      })
+      .catch(err => {
+        statusEl.textContent = 'Unable to load travel-food-spots.json';
+        listEl.innerHTML = `<div class="empty-state">${err.message}</div>`;
+      });
+  </script>
+</body>
+</html>

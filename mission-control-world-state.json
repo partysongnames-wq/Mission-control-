@@ -1,0 +1,971 @@
+{
+  "notes": {
+    "yoko": [
+      {
+        "ts": "2026-03-14 10:50 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-13 22:50 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-13 18:50 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-13 14:50 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-13 10:57 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-12 22:50 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-12 18:50 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-12 14:50 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-11 22:50 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-11 18:50 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-11 14:50 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-11 10:50 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-10 22:50 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-10 18:50 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-10 14:50 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-10 10:50 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-10 10:15 +07",
+        "note": "Added Seomyeon Hound Hotel 1st Street (Busan 18Apr) to the hotel plan with the THB 2,189 Agoda rate + photo set. Also compared Jeju→Busan (Jeju Air 7C503 THB 1,095) vs Jeju→Fukuoka (best seen ~$104/THB 3,600 on Expedia) so we can judge the value/immigration trade-off.",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-09 22:50 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-09 18:50 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-09 10:50 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-08 22:50 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-08 18:50 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-08 14:50 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-08 10:50 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-07 22:51 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-07 20:58 +07",
+        "note": "deals: {   \"ok\": true,   \"ran\": true } Deals radar updated.",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-07 10:50 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-07 01:28 +07",
+        "note": "TRIP NOTES canonical dates confirmed by Trent: APRIL 9–19 (Asia/Bangkok). Ensure all planning outputs echo these dates to prevent drift.",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-07 00:07 +07",
+        "note": "Trent schedule reality: irregular during break. Regular classes Tue+Fri 17:30–19:30 (Bangkok). Usually offline 16:30–20:30 those days. Generally awake until ~00:00 but prefers earlier sleep; avoid non-urgent pings late night—leave notes instead.",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-06 23:30 +07",
+        "note": "TRIP NOTES (Latest plan): HK 9–11; Osaka 11–16 (stay Osaka on 14); Busan transit 16; Jeju 16–18; Busan 18–19; return 19. Hiroshima by JR (Kansai–Hiroshima pass). JR pass THB 3,331.",
+        "level": "info"
+      }
+    ],
+    "holly": [
+      {
+        "ts": "2026-03-14 14:00 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-14 10:00 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-13 22:00 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-13 18:00 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-13 14:00 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-13 10:12 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-12 22:00 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-12 18:00 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-12 14:00 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-11 22:00 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-11 18:00 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-11 14:00 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-11 10:00 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-10 22:00 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-10 18:00 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-10 14:00 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-10 10:00 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-09 22:00 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-09 18:00 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-09 10:00 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-08 22:00 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-08 18:00 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-08 14:00 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-08 10:00 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-07 22:04 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-07 14:00 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-07 10:00 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-07 01:28 +07",
+        "note": "TRIP NOTES canonical dates: APRIL 9–19 (Asia/Bangkok). Use Apr 9–19 everywhere unless Trent updates. Always restate dates you’re using before suggesting flights/hotels.",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-07 00:07 +07",
+        "note": "Trent schedule reality: irregular during break. Regular classes Tue+Fri 17:30–19:30 (Bangkok). Usually offline 16:30–20:30 those days. Generally awake until ~00:00 but prefers earlier sleep; avoid non-urgent pings late night—leave notes instead.",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-06 23:30 +07",
+        "note": "TRIP NOTES (Latest plan): HK 9–11; Osaka 11–16 (stay Osaka on 14); Busan transit 16; Jeju 16–18; Busan 18–19; return 19. Hiroshima by JR (Kansai–Hiroshima pass). JR pass THB 3,331.",
+        "level": "info"
+      }
+    ],
+    "joe": [
+      {
+        "ts": "2026-03-14 10:20 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-13 22:20 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-13 18:20 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-13 14:20 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-13 10:20 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-12 22:20 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-12 18:20 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-12 14:20 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-12 11:06 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-11 22:20 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-11 18:20 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-11 14:20 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-11 10:20 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-10 22:20 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-10 18:20 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-10 14:20 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-10 10:20 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-09 22:20 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-09 18:20 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-09 10:20 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-08 22:20 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-08 18:20 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-08 14:20 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-08 10:29 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-07 22:20 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-07 14:20 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-07 10:20 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-07 00:07 +07",
+        "note": "Trent schedule reality: irregular during break. Regular classes Tue+Fri 17:30–19:30 (Bangkok). Usually offline 16:30–20:30 those days. Generally awake until ~00:00 but prefers earlier sleep; avoid non-urgent pings late night—leave notes instead.",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-06 22:21 +07",
+        "note": "cycle: CHANGED: Jobs panel now shows a timestamp (“HH:MM · LEVEL”) and lightly color-tints the LEVEL by severity (error/needs_approval/question/answer) while keeping the same calm 3-line feed.  \nWHY: You can scan “when + what kind of thing” instantly (freshness + urgency) without adding noise or extra UI.  \nNEXT: Add a tiny “Filter: unread only” toggle (client-side) so the panel can stay ultra-quiet when you’ve already cleared/seen everything.",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-06 22:20 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      }
+    ],
+    "jaz": [
+      {
+        "ts": "2026-03-14 14:10 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-14 10:10 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-13 22:10 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-13 18:10 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-13 14:10 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-12 22:10 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-12 18:10 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-12 14:10 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-11 22:10 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-11 18:10 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-11 14:10 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-11 10:10 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-10 22:10 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-10 18:10 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-10 14:10 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-10 10:10 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-09 22:10 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-09 18:10 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-09 10:10 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-08 22:10 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-08 18:10 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-08 14:10 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-08 10:13 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-07 22:19 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-07 14:10 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-07 10:10 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-07 00:07 +07",
+        "note": "Trent schedule reality: irregular during break. Regular classes Tue+Fri 17:30–19:30 (Bangkok). Usually offline 16:30–20:30 those days. Generally awake until ~00:00 but prefers earlier sleep; avoid non-urgent pings late night—leave notes instead.",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-06 22:22 +07",
+        "note": "test: timestamp check",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-06 22:21 +07",
+        "note": "cycle: CHANGED: Updated `mission-control.html` so tapping a `runAction()` button disables that button and changes its label to “Running…” until the request finishes (then restores it).\nWHY: Prevents double-taps / duplicate runs and makes “did it register?” unambiguous—small reliability + UX win with low risk.\nNEXT: Add a lightweight timeout indicator (e.g., “still running (10s)…” after 10s) so long jobs don’t look stalled.",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-06 22:10 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      }
+    ],
+    "tj": [
+      {
+        "ts": "2026-03-14 10:30 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-13 22:30 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-13 18:30 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-13 14:30 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-13 10:42 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-12 22:30 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-12 18:30 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-12 14:30 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-11 22:30 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-11 18:30 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-11 14:30 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-11 10:30 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-11 07:27 +07",
+        "note": "travel: Set up Topic Monitor: “Bangkok → Japan flight fares” (daily checks, medium importance, Telegram alerts).    Want it hour",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-10 22:30 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-10 18:30 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-10 14:30 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-10 10:30 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-10 01:35 +07",
+        "note": "travel: I set the topic up. I still need your **Telegram chat ID (numeric)** to deliver alerts. Send it, and I’ll wire it in.",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-09 22:30 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-09 18:30 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-09 17:58 +07",
+        "note": "travel: Set up Topic Monitor: **“Bangkok→Japan flight deals”** (daily, medium importance, Telegram alerts).  I need your **Teleg",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-09 10:30 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-08 22:30 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-08 18:30 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-08 14:30 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-08 10:30 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-07 22:35 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-07 14:30 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-07 10:30 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-07 00:07 +07",
+        "note": "Trent schedule reality: irregular during break. Regular classes Tue+Fri 17:30–19:30 (Bangkok). Usually offline 16:30–20:30 those days. Generally awake until ~00:00 but prefers earlier sleep; avoid non-urgent pings late night—leave notes instead.",
+        "level": "info"
+      }
+    ],
+    "clawd": [
+      {
+        "ts": "2026-03-14 10:40 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-13 22:40 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-13 18:40 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-13 14:40 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-12 22:40 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-12 18:40 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-12 14:40 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-12 11:06 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-11 22:40 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-11 18:40 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-11 14:40 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-11 10:40 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-10 22:40 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-10 18:40 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-10 14:40 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-10 10:40 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-09 22:40 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-09 18:40 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-09 10:40 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-08 22:40 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-08 18:40 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-08 14:40 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-08 10:45 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-07 22:51 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-07 14:40 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-07 10:40 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-07 00:07 +07",
+        "note": "Trent schedule reality: irregular during break. Regular classes Tue+Fri 17:30–19:30 (Bangkok). Usually offline 16:30–20:30 those days. Generally awake until ~00:00 but prefers earlier sleep; avoid non-urgent pings late night—leave notes instead.",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-06 22:40 +07",
+        "note": "cycle: env: node: No such file or directory",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-06 18:40 +07",
+        "note": "cycle: /Users/MacBookAir/clawd/scripts/office-cycle-runner.sh: line 99: openclaw: command not found",
+        "level": "info"
+      },
+      {
+        "ts": "2026-03-06 14:40 +07",
+        "note": "cycle: /Users/MacBookAir/clawd/scripts/office-cycle-runner.sh: line 99: openclaw: command not found",
+        "level": "info"
+      }
+    ]
+  },
+  "unread": {
+    "yoko": 30,
+    "holly": 38,
+    "joe": 38,
+    "jaz": 39,
+    "tj": 38,
+    "clawd": 38
+  },
+  "positions": {
+    "clawd": {
+      "x": 0.86,
+      "y": 0.18,
+      "updatedAt": "2026-03-14T10:40:01.055053+07:00"
+    },
+    "joe": {
+      "x": 0.88,
+      "y": 0.5,
+      "updatedAt": "2026-03-06T22:21:46.068784+07:00"
+    },
+    "yoko": {
+      "x": 0.88,
+      "y": 0.5,
+      "updatedAt": "2026-03-06T18:50:05.220117+07:00"
+    },
+    "holly": {
+      "x": 0.12,
+      "y": 0.52
+    },
+    "jaz": {
+      "x": 0.88,
+      "y": 0.5,
+      "updatedAt": "2026-03-06T21:52:31.326128+07:00"
+    },
+    "tj": {
+      "x": 0.88,
+      "y": 0.5,
+      "updatedAt": "2026-03-06T21:58:34.467195+07:00"
+    }
+  },
+  "moves": {
+    "clawd": {
+      "date": "2026-03-05",
+      "count": 1
+    },
+    "holly": {
+      "date": "2026-03-07",
+      "count": 1
+    }
+  },
+  "chat": [],
+  "chatCounters": {
+    "holly:2026-03-05T11": 1,
+    "yoko:2026-03-05T22": 1
+  },
+  "chatApprovals": {}
+}

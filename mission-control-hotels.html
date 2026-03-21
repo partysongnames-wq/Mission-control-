@@ -128,6 +128,7 @@
         <a class="chip" href="/mission-control.html"><span class="ico">⟵</span> Mission</a>
         <a class="chip" href="/mission-control-flight-plan.html"><span class="ico">✈</span> Flights</a>
         <a class="chip active" aria-current="page" href="/mission-control-hotels.html"><span class="ico">🏨</span> Hotels</a>
+        <a class="chip" href="/mission-control-osaka-alternatives.html"><span class="ico">📋</span> Osaka</a>
         <a class="chip" href="/mission-control-flight-deals.html"><span class="ico">🏷</span> Deals</a>
         <a class="chip" href="/mission-control-city-briefs.html"><span class="ico">🗺</span> Briefs</a>
       </div>
@@ -283,12 +284,21 @@
           check_out: h.check_out,
           nights: h.nights,
           main: h,
-          altKey: h.id || (h.city === 'Osaka' && h.nights === 3 ? 'osaka2' : (h.city || 'option').toLowerCase().replace(/\s+/g, ''))
+          altKey: h.id || (h.city || 'option').toLowerCase().replace(/\s+/g, '')
         });
       }
     });
     destinations.sort((a,b) => new Date('2026-'+a.check_in) - new Date('2026-'+b.check_in));
     return destinations;
+  }
+
+  // For Osaka, only show the booked hotel (no alternatives)
+  function getAltOptions(dest, alts) {
+    if (dest.city === 'Osaka') {
+      // Only return alternatives if the main hotel isn't booked
+      return dest.main?.status === 'booked' ? [] : (alts[dest.altKey] || []);
+    }
+    return alts[dest.altKey] || [];
   }
 
   function renderDestination(dest, altOptions){
@@ -343,14 +353,14 @@
     }
 
     const destinations = buildDestinations(hotels);
-    destWrap.innerHTML = destinations.map(dest => renderDestination(dest, alts[dest.altKey])).join('');
+    destWrap.innerHTML = destinations.map(dest => renderDestination(dest, getAltOptions(dest, alts))).join('');
     const checkedLabel = meta.hotels_last_checked ? `Last synced ${meta.hotels_last_checked}` : 'Plan loaded just now';
     setStatus(checkedLabel, 'success');
   }
 
   async function loadPlan(){
     try{
-      const res = await fetch('travel-flight-plan.json', {cache: 'no-store'});
+      const res = await fetch('travel-flight-plan.json?v=' + Date.now(), {cache: 'no-store'});
       if (!res.ok) throw new Error(`Server responded with ${res.status}`);
       const data = await res.json();
       render(data);

@@ -1,0 +1,30 @@
+<svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="g" x1="40" y1="24" x2="216" y2="232" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F59C00" stop-opacity="0.95"/>
+      <stop offset="1" stop-color="#10A37F" stop-opacity="0.9"/>
+    </linearGradient>
+    <filter id="shadow" x="0" y="0" width="256" height="256" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="16" stdDeviation="18" flood-color="#000" flood-opacity="0.45"/>
+    </filter>
+  </defs>
+
+  <g filter="url(#shadow)">
+    <rect x="24" y="24" width="208" height="208" rx="48" fill="#0B0A12"/>
+    <rect x="24" y="24" width="208" height="208" rx="48" fill="url(#g)" fill-opacity="0.18"/>
+    <rect x="24" y="24" width="208" height="208" rx="48" stroke="#F59C00" stroke-opacity="0.55"/>
+
+    <!-- Bellhop hat -->
+    <path d="M84 92c0-24 20-44 44-44s44 20 44 44v6H84v-6Z" fill="url(#g)" fill-opacity="0.65"/>
+    <path d="M88 98h80" stroke="#FDFCF8" stroke-opacity="0.55" stroke-width="6" stroke-linecap="round"/>
+    <circle cx="128" cy="48" r="10" fill="#F59C00" fill-opacity="0.9"/>
+
+    <!-- Concierge bell -->
+    <path d="M92 150c0-20 16-36 36-36h0c20 0 36 16 36 36v6H92v-6Z" fill="#FDFCF8" fill-opacity="0.12" stroke="#FDFCF8" stroke-opacity="0.35" stroke-width="4"/>
+    <path d="M76 170h104" stroke="#FDFCF8" stroke-opacity="0.55" stroke-width="6" stroke-linecap="round"/>
+    <path d="M92 170c4 16 20 28 36 28s32-12 36-28" stroke="#10A37F" stroke-opacity="0.8" stroke-width="6" stroke-linecap="round"/>
+
+    <!-- Sparkle -->
+    <path d="M192 92l6 10 10 6-10 6-6 10-6-10-10-6 10-6 6-10Z" fill="#F59C00" fill-opacity="0.8"/>
+  </g>
+</svg>

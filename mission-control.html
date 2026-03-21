@@ -263,6 +263,7 @@
       <button onclick="window.location.href='/mission-control-job-lounge.html';">Opportunity Suite</button>
       <button onclick="window.location.href='/wellbeing';">Well‑Being Studio</button>
       <button onclick="window.location.href='/mission-control-roster.html';">Team Roster</button>
+      <button onclick="window.location.href='/mission-control-house-hunting.html';">House Hunting</button>
       <div class="divider"></div>
       <p style="font-size:.85rem; color:#7c879c;">Concierge dashboard · Tap a card when you need service.</p>
     </div>
@@ -291,7 +292,7 @@
           <span>Travel Concierge</span>
           <h2>Refresh Bangkok→Japan fares</h2>
           <p>Trigger the Topic Monitor/Skyscanner scan and surface the freshest fares for Hong Kong, Osaka, Tokyo, and Busan whenever you need them.</p>
-          <button class="button-pink" onclick="runAction('travel')">Run Travel Scan</button>
+          <button class="button-pink" onclick="runAction('travel', this)">Run Travel Scan</button>
           <div class="hint">Command: Use Topic Monitor / extra:skyscanner-watch</div>
         </div>
         <div class="card">
@@ -313,14 +314,14 @@
           <span>Daily Butler</span>
           <h2>Draft tomorrow’s top three</h2>
           <p>The Morning Manifesto skill gives you a travel-focused to-do list each morning—no typing, just tap and go.</p>
-          <button class="button-green" onclick="runAction('manifesto')">Run Morning Manifesto</button>
+          <button class="button-green" onclick="runAction('manifesto', this)">Run Morning Manifesto</button>
           <div class="hint">Command: Use morning-manifesto with travel focus</div>
         </div>
         <div class="card">
           <span>Memory Librarian</span>
           <h2>Capture a quick note or playlist</h2>
           <p>Drop a lyric, playlist idea, or trip reminder into Supermemory. It becomes searchable later without you needing to remember it.</p>
-          <button class="button-pink" onclick="runAction('memory')">Store Memory</button>
+          <button class="button-pink" onclick="runAction('memory', this)">Store Memory</button>
           <div class="hint">Command: Use Supermemory to store: [text]</div>
         </div>
       </div>
@@ -329,25 +330,25 @@
           <div class="label">Daily</div>
           <p class="time">09:00</p>
           <p class="detail">Token Pulse — keeps the AI group quotas healthy.</p>
-          <button onclick="runAction('token')">Run Token Pulse</button>
+          <button onclick="runAction('token', this)">Run Token Pulse</button>
         </div>
         <div class="event">
           <div class="label">Scheduled</div>
           <p class="time">Every 6 hrs</p>
           <p class="detail">Travel Price Watch — refreshes BKK→Japan fare feed.</p>
-          <button onclick="runAction('watch')">Update Prices</button>
+          <button onclick="runAction('watch', this)">Update Prices</button>
         </div>
         <div class="event">
           <div class="label">On Demand</div>
           <p class="time">Morning</p>
           <p class="detail">Morning Manifesto — tap when you need the day’s Top 3.</p>
-          <button onclick="runAction('manifesto')">Run Manifesto</button>
+          <button onclick="runAction('manifesto', this)">Run Manifesto</button>
         </div>
         <div class="event">
           <div class="label">Flexible</div>
           <p class="time">Anytime</p>
           <p class="detail">Memory Snapshot — store a lyric or reminder before it disappears.</p>
-          <button onclick="runAction('memory')">Store Memory</button>
+          <button onclick="runAction('memory', this)">Store Memory</button>
         </div>
       </div>
       <div class="incident-log">
@@ -359,7 +360,7 @@
           <span class="log-duration">~20 min</span>
         </div>
       </div>
-      <div class="status" id="status">Ready</div>
+      <div class="status" id="status" role="status" aria-live="polite">Ready</div>
       <div class="footer">
         <span>Concierge mode · No terminal, all polish.</span>
         <span><a href="/health" style="color:#10a37f; text-decoration:none;">Health &amp; Locks</a> · Nasha-friendly · Hotel staff vibe.</span>
@@ -367,15 +368,31 @@
     </div>
   </div>
   <script>
-    async function runAction(action) {
+    async function runAction(action, btn) {
       const status = document.getElementById('status');
+      if (btn) { btn.disabled = true; btn.dataset._label = btn.textContent; btn.textContent = 'Running…'; }
       status.textContent = 'Running ' + action + '…';
       try {
-        const res = await fetch('/run/' + action);
-        const body = await res.json();
-        status.textContent = body.message;
+        const res = await fetch('/run/' + action, { headers: { 'Accept': 'application/json' } });
+        const contentType = (res.headers.get('content-type') || '').toLowerCase();
+
+        if (!res.ok) {
+          const errText = await res.text().catch(() => '');
+          status.textContent = `Failed (${res.status}): ${errText || res.statusText || 'request error'}`;
+          return;
+        }
+
+        if (contentType.includes('application/json')) {
+          const body = await res.json();
+          status.textContent = body.message || 'Done.';
+        } else {
+          const bodyText = await res.text();
+          status.textContent = bodyText || 'Done.';
+        }
       } catch (error) {
         status.textContent = 'Failed: ' + (error.message || 'unknown error');
+      } finally {
+        if (btn) { btn.disabled = false; if (btn.dataset._label) btn.textContent = btn.dataset._label; }
       }
     }
   </script>

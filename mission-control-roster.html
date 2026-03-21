@@ -162,7 +162,8 @@
       color:var(--muted);
     }
     .actions{margin-top:auto;display:flex;gap:10px;flex-wrap:wrap;}
-    .actions button{
+    .actions button,
+    .actions a{
       border:none;
       border-radius:12px;
       padding:10px 16px;
@@ -172,6 +173,15 @@
       background:linear-gradient(135deg,var(--accent),var(--accent2));
       color:#040409;
       cursor:pointer;
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .actions a.secondary{
+      background:rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.2);
+      color:var(--text);
     }
     .nav{
       display:flex;
@@ -217,7 +227,7 @@
 
       // Crew
       { id: '-5275095885', agentId: 'tj', name: 'TJ', nickname: 'TJ', desc: 'Trent Assistant — travel scans + quiet ops.', action: 'travel', avatar: '/assets/tj.jpg', model: 'gpt-5.2', groups: ['Yoko + TJ'] },
-      { id: '-5158792881', agentId: 'jaz', name: 'Jaz', nickname: 'Jaz', desc: 'Jasper Assistant — manifesto + calm top 3', action: 'manifesto', avatar: '/assets/jaz.jpg', model: 'openai-codex/gpt-5.2' },
+      { id: '-5158792881', agentId: 'jaz', name: 'Jaz', nickname: 'Jaz', desc: 'Jasper Assistant — manifesto + calm top 3', action: 'manifesto', avatar: '/assets/jaz.jpg', model: 'openai-codex/gpt-5.2', chatLink: 'https://t.me/Jaz_2026ops_bot' },
       { id: '-5181843441', agentId: 'holly', name: 'Holly', nickname: 'Holly', desc: 'Japan Holiday — Japan trip + memories', action: 'memory', avatar: '/assets/holly.jpg', model: 'openai-codex/gpt-5.3-codex' },
       { id: '-5254836070', agentId: 'joe', name: 'Joe', nickname: 'Joe', desc: 'Side Jobs — job hunt + follow-ups', avatar: '/assets/joe.jpg', model: 'openai-codex/gpt-5.3-codex' },
       { id: '-5271777981', agentId: 'clawd', name: 'Clawd', nickname: 'Clawd', desc: 'Original creator + designer — builds the dashboards, keeps the cron fleet humming, and turns instincts into clickable tools.', action: 'watch', avatar: '/assets/clawd.jpg', model: 'openai-codex/gpt-5.2' },
@@ -272,6 +282,11 @@
             }).join('')
           : `<button disabled style=\"opacity:.5;cursor:default;\">Director</button>`;
 
+        const lastSeenRaw = tokenRow?.updatedAt || tokenRow?.lastUpdated || tokenRow?.lastSeen;
+        const lastSeen = lastSeenRaw
+          ? (typeof lastSeenRaw === 'number' ? new Date(lastSeenRaw).toLocaleString() : String(lastSeenRaw))
+          : null;
+
         return `
           <article class="card">
             <div class="avatar" style="background-image:url('${agent.avatar}'); ${agent.avatarFilter ? `filter:${agent.avatarFilter};` : ''}"></div>
@@ -282,10 +297,11 @@
             <strong>${agent.name}</strong>
             <p>${agent.desc}</p>
             <div class="model">Model: ${model.replace('openai-codex/','').replace('openai/','')}</div>
+            ${lastSeen ? `<div class="model" style="opacity:.7;">Last response: ${lastSeen}</div>` : ''}
             ${percent > 0 || headroom > 0 ? `<div class="badge-row"><span class="badge">${percent}% usage</span><span class="badge">${headroom.toLocaleString()} remaining</span></div>` : ''}
             ${used2hReady ? `<div class="badge-row"><span class="badge">${used2h.toLocaleString()} tokens · 2h</span></div>` : `<div class="badge-row"><span class="badge">2h tokens: collecting…</span></div>`}
             ${used24hReady ? `<div class="badge-row"><span class="badge">${used24h.toLocaleString()} tokens · 24h</span></div>` : ''}
-            <div class="actions">${actionButtons}</div>
+            <div class="actions">${actionButtons}${agent.chatLink ? ` <a class=\"secondary\" href=\"${agent.chatLink}\" target=\"_blank\">Open DM</a>` : ''}</div>
           </article>
         `;
       }).join('');

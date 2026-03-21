@@ -1,0 +1,48 @@
+{
+  "thai": {
+    "words": [
+      {
+        "thai": "สบายดี",
+        "roman": "sà-baai-dee",
+        "meaning": "to be well / fine",
+        "example": "วันนี้สบายดีไหม?",
+        "ts": "2026-03-05T15:52:00.529981+07:00"
+      },
+      {
+        "thai": "ทาโกะยากิ",
+        "roman": "thaa-gòo-yáa-gìi",
+        "meaning": "takoyaki (octopus ball snack)",
+        "example": "ที่โอซากะ ทาโกะยากิอร่อยมาก.",
+        "ts": "2026-03-05T16:01:05.844092+07:00"
+      },
+      {
+        "thai": "รถราง",
+        "roman": "rót-raang",
+        "meaning": "tram (streetcar)",
+        "example": "ฉันนั่งรถรางที่ฮ่องกงตอนเย็น.",
+        "ts": "2026-03-05T16:01:05.852106+07:00"
+      },
+      {
+        "thai": "เกรงใจ",
+        "roman": "greng jai",
+        "meaning": "to feel considerate / not want to impose",
+        "example": "ไม่ต้องเกรงใจนะ บอกได้เลย.",
+        "ts": "2026-03-05T16:01:05.859889+07:00"
+      },
+      {
+        "thai": "เกรงใจ",
+        "roman": "greng jai",
+        "meaning": "to feel considerate / not want to impose",
+        "example": "ไม่ต้องเกรงใจนะ บอกได้เลย.",
+        "ts": "2026-03-11T10:30:49.398201+07:00"
+      }
+    ],
+    "wordOfDay": {
+      "thai": "เกรงใจ",
+      "roman": "greng jai",
+      "meaning": "to feel considerate / not want to impose",
+      "example": "ไม่ต้องเกรงใจนะ บอกได้เลย.",
+      "ts": "2026-03-11T10:30:49.398201+07:00"
+    }
+  }
+}

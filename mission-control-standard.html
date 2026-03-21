@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The Standard Mission Control</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Playfair+Display:wght@600&display=swap');
+    :root {
+      color: #0f0f0f;
+      background: #050505;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Space Grotesk', system-ui, sans-serif;
+      background: radial-gradient(circle at top, rgba(255,255,255,0.08), transparent 55%), #050505;
+      color: #f5f5f5;
+    }
+    .page {
+      min-height: 100vh;
+      padding: 2.5rem clamp(1rem, 3vw, 3rem) 3rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+    header {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      max-width: 900px;
+    }
+    header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      margin: 0;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    header p {
+      margin: 0;
+      font-size: 1rem;
+      color: rgba(245,245,245,0.8);
+    }
+    .tagline {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #facc15;
+    }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.25rem;
+    }
+    .card {
+      border-radius: 20px;
+      padding: 1.75rem;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 30px 70px rgba(0,0,0,0.45);
+      position: relative;
+      overflow: hidden;
+    }
+    .card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      padding: 1px;
+      background: linear-gradient(135deg, rgba(250, 204, 21, 0.3), rgba(34, 197, 94, 0.2));
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+    }
+    .card h2 {
+      margin: 0 0 0.35rem;
+      font-size: 1.3rem;
+    }
+    .card p {
+      margin: 0;
+      color: rgba(245,245,245,0.75);
+      font-size: 0.95rem;
+    }
+    .card small {
+      display: block;
+      margin-top: 1rem;
+      color: rgba(245,245,245,0.5);
+      font-size: 0.85rem;
+    }
+    .code {
+      margin-top: 1rem;
+      padding: 0.9rem 1rem;
+      border-radius: 12px;
+      background: rgba(15,23,42,0.8);
+      font-family: 'JetBrains Mono', 'SFMono-Regular', monospace;
+      font-size: 0.85rem;
+      overflow-x: auto;
+    }
+    .actions {
+      margin-top: 1.25rem;
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    button {
+      border: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 999px;
+      cursor: pointer;
+      font-family: inherit;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    button.primary {
+      background: linear-gradient(120deg, #facc15, #fb923c);
+      color: #050505;
+      font-weight: 600;
+      box-shadow: 0 10px 25px rgba(250,204,21,0.35);
+    }
+    button.secondary {
+      background: rgba(255, 255, 255, 0.08);
+      color: #f5f5f5;
+      border: 1px solid rgba(255,255,255,0.18);
+    }
+    button:active {
+      transform: scale(0.97);
+    }
+    .panel {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1rem;
+    }
+    .panel article {
+      background: rgba(15, 118, 110, 0.12);
+      border-radius: 16px;
+      padding: 1.25rem;
+      border: 1px solid rgba(15,118,110,0.4);
+    }
+    .panel h3 {
+      margin: 0 0 0.5rem;
+    }
+    .panel p {
+      margin: 0;
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.8);
+    }
+    footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      padding: 1.5rem;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.03);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+    }
+    footer a {
+      color: #facc15;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .polaroid {
+      width: 100%;
+      height: 220px;
+      border-radius: 20px;
+      overflow: hidden;
+      background: linear-gradient(135deg, rgba(234, 179, 8, 0.4), rgba(244, 63, 94, 0.2));
+      display: flex;
+      align-items: flex-end;
+      padding: 1rem;
+    }
+    .polaroid span {
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.85);
+    }
+    @media (max-width: 640px) {
+      header h1 {
+        font-size: 2.25rem;
+      }
+      .cards {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="tagline">The Standard · OpenClaw Mission Control</div>
+      <h1>Mission Control — Styled for The Standard Hotel vibes</h1>
+      <p>As you build the mission control described in that transcript, this page mirrors the hotel-style energy: high-contrast, cinematic type, and immersive cards for every critical tool. The Standard Mission Control stays polished, intentional, and ready to launch your OpenClaw superpowers.</p>
+    </header>
+
+    <div class="cards">
+      <article class="card">
+        <h2>Taskboard Suite</h2>
+        <p>Every task you assign is a guest at the bar. Track status live, see assignments, and watch progress drift from backlog to review to done. This is the command center for visibility.</p>
+        <div class="code">openclaw skill run mission-control-taskboard</div>
+        <small>Automatic heartbeat checks keep the taskboard updated. Reverse prompt: “What tasks should we prioritize based on current projects?”</small>
+        <div class="actions">
+          <button class="primary" onclick="alert('Copy the command and paste into Terminal when ready.');">Copy command</button>
+          <button class="secondary" onclick="alert('Ask OpenClaw to add a new card whenever you need new work added to the board.');">New task tip</button>
+        </div>
+      </article>
+
+      <article class="card">
+        <h2>Calendar Panorama</h2>
+        <p>View every cron job, scheduled routine, and heartbeat nudge in one elegant calendar. The Standard schedule deck, but for OpenClaw—see proactively what’s running tomorrow at 6:30 or tonight at 20:00.</p>
+        <div class="code">openclaw skill run mission-control-calendar</div>
+        <small>Ask: “Show my upcoming cron runs.” This screen proves your agent is truly proactive.</small>
+        <div class="actions">
+          <button class="primary" onclick="alert('Copy the command and paste into Terminal when ready.');">Copy command</button>
+          <button class="secondary" onclick="alert('Use this to confirm scheduled cron jobs match your goals.');">Tip</button>
+        </div>
+      </article>
+
+      <article class="card">
+        <h2>Project Lobby</h2>
+        <p>Celebrate your live projects like suites overlooking the skyline. Each card tells you how close you are, what tools feed in, and when to reverse prompt for your next move.</p>
+        <div class="code">openclaw skill run mission-control-projects</div>
+        <small>Add notes: “Which project needs momentum today?” and let OpenClaw suggest the next meaningful task.</small>
+        <div class="actions">
+          <button class="primary" onclick="alert('Copy the command and paste into Terminal when ready.');">Copy command</button>
+          <button class="secondary" onclick="alert('Use reverse prompting to surface high-leverage next steps.');">Reverse prompt</button>
+        </div>
+      </article>
+
+      <article class="card">
+        <h2>Travel Mission Taskboard</h2>
+        <p>Keep the manifesto priorities visible—bookings, kit, transit—so they stay top of mind like hotel reservations in the lobby.</p>
+        <div class="code">cat mission-control-travel-tasks.md</div>
+        <small>Follow tonight’s 21:00 reminder and tomorrow’s 07:00 reminder, then note what’s done directly in the file so the taskboard stays current.</small>
+        <div class="actions">
+          <button class="primary" onclick="alert('Open mission-control-travel-tasks.md to update status or add notes.');">View travel taskboard</button>
+          <button class="secondary" onclick="alert('Need a new tool? Reverse prompt: what custom travel helper should we build next?');">Reverse prompt</button>
+        </div>
+      </article>
+    </div>
+
+    <div class="polaroid">
+      <span>Curated tools built on prompt serenity. No downloads. No code. Just OpenClaw.</span>
+    </div>
+
+    <div class="panel">
+      <article>
+        <h3>Memory Salon</h3>
+        <p>Turn memories into a curated journal—organized by day, searchable, and ready for long-term reflection. The same memories that live in `memory/*.md` appear here like guestbook entries.</p>
+      </article>
+      <article>
+        <h3>Doc Gallery</h3>
+        <p>Every document your agents produce lives in this sleek gallery. Search drafts, filter by format, and repurpose content without endless scrollbacks.</p>
+      </article>
+      <article>
+        <h3>Team Stance</h3>
+        <p>Know every agent, role, mission statement, and device. This org chart keeps decisions aligned and assignments transparent.</p>
+      </article>
+      <article>
+        <h3>Office Scene</h3>
+        <p>Agents touchdown, collaborate, and solve problems in a playful 2D office view. It’s a fun reminder that OpenClaw work should feel like hanging out with a creative team.</p>
+      </article>
+    </div>
+
+    <footer>
+      <div>
+        <strong>The Standard Mission Control</strong><br />
+        Built for OpenClaw users who want hotel-grade polish with functional automation.
+      </div>
+      <a href="mission-control-widget.html">View original widget</a>
+    </footer>
+  </div>
+</body>
+</html>

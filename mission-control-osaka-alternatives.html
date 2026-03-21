@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Osaka Hotel Alternatives · Mission Control</title>
+  <style>
+    :root{
+      --bg:#030308;
+      --panel:#101223;
+      --card:#1d2135;
+      --muted:#a0a8c5;
+      --border:rgba(255,255,255,.12);
+      --accent:#ffb347;
+      --accent2:#10a37f;
+      font-family:'Space Grotesk','Inter',system-ui;
+    }
+    *{box-sizing:border-box;}
+    body{margin:0;min-height:100vh;background:radial-gradient(circle at top,#2d1b54,#030308 45%);color:#f5f7ff;display:flex;justify-content:center;padding:24px;}
+    .page{width:min(1240px,calc(100vw-32px));background:var(--panel);border-radius:32px;padding:28px;border:1px solid var(--border);box-shadow:0 30px 80px rgba(0,0,0,.7);}
+
+    .glass-header{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;flex-wrap:wrap;
+      padding:14px 14px;border-radius:22px;border:1px solid rgba(255,255,255,.14);
+      background:linear-gradient(135deg,rgba(255,255,255,.10),rgba(255,255,255,.04));
+      box-shadow:0 20px 50px rgba(0,0,0,.45);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+    h1{margin:0;font-size:1.5rem;letter-spacing:.22em;text-transform:uppercase;}
+    .subtitle{color:var(--muted);max-width:880px;line-height:1.5;letter-spacing:.06em;margin-top:8px;}
+    .chipbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:flex-end;}
+    .chip{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;
+      border:1px solid rgba(255,255,255,.16);
+      background:rgba(12,14,24,.28);
+      color:#fff;text-decoration:none;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.08);
+      transition:transform .15s ease, background .15s ease, border-color .15s ease;
+    }
+    .chip:hover{transform:translateY(-1px);background:rgba(255,255,255,.10);border-color:rgba(255,255,255,.26);}
+
+    .hero{display:grid;grid-template-columns:repeat(3,minmax(220px,1fr));gap:12px;margin:16px 0;}
+    .hero-card{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.10);border-radius:18px;padding:14px;}
+    .hero-card h3{margin:0;font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);}
+    .hero-card strong{display:block;margin-top:8px;font-size:1.2rem;letter-spacing:.12em;}
+
+    .card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;}
+    @media (min-width: 1200px){.card-grid{grid-template-columns:repeat(3,1fr);}}
+    .hotel-card{background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.12);border-radius:18px;overflow:hidden;display:flex;flex-direction:column;height:360px;transition:all .25s ease;box-shadow:0 8px 30px rgba(0,0,0,.3);}
+    .hotel-card:hover{transform:translateY(-6px);border-color:rgba(255,179,71,.3);box-shadow:0 12px 40px rgba(0,0,0,.4);}
+    .hotel-media{height:200px;background:linear-gradient(135deg,#1a103c,#0d0820);position:relative;overflow:hidden;display:flex;}
+    .hotel-media.single img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;transition:transform .4s ease;}
+    .hotel-media.dual{display:grid;grid-template-columns:1fr 1fr;gap:2px;}
+    .hotel-media.dual img{width:100%;height:100%;object-fit:cover;object-position:center;}
+    .hotel-card:hover .hotel-media img{transform:scale(1.03);}
+    .hotel-media::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.5) 0%,transparent 50%);pointer-events:none;z-index:1;}
+    .hotel-media .badges{position:absolute;bottom:10px;left:10px;right:10px;z-index:2;display:flex;gap:8px;flex-wrap:wrap;}
+    .badge{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.15);background:rgba(0,0,0,.5);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;backdrop-filter:blur(4px);}
+    .badge.shortlist{border-color:rgba(255,179,71,.6);color:#ffdfb0;background:rgba(255,179,71,.15);}
+    .badge.booked{border-color:rgba(16,163,127,.5);color:#9ff1db;background:rgba(16,163,127,.15);}
+    .badge.rank{border-color:rgba(250,204,21,.6);color:#facc15;background:rgba(250,204,21,.15);font-weight:600;}
+    .badge.photos{border-color:rgba(100,149,237,.6);color:#a8d0ff;background:rgba(100,149,237,.15);cursor:pointer;position:absolute;top:8px;right:8px;}
+    .badge.photos:hover{background:rgba(100,149,237,.25);transform:scale(1.05);}
+
+    .photo-modal{position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,.92);display:none;justify-content:center;align-items:center;padding:40px;}
+    .photo-modal.active{display:flex;}
+    .photo-modal-content{position:relative;width:100%;max-width:900px;max-height:85vh;display:flex;flex-direction:column;gap:16px;}
+    .photo-modal-close{position:absolute;top:-40px;right:0;background:none;border:none;color:#fff;font-size:2rem;cursor:pointer;}
+    .photo-modal-main{width:100%;height:500px;object-fit:contain;border-radius:12px;}
+    .photo-modal-thumbs{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+    .photo-modal-thumb{width:80px;height:60px;object-fit:cover;border-radius:8px;border:2px solid transparent;cursor:pointer;opacity:.7;}
+    .photo-modal-thumb:hover,.photo-modal-thumb.active{opacity:1;border-color:#ffb347;}
+    .photo-modal-nav{display:flex;justify-content:center;gap:20px;align-items:center;color:#fff;}
+    .photo-modal-nav button{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;padding:8px 16px;border-radius:8px;cursor:pointer;font-size:1.2rem;}
+    .photo-modal-nav button:hover{background:rgba(255,255,255,.2);}
+
+    .hotel-body{padding:16px;display:flex;flex-direction:column;gap:8px;flex:1;}
+    .hotel-title{font-size:.9rem;letter-spacing:.02em;font-weight:600;line-height:1.3;}
+    .hotel-meta{font-size:.75rem;color:var(--muted);letter-spacing:.02em;line-height:1.4;}
+    .hotel-price{font-size:1rem;font-weight:700;color:#facc15;margin-top:4px;}
+    .hotel-actions{margin-top:auto;padding-top:12px;display:flex;gap:8px;}
+    .hotel-actions a{border-radius:10px;border:1px solid rgba(255,255,255,.2);padding:8px 14px;text-decoration:none;color:#fff;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;background:rgba(255,255,255,.08);transition:all .2s ease;}
+    .hotel-actions a:hover{background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.3);}
+    .hotel-actions a.primary{background:linear-gradient(135deg,#ffb347,#10a37f);color:#050509;border:none;font-weight:600;}
+    .hotel-actions a.primary:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(255,179,71,.3);}
+    .status-pill{font-size:.65rem;padding:4px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.35);letter-spacing:.2em;text-transform:uppercase;}
+    .status-pill.shortlist{border-color:rgba(255,179,71,.6);color:#ffe4a3;background:rgba(255,179,71,.2);}
+    .status-pill.booked{border-color:rgba(16,163,127,.6);color:#9ff1db;background:rgba(16,163,127,.2);}
+
+    .empty-state{background:rgba(255,255,255,.02);border:1px dashed rgba(255,255,255,.2);border-radius:16px;padding:18px;text-align:center;color:var(--muted);letter-spacing:.2em;text-transform:uppercase;}
+
+    @media (max-width: 980px){.hero{grid-template-columns:repeat(2,1fr);} }
+    @media (max-width: 640px){.hero{grid-template-columns:1fr;} .chipbar{justify-content:flex-start;} }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="glass-header">
+      <div>
+        <h1>Osaka Alternatives</h1>
+        <div class="subtitle">All Osaka hotel options for Apr 14–17 (3 nights). Compare and pick your favorite.</div>
+      </div>
+      <div class="chipbar">
+        <a class="chip" href="/mission-control.html"><span class="ico">⟵</span> Mission</a>
+        <a class="chip" href="/mission-control-hotels.html"><span class="ico">🏨</span> Hotels</a>
+        <a class="chip" href="/mission-control-flight-plan.html"><span class="ico">✈</span> Flights</a>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="hero-card">
+        <h3>Dates</h3>
+        <strong>14 Apr → 17 Apr</strong>
+      </div>
+      <div class="hero-card">
+        <h3>Nights</h3>
+        <strong>3 nights</strong>
+      </div>
+      <div class="hero-card">
+        <h3>Budget / night</h3>
+        <strong id="budget">THB 1,500</strong>
+      </div>
+    </section>
+
+    <section id="osaka-options" style="margin-top:22px;"><div class="empty-state">Loading Osaka alternatives…</div></section>
+
+    <!-- Photo Gallery Modal -->
+    <div id="photo-modal" class="photo-modal" onclick="if(event.target===this)closePhotoModal()">
+      <div class="photo-modal-content">
+        <button class="photo-modal-close" onclick="closePhotoModal()">&times;</button>
+        <img id="photo-modal-main" class="photo-modal-main" src="" alt="Hotel photo"/>
+        <div class="photo-modal-nav">
+          <button onclick="prevPhoto()">&#10094;</button>
+          <span id="photo-modal-counter">1 / 1</span>
+          <button onclick="nextPhoto()">&#10095;</button>
+        </div>
+        <div id="photo-modal-thumbs" class="photo-modal-thumbs"></div>
+      </div>
+    </div>
+  </div>
+
+<script>
+  const destWrap = document.getElementById('osaka-options');
+
+  function fmt(n){
+    if (typeof n !== 'number' || !isFinite(n)) return '-';
+    return 'THB ' + Math.round(n).toLocaleString();
+  }
+
+  function cardFor(h){
+    if (!h) return '';
+    const target = (h.budget_per_night_thb || 0);
+    const current = h.current_price_per_night_thb || h.price_per_night_thb;
+    const total = h.current_price_total_thb || h.price_total_thb;
+    const priceLine = typeof total === 'number' ? `${fmt(total)} total` : (typeof current === 'number' ? `${fmt(current)} / night` : 'Price TBD');
+    const dates = h.check_in && h.check_out ? `${h.check_in} → ${h.check_out}` : '';
+    const label = h.label || h.city || 'Option';
+    const area = h.area || '';
+    const link = (h.provider_links && h.provider_links[0]) ? h.provider_links[0] : (h.url ? {label:'Open',url:h.url} : null);
+    
+    const badges = [];
+    if (h.status) badges.push(`<span class="status-pill ${h.status.toLowerCase().replace(' ','')}">${h.status}</span>`);
+    if (h.rank) badges.push(`<span class="badge rank">#${h.rank}</span>`);
+    if (h.rating) badges.push(`<span class="badge">⭐ ${h.rating}</span>`);
+    if (h.cancellation && h.cancellation.includes('Free')) badges.push('<span class="badge" style="border-color:rgba(16,163,127,.6);color:#86efac;">Free cancel</span>');
+
+    const allPhotos = h.photos || (h.photo ? [h.photo] : []);
+    const hasPhotos = allPhotos.length > 0;
+    const mainPhoto = allPhotos[0] || '';
+    const secondPhoto = allPhotos[1] || '';
+    const photoCount = allPhotos.length;
+    const photoBadge = photoCount > 2 ? `<span class="badge photos" onclick="event.stopPropagation();openPhotoModal(${JSON.stringify(allPhotos).replace(/"/g, '&quot;')})">+${photoCount-2} more</span>` : '';
+    const dualClass = (mainPhoto && secondPhoto) ? 'dual' : 'single';
+
+    const bed = h.bed ? `<div class="hotel-meta">🛏 ${h.bed}</div>` : '';
+
+    return `
+      <div class="hotel-card">
+        <div class="hotel-media ${dualClass}" ${hasPhotos ? `onclick="openPhotoModal(${JSON.stringify(allPhotos).replace(/"/g, '&quot;')})" style="cursor:pointer;"` : ''}>
+          ${mainPhoto ? `<img src="${mainPhoto}" alt="${label}" loading="lazy"/>` : ''}
+          ${secondPhoto ? `<img src="${secondPhoto}" alt="${label} 2" loading="lazy"/>` : ''}
+          ${!mainPhoto ? '<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.7);font-size:.75rem;letter-spacing:.08em;background:linear-gradient(135deg,#222,#111);">IMAGE PENDING</div>' : ''}
+          ${photoBadge}
+          <div class="badges">
+            ${badges.join('')}
+          </div>
+        </div>
+        <div class="hotel-body">
+          <div class="hotel-title">${label}</div>
+          ${area ? `<div class="hotel-meta">📍 ${area}</div>` : ''}
+          ${bed}
+          <div class="hotel-price" style="font-size:1.1rem;margin:8px 0;">${priceLine}</div>
+          <div class="hotel-meta" style="color:var(--muted);font-size:.8rem;">${h.notes || ''}</div>
+          <div class="hotel-actions" style="margin-top:auto;">
+            ${link ? `<a class="primary" href="${link.url}" target="_blank">View</a>` : '<a style="opacity:.5;pointer-events:none;">No link</a>'}
+          </div>
+        </div>
+      </div>`;
+  }
+
+  async function loadPlan(){
+    try{
+      const res = await fetch('travel-flight-plan.json', {cache: 'no-store'});
+      if (!res.ok) throw new Error(`Server responded with ${res.status}`);
+      const data = await res.json();
+      
+      // Get main Osaka hotel and alternatives
+      const mainOsaka = (data.hotels || []).find(h => h.city === 'Osaka');
+      const alternatives = (data.hotel_alternatives && data.hotel_alternatives.osaka2) || [];
+      
+      // Combine main + alternatives
+      const allOsaka = [];
+      if (mainOsaka) allOsaka.push(mainOsaka);
+      allOsaka.push(...alternatives);
+      
+      if (allOsaka.length === 0) {
+        destWrap.innerHTML = `<div class="empty-state">No Osaka hotels found.</div>`;
+        return;
+      }
+      
+      // Sort by rank if available
+      allOsaka.sort((a,b) => (a.rank || 99) - (b.rank || 99));
+      
+      destWrap.innerHTML = `<div class="card-grid">${allOsaka.map(cardFor).join('')}</div>`;
+    }catch(err){
+      destWrap.innerHTML = `<div class="empty-state">Error loading hotels. Try refreshing.</div>`;
+      console.error(err);
+    }
+  }
+
+  loadPlan();
+
+  // Photo gallery state
+  let currentPhotos = [];
+  let currentPhotoIndex = 0;
+
+  function openPhotoModal(photos, startIndex = 0) {
+    if (!photos || photos.length === 0) return;
+    currentPhotos = photos;
+    currentPhotoIndex = startIndex;
+    const modal = document.getElementById('photo-modal');
+    modal.classList.add('active');
+    updatePhotoModal();
+  }
+
+  function closePhotoModal() {
+    document.getElementById('photo-modal').classList.remove('active');
+    currentPhotos = [];
+  }
+
+  function updatePhotoModal() {
+    const mainImg = document.getElementById('photo-modal-main');
+    const counter = document.getElementById('photo-modal-counter');
+    const thumbsContainer = document.getElementById('photo-modal-thumbs');
+
+    mainImg.src = currentPhotos[currentPhotoIndex];
+    counter.textContent = `${currentPhotoIndex + 1} / ${currentPhotos.length}`;
+
+    thumbsContainer.innerHTML = currentPhotos.map((url, i) => `
+      <img src="${url}" class="photo-modal-thumb ${i === currentPhotoIndex ? 'active' : ''}"
+           onclick="jumpToPhoto(${i})" alt="Thumbnail ${i+1}"/>
+    `).join('');
+  }
+
+  function nextPhoto() {
+    currentPhotoIndex = (currentPhotoIndex + 1) % currentPhotos.length;
+    updatePhotoModal();
+  }
+
+  function prevPhoto() {
+    currentPhotoIndex = (currentPhotoIndex - 1 + currentPhotos.length) % currentPhotos.length;
+    updatePhotoModal();
+  }
+
+  function jumpToPhoto(index) {
+    currentPhotoIndex = index;
+    updatePhotoModal();
+  }
+</script>
+</body>
+</html>

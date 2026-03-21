@@ -856,13 +856,43 @@
       letter-spacing:.25em;
       color:var(--muted);
     }
-    .feed h3 {
+    .feed-head {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
       margin:0 0 12px;
+    }
+    .feed h3 {
+      margin:0;
       font-size:.75rem;
       letter-spacing:.4em;
       text-transform:uppercase;
       color:var(--muted);
     }
+    .mini-btn {
+      border:1px solid rgba(255,255,255,.18);
+      background:rgba(255,255,255,.04);
+      color:var(--muted);
+      padding:6px 10px;
+      border-radius:12px;
+      cursor:pointer;
+      font-size:.65rem;
+      letter-spacing:.25em;
+      text-transform:uppercase;
+      transition:background .2s ease, color .2s ease, border-color .2s ease;
+      font-family:'Space Grotesk',system-ui;
+    }
+    .mini-btn:hover {
+      background:rgba(245,201,115,.12);
+      color:var(--text);
+      border-color:rgba(245,201,115,.55);
+    }
+    .jobs-feed .feed-item span { color: rgba(255,255,255,.55); }
+    .jobs-feed .feed-item[data-level="error"] span { color:#ff6f4c; }
+    .jobs-feed .feed-item[data-level="needs_approval"] span { color:#ffb347; }
+    .jobs-feed .feed-item[data-level="question"] span { color:#4fd1ff; }
+    .jobs-feed .feed-item[data-level="answer"] span { color:#72ffcf; }
     .feed-item {
       display:flex;
       justify-content:space-between;
@@ -907,7 +937,7 @@
         <h1>Team Lounge</h1>
         <p>The hotel office that mirrors your Clawd groups—each desk shows the workflow and runs in real time.</p>
       </div>
-      <div style="display:flex;gap:12px;align-items:center;"><a href="mission-control.html">← Back to Mission Control</a><a href="mission-control-team-members.html" style="color:#10a37f;letter-spacing:.3em;text-transform:uppercase;font-size:.65rem;">Team roster</a></div>
+      <div style="display:flex;gap:12px;align-items:center;"><a href="mission-control.html">← Back to Mission Control</a></div>
     </header>
     <div class="bot-controls">
       <h3>Concierge bots</h3>
@@ -1136,6 +1166,20 @@
         <strong>...</strong>
       </div>
     </div>
+
+    <div class="feed jobs-feed">
+      <div class="feed-head">
+        <h3 id="jobs-head">Jobs (Joe)</h3>
+        <button class="mini-btn" onclick="clearJobsUnread()">Clear</button>
+      </div>
+      <div class="feed-item" id="jobs-1">
+        <span>—</span>
+        <strong>Loading…</strong>
+      </div>
+      <div class="feed-item" id="jobs-2"></div>
+      <div class="feed-item" id="jobs-3"></div>
+    </div>
+
     <div class="pulse-panel">
       <span>Active agents</span>
       <ul id="active-agents">
@@ -1193,6 +1237,60 @@
     const logCache = {};
     const logHistory = [];
     const JASPER_GROUP_ID = '-5275095885';
+
+    const jobsHead = document.getElementById('jobs-head');
+    const jobsItems = [
+      document.getElementById('jobs-1'),
+      document.getElementById('jobs-2'),
+      document.getElementById('jobs-3'),
+    ];
+
+    function trunc(text, maxLen) {
+      const t = (text || '').toString().trim();
+      if (!t) return '';
+      return t.length > maxLen ? t.slice(0, maxLen - 1) + '…' : t;
+    }
+
+    async function pollJobsFeed() {
+      try {
+        const res = await fetch('/api/world/state');
+        const state = await res.json();
+        const notes = ((state.notes || {}).joe || []).slice(-3).reverse();
+        const unread = ((state.unread || {}).joe ?? 0);
+        if (jobsHead) jobsHead.textContent = `Jobs (Joe)${unread ? ' · ' + unread + ' unread' : ''}`;
+
+        jobsItems.forEach((el, idx) => {
+          if (!el) return;
+          const n = notes[idx];
+          if (!n) {
+            el.innerHTML = '';
+            return;
+          }
+          const lvlRaw = (n.level || 'info').toString().toLowerCase();
+          const lvl = lvlRaw.toUpperCase();
+          const msg = trunc(n.note || '', 84);
+          let t = '';
+          try {
+            const d = new Date(n.ts);
+            if (!isNaN(d.getTime())) {
+              t = d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            }
+          } catch (e) {}
+          el.dataset.level = lvlRaw;
+          el.innerHTML = `<span>${t ? t + ' · ' : ''}${lvl}</span><strong>${msg}</strong>`;
+        });
+      } catch (e) {
+        // keep calm: don't spam the UI, just show a soft error once
+        if (jobsItems[0]) jobsItems[0].innerHTML = `<span>ERR</span><strong>${trunc(e.message, 80)}</strong>`;
+      }
+    }
+
+    async function clearJobsUnread() {
+      try {
+        await fetch('/api/world/clear/joe', { method: 'POST' });
+      } catch (e) {}
+      await pollJobsFeed();
+    }
 
     async function run(action) {
       try {
@@ -1508,6 +1606,8 @@
     pollStatus();
     setInterval(pollTokenUsage, 60000);
     pollTokenUsage();
+    setInterval(pollJobsFeed, 7000);
+    pollJobsFeed();
     rotateChatBubble();
     setInterval(rotateChatBubble, 6000);
     setupBotControls();

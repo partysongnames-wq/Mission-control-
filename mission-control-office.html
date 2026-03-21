@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Standard Hotel Office</title>
+  <style>
+    :root {
+      --bg:#03030b;
+      --grid:#0e111d;
+      --desk:#1a1f2f;
+      --highlight:#ffb347;
+      --text:#f6f6f8;
+      --muted:#9ea7c0;
+    }
+    * { box-sizing:border-box; }
+    body {
+      margin:0;
+      min-height:100vh;
+      font-family:"Inter","SF Pro",system-ui;
+      background:var(--bg);
+      color:var(--text);
+      display:flex;
+      justify-content:center;
+      padding:24px;
+    }
+    .stage {
+      width:min(1200px,calc(100vw-32px));
+      background:linear-gradient(180deg,#0b0f1e,#050609 60%,#030308);
+      border-radius:36px;
+      border:1px solid rgba(255,255,255,.08);
+      box-shadow:0 40px 90px rgba(0,0,0,.6);
+      padding:32px;
+    }
+    .hero {
+      position:relative;
+      border-radius:26px;
+      overflow:hidden;
+      height:200px;
+      margin-bottom:24px;
+      border:1px solid rgba(255,255,255,.1);
+    }
+    .hero::before {
+      content:'';
+      position:absolute;
+      inset:0;
+      background-image:url('https://images.unsplash.com/photo-1556909218-9d974d42b5da?auto=format&fit=crop&w=1400&q=80');
+      background-size:cover;
+      background-position:center;
+      filter:contrast(1.1) saturate(1.1);
+    }
+    .hero::after {
+      content:'';
+      position:absolute;
+      inset:0;
+      background:linear-gradient(180deg,rgba(0,0,0,.1),rgba(0,0,0,.8));
+    }
+    .hero-content {
+      position:relative;
+      z-index:1;
+      height:100%;
+      padding:24px 32px;
+      display:flex;
+      flex-direction:column;
+      justify-content:flex-end;
+      color:#fff;
+      text-shadow:0 15px 35px rgba(0,0,0,.8);
+    }
+    .hero-content h2 {
+      margin:0;
+      font-size:1.9rem;
+      letter-spacing:.3em;
+      text-transform:uppercase;
+    }
+    .hero-content p {
+      margin:.5rem 0 0;
+      max-width:540px;
+      letter-spacing:.1em;
+      color:rgba(255,255,255,.9);
+    }
+    .hero-pill {
+      margin-top:12px;
+      align-self:flex-start;
+      padding:6px 14px;
+      border-radius:999px;
+      background:rgba(255,255,255,.15);
+      border:1px solid rgba(255,255,255,.4);
+      font-size:.65rem;
+      letter-spacing:.3em;
+      text-transform:uppercase;
+    }
+    header {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:28px;
+    }
+    h1 { margin:0; font-size:2.2rem; }
+    .mission { color:var(--muted); font-size:.9rem; letter-spacing:.2em; }
+    .office {
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+      gap:18px;
+    }
+    .desk {
+      background:var(--desk);
+      border-radius:20px;
+      border:1px solid rgba(255,255,255,.1);
+      padding:16px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      position:relative;
+    }
+    .desk::after {
+      content:'';
+      position:absolute;
+      inset:10px;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.08);
+      pointer-events:none;
+      opacity:0;
+      animation: pulse 3s ease-in-out infinite;
+    }
+    .desk[data-active="true"]::after { opacity:1; }
+    .agent-name { font-size:1.2rem; margin:0; }
+    .meta { font-size:.75rem; letter-spacing:.2em; text-transform:uppercase; color:var(--muted); }
+    .status { color:#72ffcf; font-size:.9rem; }
+    .desk button {
+      align-self:flex-start;
+      border:none;
+      border-radius:12px;
+      padding:8px 14px;
+      background:var(--highlight);
+      color:#020302;
+      font-weight:600;
+      font-size:.8rem;
+      cursor:pointer;
+    }
+    .lounge {
+      margin-top:32px;
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+      gap:12px;
+    }
+    .lounge .feed {
+      background:rgba(255,255,255,.03);
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.06);
+      padding:14px;
+      min-height:120px;
+    }
+    .lounge .feed h3 { margin:0 0 10px; color:var(--muted); font-size:.85rem; letter-spacing:.15em; }
+    .feed-item { font-size:.9rem; margin-bottom:6px; }
+    footer { margin-top:32px; display:flex; justify-content:space-between; align-items:center; color:var(--muted); font-size:.78rem; }
+    footer a { color:var(--highlight); text-transform:uppercase; letter-spacing:.2em; font-size:.75rem; }
+    @keyframes pulse {
+      0% { transform:scale(1); }
+      50% { transform:scale(1.02); }
+      100% { transform:scale(1); }
+    }
+  </style>
+</head>
+<body>
+  <div class="stage">
+    <header>
+      <div>
+        <h1>Hotel Office</h1>
+        <p class="mission">Live operations · Each desk lights up when the agent is busy.</p>
+      </div>
+      <a href="mission-control.html" style="color:var(--muted); text-decoration:none; letter-spacing:.2em; font-size:.75rem;">← Back</a>
+    </header>
+    <div class="hero">
+      <div class="hero-content">
+        <span class="hero-pill">Concierge flow</span>
+        <h2>Office in motion</h2>
+        <p>All the desks, status, and pulses gather against a warm lobby glow so the view still feels like a hotel control suite.</p>
+      </div>
+    </div>
+    <div class="office" id="office-grid">
+      <div class="desk" data-key="travel">
+        <span class="meta">Clawd Skills</span>
+        <h2 class="agent-name">Travel Concierge</h2>
+        <p>Watching Bangkok→Japan routes</p>
+        <p class="status" id="status-travel">Idle</p>
+        <button onclick="trigger('travel')">Run Scan</button>
+      </div>
+      <div class="desk" data-key="manifesto">
+        <span class="meta">Jasper Assistant</span>
+        <h2 class="agent-name">Daily Butler</h2>
+        <p>Drafting the morning manifesto</p>
+        <p class="status" id="status-manifesto">Idle</p>
+        <button onclick="trigger('manifesto')">Run Manifesto</button>
+      </div>
+      <div class="desk" data-key="watch">
+        <span class="meta">AI Video Chat</span>
+        <h2 class="agent-name">Travel Watcher</h2>
+        <p>Alerting on new airfare/opportunity</p>
+        <p class="status" id="status-watch">Idle</p>
+        <button onclick="trigger('watch')">Update Prices</button>
+      </div>
+      <div class="desk" data-key="memory">
+        <span class="meta">Japan Holiday</span>
+        <h2 class="agent-name">Memory Archivist</h2>
+        <p>Recording playlists and travel notes</p>
+        <p class="status" id="status-memory">Idle</p>
+        <button onclick="trigger('memory')">Store Memory</button>
+      </div>
+    </div>
+    <div class="lounge">
+      <div class="feed">
+        <h3>Live Pulse</h3>
+        <div class="feed-item" id="live-1">No activity yet.</div>
+        <div class="feed-item" id="live-2"></div>
+        <div class="feed-item" id="live-3"></div>
+      </div>
+      <div class="feed">
+        <h3>Mission Statement</h3>
+        <p>Keep the concierge work rolling: travel, jobs, and calm service 24/7.</p>
+      </div>
+    </div>
+    <footer>
+      <span>Office view · refreshing every 5 seconds.</span>
+      <a href="mission-control-team.html">View Lounge</a>
+    </footer>
+  </div>
+  <script>
+    async function trigger(action) {
+      const desk = document.querySelector(`.desk[data-key="${action}"]`);
+      const statusElem = document.getElementById(`status-${action}`);
+      desk.dataset.state = 'running';
+      statusElem.textContent = 'Working now';
+      try {
+        const res = await fetch('/run/' + action);
+        const json = await res.json();
+        updateFeed(`${desk.querySelector('h2').textContent} → ${json.message.split('\n')[0]}`);
+      } catch (error) {
+        updateFeed(`Error: ${error.message}`);
+      }
+      await pollStatus();
+    }
+
+    async function pollStatus() {
+      const res = await fetch('/status');
+      const data = await res.json();
+      Object.entries(data).forEach(([key, info]) => {
+        const desk = document.querySelector(`.desk[data-key="${key}"]`);
+        if (!desk) return;
+        desk.dataset.state = info.state;
+        const statusElem = document.getElementById(`status-${key}`);
+        statusElem.textContent = info.state === 'running' ? 'Working now' : info.detail;
+      });
+    }
+
+    function updateFeed(text) {
+      const items = [
+        document.getElementById('live-1'),
+        document.getElementById('live-2'),
+        document.getElementById('live-3'),
+      ];
+      items.unshift(items.pop());
+      items[0].textContent = text;
+    }
+
+    setInterval(pollStatus, 5000);
+    pollStatus();
+  </script>
+</body>
+</html>

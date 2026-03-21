@@ -1,12 +1,12 @@
 {
   "meta": {
-    "trip_dates": "9–19 Apr 2026",
-    "route_chain": "BKK → HKG → KIX → PUS → CJU → PUS → BKK",
-    "total_cost_per_person": 14500,
+    "trip_dates": "9–20 Apr 2026",
+    "route_chain": "BKK → HKG → FUK → (rail) → KIX → PUS → BKK",
+    "total_cost_per_person": 12400,
     "total_cost_tbd": 1200,
     "baggage_plan": "Outbound: carry-on only (7kg each on HK Express). Return: bring foldable duffel; add checked bag only on the leg we need (likely return).",
-    "return_plan": "Return may be separate: Nasha PUS→BKK option A • Trent PUS→BKK option B (no Vietnam transit for Trent).",
-    "notes": "Latest plan: HK 9–11, Osaka 11–16 (stay Osaka on 14), Busan transit 16, Jeju 16–18, Busan 18–19, return 19. Hiroshima by JR (Kansai–Hiroshima pass). | Dual-plan view enabled with explicit Plan B direct KIX→CJU row. | Hard constraint: Andrew family Osaka window 14–16 Apr (USJ 15, baseball eve 16).",
+    "return_plan": "Flexible booking strategy: (1) If Air Busan direct stays <฿7k/person → book both together. (2) If Air Busan spikes >฿10k → split: Trent takes direct, Nasha takes Vietnam Airlines via SGN (~฿4,300). Max budget ceiling: ฿15k total, not ฿20k. Decision window: monitor daily, book when comfortable.",
+    "notes": "Trip: Bangkok→Hong Kong→Fukuoka→(rail)→Osaka→Busan→Bangkok. Apr 9-20. 3 flights booked. Return: monitoring Busan→Bangkok prices (direct vs Vietnam split strategy). Prices up 35%+ since Mar 5.",
     "rail_pass_window": "11–17 Apr 2026",
     "rail_pass": {
       "name": "JR Sanyo–San’in Area Pass (7-day)",
@@ -23,9 +23,9 @@
       ],
       "notes": "Valid seven consecutive days; perfect for the Kansai → Hiroshima → Fukuoka corridor."
     },
-    "prices_last_checked": "2026-03-11 17:54 +07",
-    "prices_source": "Skyscanner",
-    "prices_last_result": "Manual add: FUK→CJU option at THB 3,319 (T'way Air) spotted; ~THB 832 cheaper than current KIX→CJU quote before transfer costs.",
+    "prices_last_checked": "2026-03-14 12:43 +07",
+    "prices_source": "Skyscanner live",
+    "prices_last_result": "Removed all CJU (Jeju) flights — no longer visiting Jeju this trip.",
     "prices_last_changes": [
       {
         "flight_id": "flight7",
@@ -52,20 +52,14 @@
     "price_watch_scope": "Skip booked flights; watch remaining legs only.",
     "hotel_budget_per_night_thb": 1500,
     "hotels_last_checked": "2026-03-11 17:30 +07",
-    "hotels_last_result": "Jeju duplicate removed from hotel alternatives (removed 1 duplicate entry).",
-    "active_plan_mode": "dual-scenario",
+    "hotels_last_result": "Jeju removed from entire itinerary — all CJU flights deleted.",
+    "active_plan_mode": "single",
     "plan_options": [
       {
-        "id": "plan_a_via_busan",
-        "label": "Plan A: KIX→Busan→Jeju→Busan→BKK",
+        "id": "current_plan",
+        "label": "Japan-Korea Trip (Jeju removed)",
         "status": "active",
-        "summary": "Current chain with Busan transit before Jeju and Busan overnight before return."
-      },
-      {
-        "id": "plan_b_direct_jeju_first",
-        "label": "Plan B: KIX→Jeju→Busan→BKK",
-        "status": "active",
-        "summary": "New option: fly direct to Jeju first, then Jeju→Busan before return."
+        "summary": "3 flights booked, 1 return leg pending decision."
       }
     ],
     "family_schedule_constraints": {
@@ -87,7 +81,8 @@
         "baseball": "2026-04-16 evening",
         "source": "Trent relayed Andrew message on 2026-03-10"
       }
-    }
+    },
+    "hotel_plan": "Hong Kong (1nt) → Hiroshima (1nt) → Osaka (3nt) → Busan: Haeundae (2nt) + Gijang (1nt)."
   },
   "flights": [
     {
@@ -214,25 +209,23 @@
     {
       "id": "flight3",
       "party": "shared",
-      "date": "16 Apr",
+      "date": "17 Apr",
       "from_code": "KIX",
       "from_city": "Osaka",
       "to_code": "PUS",
       "to_city": "Busan",
-      "airline": "Eastar Jet (shown)",
+      "airline": "Eastar Jet",
       "flight_number": "TBD",
-      "depart": "11:30",
-      "arrive": "12:55",
+      "depart": "12:25",
+      "arrive": "13:50",
       "next_day": false,
       "route_type": "direct",
-      "status": "planned",
-      "price_per_person": 2345,
-      "price_total": 4690,
+      "status": "booked",
+      "price_per_person": 2704.28,
+      "price_total": 5408.56,
       "baggage_included": "Carry-on",
-      "notes": "Busan transit day. Skyscanner tracker link (leg 3).",
-      "risk_flags": [
-        "self-transfer"
-      ],
+      "notes": "Booked via Agoda. Direct flight Osaka → Busan (Jeju removed from itinerary).",
+      "risk_flags": [],
       "booking_links": [
         {
           "label": "Skyscanner (leg 3)",
@@ -318,244 +311,7 @@
         "arrive": "12:55",
         "stops": "Direct",
         "price_per_person": 2365
-      },
-      "plan_tag": "Plan A"
-    },
-    {
-      "id": "flight3b",
-      "party": "shared",
-      "date": "16 Apr",
-      "from_code": "KIX",
-      "from_city": "Osaka",
-      "to_code": "CJU",
-      "to_city": "Jeju",
-      "airline": "T'way Air",
-      "flight_number": "TBD",
-      "depart": "12:00",
-      "arrive": "14:00",
-      "next_day": false,
-      "route_type": "direct",
-      "status": "planned",
-      "price_per_person": 4151,
-      "price_total": 8302,
-      "baggage_included": "Carry-on (TBD)",
-      "notes": "Plan B direct option: Osaka → Jeju. Updated 11 Mar 17:35 from Trent screenshot: Agoda THB 4,151 (Kiwi THB 4,305), T'way Air 12:00–14:00 direct.",
-      "risk_flags": [
-        "option",
-        "price-tbd"
-      ],
-      "booking_links": [
-        {
-          "label": "Search KIX→CJU fares",
-          "url": "https://www.skyscanner.net/transport/flights/kix/cju/"
-        }
-      ],
-      "pnr": "PNR TBD",
-      "price_history": [
-        {
-          "ts": "2026-03-11 00:03 +07",
-          "price_per_person": 0
-        },
-        {
-          "ts": "2026-03-11 17:35 +07",
-          "price_per_person": 4151
-        }
-      ],
-      "plan_tag": "Plan B"
-    },
-    {
-      "id": "flight4",
-      "party": "shared",
-      "date": "16 Apr",
-      "from_code": "PUS",
-      "from_city": "Busan",
-      "to_code": "CJU",
-      "to_city": "Jeju",
-      "airline": "Jeju Air",
-      "flight_number": "7C607",
-      "depart": "14:40",
-      "arrive": "15:45",
-      "next_day": false,
-      "route_type": "direct",
-      "status": "planned",
-      "price_per_person": 1157,
-      "price_total": 2314,
-      "baggage_included": "Cabin bag (checked bag optional)",
-      "notes": "Observed cheapest option from Skyscanner details panel. (PUS Gimhae → CJU Jeju)",
-      "risk_flags": [
-        "connection-day"
-      ],
-      "booking_links": [
-        {
-          "label": "Skyscanner (leg 4)",
-          "url": "https://skyscanner.app.link/QF1fpbROe1b"
-        }
-      ],
-      "pnr": "PNR TBD",
-      "price_history": [
-        {
-          "ts": "2026-03-04 23:49 +07",
-          "price_per_person": 1093
-        },
-        {
-          "ts": "2026-03-04 23:49 +07",
-          "price_per_person": 1090
-        },
-        {
-          "ts": "2026-03-05 00:17 +07",
-          "price_per_person": 1030
-        },
-        {
-          "ts": "2026-03-05 09:32 +07",
-          "price_per_person": 1090
-        },
-        {
-          "ts": "2026-03-05 09:35 +07",
-          "price_per_person": 1090
-        },
-        {
-          "ts": "2026-03-06 00:03 +07",
-          "price_per_person": 1090
-        },
-        {
-          "ts": "2026-03-07 00:12 +07",
-          "price_per_person": 1157
-        },
-        {
-          "ts": "2026-03-07 12:03 +07",
-          "price_per_person": 1157
-        },
-        {
-          "ts": "2026-03-07 18:17 +07",
-          "price_per_person": 1157
-        },
-        {
-          "ts": "2026-03-10 12:03 +07",
-          "price_per_person": 1160
-        },
-        {
-          "ts": "2026-03-11 00:03 +07",
-          "price_per_person": 1157
-        },
-        {
-          "ts": "2026-03-11 12:03 +07",
-          "price_per_person": 1146
-        },
-        {
-          "ts": "2026-03-11 12:08 +07",
-          "price_per_person": 1151
-        },
-        {
-          "ts": "2026-03-11 12:14 +07",
-          "price_per_person": 1151
-        },
-        {
-          "ts": "2026-03-11 12:41 +07",
-          "price_per_person": 1161
-        }
-      ],
-      "observed_cheapest": {
-        "ts": "2026-03-04 23:49 +07",
-        "airline": "Jeju Air",
-        "flight_number": "7C607",
-        "depart": "14:40",
-        "arrive": "15:45",
-        "stops": "Direct",
-        "price_per_person": 1090
-      },
-      "plan_tag": "Plan A"
-    },
-    {
-      "id": "flight5",
-      "party": "shared",
-      "date": "18 Apr",
-      "from_code": "CJU",
-      "from_city": "Jeju",
-      "to_code": "PUS",
-      "to_city": "Busan",
-      "airline": "Jeju Air",
-      "flight_number": "7C503",
-      "depart": "10:45",
-      "arrive": "11:45",
-      "next_day": false,
-      "route_type": "direct",
-      "status": "planned",
-      "price_per_person": 1095,
-      "price_total": 2190,
-      "baggage_included": "Cabin bag (checked bag optional)",
-      "notes": "Observed cheapest option from Skyscanner details panel. (CJU Jeju → PUS Gimhae)",
-      "risk_flags": [],
-      "booking_links": [
-        {
-          "label": "Skyscanner (leg 5)",
-          "url": "https://skyscanner.app.link/mv2BP5TOe1b"
-        }
-      ],
-      "pnr": "PNR TBD",
-      "price_history": [
-        {
-          "ts": "2026-03-04 23:49 +07",
-          "price_per_person": 1090
-        },
-        {
-          "ts": "2026-03-04 23:49 +07",
-          "price_per_person": 1090
-        },
-        {
-          "ts": "2026-03-05 00:17 +07",
-          "price_per_person": 1076
-        },
-        {
-          "ts": "2026-03-05 09:32 +07",
-          "price_per_person": 1129
-        },
-        {
-          "ts": "2026-03-05 09:35 +07",
-          "price_per_person": 1090
-        },
-        {
-          "ts": "2026-03-06 00:03 +07",
-          "price_per_person": 1090
-        },
-        {
-          "ts": "2026-03-07 00:12 +07",
-          "price_per_person": 1095
-        },
-        {
-          "ts": "2026-03-07 12:03 +07",
-          "price_per_person": 1096
-        },
-        {
-          "ts": "2026-03-07 18:17 +07",
-          "price_per_person": 1095
-        },
-        {
-          "ts": "2026-03-10 12:03 +07",
-          "price_per_person": 1080
-        },
-        {
-          "ts": "2026-03-11 00:03 +07",
-          "price_per_person": 1095
-        },
-        {
-          "ts": "2026-03-11 12:08 +07",
-          "price_per_person": 1098
-        },
-        {
-          "ts": "2026-03-11 12:14 +07",
-          "price_per_person": 1098
-        }
-      ],
-      "observed_cheapest": {
-        "ts": "2026-03-04 23:49 +07",
-        "airline": "Jeju Air",
-        "flight_number": "7C503",
-        "depart": "10:45",
-        "arrive": "11:45",
-        "stops": "Direct",
-        "price_per_person": 1090
-      },
-      "plan_tag": "Plan A and Plan B"
+      }
     },
     {
       "id": "flight6",
@@ -565,24 +321,26 @@
       "from_city": "Busan",
       "to_code": "BKK",
       "to_city": "Bangkok",
-      "airline": "TBD",
+      "airline": "Vietnam Airlines (<=12h option via SGN)",
       "flight_number": "TBD",
-      "depart": "TBD",
-      "arrive": "TBD",
+      "depart": "10:00",
+      "arrive": "20:05",
       "next_day": false,
-      "route_type": "direct",
+      "route_type": "1 stop (SGN)",
       "status": "planned",
-      "price_per_person": 3580,
-      "price_total": 3580,
+      "price_per_person": 4353,
+      "price_total": 4353,
       "baggage_included": "1×15kg checked (shared bag) + carry-on",
-      "notes": "Nasha return tracker (19 Apr). Prices jumping — monitor closely.",
+      "notes": "Nasha return option (19 Apr, <=12h via SGN). Live refresh 2026-03-14 11:59 +07: lowest seen THB 4,353.",
       "risk_flags": [
-        "price_spike"
+        "price_spike",
+        "vietnam-transit",
+        "max-duration-filter"
       ],
       "booking_links": [
         {
-          "label": "Skyscanner (leg 6 - Nasha, 19 Apr)",
-          "url": "https://skyscanner.app.link/SI8z5NzRe1b"
+          "label": "Skyscanner (PUS→BKK 19 Apr, <=12h, via SGN)",
+          "url": "https://www.skyscanner.co.th/transport/flights/pusa/bkkt/260419/config/15628-2604191000--31703-1-9970-2604192005?adultsv2=1&cabinclass=economy&rtn=0&sortby=cheapest"
         }
       ],
       "pnr": "PNR TBD",
@@ -634,6 +392,22 @@
         {
           "ts": "2026-03-11 12:14 +07",
           "price_per_person": 3517
+        },
+        {
+          "ts": "2026-03-14 01:22 +07",
+          "price_per_person": 6156
+        },
+        {
+          "ts": "2026-03-14 01:34 +07",
+          "price_per_person": 3333
+        },
+        {
+          "ts": "2026-03-14 01:36 +07",
+          "price_per_person": 4115
+        },
+        {
+          "ts": "2026-03-14 11:59 +07",
+          "price_per_person": 4353
         }
       ],
       "plan_tag": "Return (both plans)"
@@ -641,29 +415,29 @@
     {
       "id": "flight7",
       "party": "trent",
-      "date": "19 Apr (or 20 Apr if chosen)",
+      "date": "20 Apr",
       "from_code": "PUS",
       "from_city": "Busan",
       "to_code": "BKK",
       "to_city": "Bangkok",
-      "airline": "Jin Air",
-      "flight_number": "LJ755",
-      "depart": "19:05",
-      "arrive": "22:40",
+      "airline": "Air Busan",
+      "flight_number": "BX/TBD",
+      "depart": "18:00",
+      "arrive": "21:45",
       "next_day": false,
       "route_type": "direct",
       "status": "planned",
-      "price_per_person": 4636,
-      "price_total": 4636,
-      "baggage_included": "Carry-on + promo checked (15kg shared)",
-      "notes": "Booked Jin Air promo 19 Apr Busan → Bangkok (Trip.com). Supports new price target and bypasses the expensive Thai direct fares. Status corrected by Holly: not booked yet. | Updated 11 Mar 12:56: Traveloka THB 4,636 (TeaFlight THB 4,680).",
+      "price_per_person": 6210,
+      "price_total": 12420,
+      "baggage_included": "Cabin bag + checked bag (1 piece each)",
+      "notes": "Direct flight PUS→BKK. Updated price 2026-03-19: THB 6,210/person via Trip.com. Works for both travelers (no Vietnam transit).",
       "risk_flags": [
         "promo_fare"
       ],
       "booking_links": [
         {
-          "label": "Trip.com (PUS→BKK LJ755)",
-          "url": "https://www.trip.com"
+          "label": "Skyscanner (PUS→BKK 19 Apr, direct, cheapest sort)",
+          "url": "https://www.skyscanner.co.th/transport/flights/pusa/bkkt/260419/?adultsv2=1&cabinclass=economy&preferdirects=true&rtn=0&sortby=cheapest"
         }
       ],
       "pnr": "PNR TBD",
@@ -715,46 +489,26 @@
         {
           "ts": "2026-03-11 12:56 +07",
           "price_per_person": 4636
+        },
+        {
+          "ts": "2026-03-14 01:22 +07",
+          "price_per_person": 7322
+        },
+        {
+          "ts": "2026-03-14 01:30 +07",
+          "price_per_person": 6156
+        },
+        {
+          "ts": "2026-03-14 11:59 +07",
+          "price_per_person": 6156
+        },
+        {
+          "ts": "2026-03-19 18:52 +07",
+          "price_per_person": 6210,
+          "source": "Trip.com screenshot"
         }
       ],
       "plan_tag": "Return (both plans)"
-    },
-    {
-      "id": "flight8",
-      "party": "trent",
-      "date": "20 Apr",
-      "from_code": "PUS",
-      "from_city": "Busan",
-      "to_code": "BKK",
-      "to_city": "Bangkok",
-      "airline": "Air Busan",
-      "flight_number": "TBD",
-      "depart": "18:00",
-      "arrive": "21:45",
-      "next_day": false,
-      "route_type": "direct",
-      "status": "planned",
-      "price_per_person": 4065,
-      "price_total": 4065,
-      "baggage_included": "Carry-on (checked bag add-on if needed)",
-      "notes": "Option under consideration from Trent screenshot: direct Busan → Bangkok on 20 Apr (Air Busan).",
-      "risk_flags": [
-        "option"
-      ],
-      "booking_links": [
-        {
-          "label": "Kiwi (Air Busan option)",
-          "url": "https://www.kiwi.com/"
-        }
-      ],
-      "pnr": "PNR TBD",
-      "price_history": [
-        {
-          "ts": "2026-03-11 12:45 +07",
-          "price_per_person": 4065
-        }
-      ],
-      "plan_tag": "Return option"
     }
   ],
   "decisions": [
@@ -775,15 +529,15 @@
       "done": false
     },
     {
-      "label": "Choose between Plan A vs Plan B for Korea segment (via Busan transit vs direct Jeju first).",
-      "done": false
-    },
-    {
       "label": "Protect Osaka 14–16 Apr for Andrew + family meetup (USJ 15th, baseball evening 16th).",
       "done": false
     },
     {
-      "label": "Evaluate reroute option: Osaka/Fukuoka positioning for FUK→CJU if net savings stay positive after airport transfers.",
+      "label": "Compare Option A/B/C side-by-side with baggage + transfer friction included (not fare only).",
+      "done": false
+    },
+    {
+      "label": "Choose winner by rule: cheapest low-stress option with realistic baggage handling.",
       "done": false
     }
   ],
@@ -1132,15 +886,15 @@
     },
     {
       "city": "Busan",
-      "dates": "16 Apr (transit) + 18–19 Apr (1 night)",
+      "dates": "17–19 Apr Haeundae (2 nights) + 19–20 Apr Gijang (1 night)",
       "stay_areas": [
         {
-          "area": "Seomyeon",
-          "why": "Central, good for short stays."
+          "area": "Haeundae",
+          "why": "Beach + city vibe for Fri/Sat when it's lively."
         },
         {
-          "area": "Haeundae",
-          "why": "Beach vibe if time allows."
+          "area": "Gijang",
+          "why": "Quiet coastal wind-down on Sunday before Monday flight."
         }
       ],
       "must_do": [
@@ -1268,6 +1022,18 @@
         "saved_at": "2026-03-10 02:07 +07",
         "savings_vs_baseline": null,
         "notes": "Direct option found by Trent; add link if needed."
+      },
+      {
+        "route": "PUS→BKK (via SGN)",
+        "date": "20 Apr",
+        "airline": "VietJet Air",
+        "times": "08:10 → 14:45",
+        "stops": "1 stop (Ho Chi Minh City, SGN)",
+        "price_per_person": 3309,
+        "url": "https://www.skyscanner.co.th/transport/flights/pusa/bkkt/260420/config/15628-2604200810--31705-1-9970-2604201445?adultsv2=1&cabinclass=economy&rtn=0&sortby=cheapest",
+        "saved_at": "2026-03-14 01:35 +07",
+        "savings_vs_baseline": null,
+        "notes": "Brown option (Nasha fallback): 20 Apr cheapest found with Vietnam transit (SGN). Faster than the 19 Apr 27h55 option."
       }
     ],
     "flight7": [
@@ -1364,17 +1130,55 @@
       "check_out": "10 Apr",
       "nights": 1,
       "budget_per_night_thb": 1500,
-      "status": "planning",
+      "status": "booked",
       "price_last_checked": "—",
-      "notes": "TST Cozy Suite/Prv Bath/TST. Rating 8.3 (63 reviews). Request-to-book + Non-refundable (per screenshots). One night only.",
+      "notes": "Actual hotel booked. Located in Wan Chai (NOT TST), convenient for airport bus (A11) and MTR. Early check-in at 7am.",
+      "provider_links": [],
+      "current_price_total_thb": 3272,
+      "current_price_per_night_thb": 3272,
+      "label": "Dorsett Wanchai Hong Kong",
+      "area": "Wan Chai, Hong Kong Island",
+      "bed": "Private room with bath",
+      "photo": "/assets/hotels/dorsett-wanchai-1.jpg",
+      "photos": [
+        "/assets/hotels/dorsett-wanchai-1.jpg",
+        "/assets/hotels/dorsett-wanchai-2.jpg",
+        "/assets/hotels/dorsett-wanchai-3.jpg"
+      ],
+      "photo_source": "Trent screenshots"
+    },
+    {
+      "id": "kokura",
+      "city": "Kokura",
+      "check_in": "10 Apr",
+      "check_out": "12 Apr",
+      "nights": 2,
+      "budget_per_night_thb": 1500,
+      "status": "booked",
+      "label": "Hotel Livemax Kokura Ekimae",
+      "area": "Kokura Station, Kitakyushu",
+      "bed": "1 double bed",
+      "rating": 7.4,
+      "cancellation": "Free cancellation",
+      "current_price_total_thb": 3800,
+      "current_price_per_night_thb": 1900,
+      "notes": "Right by Kokura Station. 2-night base before heading to Hiroshima.",
       "provider_links": [
         {
-          "label": "Agoda option (TST Cozy Suite/Prv Bath/TST)",
-          "url": "https://www.agoda.com/sp/wGpw7Gkckv5"
+          "label": "Agoda",
+          "url": "https://www.agoda.com/hotel-livemax-kokura-ekimae/hotel/kitakyushu-jp.html"
         }
       ],
-      "current_price_total_thb": 1572,
-      "current_price_per_night_thb": 1572
+      "photo": "/assets/hotels/livemax-kokura-1.jpg",
+      "photos": [
+        "/assets/hotels/livemax-kokura-1.jpg",
+        "/assets/hotels/livemax-kokura-2.jpg",
+        "/assets/hotels/livemax-kokura-3.jpg",
+        "/assets/hotels/livemax-kokura-4.jpg",
+        "/assets/hotels/livemax-kokura-5.jpg"
+      ],
+      "photo_source": "Trent screenshots",
+      "rank": 1
     },
     {
       "id": "hiroshima",
@@ -1383,7 +1187,7 @@
       "check_out": "13 Apr",
       "nights": 1,
       "budget_per_night_thb": 1500,
-      "status": "shortlist",
+      "status": "booked",
       "label": "Quintessa Hotel Hiroshima kanayama Cyou",
       "area": "Kanayama, Hiroshima",
       "price_last_checked": "2026-03-08",
@@ -1414,110 +1218,156 @@
       "photo_count": 6
     },
     {
-      "id": "osaka2",
-      "city": "Osaka",
+      "id": "kurashiki",
+      "city": "Kurashiki",
       "check_in": "13 Apr",
-      "check_out": "16 Apr",
-      "nights": 3,
+      "check_out": "14 Apr",
+      "nights": 1,
       "budget_per_night_thb": 1500,
-      "status": "shortlist",
-      "price_last_checked": "—",
-      "notes": "Shortlist candidates: Airbnb “Luxury Elevator Apartment｜15 Min to USJ｜Sleeps 2” (not confirmed). Agoda: HomeNest Hotel Tennoji — THB 4,751 total / 3 nights. Compare vs other options.",
+      "status": "booked",
+      "label": "Hotel LiveMax Okayama Kurashiki-Ekimae",
+      "area": "Kurashiki Station, Okayama",
+      "bed": "Double room",
+      "rating": 7.9,
+      "stars": 3,
+      "cancellation": "Free cancellation available",
+      "current_price_total_thb": 1273,
+      "current_price_per_night_thb": 1273,
+      "notes": "3-star hotel. 7.9 Very good (1,069 reviews). Agoda Preferred. Located inside city center near Kurashiki Station. Great food & dining nearby.",
       "provider_links": [
         {
-          "label": "Agoda candidate (HomeNest Hotel Tennoji)",
-          "url": "https://www.agoda.com/sp/HEVkqQ96FJz"
-        },
-        {
-          "label": "Airbnb candidate (Nasha pick)",
-          "url": "https://www.airbnb.com/rooms/1618541328655695000?unique_share_id=edb74f92-5136-460b-b574-6f87bcaf3d18&viralityEntryPoint=1&s=76"
+          "label": "Agoda",
+          "url": "https://www.agoda.com/search?q=Hotel%20LiveMax%20Okayama%20Kurashiki-Ekimae"
         }
       ],
-      "photo": "/assets/hotels/airbnb-osaka-1618541328655695000.jpg"
+      "photo": "/assets/hotels/livemax-kurashiki-3.jpg",
+      "photos": [
+        "/assets/hotels/livemax-kurashiki-3.jpg",
+        "/assets/hotels/livemax-kurashiki-2.jpg",
+        "/assets/hotels/livemax-kurashiki-1.jpg",
+        "/assets/hotels/livemax-kurashiki-4.jpg"
+      ],
+      "photo_source": "Trent screenshots",
+      "photo_count": 4,
+      "rank": 1
     },
     {
-      "id": "jeju",
-      "city": "Jeju",
-      "check_in": "16 Apr",
-      "check_out": "18 Apr",
-      "nights": 2,
+      "id": "osaka2",
+      "city": "Osaka",
+      "check_in": "14 Apr",
+      "check_out": "17 Apr",
+      "nights": 3,
       "budget_per_night_thb": 1500,
-      "status": "shortlist",
-      "price_last_checked": "—",
-      "notes": "Nasha likes this one. Ocean-view Airbnb on the north side (Jeju-si coast). About 10 minutes from Jeju Airport. BBQ available (about KRW 20,000 setup fee noted on listing). Screenshot price: THB 2,144 total for 2 nights (16–18 Apr).",
-      "label": "Ocean View / Near Jeju Airport / BBQ-friendly (Airbnb)",
-      "area": "North side of Jeju Island (Jeju-si coast), ~10 min from Jeju Airport",
-      "bed": "1 bedroom, 1 bed, 1 bath (up to 3 guests)",
-      "rating": 4.73,
+      "status": "booked",
+      "label": "LEOPARD Shinsaibashi",
+      "area": "Shinsaibashi, Osaka",
+      "price_last_checked": "2026-03-21",
+      "current_price_total_thb": 2009,
+      "current_price_per_night_thb": 670,
+      "rating": 8.2,
+      "reviews": 1100,
+      "room_type": "Apartment/Flat",
+      "bed": "1 bed",
+      "bathroom": "1 bathroom",
+      "kitchen": true,
+      "size_sqm": 25,
+      "cancellation": "Free cancellation",
+      "flags": [
+        "VIP Deal",
+        "Best Seller",
+        "Only 2 left"
+      ],
+      "notes": "Booked! 56% off deal (was THB 4,556). Apartment with kitchen, perfect for 3-night stay. Great location in Shinsaibashi.",
       "provider_links": [
         {
-          "label": "Airbnb option (Jeju ocean-view BBQ stay)",
-          "url": "https://www.airbnb.com/rooms/1179291026267838879?unique_share_id=5ce4d35e-153f-45fa-8cdd-43293ad4acb6&viralityEntryPoint=1&s=76"
+          "label": "Agoda",
+          "url": "https://www.agoda.com/leopard-shinsaibashi/hotel/osaka-jp.html"
         }
       ],
-      "current_price_total_thb": 2144,
-      "current_price_per_night_thb": 1072,
-      "price_total_thb": 2144,
-      "price_per_night_thb": 1072,
-      "cancellation": "Free cancellation",
-      "photo": "/assets/hotels/jeju-airbnb-trent-crop-1.jpg",
+      "photo": "/assets/hotels/leopard-shinsaibashi-1.jpg",
       "photos": [
-        "/assets/hotels/jeju-airbnb-trent-crop-1.jpg",
-        "/assets/hotels/jeju-airbnb-trent-crop-2.jpg",
-        "/assets/hotels/jeju-airbnb-trent-crop-3.jpg",
-        "/assets/hotels/jeju-airbnb-trent-crop-4.jpg",
-        "/assets/hotels/jeju-airbnb-trent-crop-5.jpg",
-        "/assets/hotels/jeju-airbnb-trent-crop-6.jpg"
+        "/assets/hotels/leopard-shinsaibashi-1.jpg",
+        "/assets/hotels/leopard-shinsaibashi-2.jpg"
       ],
-      "photo_source": "Trent screenshots (cropped top/bottom black bars)",
-      "photo_count": 6
+      "photo_source": "Trent screenshots",
+      "photo_count": 2,
+      "rank": 1
     },
     {
       "id": "busan2",
       "city": "Busan",
-      "check_in": "18 Apr",
+      "check_in": "17 Apr",
       "check_out": "19 Apr",
-      "nights": 1,
+      "nights": 2,
       "budget_per_night_thb": 1500,
       "status": "shortlist",
       "price_last_checked": "2026-03-10",
-      "label": "Seomyeon Hound Hotel 1st Street",
-      "area": "Seomyeon",
+      "label": "Browndot Haeundae",
+      "area": "Haeundae Beach",
       "bed": "1 queen bed (Standard Double)",
-      "rating": 8,
+      "rating": 8.9,
       "cancellation": "Free cancellation",
       "flags": [
-        "Breakfast included",
-        "possible-vibe-concern"
+        "selling-fast",
+        "only-1-left",
+        "beachfront"
       ],
-      "current_price_total_thb": 2051,
-      "current_price_per_night_thb": 2051,
-      "notes": "Agoda facts: rating 8.0, free cancellation, breakfast included. Reputation note: possible vibe concern is unverified.",
+      "current_price_total_thb": 1951,
+      "current_price_per_night_thb": 976,
+      "notes": "Haeundae for Fri/Sat nights. Beachfront location, modern rooms with balcony, rooftop pool. Close to beach and lively weekend vibe.",
       "provider_links": [
         {
-          "label": "Agoda (Seomyeon Hound Hotel 1st Street, 18 Apr – 19 Apr)",
-          "url": "https://www.agoda.com/sp/WfHilUYEUu7"
+          "label": "Agoda (Browndot Haeundae)",
+          "url": "https://www.agoda.com/browndot-haeundae/hotel/busan-kr.html"
         }
       ],
-      "photo": "/assets/hotels/seomyeon-hound-busan-trent-3-crop.jpg",
+      "photo": "/assets/hotels/browndot-haeundae-bed.jpg",
       "photos": [
-        "/assets/hotels/seomyeon-hound-busan-trent-3-crop.jpg",
-        "/assets/hotels/seomyeon-hound-busan-trent-4-crop.jpg",
-        "/assets/hotels/seomyeon-hound-busan-trent-5-crop.jpg",
-        "/assets/hotels/seomyeon-hound-busan-trent-6-crop.jpg",
-        "/assets/hotels/seomyeon-hound-busan-trent-7-crop.jpg",
-        "/assets/hotels/seomyeon-hound-busan-trent-8-crop.jpg"
+        "/assets/hotels/browndot-haeundae-bed.jpg",
+        "/assets/hotels/browndot-haeundae-pool.jpg",
+        "/assets/hotels/browndot-haeundae-lobby.jpg"
       ],
-      "photo_source": "Trent screenshots (cropped)",
-      "photo_count": 8,
-      "reputation_note": "No reliable source found calling this property adult-only/love-hotel; treat as subjective vibe concern unless explicitly labeled by platform.",
-      "description_facts": {
-        "source": "Agoda",
-        "rating": "8.0",
-        "cancellation": "Free cancellation",
-        "breakfast": "Included",
-        "price_total_thb": 2051
-      }
+      "photo_source": "Trent screenshots",
+      "photo_count": 3
+    },
+    {
+      "id": "busan-gijang",
+      "city": "Busan (Gijang)",
+      "check_in": "19 Apr",
+      "check_out": "20 Apr",
+      "nights": 1,
+      "budget_per_night_thb": 1500,
+      "status": "shortlist",
+      "price_last_checked": "2026-03-21",
+      "label": "Busan Gijang The Club Hotel",
+      "area": "Gijang, Busan",
+      "bed": "Double room (28 sqm)",
+      "rating": 8.5,
+      "cancellation": "Free cancellation",
+      "flags": [
+        "ocean-view",
+        "breakfast-included",
+        "last-5-rooms"
+      ],
+      "current_price_total_thb": 1500,
+      "current_price_per_night_thb": 1500,
+      "notes": "Sunday night wind-down before Monday flight. Quiet coastal vibe, fresh seafood dinner nearby, ocean view room.",
+      "provider_links": [
+        {
+          "label": "Agoda",
+          "url": "https://www.agoda.com/busan-gijang-the-club-hotel/hotel/busan-kr.html"
+        }
+      ],
+      "photo": "/assets/hotels/gijang-club-hotel-1.jpg",
+      "photos": [
+        "/assets/hotels/gijang-club-hotel-1.jpg",
+        "/assets/hotels/gijang-club-hotel-2.jpg",
+        "/assets/hotels/gijang-club-hotel-3.jpg",
+        "/assets/hotels/gijang-club-hotel-4.jpg",
+        "/assets/hotels/gijang-club-hotel-5.jpg"
+      ],
+      "photo_source": "Trent screenshots",
+      "photo_count": 5
     }
   ],
   "hotel_alternatives": {
@@ -1745,6 +1595,37 @@
     ],
     "busan2": [
       {
+        "label": "Browndot Haeundae (Agoda)",
+        "area": "Haeundae, Busan · Beach district",
+        "provider": "Agoda",
+        "price_total_thb": 1951,
+        "current_price_total_thb": 1951,
+        "cancellation": "Free cancellation",
+        "bed": "Standard room",
+        "rating": "8.9 (847 reviews)",
+        "photo": "/assets/hotels/browndot-haeundae-bed.jpg",
+        "photos": [
+          "/assets/hotels/browndot-haeundae-bed.jpg",
+          "/assets/hotels/browndot-haeundae-pool.jpg",
+          "/assets/hotels/browndot-haeundae-lobby.jpg"
+        ],
+        "photo_source": "Trent screenshots",
+        "photo_count": 3,
+        "notes": "Agoda Preferred. 8.9 Excellent (847 reviews). Booked 11 times today. Only 1 room left. 76% off. Beachfront location. Modern rooms with balcony, stylish lobby, rooftop pool with retro camper.",
+        "flags": [
+          "selling-fast",
+          "only-1-left",
+          "beachfront"
+        ],
+        "provider_links": [
+          {
+            "label": "Agoda",
+            "url": "https://www.agoda.com/browndot-haeundae/hotel/busan-kr.html"
+          }
+        ],
+        "rank": 2
+      },
+      {
         "label": "25 Hours Hotel The Park (Agoda)",
         "url": "https://www.agoda.com/sp/7JvzjvXfxv7",
         "saved_at": "2026-03-10 11:26 +07",
@@ -1782,7 +1663,7 @@
           "price_total_thb": 2051
         }
       }
-    ],
-    "jeju": []
-  }
+    ]
+  },
+  "_updated": "2026-03-19 22:00 +07"
 }

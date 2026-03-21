@@ -204,13 +204,14 @@
 </head>
 <body>
   <div class="layout">
-    <header>
+        <header>
       <div>
         <h1>Health & Locks</h1>
         <p>Quick view of OpenClaw session lock files (and whether the owning PID is still alive). Use this to diagnose “session file locked (timeout …)” failures.</p>
       </div>
       <div class="actions">
         <button class="btn" onclick="location.href='/mission-control.html'">← Mission Control</button>
+        <button class="btn" onclick="location.href='/mission-control-health.html#wellbeing'">Well-being corner</button>
         <button class="btn" id="dangerBtn" onclick="toggleDanger()">Danger mode: OFF</button>
         <button class="btn danger" onclick="releaseAllStale()">Release ALL stale</button>
         <button class="btn primary" onclick="refreshNow()">Refresh</button>
@@ -326,7 +327,22 @@
         <div style="padding:14px 16px;">
           <div id="incidentLog" class="mono" style="white-space:pre-wrap; line-height:1.5; color:#cfd3e6;">—</div>
         </div>
+            <section class="panel" id="wellbeingPanel">
+        <div class="panel-head">
+          <h2>Well-being corner</h2>
+          <div class="meta">March goals + check-in link</div>
+        </div>
+        <div style="padding:14px 16px; display:flex; flex-direction:column; gap:10px;">
+          <p>The wellbeing section lives on Mission Health. It pulls your March goals, upkeep checklist, and the scheduled nudges so we can stay on top of the basics.</p>
+          <ul style="margin:0; padding-left:18px; color:#cfd3e6; line-height:1.5;">
+            <li>Apply for 15 jobs (5 done, tracked)</li>
+            <li>Keep AI/OpenClaw purposeful + stay present</li>
+            <li>Tech breaks, hydration, supplements, movement</li>
+          </ul>
+          <div style="margin-top:6px;"><button class="btn primary" onclick="location.href='/mission-control-health.html#wellbeing'">Open well-being page</button></div>
+        </div>
       </section>
+</section>
     </main>
 
     <footer>

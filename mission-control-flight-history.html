@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Flight Price History · Mission Control</title>
+  <style>
+    :root{--bg:#030308;--panel:#101223;--card:#1d2135;--muted:#a0a8c5;--border:rgba(255,255,255,.12);--accent:#ffb347;--accent2:#10a37f;font-family:'Space Grotesk','Inter',system-ui;}
+    *{box-sizing:border-box;}
+    body{margin:0;min-height:100vh;background:radial-gradient(circle at top,#2d1b54,#030308 45%);color:#f5f7ff;display:flex;justify-content:center;padding:24px;}
+    .page{width:min(1200px,calc(100vw-32px));background:var(--panel);border-radius:32px;padding:32px;border:1px solid var(--border);box-shadow:0 30px 80px rgba(0,0,0,.7);}    
+    header{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:18px;flex-wrap:wrap;}
+    h1{margin:0;font-size:1.6rem;letter-spacing:.22em;text-transform:uppercase;}
+    a{color:var(--accent);text-decoration:none;}
+    .meta{color:var(--muted);letter-spacing:.08em;font-size:.85rem;}
+
+    .grid{display:grid;grid-template-columns:320px 1fr;gap:16px;align-items:start;}
+    .panel{background:rgba(255,255,255,.02);border:1px solid var(--border);border-radius:20px;padding:18px;}
+    .list{display:grid;gap:10px;margin-top:12px;}
+    .item{padding:12px;border-radius:14px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.02);cursor:pointer;}
+    .item:hover{background:rgba(255,255,255,.04);}
+    .item small{color:var(--muted);letter-spacing:.12em;}
+
+    table{width:100%;border-collapse:collapse;font-size:.9rem;}
+    th,td{padding:10px;border:1px solid rgba(255,255,255,.08);}
+    thead{font-size:.7rem;text-transform:uppercase;letter-spacing:.25em;color:var(--muted);}
+    tbody tr:nth-child(even){background:rgba(255,255,255,.02);}    
+    .delta.up{color:var(--accent);}
+    .delta.down{color:var(--accent2);}
+
+    @media (max-width: 900px){.grid{grid-template-columns:1fr;}}
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div>
+        <h1>Flight Price History</h1>
+        <div class="meta">Skyscanner snapshots captured by Lobster Watch · <a href="/mission-control-flight-plan.html">Back to flight plan</a></div>
+      </div>
+      <div class="meta" id="checked">Last checked: —</div>
+    </header>
+
+    <div class="grid">
+      <div class="panel">
+        <div class="meta">Flights</div>
+        <div class="list" id="flight-list"></div>
+      </div>
+
+      <div class="panel">
+        <div class="meta" id="flight-title">Select a flight</div>
+        <div style="height:12px"></div>
+        <table>
+          <thead>
+            <tr><th>Timestamp</th><th>Price (pp)</th><th>Δ vs prev</th></tr>
+          </thead>
+          <tbody id="history-rows">
+            <tr><td colspan="3" style="text-align:center;color:var(--muted);letter-spacing:.15em;">No flight selected</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    async function loadPlan() {
+      const res = await fetch('travel-flight-plan.json');
+      return await res.json();
+    }
+
+    function formatTHB(n){
+      if (typeof n !== 'number') return '—';
+      return 'THB ' + Math.round(n).toLocaleString();
+    }
+
+    function renderList(plan){
+      const checked = document.getElementById('checked');
+      if (checked) checked.textContent = `Last checked: ${plan.meta?.prices_last_checked || '—'}`;
+
+      const list = document.getElementById('flight-list');
+      const flights = plan.flights || [];
+      const qs = new URLSearchParams(location.search);
+      const selectedId = qs.get('id');
+
+      list.innerHTML = flights.map(f => {
+        const last = (f.price_history || []).slice(-1)[0];
+        const sub = `${f.date} · ${f.from_code}→${f.to_code}`;
+        const price = last?.price_per_person ?? f.price_per_person;
+        const active = (selectedId && f.id === selectedId);
+        return `
+          <div class="item" data-id="${f.id}" style="border-color:${active ? 'rgba(255,179,71,.6)' : 'rgba(255,255,255,.08)'}">
+            <div style="display:flex;justify-content:space-between;gap:10px;align-items:baseline;">
+              <div><strong>${f.from_code}→${f.to_code}</strong> <small>${f.airline || 'TBD'}</small></div>
+              <div><small>${formatTHB(price)}</small></div>
+            </div>
+            <small>${sub}</small>
+          </div>`;
+      }).join('');
+
+      list.querySelectorAll('.item').forEach(el => {
+        el.addEventListener('click', () => {
+          const id = el.getAttribute('data-id');
+          const url = new URL(location.href);
+          url.searchParams.set('id', id);
+          history.pushState({}, '', url);
+          renderHistory(plan, id);
+          renderList(plan);
+        });
+      });
+
+      if (selectedId) renderHistory(plan, selectedId);
+    }
+
+    function renderHistory(plan, id){
+      const flight = (plan.flights || []).find(f => f.id === id);
+      const title = document.getElementById('flight-title');
+      const tbody = document.getElementById('history-rows');
+      if (!flight){
+        if (title) title.textContent = 'Select a flight';
+        tbody.innerHTML = '<tr><td colspan="3" style="text-align:center;color:var(--muted);letter-spacing:.15em;">Not found</td></tr>';
+        return;
+      }
+      if (title) title.textContent = `${flight.date} · ${flight.from_code}→${flight.to_code} · ${flight.airline || 'TBD'} ${flight.flight_number || ''}`;
+
+      const hist = (flight.price_history || []).slice().reverse();
+      if (!hist.length){
+        tbody.innerHTML = '<tr><td colspan="3" style="text-align:center;color:var(--muted);letter-spacing:.15em;">No history yet (run Check now)</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = hist.map((pt, idx) => {
+        const prev = hist[idx+1];
+        const delta = (prev && typeof pt.price_per_person === 'number' && typeof prev.price_per_person === 'number')
+          ? pt.price_per_person - prev.price_per_person
+          : null;
+        const cls = (delta === null) ? '' : (delta > 0 ? 'up' : (delta < 0 ? 'down' : ''));
+        const dtext = (delta === null) ? '—' : (delta === 0 ? '0' : `${delta>0?'+':''}${Math.round(delta).toLocaleString()}`);
+        return `<tr>
+          <td>${pt.ts || '—'}</td>
+          <td>${formatTHB(pt.price_per_person)}</td>
+          <td class="delta ${cls}">${dtext}</td>
+        </tr>`;
+      }).join('');
+    }
+
+    loadPlan().then(plan => renderList(plan));
+  </script>
+</body>
+</html>

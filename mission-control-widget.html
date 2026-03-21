@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mission Control Widget</title>
+  <style>
+    :root {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      color: #0f172a;
+      background: #f4f6fb;
+      line-height: 1.6;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 2rem;
+      min-height: 100vh;
+      background: radial-gradient(circle at top right, #e3f3ff, #f4f6fb 45%);
+    }
+    .page {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    header {
+      margin-bottom: 1rem;
+    }
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 0.3rem;
+    }
+    .muted {
+      color: #475569;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 1.5rem;
+      box-shadow: 0 15px 35px rgba(15, 23, 42, 0.08);
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .card h2 {
+      margin: 0;
+      font-size: 1.25rem;
+    }
+    .card p {
+      margin: 0;
+    }
+    code {
+      display: block;
+      padding: 0.75rem;
+      border-radius: 0.75rem;
+      background: #e2e8f0;
+      font-family: 'JetBrains Mono', 'SFMono-Regular', monospace;
+      font-size: 0.9rem;
+      overflow-x: auto;
+    }
+    .actions {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-top: auto;
+    }
+    button {
+      padding: 0.55rem 1rem;
+      border-radius: 999px;
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+      background: linear-gradient(135deg, #2563eb, #4f46e5);
+      color: white;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    button:active {
+      transform: scale(0.97);
+    }
+    button.secondary {
+      background: #e2e8f0;
+      color: #0f172a;
+    }
+    button:focus-visible {
+      outline: 3px solid #cbd5f5;
+      outline-offset: 2px;
+    }
+    .toast {
+      position: fixed;
+      right: 2rem;
+      bottom: 2rem;
+      background: #0f172a;
+      color: white;
+      padding: 0.85rem 1.2rem;
+      border-radius: 999px;
+      font-size: 0.95rem;
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.3);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+    }
+    .toast.visible {
+      opacity: 1;
+    }
+    .section {
+      background: rgba(15, 23, 42, 0.03);
+      border-radius: 1rem;
+      padding: 1.2rem 1.5rem;
+      margin-bottom: 1rem;
+    }
+    .section h3 {
+      margin-top: 0;
+    }
+    a.primary-link {
+      color: #1d4ed8;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <p class="muted">Mission Control · OpenClaw dashboard</p>
+      <h1>Mission Control</h1>
+      <p class="muted">Quick actions, no CLI guesswork. Tap a card below for the trend you want to push today.</p>
+    </header>
+
+    <div class="grid">
+      <article class="card">
+        <h2>Travel Scan</h2>
+        <p>Fresh Bangkok → Japan fare intel on demand. Run the topic-monitor/Skyscanner query you already use to spot price drops before they disappear.</p>
+        <code id="travel-command">openclaw topic-monitor run --name "extra:skyscanner-watch" --prompt "BKK→JPN fares"</code>
+        <div class="actions">
+          <button data-command="openclaw topic-monitor run --name \"extra:skyscanner-watch\" --prompt \"BKK→JPN fares\"">Copy command</button>
+          <button class="secondary" onclick="alert('Open Gateway docs/automation/cron-jobs for scheduling or cron runs.');">Quick tip</button>
+        </div>
+        <p class="muted" style="font-size: 0.85rem;">Pro tip: run this just before planning flights; compare results to earlier baseline notes in <code>memory/2026-02-28.md</code>.</p>
+      </article>
+
+      <article class="card">
+        <h2>Morning Manifesto</h2>
+        <p>Draft tomorrow’s top 3 with a travel + job focus. The morning-manifesto skill already knows your resolutions—just nudge it toward the travel mindset.</p>
+        <code id="manifesto-command">openclaw skill run morning-manifesto --prompt "Travel + job focus"</code>
+        <div class="actions">
+          <button data-command="openclaw skill run morning-manifesto --prompt \"Travel + job focus\"">Copy command</button>
+          <button class="secondary" onclick="alert('This skill can chain into your Sunday job brief too; rerun before each weekly review.');">Usage note</button>
+        </div>
+        <p class="muted" style="font-size: 0.85rem;">Runs best right before your day starts—use it as a mantra before checking updates.</p>
+      </article>
+
+      <article class="card">
+        <h2>Memory Snapshot</h2>
+        <p>Capture a playlist idea, travel reminder, or unexpected lesson—Supermemory is waiting. Paste your note and push it to your long-term knowledge base.</p>
+        <code id="memory-command">openclaw skill run supermemory --context "Mission Control note" --note "[paste fragment]"</code>
+        <div class="actions">
+          <button data-command="openclaw skill run supermemory --context \"Mission Control note\" --note \"[paste fragment]\"">Copy command</button>
+          <button class="secondary" onclick="alert('Swap in new tags (e.g., travel, jobs, or mood) to keep recall sharp.');">Tag idea</button>
+        </div>
+        <p class="muted" style="font-size: 0.85rem;">Need a short snippet? Paste into the input, run the command, and you’ll find it later via memory search.</p>
+      </article>
+    </div>
+
+    <section class="section">
+      <h3>Travel Mission Taskboard</h3>
+      <p>Turn the manifesto into live work. These three pieces are the ones you want locked before tomorrow’s departure—each tied to a taskboard update, heartbeat check, or reverse prompt so the plan stays visible.</p>
+      <ul>
+        <li><strong>Bookings locked:</strong> Confirm the flight/train + hotel/ride details, seat selections, and itinerary times.</li>
+        <li><strong>Travel kit ready:</strong> Lay out clothes, chargers, toiletries, and documents; note any missing bits to grab.</li>
+        <li><strong>Transit mapped:</strong> Sketch the departure-day route, last-mile options, buffers, and alarms.</li>
+      </ul>
+      <p class="muted" style="font-size: 0.85rem;">These tasks live in <code>mission-control-travel-tasks.md</code> and are backed by tonight’s 21:00 and tomorrow’s 07:00 reminders, so keep the card visible while you tick them off.</p>
+    </section>
+
+    <section class="section">
+      <h3>Why this dashboard?</h3>
+      <p>Mission Control is a digest of the three pathways you care about most: trip alerts, daily focus, and memory capture. Use this widget as your go-to home screen. Open it in any browser and treat it like a mini control center. Tap a card, copy the command, and drop it into Terminal whenever you want the action to happen.</p>
+      <p>Want automation? Wrap any of the commands in a cron job or shortcut—`openclaw cron add` can re-run these on a schedule, or you can launch them manually. Need help wiring that? Just say the word.</p>
+    </section>
+
+    <section class="section">
+      <h3>Reference shelf</h3>
+      <ul>
+        <li><a class="primary-link" href="https://docs.openclaw.ai/automation/cron-jobs" target="_blank" rel="noreferrer">Cron jobs docs</a> – schedule awake jobs for alerts or reminders.</li>
+        <li><a class="primary-link" href="https://docs.openclaw.ai/skills/morning-manifesto" target="_blank" rel="noreferrer">Morning Manifesto skill guide</a> – understand prompts and output.</li>
+        <li><a class="primary-link" href="https://docs.openclaw.ai/skills/supermemory" target="_blank" rel="noreferrer">Supermemory skill</a> – store quick thoughts and search them later.</li>
+        <li><span class="muted">Mission Control note (this widget + original markdown) lives at <code>mission-control.md</code> and <code>mission-control-widget.html</code>.</span></li>
+      </ul>
+    </section>
+  </div>
+
+  <div class="toast" id="copy-toast">Command copied!</div>
+
+  <script>
+    const buttons = document.querySelectorAll('[data-command]');
+    const toast = document.getElementById('copy-toast');
+
+    buttons.forEach(button => {
+      button.addEventListener('click', async () => {
+        const command = button.getAttribute('data-command');
+        try {
+          await navigator.clipboard.writeText(command);
+          toast.textContent = 'Command copied! Paste into Terminal.';
+          toast.classList.add('visible');
+          setTimeout(() => toast.classList.remove('visible'), 1800);
+        } catch (err) {
+          toast.textContent = 'Clipboard blocked? Copy manually from the card.';
+          toast.classList.add('visible');
+          setTimeout(() => toast.classList.remove('visible'), 2200);
+        }
+      });
+    });
+  </script>
+</body>
+</html>

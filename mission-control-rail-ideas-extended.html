@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Rail Ideas Extended · Mission Control</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <style>
+    :root{--bg:#030308;--panel:#101223;--card:#1d2135;--muted:#a0a8c5;--border:rgba(255,255,255,.12);font-family:'Space Grotesk','Inter',system-ui;}
+    *{box-sizing:border-box;}
+    body{margin:0;min-height:100vh;background:linear-gradient(180deg,#15152c,#030308);color:#f5f7ff;display:flex;justify-content:center;padding:24px;}
+    .page{width:min(1240px,calc(100vw-32px));background:var(--panel);border-radius:32px;padding:28px;border:1px solid var(--border);box-shadow:0 30px 80px rgba(0,0,0,.7);}
+    .glass-header{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;flex-wrap:wrap;padding:14px;border-radius:22px;border:1px solid rgba(255,255,255,.14);background:linear-gradient(135deg,rgba(255,255,255,.08),rgba(255,255,255,.03));box-shadow:0 20px 50px rgba(0,0,0,.45);backdrop-filter:blur(14px);}
+    h1{margin:0;font-size:1.5rem;letter-spacing:.22em;text-transform:uppercase;}
+    .subtitle{color:var(--muted);max-width:880px;line-height:1.5;letter-spacing:.06em;margin-top:8px;}
+    .chipbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
+    .chip{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.16);background:rgba(12,14,24,.28);color:#fff;text-decoration:none;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;}
+    .chip:hover{background:rgba(255,255,255,.12);}
+    .chip.active{background:rgba(255,179,71,.14);border-color:rgba(255,179,71,.50);}
+    .hero{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:18px 0;}
+    .hero-card{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:14px;}
+    .hero-card h3{margin:0;font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);}
+    .hero-card strong{display:block;margin-top:8px;font-size:1.2rem;letter-spacing:.12em;}
+    .map-panel{margin-top:16px;border-radius:22px;border:1px solid var(--border);padding:20px;background:rgba(3,3,10,.95);}
+    .map-header{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:10px;}
+    .map-title{letter-spacing:.3em;text-transform:uppercase;font-size:.75rem;color:var(--muted);}
+    #rail-map{width:100%;height:380px;border-radius:16px;overflow:hidden;background:var(--bg);border:1px solid rgba(255,255,255,.08);}
+    .map-note{margin-top:10px;font-size:.72rem;letter-spacing:.1em;color:rgba(255,255,255,.65);}
+    .spot-viewer{margin-top:18px;border-radius:20px;padding:20px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.08);}
+    .spot-meta{display:flex;flex-direction:column;gap:4px;font-size:.78rem;color:var(--muted);}
+    .spot-meta strong{font-size:.85rem;letter-spacing:.22em;text-transform:uppercase;color:#f5f7ff;}
+    .spot-photos{margin-top:12px;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;}
+    .spot-card{position:relative;height:210px;border-radius:18px;overflow:hidden;border:1px solid rgba(255,255,255,.15);background:#090b14;}
+    .spot-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:contrast(1.05);transition:transform .5s ease;}
+    .spot-card:hover img{transform:scale(1.05);}
+    .spot-card__overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 35%,rgba(0,0,0,.85) 100%);padding:16px;display:flex;flex-direction:column;justify-content:flex-end;gap:4px;}
+    .idea-marker{display:inline-flex;align-items:center;gap:6px;padding:3px 10px;border-radius:999px;background:rgba(3,3,8,.92);border:1px solid rgba(255,255,255,.2);font-size:.54rem;letter-spacing:.32em;text-transform:uppercase;color:#f5f7ff;}
+    .idea-marker-wrap{background:transparent;border:none;}
+    .idea-marker .dot{width:6px;height:6px;border-radius:50%;border:1px solid rgba(100,200,255,.9);background:rgba(180,230,255,.8);box-shadow:0 0 8px rgba(180,230,255,.6);}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-top:18px;}
+    .card{border-radius:18px;border:1px solid rgba(255,255,255,.12);background:var(--card);padding:16px;}
+    .card h3{margin:0 0 10px;font-size:.75rem;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);}
+    .card p{margin:0;color:rgba(255,255,255,.85);line-height:1.45;font-size:.86rem;}
+    .note{margin-top:16px;padding:12px 14px;border-radius:14px;border:1px dashed rgba(255,255,255,.2);color:var(--muted);letter-spacing:.12em;font-size:.78rem;}
+    .back-link{color:#ffdfb0;text-decoration:none;}
+    .highlight-box{background:rgba(255,179,71,.08);border:1px solid rgba(255,179,71,.3);border-radius:14px;padding:14px;margin-top:12px;}
+    .highlight-box strong{color:#ffb347;letter-spacing:.12em;font-size:.7rem;text-transform:uppercase;}
+    .highlight-box p{margin:6px 0 0;color:#f5f7ff;font-size:.78rem;}
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="glass-header">
+      <div>
+        <h1>Rail Ideas Extended</h1>
+        <div class="subtitle">Overflow stops beyond the top 12 — day trips, side corridors, and wildcard destinations.</div>
+      </div>
+      <div class="chipbar">
+        <a class="chip" href="/mission-control.html">Mission</a>
+        <a class="chip" href="/mission-control-rail-options.html">Rail Corridor</a>
+        <a class="chip" href="/mission-control-rail-ideas.html">Rail Ideas (Part 1)</a>
+        <a class="chip active" href="/mission-control-rail-ideas-extended.html">Extended</a>
+        <a class="chip" href="/mission-control-food.html">Food</a>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="hero-card">
+        <h3>Extra stops</h3>
+        <strong>8 more destinations</strong>
+        <div style="margin-top:6px;font-size:.75rem;letter-spacing:.12em;color:var(--muted);">Kobe to Hagi — day trips and detours.</div>
+      </div>
+      <div class="hero-card">
+        <h3>Access notes</h3>
+        <strong>JR Pass + Shinkansen</strong>
+        <div style="margin-top:6px;font-size:.75rem;letter-spacing:.12em;color:var(--muted);">Most covered; some need regional trains.</div>
+      </div>
+      <div class="hero-card">
+        <h3>Your picks</h3>
+        <strong>Rank your own</strong>
+        <div style="margin-top:6px;font-size:.75rem;letter-spacing:.12em;color:var(--muted);">These are unranked — your call.</div>
+      </div>
+    </section>
+
+    <section class="map-panel">
+      <div class="map-header">
+        <div>
+          <div class="map-title">Extended corridor map</div>
+          <p class="map-note">Cyan dots = extended stops. Part 1 stops in pink on the <a class="back-link" href="/mission-control-rail-ideas.html">Rail Ideas page</a>.</p>
+        </div>
+      </div>
+      <div id="rail-map"></div>
+      <div class="spot-viewer" id="spot-viewer">
+        <div class="spot-meta" id="spot-meta">
+          <strong>Tap a dot</strong>
+          <span>Photos + details will appear below.</span>
+        </div>
+        <div class="spot-photos" id="spot-photos"></div>
+      </div>
+    </section>
+
+    <section class="grid">
+      <div class="card"><h3>Kobe</h3><p>Famous for Kobe beef, night views from Mt. Rokko, and the charming Kitano-cho foreign residences. Easy stop on the Tokaido/Sanyo line.</p></div>
+      <div class="card"><h3>Akashi</h3><p>Home of the world's longest suspension bridge (Akashi Kaikyo) and Akashi-yaki — a softer, eggier take on takoyaki. Octopus is the local obsession.</p></div>
+      <div class="card"><h3>Mojiko</h3><p>Retro port town in Kitakyushu. Yaki curry, historic Mojiko Station, and Kanmon Strait views. Near Kokura but a distinct vibe.</p></div>
+      <div class="card"><h3>Hagi</h3><p>Samurai castle town on the Sea of Japan. Preserved Edo-era streets, pottery, and a slower pace. North coast — longer trip.</p></div>
+      <div class="card"><h3>Kinosaki Onsen</h3><p>Classic hot spring town with seven public baths and wooden ryokans. Stroll in yukata between baths. Near Himeji via regional train.</p></div>
+      <div class="card"><h3>Tsuyama</h3><p>Castle town with one of Japan's best original keeps. Less touristed, good for a quiet wander. North of Okayama.</p></div>
+      <div class="card"><h3>Saijo (Higashi-Hiroshima)</h3><p>One of Japan's top sake brewery districts. Walking tour through historic kura (storehouses) with tastings. Easy from Hiroshima.</p></div>
+      <div class="card"><h3>Yamaguchi City</h3><p>From Shin-Yamaguchi, the Ruriko-ji five-story pagoda and peaceful temple grounds. The "Kyoto of the West" without crowds.</p></div>
+    </section>
+
+    <div class="highlight-box">
+      <strong>Worth considering?</strong>
+      <p>If Shimonoseki's Kanmon Strait appeal felt underrated in the rankings, Mojiko across the strait pairs well with it. Same for Saijo if you want sake culture without the Kyoto tourist crush.</p>
+    </div>
+
+    <div class="note">Part 1 has the core 12 stops with Yoko + Claude rankings. Extended stops are intentionally unranked — add your own picks based on what appeals.</div>
+  </div>
+
+  <script>
+    const wiki = file => `https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(file)}?width=1200`;
+
+    const extendedStops = [
+      { label: 'Kobe', lat: 34.6901, lng: 135.1955, tagline: 'Kobe beef, Mt. Rokko views, Kitano-cho', photo: wiki('Kobe_Port_Tower_and_Maritime_Museum,_November_2016.jpg') },
+      { label: 'Akashi', lat: 34.6432, lng: 134.9976, tagline: 'Longest bridge, Akashi-yaki octopus', photo: wiki('Akashi_Kaikyo_Bridge_2011.jpg') },
+      { label: 'Mojiko', lat: 33.9455, lng: 130.9570, tagline: 'Retro port, yaki curry, Kanmon views', photo: wiki('Mojiko_Station_02.JPG') },
+      { label: 'Hagi', lat: 34.4081, lng: 131.3990, tagline: 'Samurai streets, castle, Sea of Japan', photo: wiki('Hagi_Castle_Tsumenomaru.JPG') },
+      { label: 'Kinosaki Onsen', lat: 35.6200, lng: 134.8100, tagline: 'Seven baths, ryokan town, yukata strolls', photo: wiki('Kinosaki_Onsen_(2019)_01.jpg') },
+      { label: 'Tsuyama', lat: 35.0613, lng: 133.9259, tagline: 'Original castle keep, quiet castle town', photo: wiki('Tsuyama_castle_mogitenshu.JPG') },
+      { label: 'Saijo', lat: 34.4267, lng: 132.7436, tagline: 'Sake brewery district, tastings', photo: wiki('Saijō_Sake_Matsuri_2017.jpg') },
+      { label: 'Yamaguchi City', lat: 34.1785, lng: 131.4739, tagline: 'Ruriko-ji pagoda, temple gardens', photo: wiki('Ruriko-ji_Temple.JPG') }
+    ];
+
+    function initMap() {
+      const map = L.map('rail-map', { zoomControl: true, scrollWheelZoom: false });
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', { maxZoom: 8 }).addTo(map);
+      
+      extendedStops.forEach(stop => {
+        const html = `<div class="idea-marker"><span class="dot"></span><span class="label">${stop.label}</span></div>`;
+        const icon = L.divIcon({ className: 'idea-marker-wrap', html, iconSize: [0,0], iconAnchor: [0,0] });
+        const marker = L.marker([stop.lat, stop.lng], { icon }).addTo(map);
+        marker.on('click', () => showSpot(stop));
+      });
+
+      const bounds = L.latLngBounds(extendedStops.map(s => [s.lat, s.lng]));
+      map.fitBounds(bounds, { padding: [24,24] });
+    }
+
+    function showSpot(stop) {
+      const fallback = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='400'><rect width='100%' height='100%' fill='%23101520'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' fill='%23a0a8c5' font-family='Inter,Arial' font-size='20'>Photo preview</text></svg>";
+      document.getElementById('spot-meta').innerHTML = `<strong>${stop.label}</strong><span>${stop.tagline}</span>`;
+      document.getElementById('spot-photos').innerHTML = `
+        <article class="spot-card">
+          <img src="${stop.photo}" alt="${stop.label}" loading="lazy" onerror="this.src='${fallback}'" />
+          <div class="spot-card__overlay">
+            <p style="margin:0;font-size:.64rem;letter-spacing:.4em;text-transform:uppercase;color:#fff;">${stop.label}</p>
+            <p style="margin:0;font-size:.78rem;color:rgba(255,255,255,.85);">${stop.tagline}</p>
+          </div>
+        </article>`;
+    }
+
+    initMap();
+    if (extendedStops.length) showSpot(extendedStops[0]);
+  </script>
+</body>
+</html>

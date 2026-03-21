@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>The Standard Concierge Calendar</title>
+  <style>
+    :root {
+      --bg:#050409;
+      --panel:#0f111a;
+      --accent:#f59c00;
+      --accent2:#10a37f;
+      --muted:#a0a8c5;
+      --text:#f4f5f8;
+      --card:#161a29;
+      --border:rgba(255,255,255,.08);
+    }
+    * { box-sizing:border-box; }
+    body {
+      margin:0;
+      min-height:100vh;
+      font-family: "Inter", "SF Pro", system-ui;
+      background:var(--bg);
+      color:var(--text);
+      display:flex;
+      justify-content:center;
+      padding:24px;
+    }
+    .page {
+      width:min(1160px,calc(100vw-32px));
+      border-radius:30px;
+      background:var(--panel);
+      padding:32px;
+      border:1px solid var(--border);
+      box-shadow:0 40px 90px rgba(0,0,0,.6);
+    }
+    .calendar-hero {
+      position:relative;
+      border-radius:20px;
+      overflow:hidden;
+      margin:24px 0;
+      height:180px;
+      border:1px solid rgba(255,255,255,.12);
+    }
+    .calendar-hero::before {
+      content:'';
+      position:absolute;
+      inset:0;
+      background-image:url('https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=1400&q=80');
+      background-size:cover;
+      background-position:center;
+      filter:contrast(1.05) saturate(1.1);
+    }
+    .calendar-hero::after {
+      content:'';
+      position:absolute;
+      inset:0;
+      background:linear-gradient(180deg,rgba(5,5,5,.1),rgba(5,5,5,.8));
+    }
+    .calendar-hero-content {
+      position:relative;
+      z-index:1;
+      padding:22px 32px;
+      height:100%;
+      display:flex;
+      flex-direction:column;
+      justify-content:flex-end;
+      color:#fff;
+      text-shadow:0 15px 40px rgba(0,0,0,.6);
+    }
+    .calendar-hero-content h2 {
+      margin:0;
+      font-size:1.8rem;
+      letter-spacing:.25em;
+      text-transform:uppercase;
+    }
+    .calendar-hero-content p {
+      margin:8px 0 0;
+      max-width:520px;
+      letter-spacing:.08em;
+    }
+    header {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:16px;
+    }
+    header h1 { margin:0; font-size:2.2rem; }
+    header p { margin:4px 0 0; color:var(--muted); }
+    .spotlight-row {
+      margin-top:24px;
+      display:flex;
+      gap:16px;
+    }
+    .spotlight-card {
+      flex:1;
+      border:1px solid rgba(255,255,255,.15);
+      border-radius:18px;
+      background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(255,255,255,.01));
+      padding:18px;
+      box-shadow:0 15px 30px rgba(0,0,0,.4);
+    }
+    .spotlight-card strong {
+      display:block;
+      font-size:.85rem;
+      letter-spacing:.4em;
+    }
+    .spotlight-card p {
+      margin:10px 0 0;
+      color:var(--muted);
+      font-size:.85rem;
+      letter-spacing:.25em;
+    }
+
+    .week {
+      margin-top:32px;
+      display:grid;
+      grid-template-columns:repeat(7,minmax(120px,1fr));
+      gap:12px;
+    }
+    .day {
+      background:var(--card);
+      border-radius:20px;
+      padding:14px;
+      border:1px solid var(--border);
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      min-height:260px;
+    }
+    .day h2 {
+      margin:0;
+      font-size:1rem;
+      text-transform:uppercase;
+      letter-spacing:.25em;
+      color:var(--muted);
+    }
+    .slot {
+      background:rgba(255,255,255,.03);
+      border-radius:14px;
+      padding:10px 12px;
+      border:1px solid rgba(255,255,255,.06);
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+      font-size:.92rem;
+    }
+    .slot .time {
+      font-size:.8rem;
+      letter-spacing:.15em;
+      color:var(--accent);
+    }
+    .slot button {
+      margin-top:4px;
+      align-self:flex-start;
+      border:none;
+      border-radius:10px;
+      padding:6px 10px;
+      background:var(--accent2);
+      color:#040509;
+      font-weight:600;
+      cursor:pointer;
+      font-size:.78rem;
+    }
+    .controls {
+      margin-top:28px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      color:var(--muted);
+    }
+    .controls a {
+      color:var(--accent);
+      text-decoration:none;
+      letter-spacing:.2em;
+      font-size:.75rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div>
+        <h1>Concierge Calendar</h1>
+        <p>Weekly view—each day lists your recurring routines so the schedule feels like a high-end hotel itinerary.</p>
+      </div>
+      <a href="mission-control.html" class="back">← Back to Mission Control</a>
+    </header>
+    <div class="calendar-hero">
+      <div class="calendar-hero-content">
+        <h2>The Standard days</h2>
+        <p>Carefully tuned routines, curated travel scans, and token checks—framed like a boutique hotel's concierge board.</p>
+      </div>
+    </div>
+    <div class="week">
+      <div class="day">
+        <h2>Sunday</h2>
+        <div class="slot">
+          <div class="time">09:00</div>
+          <div>Token Pulse — daily quota check</div>
+          <button onclick="alert('Run token check')">Run Token Pulse</button>
+        </div>
+        <div class="slot">
+          <div class="time">12:00</div>
+          <div>Travel Watch — refresh BKK→Japan fares</div>
+          <button onclick="alert('Run travel scan')">Refresh Prices</button>
+        </div>
+        <div class="slot">
+          <div class="time">20:00</div>
+          <div>Memory Snapshot — log playlist sparks</div>
+          <button onclick="alert('Store memory')">Store Note</button>
+        </div>
+      </div>
+      <div class="day">
+        <h2>Monday</h2>
+        <div class="slot">
+          <div class="time">07:30</div>
+          <div>Morning Manifesto — top-three planning</div>
+          <button onclick="alert('Run manifesto')">Plan Day</button>
+        </div>
+        <div class="slot">
+          <div class="time">11:00</div>
+          <div>Travel Watch — midday scan</div>
+          <button onclick="alert('Refresh travel watch')">Refresh</button>
+        </div>
+        <div class="slot">
+          <div class="time">18:30</div>
+          <div>Evening check-in (token/price summary)</div>
+          <button onclick="alert('Run evening wrap')">Evening Wrap</button>
+        </div>
+      </div>
+      <div class="day">
+        <h2>Tuesday</h2>
+        <div class="slot">
+          <div class="time">07:30</div>
+          <div>Manifesto — travel focus</div>
+          <button onclick="alert('Run manifesto')">Plan Day</button>
+        </div>
+        <div class="slot">
+          <div class="time">13:00</div>
+          <div>Trend Radar (price + jobs)</div>
+          <button onclick="alert('Run travel/tag tracker')">Run Radar</button>
+        </div>
+        <div class="slot">
+          <div class="time">10:00 & 15:00</div>
+          <div>Interview Gmail scan (Chrome Relay flows).</div>
+          <button onclick="alert('Run Gmail scan')">Scan Inbox</button>
+        </div>
+
+        <div class="slot">
+          <div class="time">21:00</div>
+          <div>Memory Snapshot</div>
+          <button onclick="alert('Store memory')">Store Note</button>
+        </div>
+      </div>
+      <div class="day">
+        <h2>Wednesday</h2>
+        <div class="slot">
+          <div class="time">07:30</div>
+          <div>Morning Manifesto</div>
+          <button onclick="alert('Run manifesto')">Plan Day</button>
+        </div>
+        <div class="slot">
+          <div class="time">14:00</div>
+          <div>Travel Watch repeat</div>
+          <button onclick="alert('Run travel watch')">Refresh Prices</button>
+        </div>
+        <div class="slot">
+          <div class="time">10:00 & 15:00</div>
+          <div>Interview Gmail scan (Chrome Relay flows).</div>
+          <button onclick="alert('Run Gmail scan')">Scan Inbox</button>
+        </div>
+
+        <div class="slot">
+          <div class="time">19:00</div>
+          <div>Token Pulse wrap-up</div>
+          <button onclick="alert('Run token check')">Run Token</button>
+        </div>
+      </div>
+      <div class="day">
+        <h2>Thursday</h2>
+        <div class="slot">
+          <div class="time">07:30</div>
+          <div>Morning Manifesto</div>
+          <button onclick="alert('Run manifesto')">Plan Day</button>
+        </div>
+        <div class="slot">
+          <div class="time">10:00</div>
+          <div>Travel Watch</div>
+          <button onclick="alert('Run travel watch')">Refresh Prices</button>
+        </div>
+        <div class="slot">
+          <div class="time">10:00 & 15:00</div>
+          <div>Interview Gmail scan (Chrome Relay flows).</div>
+          <button onclick="alert('Run Gmail scan')">Scan Inbox</button>
+        </div>
+
+        <div class="slot">
+          <div class="time">22:00</div>
+          <div>Memory capture</div>
+          <button onclick="alert('Store memory')">Store Note</button>
+        </div>
+      </div>
+      <div class="day">
+        <h2>Friday</h2>
+        <div class="slot">
+          <div class="time">07:30</div>
+          <div>Morning Manifesto</div>
+          <button onclick="alert('Run manifesto')">Plan Day</button>
+        </div>
+        <div class="slot">
+          <div class="time">15:00</div>
+          <div>Travel Watch</div>
+          <button onclick="alert('Run travel watch')">Refresh Prices</button>
+        </div>
+        <div class="slot">
+          <div class="time">10:00 & 15:00</div>
+          <div>Interview Gmail scan (Chrome Relay flows).</div>
+          <button onclick="alert('Run Gmail scan')">Scan Inbox</button>
+        </div>
+
+        <div class="slot">
+          <div class="time">21:00</div>
+          <div>Token Pulse</div>
+          <button onclick="alert('Run token check')">Run Token</button>
+        </div>
+      </div>
+      <div class="day">
+        <h2>Saturday</h2>
+        <div class="slot">
+          <div class="time">08:00</div>
+          <div>Travel Watch</div>
+          <button onclick="alert('Run travel watch')">Refresh Prices</button>
+        </div>
+        <div class="slot">
+          <div class="time">12:00</div>
+          <div>Memory Snapshot</div>
+          <button onclick="alert('Store memory')">Store Note</button>
+        </div>
+        <div class="slot">
+          <div class="time">19:30</div>
+          <div>Morning Manifesto recap</div>
+          <button onclick="alert('Run manifesto')">Plan Day</button>
+        </div>
+      </div>
+
+    <div class="spotlight-row">
+      <div class="spotlight-card">
+        <strong>Interview sweep</strong>
+        <p>10:00 & 15:00 Gmail scan via Chrome Relay. Reads only the newest 3 messages and reports new "Interview" hits.</p>
+      </div>
+      <div class="spotlight-card">
+        <strong>Jobs corridor</strong>
+        <p>Daily 16:00 rotation across Ajarn, JobDB, LinkedIn. Only surfaces Bangkok corridors + ฿50k+ leads.</p>
+      </div>
+    </div>
+    <section class="cron-panel">
+      <h2>Cron anchors</h2>
+      <p class="muted">These recurrences power the calendar’s routines.</p>
+      <ul>
+        <li><strong>Interview Gmail scan</strong> — 07:00, 09:00, 11:00, 13:00, 15:00, 17:00 Mon–Fri.</li>
+        <li><strong>JobsDB NES & Corporate scan</strong> — 09:00 / 13:00 / 18:00 daily (Asia/Bangkok).</li>
+        <li><strong>Non-Ajarn job scan</strong> — 11:15 & 19:15 weekdays.</li>
+        <li><strong>Mission Control morning manifesto</strong> — 06:30 weekdays.</li>
+        <li><strong>Daily condo scan</strong> — 10:00 weekdays.</li>
+        <li><strong>Japan flight price watch</strong> — every 6 hours (staggered by 5m, Asia/Bangkok).</li>
+      </ul>
+      <p class="muted">Add them to your personal calendar or let me track delivery and ping you when a job posts.</p>
+    </section>
+    </div>
+    <div class="controls">
+      <a href="mission-control.html">← Back to Mission Control</a>
+      <span>Calendar view · styled like The Standard concierge schedule.</span>
+    </div>
+  </div>
+</body>
+</html>

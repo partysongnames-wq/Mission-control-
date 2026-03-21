@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Rail Ideas · Mission Control</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <style>
+    :root{
+      --bg:#030308;
+      --panel:#101223;
+      --card:#1d2135;
+      --muted:#a0a8c5;
+      --border:rgba(255,255,255,.12);
+      font-family:'Space Grotesk','Inter',system-ui;
+    }
+    *{box-sizing:border-box;}
+    body{margin:0;min-height:100vh;background:linear-gradient(180deg,#15152c,#030308);color:#f5f7ff;display:flex;justify-content:center;padding:24px;}
+    .page{width:min(1240px,calc(100vw-32px));background:var(--panel);border-radius:32px;padding:28px;border:1px solid var(--border);box-shadow:0 30px 80px rgba(0,0,0,.7);}
+    .glass-header{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;flex-wrap:wrap;padding:14px;border-radius:22px;border:1px solid rgba(255,255,255,.14);background:linear-gradient(135deg,rgba(255,255,255,.08),rgba(255,255,255,.03));box-shadow:0 20px 50px rgba(0,0,0,.45);backdrop-filter: blur(14px);-webkit-backdrop-filter: blur(14px);}
+    h1{margin:0;font-size:1.5rem;letter-spacing:.22em;text-transform:uppercase;}
+    .subtitle{color:var(--muted);max-width:880px;line-height:1.5;letter-spacing:.06em;margin-top:8px;}
+    .chipbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
+    .chip{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.16);background:rgba(12,14,24,.28);color:#fff;text-decoration:none;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;box-shadow:inset 0 1px 0 rgba(255,255,255,.08);transition:transform .15s ease, background .15s ease, border-color .15s ease;}
+    .chip:hover{transform:translateY(-1px);background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.26);}
+    .chip.active{background:rgba(255,179,71,.14);border-color:rgba(255,179,71,.50);}
+    .hero{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:18px 0;}
+    .hero-card{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:14px;}
+    .hero-card h3{margin:0;font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);}
+    .hero-card strong{display:block;margin-top:8px;font-size:1.2rem;letter-spacing:.12em;}
+    .rank-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:12px;}
+    .rank-card{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:14px;}
+    .rank-card h3{margin:0;font-size:.78rem;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);}
+    .rank-card ol{margin:12px 0 0;padding-left:18px;color:#f5f7ff;line-height:1.6;font-size:.78rem;}
+    .map-panel{margin-top:16px;border-radius:22px;border:1px solid var(--border);padding:20px;background:rgba(3,3,10,.95);}
+    .map-header{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:10px;}
+    .map-title{letter-spacing:.3em;text-transform:uppercase;font-size:.75rem;color:var(--muted);}
+    #rail-map{width:100%;height:380px;border-radius:16px;overflow:hidden;background:var(--bg);border:1px solid rgba(255,255,255,.08);}
+    .map-note{margin-top:10px;font-size:.72rem;letter-spacing:.1em;color:rgba(255,255,255,.65);}
+    .spot-viewer{margin-top:18px;border-radius:20px;padding:20px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.08);box-shadow:0 20px 50px rgba(0,0,0,.45);}
+    .spot-meta{display:flex;flex-direction:column;gap:4px;font-size:.78rem;color:var(--muted);letter-spacing:.08em;}
+    .spot-meta strong{font-size:.85rem;letter-spacing:.22em;text-transform:uppercase;color:#f5f7ff;}
+    .spot-meta span{font-size:.72rem;color:rgba(245,247,255,.85);}
+    .spot-meta .spot-rank{font-size:.7rem;color:rgba(255,179,71,.95);letter-spacing:.2em;text-transform:uppercase;}
+    .spot-photos{margin-top:12px;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;}
+    .spot-card{position:relative;height:210px;border-radius:18px;overflow:hidden;border:1px solid rgba(255,255,255,.15);background:#090b14;}
+    .spot-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:contrast(1.05);transition:transform .5s ease;}
+    .spot-card:hover img{transform:scale(1.05);}
+    .spot-card__overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 35%,rgba(0,0,0,.85) 100%);padding:16px;display:flex;flex-direction:column;justify-content:flex-end;gap:4px;}
+    .spot-card__title{margin:0;font-size:.64rem;letter-spacing:.4em;text-transform:uppercase;color:#fff;}
+    .spot-card__tagline{margin:0;font-size:.78rem;line-height:1.3;color:rgba(255,255,255,.85);}
+    .idea-marker{display:inline-flex;align-items:center;gap:6px;padding:3px 10px;border-radius:999px;background:rgba(3,3,8,.92);border:1px solid rgba(255,255,255,.2);box-shadow:0 12px 24px rgba(0,0,0,.55);font-size:.54rem;letter-spacing:.32em;text-transform:uppercase;color:#f5f7ff;text-shadow:0 0 6px rgba(0,0,0,.65);}
+    .idea-marker-wrap{background:transparent;border:none;}
+    .idea-marker .dot{width:6px;height:6px;border-radius:50%;border:1px solid rgba(255,150,200,.9);background:rgba(255,214,230,.8);box-shadow:0 0 8px rgba(255,214,230,.6);}
+    .idea-marker .label{white-space:nowrap;font-size:.58rem;}
+    .idea-marker--ne{transform:translate(18px,-20px);}
+    .idea-marker--nw{transform:translate(-18px,-20px);}
+    .idea-marker--se{transform:translate(18px,12px);}
+    .idea-marker--sw{transform:translate(-18px,12px);}
+    .note{margin-top:16px;padding:12px 14px;border-radius:14px;border:1px dashed rgba(255,255,255,.2);color:var(--muted);letter-spacing:.12em;font-size:.78rem;}
+    .note{margin-top:16px;padding:12px 14px;border-radius:14px;border:1px dashed rgba(255,255,255,.2);color:var(--muted);letter-spacing:.12em;font-size:.78rem;}
+    .back-link{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:#ffdfb0;text-decoration:none;display:flex;align-items:center;gap:6px;}
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="glass-header">
+      <div>
+        <h1>Rail Ideas</h1>
+        <div class="subtitle">Part 1: The core 12 stops. For overflow day trips and side destinations, see <a href="/mission-control-rail-ideas-extended.html" style="color:#ffdfb0;">Rail Ideas Extended</a>.</div>
+      </div>
+      <div class="chipbar">
+        <a class="chip" href="/mission-control.html"><span class="ico">⟵</span> Mission</a>
+        <a class="chip" href="/mission-control-rail-options.html">Rail Corridor</a>
+        <a class="chip active" aria-current="page" href="/mission-control-rail-ideas.html">Rail Ideas (Part 1)</a>
+        <a class="chip" href="/mission-control-rail-ideas-extended.html">Extended</a>
+        <a class="chip" href="/mission-control-food.html"><span class="ico">🍜</span> Food</a>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="hero-card">
+        <h3>Photos &amp; context</h3>
+        <strong>Poster gallery</strong>
+        <div style="margin-top:6px;font-size:.75rem;letter-spacing:.12em;color:var(--muted);">Tap or hover a dot to load the curated photo + ranking card.</div>
+      </div>
+      <div class="hero-card">
+        <h3>Ranking notes</h3>
+        <strong>Yoko + Claude</strong>
+        <div style="margin-top:6px;font-size:.75rem;letter-spacing:.12em;color:var(--muted);">Each stop carries both of our priority rankings.</div>
+      </div>
+      <div class="hero-card">
+        <h3>JR coverage</h3>
+        <strong>JR Sanyo-San'in Area Pass</strong>
+        <div style="margin-top:6px;font-size:.75rem;letter-spacing:.12em;color:var(--muted);">Shipable coverage from Shin-Osaka through Hiroshima to Hakata.</div>
+      </div>
+    </section>
+
+    <section class="rank-grid">
+      <div class="rank-card">
+        <h3>Yoko's ranking</h3>
+        <ol id="yoko-ranking"></ol>
+      </div>
+      <div class="rank-card">
+        <h3>Claude's ranking</h3>
+        <ol id="claude-ranking"></ol>
+      </div>
+      <div class="rank-card">
+        <h3>Traveler ranking</h3>
+        <ol id="traveler-ranking"></ol>
+      </div>
+    </section>
+
+    <section class="map-panel">
+      <div class="map-header">
+        <div>
+          <div class="map-title">Idea map</div>
+          <p class="map-note">Pink dots = preferred stops. Hover or tap to view photos, ranking, and descriptions. Core corridor notes remain on the <a class="back-link" href="/mission-control-rail-options.html">Rail Corridor page</a>.</p>
+        </div>
+      </div>
+      <div id="rail-map" aria-label="Rail idea map"></div>
+      <div class="spot-viewer" id="spot-viewer">
+        <div class="spot-meta" id="spot-meta">
+          <strong>Tap a dot</strong>
+          <span>Photos + ranking will appear below.</span>
+          <span class="spot-rank">Yoko rank • Claude rank</span>
+        </div>
+        <div class="spot-photos" id="spot-photos"></div>
+      </div>
+    </section>
+
+    <div class="note">Part 2 (Extended) has 8 more stops including Kobe, Mojiko, and Hagi. For corridor logistics, see Rail Options.</div>
+  </div>
+
+  <script>
+    const yokoOrder = ['Hiroshima','Miyajima','Himeji','Okayama','Matsue','Tottori','Kurashiki','Onomichi','Iwakuni','Fukuyama','Shimonoseki','Shin-Yamaguchi'];
+    const claudeOrder = ['Miyajima','Hiroshima','Okayama','Kurashiki','Himeji','Onomichi','Matsue','Tottori','Shimonoseki','Fukuyama','Iwakuni','Shin-Yamaguchi'];
+    const travelerOrder = ['Miyajima','Himeji','Hiroshima','Tottori','Matsue','Kurashiki','Okayama','Iwakuni','Onomichi','Shimonoseki','Fukuyama','Shin-Yamaguchi'];
+
+    function renderRanking(list, containerId){
+      const container = document.getElementById(containerId);
+      if (!container) return;
+      container.innerHTML = list.map((name, idx) => `<li>${idx + 1}. ${name}</li>`).join('');
+    }
+
+    function initMap(){
+      renderRanking(yokoOrder, 'yoko-ranking');
+      renderRanking(claudeOrder, 'claude-ranking');
+      renderRanking(travelerOrder, 'traveler-ranking');
+
+      const map = L.map('rail-map', { zoomControl: true, scrollWheelZoom: false });
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+        maxZoom: 8,
+        attribution: '&copy; OpenStreetMap contributors &copy; CARTO'
+      }).addTo(map);
+
+      const wiki = file => `https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(file)}?width=1200`;
+
+      const preferredStops = [
+        { label: 'Himeji', lat: 34.8176, lng: 134.6939, offset: 'idea-marker--ne', tagline: 'White Heron Castle & strolling gardens', rankYoko: 3, rankClaude: 5, rankTrent: 2, photos: [wiki('Himeji_castle_in_may_2015.jpg')] },
+        { label: 'Okayama', lat: 34.6654, lng: 133.9195, offset: 'idea-marker--se', tagline: 'Korakuen + castle reflections', rankYoko: 4, rankClaude: 3, rankTrent: 7, photos: [wiki('Okayama_Castle,_November_2016_-04.jpg')] },
+        { label: 'Kurashiki', lat: 34.5852, lng: 133.7705, offset: 'idea-marker--sw', tagline: 'Bikan Canal & artisan streets', rankYoko: 7, rankClaude: 4, rankTrent: 6, photos: [wiki('Kurashiki_Ivy_Square23s.jpg')] },
+        { label: 'Onomichi', lat: 34.4089, lng: 133.2053, offset: 'idea-marker--ne', tagline: 'Temple walkways + Shimanami vistas', rankYoko: 8, rankClaude: 6, rankTrent: 9, photos: [wiki('Senkoji_Onomichi16s3872.jpg')] },
+        { label: 'Fukuyama', lat: 34.4859, lng: 133.3623, offset: 'idea-marker--se', tagline: 'Castle town + riverfront cafes', rankYoko: 10, rankClaude: 10, rankTrent: 11, photos: [wiki('Fukuyama_castle_Honmaru.jpg')] },
+        { label: 'Hiroshima', lat: 34.3974, lng: 132.4756, offset: 'idea-marker--se', tagline: 'Peace Park + river reflections', rankYoko: 1, rankClaude: 2, rankTrent: 3, photos: [wiki('Atomic_Bomb_Dome_and_Motoyaso_River,_Hiroshima,_Northwest_view_20190417_1.jpg')] },
+        { label: 'Miyajima', lat: 34.2950, lng: 132.3199, offset: 'idea-marker--sw', tagline: 'Floating torii & sacred forest', rankYoko: 2, rankClaude: 1, rankTrent: 1, photos: [wiki('Itsukushima_Shrine_Torii_Gate_(13890465459).jpg')] },
+        { label: 'Iwakuni', lat: 34.1719, lng: 132.2192, offset: 'idea-marker--se', tagline: 'Kintai Bridge + mountain backdrop', rankYoko: 9, rankClaude: 11, rankTrent: 8, photos: ['assets/cities/iwakuni-kintai-bridge.jpg', wiki('Kintaikyo_Bridge_in_Iwakuni%2C_Yamaguchi_Prefecture.jpg')] },
+        { label: 'Shin-Yamaguchi', lat: 34.0921, lng: 131.3993, offset: 'idea-marker--sw', tagline: 'Onsen gateway & Ruriko-ji vibes', rankYoko: 12, rankClaude: 12, rankTrent: 12, photos: [wiki('Ruriko-ji_Temple.JPG')] },
+        { label: 'Shimonoseki', lat: 33.9575, lng: 130.9414, offset: 'idea-marker--se', tagline: 'Kanmon strait & seafood markets', rankYoko: 11, rankClaude: 9, rankTrent: 10, photos: [wiki('Central_Shimonoseki_and_Kanmon_Strait.JPG')] },
+        { label: 'Tottori', lat: 35.5011, lng: 134.2351, offset: 'idea-marker--nw', tagline: 'Sand dunes & desert sunsets', rankYoko: 6, rankClaude: 8, rankTrent: 4, photos: [wiki('Tottori-Sakyu_Tottori_Japan.JPG')] },
+        { label: 'Matsue', lat: 35.4723, lng: 133.0482, offset: 'idea-marker--nw', tagline: 'Castle & Lake Shinji reflections', rankYoko: 5, rankClaude: 7, rankTrent: 5, photos: [wiki('080720_Matsue_Castle_Matsue_Shimane_pref_Japan01s.jpg')] }
+      ];      const bounds = L.latLngBounds(preferredStops.map(stop => [stop.lat, stop.lng]));
+      map.fitBounds(bounds, { padding: [24,24] });
+
+      const metaEl = document.getElementById('spot-meta');
+      const photosEl = document.getElementById('spot-photos');
+
+      function showSpot(spot){
+        if (metaEl) {
+          metaEl.innerHTML = `<strong>${spot.label}</strong><span>${spot.tagline}</span><span class="spot-rank">Yoko rank ${spot.rankYoko} · Claude rank ${spot.rankClaude} · Traveler rank ${spot.rankTrent}</span>`;
+        }
+        if (photosEl) {
+          const fallback = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='400'><rect width='100%' height='100%' fill='%23101520'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' fill='%23a0a8c5' font-family='Inter,Arial' font-size='20'>Photo preview</text></svg>";
+          const heroUrl = spot.photos[0];
+          photosEl.innerHTML = `\n            <article class="spot-card">\n              <img src="${heroUrl}" alt="${spot.label} photo" loading="lazy" onerror="this.src='${fallback}'" />\n              <div class="spot-card__overlay">\n                <p class="spot-card__title">${spot.label}</p>\n                <p class="spot-card__tagline">${spot.tagline}</p>\n              </div>\n            </article>`;
+        }
+      }
+
+      preferredStops.forEach(stop => {
+        const html = `<div class="idea-marker ${stop.offset || ''}"><span class="dot"></span><span class="label">${stop.label}</span></div>`;
+        const icon = L.divIcon({
+          className: 'idea-marker-wrap',
+          html,
+          iconSize: [0, 0],
+          iconAnchor: [0, 0]
+        });
+        const marker = L.marker([stop.lat, stop.lng], { icon }).addTo(map);
+        marker.on('click', () => showSpot(stop));
+        marker.on('mouseover', () => showSpot(stop));
+      });
+
+      if (preferredStops.length) {
+        showSpot(preferredStops[0]);
+      }
+    }
+
+    initMap();
+  </script>
+</body>
+</html>
