@@ -132,13 +132,13 @@
         <div id="title-row" class="glass-header">
       <h1 style="margin:0;">Japan Flight Plan</h1>
       <div id="title-links" class="chipbar">
-        <a class="chip" href="/mission-control.html"><span class="ico">⟵</span>Mission</a>
-        <a class="chip" href="/mission-control-flight-deals.html" class="chip"><span class="ico">🏷</span>Deals</a>
-        <a class="chip" href="/mission-control-city-briefs.html"><span class="ico">🗺</span>Briefs</a>
-        <a class="chip" href="/mission-control-flight-alternatives.html"><span class="ico">⎇</span>Alts</a>
-        <a class="chip" href="/mission-control-rail-options.html"><span class="ico">🚆</span>Rail</a>
-        <a class="chip" href="/mission-control-hotels.html"><span class="ico">🏨</span>Hotels</a>
-        <a class="chip" href="/mission-control-food.html"><span class="ico">🍜</span>Food</a>
+        <a class="chip" href="mission-control.html"><span class="ico">⟵</span>Mission</a>
+        <a class="chip" href="mission-control-flight-deals.html" class="chip"><span class="ico">🏷</span>Deals</a>
+        <a class="chip" href="mission-control-city-briefs.html"><span class="ico">🗺</span>Briefs</a>
+        <a class="chip" href="mission-control-flight-alternatives.html"><span class="ico">⎇</span>Alts</a>
+        <a class="chip" href="mission-control-rail-options.html"><span class="ico">🚆</span>Rail</a>
+        <a class="chip" href="mission-control-hotels.html"><span class="ico">🏨</span>Hotels</a>
+        <a class="chip" href="mission-control-food.html"><span class="ico">🍜</span>Food</a>
       </div>
     </div>
         <p>One-screen mission control for the April Japan trip—timelines, costs, risks, and the live route map. Update the JSON and the UI follows.</p>
@@ -408,7 +408,7 @@
                 const sign = d>0?'+':'';
                 return `<br><small style="color:${color}">Last change: ${sign}${Math.round(d).toLocaleString()}</small>`;
               } catch(e){ return ''; }
-            })()}<a class="history-link" title="Price history" href="/mission-control-flight-history.html?id=${flight.id}" target="_blank">⟲</a></td>
+            })()}<a class="history-link" title="Price history" href="mission-control-flight-history.html?id=${flight.id}" target="_blank">⟲</a></td>
             <td>${flight.baggage_included}</td>
             <td>${flight.notes}${flight.plan_tag ? `<br><small style="color:#a8d0ff;letter-spacing:.12em;">${flight.plan_tag}</small>` : ''}${bookingLink}</td>
           </tr>`;
