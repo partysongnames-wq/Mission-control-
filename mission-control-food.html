@@ -272,6 +272,7 @@
               const name = spot.name || 'Untitled spot';
               const type = spot.type || 'Food';
               const notes = spot.notes || '';
+              const access = spot.access ? `Access: ${spot.access}` : '';
               const mustTry = spot.must_try ? `Must-try: ${spot.must_try}` : '';
               const link = spot.link ? `<a class="spot-link" href="${spot.link}" target="_blank" rel="noopener">Open link</a>` : '';
               const status = prettyStatus(spot.status);
@@ -291,7 +292,7 @@
                     <span class="pill">${city.startsWith('Busan -') ? 'Busan' : city}</span>
                     <span class="${statusClass(status)}">${status}</span>
                   </div>
-                  <div class="spot-notes">${[notes, mustTry].filter(Boolean).join(' · ') || 'No notes yet.'}</div>
+                  <div class="spot-notes">${[notes, access, mustTry].filter(Boolean).join(' · ') || 'No notes yet.'}</div>
                   ${link}
                 </div>
               `;
