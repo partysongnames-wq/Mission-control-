@@ -282,6 +282,7 @@
               const distanceLines = Array.isArray(spot.distance_to_hotels) ? spot.distance_to_hotels : [];
               const factLines = [
                 spot.location ? `📍 ${spot.location}` : '',
+                spot.closest_station ? `🚇 Closest station: ${spot.closest_station}` : '',
                 spot.access ? `🚉 ${spot.access}` : '',
                 spot.hours ? `🕒 ${spot.hours}` : '',
                 spot.signature ? `✨ ${spot.signature}` : '',
