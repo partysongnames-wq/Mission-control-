@@ -143,7 +143,11 @@
       "must_try": "White clam shabu-shabu (白ハマグリしゃぶしゃぶ)",
       "link": "https://www.instagram.com/reel/placeholder",
       "photo": "assets/food/bacchanale-shellfish-1.jpg",
-      "notes": "Shinsaibashi, Osaka. Casual seafood bar specializing in shellfish. Signature: white clam shabu-shabu. Also serves assorted fresh shellfish, pork slices for shabu, seaweed, vegetables. Izakaya-style with drinks. From Nasha via 우아한사라씨 (Woahan Sarah)."
+      "notes": "Shinsaibashi, Osaka. Casual seafood bar specializing in shellfish. Signature: white clam shabu-shabu. Also serves assorted fresh shellfish, pork slices for shabu, seaweed, vegetables. Izakaya-style with drinks. From Nasha via 우아한사라씨 (Woahan Sarah).",
+      "photos": [
+        "assets/food/bacchanale-shellfish-1.jpg",
+        "assets/food/bacchanale-shellfish-2.jpg"
+      ]
     },
     {
       "name": "Yakiniku Gang / 焼肉ギャング 梅田店 (IG Reel)",
