@@ -80,7 +80,9 @@
       <div id="osaka-map"></div>
       <div class="note">Pins: your hotel, Bentencho (brother stay area), Umeda meetup option, USJ, baseball option, Kadoma outlet, plus Osaka food spots. English-first basemap enabled; all pin names/popups are in English.</div>
       <div class="map-legend">
-        <span class="lg">🦪 Oyster/Seafood</span>
+        <span class="lg">🦪 Oyster-focused</span>
+        <span class="lg">🦞 Shellfish/mixed seafood</span>
+        <span class="lg">🐟 Fish-focused seafood</span>
         <span class="lg">🥩 Yakiniku/BBQ</span>
         <span class="lg">🍣 Sushi</span>
         <span class="lg">🍜 Noodles</span>
@@ -226,8 +228,10 @@
     };
 
     const pickEmoji = (spot) => {
-      const t = `${spot.type||''} ${spot.name||''}`.toLowerCase();
-      if (t.includes('oyster') || t.includes('shellfish') || t.includes('seafood')) return '🦪';
+      const t = `${spot.type||''} ${spot.name||''} ${spot.signature||''} ${spot.notes||''}`.toLowerCase();
+      if (t.includes('oyster') || t.includes('굴')) return '🦪';
+      if (t.includes('shellfish') || t.includes('hotpot') || t.includes('uni') || t.includes('crab') || t.includes('prawn')) return '🦞';
+      if (t.includes('fish') || t.includes('mackerel') || t.includes('sashimi')) return '🐟';
       if (t.includes('yakiniku') || t.includes('bbq') || t.includes('horumon') || t.includes('meat')) return '🥩';
       if (t.includes('sushi')) return '🍣';
       if (t.includes('udon') || t.includes('ramen') || t.includes('noodle')) return '🍜';
