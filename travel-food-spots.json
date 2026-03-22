@@ -209,8 +209,12 @@
       "must_try": "Mantis shrimp + abalone from live tanks",
       "price": "HKD $318+ (~฿1,400+) | 2hr dinner / 4hr lunch",
       "link": "https://www.instagram.com/reel/placeholder",
-      "photo": "assets/food/hong-kong-aquatic-market-1.jpg",
-      "notes": "Hong Kong (in shopping mall). Live seafood hotpot - pick from tanks (mantis shrimp, abalone, shellfish), staff cleans for you. Farm-to-table market-style experience. 2-hour dinner / 4-hour lunch. Huge variety. From Nasha via Explorehongkong."
+      "photo": "assets/food/hong-kong-aquatic-market-2.jpg",
+      "notes": "Hong Kong (in shopping mall). Live seafood hotpot - pick from tanks (mantis shrimp, abalone, shellfish), staff cleans for you. Farm-to-table market-style experience. 2-hour dinner / 4-hour lunch. Huge variety. From Nasha via Explorehongkong.",
+      "photos": [
+        "assets/food/hong-kong-aquatic-market-2.jpg",
+        "assets/food/hong-kong-aquatic-market-3.jpg"
+      ]
     },
     {
       "name": "Sukiyaki Tsuruya / 鶴や (IG Reel)",
