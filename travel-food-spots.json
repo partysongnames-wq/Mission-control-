@@ -426,9 +426,9 @@
       "type": "Izakaya / Tempura / Seafood",
       "status": "saved",
       "area": "UMEDA",
-      "location": "KITTE Osaka B1F (Umeda)",
+      "location": "大阪府大阪市北区梅田3-2-2 KITTE大阪 B1F",
       "access": "Direct from Umeda Station west gate (walk ~0 min)",
-      "hours": "TBD (check latest)",
+      "hours": "11:00–23:00 (L.O. 22:30)",
       "price": "Shrimp cutlet ¥780 (~฿187)",
       "signature": "Puri-puri shrimp cutlet, grilled giant river prawns, casual tempura izakaya vibe",
       "notes": "From Nasha reel. Quiet-but-fun atmosphere. Good for casual lunch/drinks near station.",
@@ -436,9 +436,11 @@
       "link": "https://www.facebook.com/share/r/14Z1mvDCaV6/?mibextid=wwXIfr",
       "photos": [
         "assets/food/kitte-oasis-1.jpg",
-        "assets/food/kitte-oasis-2.jpg"
+        "assets/food/kitte-oasis-2.jpg",
+        "assets/food/kitte-oasis-3.jpg"
       ],
-      "photo": "assets/food/kitte-oasis-1.jpg"
+      "photo": "assets/food/kitte-oasis-1.jpg",
+      "phone": "06-6676-8939"
     }
   ]
 }
