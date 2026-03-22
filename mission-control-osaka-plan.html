@@ -57,13 +57,14 @@
     <section class="osaka-map-wrap">
       <h2 style="margin:0 0 10px;font-size:.95rem;letter-spacing:.2em;text-transform:uppercase;">Osaka Key Map (City View)</h2>
       <div id="osaka-map"></div>
-      <div class="note">Pins: your hotel, Bentencho (brother stay area), Umeda meetup option, USJ, baseball option, Kadoma outlet, plus Osaka food spots.</div>
+      <div class="note">Pins: your hotel, Bentencho (brother stay area), Umeda meetup option, USJ, baseball option, Kadoma outlet, plus Osaka food spots. Basemap labels depend on map tiles, but all pin names are in English.</div>
       <div class="map-legend">
         <span class="lg">🦪 Oyster/Seafood</span>
         <span class="lg">🥩 Yakiniku/BBQ</span>
         <span class="lg">🍣 Sushi</span>
         <span class="lg">🍜 Noodles</span>
-        <span class="lg">🛍 Market/Shopping</span>
+        <span class="lg">🐟 Food market</span>
+        <span class="lg">🛍 Shopping/outlet</span>
       </div>
     </section>
 
@@ -208,7 +209,8 @@
       if (t.includes('yakiniku') || t.includes('bbq') || t.includes('horumon') || t.includes('meat')) return '🥩';
       if (t.includes('sushi')) return '🍣';
       if (t.includes('udon') || t.includes('ramen') || t.includes('noodle')) return '🍜';
-      if (t.includes('market')) return '🛍';
+      if (t.includes('outlet') || t.includes('shopping') || t.includes('lalaport') || t.includes('beams')) return '🛍';
+      if (t.includes('market')) return '🐟';
       return '🍽️';
     };
 
