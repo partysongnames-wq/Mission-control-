@@ -283,7 +283,12 @@
       "photos": [
         "assets/food/hong-kong-aquatic-market-2.jpg",
         "assets/food/hong-kong-aquatic-market-3.jpg"
-      ]
+      ],
+      "distance_to_hotels": [
+        "🚕 ~18 min by taxi to Dorsett Wanchai Hong Kong (typical range 12–30 min depending on exact mall branch & traffic)",
+        "🚇 ~22 min by MTR + short walk to Dorsett Wanchai Hong Kong (estimate)"
+      ],
+      "distance_estimate_note": "Branch/location not pinned yet; timing is a central-HK estimate and will tighten after exact pin."
     },
     {
       "name": "Sukiyaki Tsuruya / 鶴や (IG Reel)",
