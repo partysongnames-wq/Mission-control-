@@ -20,6 +20,9 @@
     .when{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:#ffd8a3;} .tag{display:inline-flex;padding:3px 8px;border-radius:999px;border:1px solid rgba(255,255,255,.16);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;background:rgba(255,255,255,.08);} .opt{border-color:rgba(255,179,71,.5);background:rgba(255,179,71,.14);} .fixed{border-color:rgba(16,163,127,.55);background:rgba(16,163,127,.14);}
     .photos{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;} .photos img{width:100%;height:170px;object-fit:cover;border-radius:12px;border:1px solid rgba(255,255,255,.14);} 
     .note{margin-top:10px;color:var(--muted);font-size:.84rem;line-height:1.5;} .link{color:#ffd9a1;text-decoration:none;} .link:hover{text-decoration:underline;}
+    .emoji-pin{font-size:18px;line-height:22px;text-align:center;filter:drop-shadow(0 1px 2px rgba(0,0,0,.45));}
+    .map-legend{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px;font-size:.74rem;letter-spacing:.08em;color:#dce3ff;}
+    .map-legend .lg{display:inline-flex;align-items:center;gap:6px;padding:4px 8px;border:1px solid rgba(255,255,255,.16);border-radius:999px;background:rgba(255,255,255,.05);}
     @media (max-width:980px){.grid{grid-template-columns:1fr;}.hero{grid-template-columns:1fr 1fr;}}
   
     .osaka-map-wrap{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.10);border-radius:18px;padding:14px;margin:14px 0;}
@@ -54,7 +57,14 @@
     <section class="osaka-map-wrap">
       <h2 style="margin:0 0 10px;font-size:.95rem;letter-spacing:.2em;text-transform:uppercase;">Osaka Key Map (City View)</h2>
       <div id="osaka-map"></div>
-      <div class="note">Pins: your hotel, Bentencho (brother stay area), Umeda meetup option, USJ, baseball option, and Kadoma outlet.</div>
+      <div class="note">Pins: your hotel, Bentencho (brother stay area), Umeda meetup option, USJ, baseball option, Kadoma outlet, plus Osaka food spots.</div>
+      <div class="map-legend">
+        <span class="lg">🦪 Oyster/Seafood</span>
+        <span class="lg">🥩 Yakiniku/BBQ</span>
+        <span class="lg">🍣 Sushi</span>
+        <span class="lg">🍜 Noodles</span>
+        <span class="lg">🛍 Market/Shopping</span>
+      </div>
     </section>
 
     <div class="grid">
@@ -172,12 +182,53 @@
       { name: '🛍 Mitsui Outlet / LaLaport Kadoma', lat: 34.7403, lng: 135.5852 }
     ];
 
+    const emojiIcon = (emoji) => L.divIcon({
+      className: 'emoji-pin',
+      html: `<div>${emoji}</div>`,
+      iconSize: [24,24],
+      iconAnchor: [12,12]
+    });
+
     const bounds = [];
     osakaPoints.forEach(p => {
       const m = L.marker([p.lat, p.lng]).addTo(osakaMap).bindPopup(`<b>${p.name}</b>`);
       bounds.push([p.lat, p.lng]);
     });
-    if (bounds.length) osakaMap.fitBounds(bounds, { padding: [30, 30] });
+
+    const areaCenter = {
+      'UMEDA': [34.7025,135.4959],
+      'NAMBA / SHINSAIBASHI': [34.6696,135.5012],
+      'KYOBASHI': [34.6978,135.5343],
+      'OUTSIDE CENTRAL OSAKA': [34.7180,135.5480]
+    };
+
+    const pickEmoji = (spot) => {
+      const t = `${spot.type||''} ${spot.name||''}`.toLowerCase();
+      if (t.includes('oyster') || t.includes('shellfish') || t.includes('seafood')) return '🦪';
+      if (t.includes('yakiniku') || t.includes('bbq') || t.includes('horumon') || t.includes('meat')) return '🥩';
+      if (t.includes('sushi')) return '🍣';
+      if (t.includes('udon') || t.includes('ramen') || t.includes('noodle')) return '🍜';
+      if (t.includes('market')) return '🛍';
+      return '🍽️';
+    };
+
+    fetch('travel-food-spots.json', {cache:'no-store'})
+      .then(r=>r.json())
+      .then(data => {
+        const spots = (data.spots||[]).filter(s => (s.city||'').trim()==='Osaka');
+        spots.forEach((spot, idx) => {
+          const a = areaCenter[spot.area] || areaCenter['OUTSIDE CENTRAL OSAKA'];
+          // slight spread so markers don't fully overlap
+          const lat = a[0] + ((idx%5)-2)*0.0025;
+          const lng = a[1] + (Math.floor(idx/5)%5-2)*0.0025;
+          const icon = emojiIcon(pickEmoji(spot));
+          const popup = `<b>${spot.name||'Osaka spot'}</b><br/>${spot.area||'Osaka'}<br/><span style="color:#ffd9a1">${spot.type||''}</span>`;
+          L.marker([lat,lng], {icon}).addTo(osakaMap).bindPopup(popup).bindTooltip(spot.name||'Spot');
+          bounds.push([lat,lng]);
+        });
+        if (bounds.length) osakaMap.fitBounds(bounds, { padding: [30, 30] });
+      })
+      .catch(() => { if (bounds.length) osakaMap.fitBounds(bounds, { padding: [30, 30] }); });
   </script>
 
 </body>
