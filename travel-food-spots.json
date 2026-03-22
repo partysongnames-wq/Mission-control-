@@ -1,6 +1,6 @@
 {
   "updated": "2026-03-21",
-  "notes": "Food spots from Nasha's reels and research",
+  "notes": "Food spots from Nasha's reels and research - PHOTOS NEED UPDATE for Dalbit, Takumi Shimizu, and Umeda A5 Wagyu",
   "spots": [
     {
       "name": "Giant crab leg buffet (FB reel)",
@@ -90,7 +90,7 @@
       "type": "Restaurant / Oyster",
       "status": "saved",
       "must_try": "Miyagi oysters - 12 different oyster dishes",
-      "price": "¥4,980 (walk-in discount ¥4,480 before 6pm/after 9pm)",
+      "price": "¥4,980 (~฿1,195) (walk-in discount ¥4,480 (~฿1,075) before 6pm/after 9pm)",
       "link": "https://www.facebook.com/share/r/placeholder/?mibextid=wwXIfr",
       "photo": "assets/food/osaka-oysters-1.jpg",
       "photos": [
@@ -123,11 +123,6 @@
       "must_try": "Wood-fired grilled mackerel + buffet sides",
       "price": "₩12,000–17,000 (~฿300–500)",
       "link": "https://www.instagram.com/reel/placeholder",
-      "photo": "assets/food/dalbit-mackerel-1.jpg",
-      "photos": [
-        "assets/food/dalbit-mackerel-1.jpg",
-        "assets/food/dalbit-mackerel-2.jpg"
-      ],
       "notes": "Songjeong Beach, Busan. Ocean-view Korean seafood restaurant. Wood-fired grilled fish + buffet sides (bulgogi, japchae, fresh omelet, kimchi, salads). Casual local vibe, popular with families. Can get busy at peak times. From Nasha via 우아한사라씨 (Woahan Sarah)."
     },
     {
@@ -138,7 +133,6 @@
       "must_try": "A5 skirt steak + kalbi + curry + karaage",
       "price": "From ¥1,480 (~฿330) to ¥4,090 (~฿950) full A5 plan",
       "link": "https://www.instagram.com/reel/placeholder",
-      "photo": "assets/food/umeda-wagyu-a5-1.jpg",
       "notes": "Umeda, Osaka (marked 'osaka-gourmet'). All-you-can-eat A5 beef BBQ shipped directly from Miyazaki. Includes A5 skirt steak (ハラミ), kalbi, horumon, curry, and fried chicken (唐揚げ). Budget-friendly option from ¥1,480; full A5 experience around ¥4,090. Grilled at table. From Nasha via 우아한사라씨 (Woahan Sarah)."
     },
     {
@@ -192,6 +186,11 @@
       "must_try": "Pork belly + squid teppan with fire show performance",
       "link": "https://www.instagram.com/reel/placeholder",
       "photo": "assets/food/busan-fire-bbq-1.jpg",
+      "photos": [
+        "assets/food/busan-fire-bbq-1.jpg",
+        "assets/food/busan-fire-bbq-2.jpg",
+        "assets/food/busan-fire-bbq-3.jpg"
+      ],
       "notes": "Myeongji, Busan (Gangseo-gu). Large-scale Korean BBQ (700 pyeong venue) with live iron plate cooking and dramatic fire show performances. Chefs cook pork belly, squid, seafood, and fried rice on oversized flat grills with flame effects. High-energy entertainment dining. Popular for groups. Mid-range pricing. From Nasha via 우아한사라씨."
     },
     {
@@ -226,10 +225,7 @@
       "link": "https://www.instagram.com/reel/placeholder",
       "photo": "assets/food/niku-tokidoki-lemon-1.jpg",
       "notes": "Umeda, Osaka (near station). All-you-can-eat izakaya with grilled oysters on teppan, DIY takoyaki making, and 190+ menu items. Includes all-you-can-drink (lemon sour, etc.). Mix of seafood, street food, cheese dishes, meat, noodles. Fun interactive chaotic izakaya vibe. Great for groups. From Nasha via まーしゅ."
-    }
-  ]
-}
-,
+    },
     {
       "name": "Tajiri Port Sunday Morning Market / 田尻漁港日曜朝市 (IG Reel)",
       "city": "Osaka",
@@ -239,7 +235,73 @@
       "price": "Market prices (varies)",
       "link": "https://www.instagram.com/reel/placeholder",
       "photo": "assets/food/tajiri-market-1.jpg",
+      "photos": [
+        "assets/food/tajiri-market-1.jpg",
+        "assets/food/tajiri-market-2.jpg",
+        "assets/food/tajiri-market-3.jpg"
+      ],
       "notes": "Tajiri, Osaka (Sennan District). Local fishing port market ~40 stalls. Sundays only 7:00-12:00. Fresh seafood straight from boats, grilled squid, octopus rice, tempura. Very local authentic vibe, less touristy than Kuromon Market. From Nasha via usako_love."
+    },
+    {
+      "name": "Sendai Horumon Tokiwatei / 仙台ホルモン焼肉酒場 ときわ亭 (IG Reel)",
+      "city": "Osaka",
+      "type": "Restaurant / BBQ",
+      "status": "saved",
+      "must_try": "Beef tongue (タン) all-you-can-eat + 0-second lemon sour",
+      "price": "~¥1,999 basic AYCE / ~¥3,999 tongue-focused AYCE",
+      "link": "https://www.instagram.com/reel/placeholder",
+      "photo": "assets/food/sendai-horumon-1.jpg",
+      "photos": [
+        "assets/food/sendai-horumon-1.jpg",
+        "assets/food/sendai-horumon-2.jpg"
+      ],
+      "notes": "Doyamacho, Umeda, Osaka. ~3 min from Higashi-Umeda Station. Famous for beef tongue AYCE with '0-second lemon sour' taps at your table. Classic salt + green onion tongue (ねぎ塩タン). From Nasha via reel."
+    },
+    {
+      "name": "Kaiten Sushi Jin / 回転寿司 仁 (IG Reel)",
+      "city": "Osaka",
+      "type": "Restaurant / Sushi",
+      "status": "saved",
+      "must_try": "Fatty tuna (maguro) + big shrimp",
+      "price": "From ~¥100/plate (~฿22+)",
+      "link": "https://www.instagram.com/reel/placeholder",
+      "photo": "assets/food/kaiten-sushi-jin-1.jpg",
+      "photos": [
+        "assets/food/kaiten-sushi-jin-1.jpg",
+        "assets/food/kaiten-sushi-jin-2.jpg",
+        "assets/food/kaiten-sushi-jin-3.jpg"
+      ],
+      "notes": "Kyobashi, Osaka. 東野田町2丁目4-20 京橋ビル B1. Premium conveyor belt sushi - chef prepares fresh in front of you. Fresh fish from ports, thick cuts. High quality for cheap price. Open 11:00-22:00, no days off. From Nasha via Koki Hironaka."
+    },
+    {
+      "name": "Yakiniku Lab Umeda / 焼肉Lab 梅田店 (IG Reel)",
+      "city": "Osaka",
+      "type": "Restaurant / Premium BBQ",
+      "status": "saved",
+      "must_try": "Black wagyu + uni + ikura (higher plan)",
+      "price": "From ¥4,000 (~฿880) / Premium ¥7,000 (~฿1,540)",
+      "link": "https://www.instagram.com/reel/placeholder",
+      "photo": "assets/food/yakiniku-lab-1.jpg",
+      "photos": [
+        "assets/food/yakiniku-lab-1.jpg",
+        "assets/food/yakiniku-lab-2.jpg"
+      ],
+      "notes": "2-10-21 Sonezaki, Kita-ku, Osaka. 3 min Higashi-Umeda, 7 min Osaka Station. Phone: 050-5456-0889. Premium all-you-can-eat yakiniku. Quality black wagyu focus, not just quantity. Higher-tier course includes uni + ikura AYCE. From Nasha."
+    },
+    {
+      "name": "Yakiniku Gorichan Shinsaibashi / 焼肉ごりちゃん (IG Reel)",
+      "city": "Osaka",
+      "type": "Restaurant / BBQ",
+      "status": "saved",
+      "must_try": "50mm thick-cut beef tongue (タン元) - rare tongue root part",
+      "price": "Lunch ~¥3,000+",
+      "link": "https://www.instagram.com/reel/placeholder",
+      "photo": "assets/food/yakiniku-gorichan-1.jpg",
+      "photos": [
+        "assets/food/yakiniku-gorichan-1.jpg",
+        "assets/food/yakiniku-gorichan-2.jpg"
+      ],
+      "notes": "1-3-13 Shinsaibashisuji, Chuo-ku, Osaka. ~3 min from Shinsaibashi Station. Lunch AYCE with 50mm thick-cut gyutan using rare タン元 (tongue root). Unlimited: rice, tongue curry, meat miso, tororo. Lunch 11:00-15:00, Dinner 17:00-23:00. No days off. From Nasha."
     }
   ]
 }
