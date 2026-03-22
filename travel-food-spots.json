@@ -47,7 +47,8 @@
       "notes": "Osaka spot where you can fish inside and have it prepared. Location: Osaka (Namba/Shinsaibashi area). From Shinsaibashi: ~10–15 minutes (walk + short train, depending on branch).",
       "area": "NAMBA / SHINSAIBASHI",
       "closest_station": "Namba Station / Shinsaibashi Station (branch-dependent)",
-      "access": "From Shinsaibashi Station: ~10–15 min (branch-dependent)"
+      "access": "From Shinsaibashi Station: ~10–15 min (branch-dependent)",
+      "from_hotel": "From LEOPARD Shinsaibashi: ~10–15 min walk · ~3–6 min taxi"
     },
     {
       "name": "Jeju super ramen (FB reel)",
@@ -192,7 +193,8 @@
       ],
       "area": "NAMBA / SHINSAIBASHI",
       "closest_station": "Shinsaibashi Station",
-      "access": "From Shinsaibashi Station: ~5–8 min"
+      "access": "From Shinsaibashi Station: ~5–8 min",
+      "from_hotel": "From LEOPARD Shinsaibashi: ~5–8 min walk · ~2–4 min taxi"
     },
     {
       "name": "Yakiniku Gang / 焼肉ギャング 梅田店 (IG Reel)",
@@ -299,7 +301,8 @@
       ],
       "area": "NAMBA / SHINSAIBASHI",
       "closest_station": "Nippombashi Station",
-      "access": "From Shinsaibashi Station: ~10 min"
+      "access": "From Shinsaibashi Station: ~10 min",
+      "from_hotel": "From LEOPARD Shinsaibashi: ~10–15 min walk · ~4–7 min taxi"
     },
     {
       "name": "Niku Tokidoki Lemon Umeda / 肉トキドキレモン 梅田 (IG Reel)",
@@ -409,7 +412,8 @@
       "notes": "1-3-13 Shinsaibashisuji, Chuo-ku, Osaka. ~3 min from Shinsaibashi Station. Lunch AYCE with 50mm thick-cut gyutan using rare タン元 (tongue root). Unlimited: rice, tongue curry, meat miso, tororo. Lunch 11:00-15:00, Dinner 17:00-23:00. No days off. From Nasha.",
       "area": "NAMBA / SHINSAIBASHI",
       "closest_station": "Shinsaibashi Station",
-      "access": "From Shinsaibashi Station: ~3 min"
+      "access": "From Shinsaibashi Station: ~3 min",
+      "from_hotel": "From LEOPARD Shinsaibashi: ~3–5 min walk · ~2–3 min taxi"
     }
   ]
 }

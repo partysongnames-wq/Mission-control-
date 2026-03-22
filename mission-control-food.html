@@ -288,6 +288,7 @@
                 if (nearGijang.length) distanceLines = nearGijang;
               }
               const factLines = [
+                spot.from_hotel ? `🏨 ${spot.from_hotel}` : '',
                 spot.location ? `📍 ${spot.location}` : '',
                 spot.closest_station ? `🚇 Closest station: ${spot.closest_station}` : '',
                 spot.access ? `🚉 ${spot.access}` : '',
