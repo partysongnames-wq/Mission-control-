@@ -39,7 +39,8 @@
         "assets/food/osaka-fishing-1.jpg",
         "assets/food/osaka-fishing-2.jpg"
       ],
-      "notes": "Osaka spot where you can fish inside and have it prepared."
+      "notes": "Osaka spot where you can fish inside and have it prepared.",
+      "area": "OTHER OSAKA"
     },
     {
       "name": "Jeju super ramen (FB reel)",
@@ -102,7 +103,7 @@
         "assets/food/osaka-oysters-4.jpg"
       ],
       "notes": "Osaka (Takatsuki) all-you-can-eat oyster restaurant. 12 oyster dishes + 24 other dishes. Oysters from Miyagi Prefecture. 2 min walk from Hankyu Takatsukishi Station. Hours: 17:00-00:00 (Fri 16:00, Sat-Sun 12:00). All-you-can-drink +¥1,000. Nasha sent.",
-      "area": "Other Osaka (Takatsuki · ~25 min from Shinsaibashi)"
+      "area": "OUTSIDE OSAKA"
     },
     {
       "name": "Spicy Oyster Stew (Lorari Gip / 로라리 깁) (FB/IG reel)",
@@ -138,7 +139,8 @@
       "must_try": "A5 skirt steak + kalbi + curry + karaage",
       "price": "From ¥1,480 (~฿330) to ¥4,090 (~฿950) full A5 plan",
       "link": "https://www.instagram.com/reel/placeholder",
-      "notes": "Umeda, Osaka (marked 'osaka-gourmet'). All-you-can-eat A5 beef BBQ shipped directly from Miyazaki. Includes A5 skirt steak (ハラミ), kalbi, horumon, curry, and fried chicken (唐揚げ). Budget-friendly option from ¥1,480; full A5 experience around ¥4,090. Grilled at table. From Nasha via 우아한사라씨 (Woahan Sarah)."
+      "notes": "Umeda, Osaka (marked 'osaka-gourmet'). All-you-can-eat A5 beef BBQ shipped directly from Miyazaki. Includes A5 skirt steak (ハラミ), kalbi, horumon, curry, and fried chicken (唐揚げ). Budget-friendly option from ¥1,480; full A5 experience around ¥4,090. Grilled at table. From Nasha via 우아한사라씨 (Woahan Sarah).",
+      "area": "UMEDA"
     },
     {
       "name": "Bacchanale Shellfish Bar / 貝バル Bacchanale (IG Reel)",
@@ -153,7 +155,8 @@
         "assets/food/bacchanale-shellfish-1.jpg",
         "assets/food/bacchanale-shellfish-2.jpg",
         "assets/food/bacchanale-shellfish-3.jpg"
-      ]
+      ],
+      "area": "UMEDA"
     },
     {
       "name": "Yakiniku Gang / 焼肉ギャング 梅田店 (IG Reel)",
@@ -168,7 +171,8 @@
       "photos": [
         "assets/food/yakiniku-gang-2.jpg",
         "assets/food/yakiniku-gang-3.jpg"
-      ]
+      ],
+      "area": "UMEDA"
     },
     {
       "name": "Osaka Oyster All-You-Can-Eat Unlimited Time (IG Reel)",
@@ -183,7 +187,8 @@
       "photos": [
         "assets/food/osaka-oyster-unlimited-2.jpg",
         "assets/food/osaka-oyster-unlimited-3.jpg"
-      ]
+      ],
+      "area": "UMEDA"
     },
     {
       "name": "中トロと豚足 / Chutoro & Pork Feet (IG Reel)",
@@ -198,7 +203,8 @@
       "photos": [
         "assets/food/chutoro-buta-ashi-2.jpg",
         "assets/food/chutoro-buta-ashi-3.jpg"
-      ]
+      ],
+      "area": "UMEDA"
     },
     {
       "name": "그날이후불타는삼겹살 / Burning Pork Belly After That Day (IG Reel)",
@@ -243,7 +249,8 @@
       "photos": [
         "assets/food/sukiyaki-tsuruya-1.jpg",
         "assets/food/sukiyaki-tsuruya-2.jpg"
-      ]
+      ],
+      "area": "UMEDA"
     },
     {
       "name": "Niku Tokidoki Lemon Umeda / 肉トキドキレモン 梅田 (IG Reel)",
@@ -258,7 +265,8 @@
       "photos": [
         "assets/food/niku-tokidoki-lemon-1.jpg",
         "assets/food/niku-tokidoki-lemon-2.jpg"
-      ]
+      ],
+      "area": "UMEDA"
     },
     {
       "name": "Tajiri Port Sunday Morning Market / 田尻漁港日曜朝市 (IG Reel)",
@@ -275,7 +283,7 @@
         "assets/food/tajiri-market-3.jpg"
       ],
       "notes": "Tajiri, Osaka (Sennan District). Local fishing port market ~40 stalls. Sundays only 7:00-12:00. Fresh seafood straight from boats, grilled squid, octopus rice, tempura. Very local authentic vibe, less touristy than Kuromon Market. From Nasha via usako_love.",
-      "area": "Other Osaka (Tajiri · ~60 min from Shinsaibashi)"
+      "area": "OUTSIDE OSAKA"
     },
     {
       "name": "Sendai Horumon Tokiwatei / 仙台ホルモン焼肉酒場 ときわ亭 (IG Reel)",
@@ -290,7 +298,8 @@
         "assets/food/sendai-horumon-1.jpg",
         "assets/food/sendai-horumon-2.jpg"
       ],
-      "notes": "Doyamacho, Umeda, Osaka. ~3 min from Higashi-Umeda Station. Famous for beef tongue AYCE with '0-second lemon sour' taps at your table. Classic salt + green onion tongue (ねぎ塩タン). From Nasha via reel."
+      "notes": "Doyamacho, Umeda, Osaka. ~3 min from Higashi-Umeda Station. Famous for beef tongue AYCE with '0-second lemon sour' taps at your table. Classic salt + green onion tongue (ねぎ塩タン). From Nasha via reel.",
+      "area": "OTHER OSAKA"
     },
     {
       "name": "Kaiten Sushi Jin / 回転寿司 仁 (IG Reel)",
@@ -306,7 +315,8 @@
         "assets/food/kaiten-sushi-jin-2.jpg",
         "assets/food/kaiten-sushi-jin-3.jpg"
       ],
-      "notes": "Kyobashi, Osaka. 東野田町2丁目4-20 京橋ビル B1. Premium conveyor belt sushi - chef prepares fresh in front of you. Fresh fish from ports, thick cuts. High quality for cheap price. Open 11:00-22:00, no days off. From Nasha via Koki Hironaka."
+      "notes": "Kyobashi, Osaka. 東野田町2丁目4-20 京橋ビル B1. Premium conveyor belt sushi - chef prepares fresh in front of you. Fresh fish from ports, thick cuts. High quality for cheap price. Open 11:00-22:00, no days off. From Nasha via Koki Hironaka.",
+      "area": "KYOBASHI"
     },
     {
       "name": "Yakiniku Lab Umeda / 焼肉Lab 梅田店 (IG Reel)",
@@ -321,7 +331,8 @@
         "assets/food/yakiniku-lab-1.jpg",
         "assets/food/yakiniku-lab-2.jpg"
       ],
-      "notes": "2-10-21 Sonezaki, Kita-ku, Osaka. 3 min Higashi-Umeda, 7 min Osaka Station. Phone: 050-5456-0889. Premium all-you-can-eat yakiniku. Quality black wagyu focus, not just quantity. Higher-tier course includes uni + ikura AYCE. From Nasha."
+      "notes": "2-10-21 Sonezaki, Kita-ku, Osaka. 3 min Higashi-Umeda, 7 min Osaka Station. Phone: 050-5456-0889. Premium all-you-can-eat yakiniku. Quality black wagyu focus, not just quantity. Higher-tier course includes uni + ikura AYCE. From Nasha.",
+      "area": "UMEDA"
     },
     {
       "name": "Yakiniku Gorichan Shinsaibashi / 焼肉ごりちゃん (IG Reel)",
@@ -336,7 +347,8 @@
         "assets/food/yakiniku-gorichan-1.jpg",
         "assets/food/yakiniku-gorichan-2.jpg"
       ],
-      "notes": "1-3-13 Shinsaibashisuji, Chuo-ku, Osaka. ~3 min from Shinsaibashi Station. Lunch AYCE with 50mm thick-cut gyutan using rare タン元 (tongue root). Unlimited: rice, tongue curry, meat miso, tororo. Lunch 11:00-15:00, Dinner 17:00-23:00. No days off. From Nasha."
+      "notes": "1-3-13 Shinsaibashisuji, Chuo-ku, Osaka. ~3 min from Shinsaibashi Station. Lunch AYCE with 50mm thick-cut gyutan using rare タン元 (tongue root). Unlimited: rice, tongue curry, meat miso, tororo. Lunch 11:00-15:00, Dinner 17:00-23:00. No days off. From Nasha.",
+      "area": "SHINSAIBASHI"
     }
   ]
 }
