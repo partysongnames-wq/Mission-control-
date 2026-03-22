@@ -61,6 +61,8 @@
     .spot-title{font-size:1rem;letter-spacing:.08em;}
     .spot-type{font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:#ffdfb0;}
     .spot-notes{font-size:.82rem;line-height:1.5;color:var(--muted);}
+    .spot-facts{display:flex;flex-direction:column;gap:4px;margin-top:2px;}
+    .spot-fact{font-size:.76rem;line-height:1.35;color:#dce3ff;opacity:.95;}
     .spot-meta{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;}
     .pill{display:inline-flex;align-items:center;padding:3px 8px;border-radius:999px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.06);}    
     .pill.priority{border-color:rgba(255,179,71,.5);color:#ffdfb0;background:rgba(255,179,71,.15);}    
@@ -271,19 +273,22 @@
               const name = spot.name || 'Untitled spot';
               const type = spot.type || 'Food';
               const notes = spot.notes || '';
-              const access = spot.access ? `Access: ${spot.access}` : '';
               const mustTry = spot.must_try ? `Must-try: ${spot.must_try}` : '';
               const link = spot.link ? `<a class="spot-link" href="${spot.link}" target="_blank" rel="noopener">Open link</a>` : '';
               const status = prettyStatus(spot.status);
               const photos = Array.isArray(spot.photos) ? spot.photos : (spot.photo ? [spot.photo] : []);
               const previewPhotos = photos.slice(0, 2);
-              const extraPhotos = photos.slice(2);
               const photoBlock = previewPhotos.length ? `<div class="spot-photo-grid">${previewPhotos.map(src => `<img class=\"spot-photo\" src=\"${src}\" alt=\"${name}\" />`).join('')}</div>` : '';
-              const extraLinks = extraPhotos.length ? `<div class=\"spot-extra\">More photos: ${extraPhotos.map((src, i) => `<a class=\\\"spot-extra-link\\\" href=\\\"${src}\\\" target=\\\"_blank\\\" rel=\\\"noopener\\\">${i + 3}</a>`).join(' ')}</div>` : '';
+
+              const factLines = [
+                spot.location ? `📍 ${spot.location}` : '',
+                spot.access ? `🚉 ${spot.access}` : '',
+                spot.hours ? `🕒 ${spot.hours}` : '',
+                spot.signature ? `✨ ${spot.signature}` : ''
+              ].filter(Boolean);
               return `
                 <div class="spot-card">
                   ${photoBlock}
-                  ${extraLinks}
                   <div class="spot-type">${type}</div>
                   <div class="spot-title">${name}</div>
                   ${spot.price ? `<div class="spot-price" style="font-size:.78rem;color:#ffd9a1;letter-spacing:.06em;margin-top:2px;">${formatPrice(spot.price)}</div>` : ''}
@@ -291,7 +296,8 @@
                     <span class="pill">${city.startsWith('Busan -') ? 'Busan' : city}</span>
                     <span class="${statusClass(status)}">${status}</span>
                   </div>
-                  <div class="spot-notes">${[notes, access, mustTry].filter(Boolean).join(' · ') || 'No notes yet.'}</div>
+                  ${factLines.length ? `<div class="spot-facts">${factLines.map(line => `<div class=\"spot-fact\">${line}</div>`).join('')}</div>` : ''}
+                  <div class="spot-notes">${[notes, mustTry].filter(Boolean).join(' · ') || 'No notes yet.'}</div>
                   ${link}
                 </div>
               `;

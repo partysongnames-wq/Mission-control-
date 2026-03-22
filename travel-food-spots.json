@@ -88,9 +88,9 @@
       "notes": "Seoul (Yongsan) udon bar with raw seafood; from Nasha reel."
     },
     {
-      "name": "All-you-can-eat Oyster (Takumi Shimizu) (FB reel)",
+      "name": "All-you-can-eat Oysters (Takumi Shimizu) (FB reel)",
       "city": "Osaka",
-      "type": "Restaurant / Oyster",
+      "type": "Restaurant / Oysters",
       "status": "saved",
       "must_try": "Miyagi oysters - 12 different oyster dishes",
       "price": "¥4,980 (~฿1,195) (walk-in discount ¥4,480 (~฿1,075) before 6pm/after 9pm)",
@@ -104,7 +104,10 @@
       ],
       "notes": "Osaka (Takatsuki) all-you-can-eat oyster restaurant. 12 oyster dishes + 24 other dishes. Oysters from Miyagi Prefecture. 2 min walk from Hankyu Takatsukishi Station. Hours: 17:00-00:00 (Fri 16:00, Sat-Sun 12:00). All-you-can-drink +¥1,000. Nasha sent.",
       "area": "OUTSIDE CENTRAL OSAKA",
-      "access": "Takatsuki · From Shinsaibashi: ~25 min by train · From UMEDA: ~15–20 min by train (closer to UMEDA)"
+      "access": "Takatsuki · From Shinsaibashi: ~25 min by train · From UMEDA: ~15–20 min by train (closer to UMEDA)",
+      "location": "Takatsuki, Osaka (2 min walk from Hankyu Takatsukishi Station)",
+      "hours": "17:00–00:00 (Fri 16:00, Sat–Sun 12:00)",
+      "signature": "Miyagi oysters, 12 oyster dishes (+24 other dishes)"
     },
     {
       "name": "Spicy Oyster Stew (Lorari Gip / 로라리 깁) (FB/IG reel)",
