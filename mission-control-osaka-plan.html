@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Osaka Plan · Mission Control</title>
+  <style>
+    :root{--bg:#030308;--panel:#101223;--card:#1d2135;--muted:#a0a8c5;--border:rgba(255,255,255,.12);--accent:#ffb347;--ok:#10a37f;font-family:'Space Grotesk','Inter',system-ui;}
+    *{box-sizing:border-box;} body{margin:0;min-height:100vh;background:radial-gradient(circle at top,#2d1b54,#030308 45%);color:#f5f7ff;display:flex;justify-content:center;padding:24px;}
+    .page{width:min(1240px,calc(100vw-32px));background:var(--panel);border-radius:30px;padding:26px;border:1px solid var(--border);box-shadow:0 30px 80px rgba(0,0,0,.7);} 
+    .glass-header{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;flex-wrap:wrap;padding:14px;border-radius:22px;border:1px solid rgba(255,255,255,.14);background:linear-gradient(135deg,rgba(255,255,255,.10),rgba(255,255,255,.04));}
+    h1{margin:0;font-size:1.45rem;letter-spacing:.22em;text-transform:uppercase;} .subtitle{color:var(--muted);margin-top:8px;letter-spacing:.06em;line-height:1.5;}
+    .chipbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:flex-end;}
+    .chip{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.16);background:rgba(12,14,24,.28);color:#fff;text-decoration:none;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;}
+    .chip.active{background:rgba(255,179,71,.14);border-color:rgba(255,179,71,.50);} .chip:hover{background:rgba(255,255,255,.10);} 
+    .hero{display:grid;grid-template-columns:repeat(4,minmax(180px,1fr));gap:12px;margin:16px 0;} .hero-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:12px;}
+    .hero-card h3{margin:0;font-size:.68rem;letter-spacing:.28em;text-transform:uppercase;color:var(--muted);} .hero-card strong{display:block;margin-top:8px;font-size:1.1rem;letter-spacing:.08em;}
+    .grid{display:grid;grid-template-columns:1.2fr 1fr;gap:16px;} .card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.1);border-radius:18px;padding:16px;}
+    .card h2{margin:0 0 10px;font-size:.98rem;letter-spacing:.2em;text-transform:uppercase;} ul{margin:0;padding-left:18px;line-height:1.5;} li{margin:6px 0;color:#e7ecff;}
+    .timeline .row{display:grid;grid-template-columns:120px 1fr;gap:12px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.08);} .timeline .row:last-child{border-bottom:none;}
+    .when{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:#ffd8a3;} .tag{display:inline-flex;padding:3px 8px;border-radius:999px;border:1px solid rgba(255,255,255,.16);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;background:rgba(255,255,255,.08);} .opt{border-color:rgba(255,179,71,.5);background:rgba(255,179,71,.14);} .fixed{border-color:rgba(16,163,127,.55);background:rgba(16,163,127,.14);}
+    .photos{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;} .photos img{width:100%;height:170px;object-fit:cover;border-radius:12px;border:1px solid rgba(255,255,255,.14);} 
+    .note{margin-top:10px;color:var(--muted);font-size:.84rem;line-height:1.5;} .link{color:#ffd9a1;text-decoration:none;} .link:hover{text-decoration:underline;}
+    @media (max-width:980px){.grid{grid-template-columns:1fr;}.hero{grid-template-columns:1fr 1fr;}}
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="glass-header">
+      <div>
+        <h1>Osaka Plan</h1>
+        <div class="subtitle">3-night rough schedule + things to do + decision blocks (Universal / Baseball) + outlet shopping notes.</div>
+      </div>
+      <div class="chipbar">
+        <a class="chip" href="mission-control.html">⟵ Mission</a>
+        <a class="chip" href="mission-control-hotels.html">🏨 Hotels</a>
+        <a class="chip" href="mission-control-food.html">🍜 Food</a>
+        <a class="chip" href="mission-control-city-briefs.html">🗺 Briefs</a>
+        <a class="chip active" href="mission-control-osaka-plan.html">📅 Osaka</a>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="hero-card"><h3>Hotel</h3><strong>LEOPARD Shinsaibashi</strong></div>
+      <div class="hero-card"><h3>Stay</h3><strong>3 Nights · 14–17 Apr</strong></div>
+      <div class="hero-card"><h3>Fixed Plan</h3><strong>Brother lunch 2 PM + drinks</strong></div>
+      <div class="hero-card"><h3>Decision Pending</h3><strong>USJ + Baseball</strong></div>
+    </section>
+
+    <div class="grid">
+      <section class="card timeline">
+        <h2>Rough Schedule</h2>
+        <div class="row"><div class="when">Day 1</div><div><span class="tag fixed">Fixed</span> 2:00 PM lunch with brother, then drinks (you + him).<div class="note">Keep evening light after drinks. Nearby backup: Shinsaibashi / Namba walk.</div></div></div>
+        <div class="row"><div class="when">Day 2</div><div><span class="tag opt">Optional</span> Universal Studios Japan day.<div class="note">Decide by previous night based on energy + weather + ticket pricing.</div></div></div>
+        <div class="row"><div class="when">Day 3</div><div><span class="tag opt">Optional</span> Baseball game day.<div class="note">If no baseball, run outlet + market combo day.</div></div></div>
+        <div class="row"><div class="when">Day 4</div><div><span class="tag fixed">Fixed</span> Departure day.</div></div>
+      </section>
+
+      <section class="card">
+        <h2>Things To Do (Non-food)</h2>
+        <ul>
+          <li><b>Outlet day:</b> Mitsui Shopping Park LaLaport KADOMA + Mitsui Outlet Park Osaka Kadoma</li>
+          <li><b>Transit clue from reel:</b> shuttle signage shows <b>Namba / Shinsaibashi ⇄ LaLaport / Mitsui Outlet</b></li>
+          <li><b>Best use:</b> half-day shopping block, then dinner back near hotel</li>
+          <li><b>Add when ready:</b> exact outlet post link + opening hours check</li>
+        </ul>
+        <div class="note">I can turn this into a timed route (depart hotel time + return target) once you confirm USJ/baseball decisions.</div>
+      </section>
+
+      <section class="card">
+        <h2>Outlet Visual Notes</h2>
+        <div class="photos">
+          <img src="assets/osaka/lalaport-kadoma-1.jpg" alt="osaka outlet 1" />
+          <img src="assets/osaka/lalaport-kadoma-2.jpg" alt="osaka outlet 2" />
+          <img src="assets/osaka/lalaport-kadoma-3.jpg" alt="osaka outlet 3" />
+          <img src="assets/osaka/lalaport-kadoma-4.jpg" alt="osaka outlet 4" />
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Decision Panel (Quick)</h2>
+        <ul>
+          <li><b>USJ:</b> Go if weather + queue app looks manageable, skip if crowds extreme.</li>
+          <li><b>Baseball:</b> Go if seats/timing line up; otherwise keep Osaka local + flexible.</li>
+          <li><b>Priority lock:</b> Brother day stays fixed regardless.</li>
+        </ul>
+        <div class="note">Want me to add checkbox state persistence (so you can mark Go/Skip and keep it saved)?</div>
+      </section>
+    </div>
+  </div>
+</body>
+</html>
