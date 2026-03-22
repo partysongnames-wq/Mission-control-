@@ -25,7 +25,12 @@
         "assets/food/busan-seafood-2.jpg"
       ],
       "notes": "By the sea in Busan. Nasha sent as a seaside seafood spot.",
-      "area": "Yeongdo / Coast"
+      "area": "Yeongdo / Coast",
+      "distance_to_hotels": [
+        "🚕 ~38 min by taxi to W Residence Hotel Haeundae (typical range 30–50 min)",
+        "🚕 ~62 min by taxi to Busan Gijang The Club Hotel (typical range 50–75 min)"
+      ],
+      "distance_estimate_note": "Estimated from area-level location; refine later with exact pin + live traffic."
     },
     {
       "name": "Zauo Fishing Restaurant Osaka (FB reel)",
@@ -71,7 +76,13 @@
         "assets/food/unknown-seafood-1.jpg"
       ],
       "notes": "Named on reel: 101 The Terrace (101더테라스). Seaside view; jjukkumi shabu + seafood broth. Location pinned to Busan per Trent (low confidence).",
-      "area": "Haeundae Coast"
+      "area": "Haeundae Coast",
+      "distance_to_hotels": [
+        "🚕 ~9 min by taxi to W Residence Hotel Haeundae",
+        "🚶 ~22 min walk to W Residence Hotel Haeundae",
+        "🚕 ~42 min by taxi to Busan Gijang The Club Hotel"
+      ],
+      "distance_estimate_note": "Estimated from area-level location; refine later with exact pin + live traffic."
     },
     {
       "name": "Yongsan Udon Bar seafood (FB reel)",
@@ -120,7 +131,13 @@
         "assets/food/busan-oyster-stew-2.jpg"
       ],
       "notes": "Busan spicy oyster stew (굴찌개) spot. Features generous oysters in spicy red broth, served with rice. Bowl shows '로라리 깁' (Lorari Gip/House). From Nasha via 우아한사라씨 (Woahan Sarah) reel.",
-      "area": "Haeundae Coast"
+      "area": "Haeundae Coast",
+      "distance_to_hotels": [
+        "🚕 ~10 min by taxi to W Residence Hotel Haeundae",
+        "🚶 ~24 min walk to W Residence Hotel Haeundae",
+        "🚕 ~43 min by taxi to Busan Gijang The Club Hotel"
+      ],
+      "distance_estimate_note": "Estimated from area-level location; refine later with exact pin + live traffic."
     },
     {
       "name": "Dalbit Grilled Mackerel / 달빛에구운고등어 (IG Reel)",
@@ -131,7 +148,12 @@
       "price": "₩12,000–17,000 (~฿300–500)",
       "link": "https://www.instagram.com/reel/placeholder",
       "notes": "Songjeong Beach, Busan. Ocean-view Korean seafood restaurant. Wood-fired grilled fish + buffet sides (bulgogi, japchae, fresh omelet, kimchi, salads). Casual local vibe, popular with families. Can get busy at peak times. From Nasha via 우아한사라씨 (Woahan Sarah).",
-      "area": "Songjeong / East Coast"
+      "area": "Songjeong / East Coast",
+      "distance_to_hotels": [
+        "🚕 ~15 min by taxi to W Residence Hotel Haeundae",
+        "🚕 ~23 min by taxi to Busan Gijang The Club Hotel"
+      ],
+      "distance_estimate_note": "Estimated from area-level location; refine later with exact pin + live traffic."
     },
     {
       "name": "Umeda A5 Wagyu BBQ All-you-can-eat (IG Reel)",
@@ -226,7 +248,12 @@
         "assets/food/busan-fire-bbq-2.jpg"
       ],
       "notes": "Myeongji, Busan (Gangseo-gu). Large-scale Korean BBQ (700 pyeong venue) with live iron plate cooking and dramatic fire show performances. Chefs cook pork belly, squid, seafood, and fried rice on oversized flat grills with flame effects. High-energy entertainment dining. Popular for groups. Mid-range pricing. From Nasha via 우아한사라씨.",
-      "area": "Myeongji / Gangseo"
+      "area": "Myeongji / Gangseo",
+      "distance_to_hotels": [
+        "🚕 ~52 min by taxi to W Residence Hotel Haeundae (typical range 40–65 min)",
+        "🚕 ~66 min by taxi to Busan Gijang The Club Hotel (typical range 55–80 min)"
+      ],
+      "distance_estimate_note": "Estimated from area-level location; refine later with exact pin + live traffic."
     },
     {
       "name": "The Aquatic Market (IG Reel)",
