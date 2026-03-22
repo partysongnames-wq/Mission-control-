@@ -419,6 +419,26 @@
       "closest_station": "Shinsaibashi Station",
       "access": "From Shinsaibashi Station: ~3 min",
       "from_hotel": "From LEOPARD Shinsaibashi: ~3–5 min walk · ~2–3 min taxi"
+    },
+    {
+      "name": "Nikai no Oasis KITTE Osaka / ニカイノオアシス KITTE大阪",
+      "city": "Osaka",
+      "type": "Izakaya / Tempura / Seafood",
+      "status": "saved",
+      "area": "UMEDA",
+      "location": "KITTE Osaka B1F (Umeda)",
+      "access": "Direct from Umeda Station west gate (walk ~0 min)",
+      "hours": "TBD (check latest)",
+      "price": "Shrimp cutlet ¥780 (~฿187)",
+      "signature": "Puri-puri shrimp cutlet, grilled giant river prawns, casual tempura izakaya vibe",
+      "notes": "From Nasha reel. Quiet-but-fun atmosphere. Good for casual lunch/drinks near station.",
+      "must_try": "Puri-puri ebi katsu (shrimp cutlet), grilled prawns",
+      "link": "https://www.facebook.com/share/r/14Z1mvDCaV6/?mibextid=wwXIfr",
+      "photos": [
+        "assets/food/kitte-oasis-1.jpg",
+        "assets/food/kitte-oasis-2.jpg"
+      ],
+      "photo": "assets/food/kitte-oasis-1.jpg"
     }
   ]
 }
