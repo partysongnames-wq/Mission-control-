@@ -221,7 +221,11 @@
       "price": "¥5,000 (~฿1,100)",
       "link": "https://www.instagram.com/reel/placeholder",
       "photo": "assets/food/sukiyaki-tsuruya-1.jpg",
-      "notes": "Nihonbashi, Osaka. ~3 min from Nippombashi Station. Premium wagyu sukiyaki & shabu-shabu. Tourist-friendly location near Dotonbori & Kuromon Market. Perfect intro to Japanese hotpot without high-end prices. Beginner-friendly. From Nasha."
+      "notes": "Nihonbashi, Osaka. ~3 min from Nippombashi Station. Premium wagyu sukiyaki & shabu-shabu. Tourist-friendly location near Dotonbori & Kuromon Market. Perfect intro to Japanese hotpot without high-end prices. Beginner-friendly. From Nasha.",
+      "photos": [
+        "assets/food/sukiyaki-tsuruya-1.jpg",
+        "assets/food/sukiyaki-tsuruya-2.jpg"
+      ]
     },
     {
       "name": "Niku Tokidoki Lemon Umeda / 肉トキドキレモン 梅田 (IG Reel)",
