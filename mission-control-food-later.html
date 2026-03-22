@@ -273,7 +273,7 @@
               const status = prettyStatus(spot.status);
               const photos = Array.isArray(spot.photos) ? spot.photos : (spot.photo ? [spot.photo] : []);
               const previewPhotos = photos.slice(0, 2);
-              const photoBlock = previewPhotos.length ? `<div class="spot-photo-grid">${previewPhotos.map(src => `<img class=\"spot-photo\" src=\"${src}\" alt=\"${name}\" />`).join('')}</div>` : '';
+              const photoBlock = previewPhotos.length ? `<div class="spot-photo-grid">${previewPhotos.map(src => `<img class=\"spot-photo\" src=\"${src}?v=20260322c\" alt=\"${name}\" />`).join('')}</div>` : '';
 
               const factLines = [
                 spot.location ? `📍 ${spot.location}` : '',
