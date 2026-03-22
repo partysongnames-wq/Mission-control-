@@ -208,9 +208,13 @@
 
         statusEl.textContent = data.notes || 'Food spots loaded.';
 
+        const cityBottom = ['Tokyo', 'Jeju'];
         const cityEntries = Object.entries(byCity).sort(([a], [b]) => {
-          if (a === 'Tokyo') return 1;
-          if (b === 'Tokyo') return -1;
+          const aBottom = cityBottom.includes(a);
+          const bBottom = cityBottom.includes(b);
+          if (aBottom && !bBottom) return 1;
+          if (!aBottom && bBottom) return -1;
+          if (aBottom && bBottom) return cityBottom.indexOf(a) - cityBottom.indexOf(b);
           return a.localeCompare(b);
         });
 
