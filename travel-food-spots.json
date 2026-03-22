@@ -491,13 +491,18 @@
       ],
       "photos": [
         "assets/food/coonies-market-1.jpg",
-        "assets/food/coonies-market-2.jpg"
+        "assets/food/coonies-market-2.jpg",
+        "assets/food/coonies-market-3.jpg",
+        "assets/food/coonies-market-4.jpg",
+        "assets/food/coonies-market-5.jpg",
+        "assets/food/coonies-market-6.jpg"
       ],
       "photo": "assets/food/coonies-market-1.jpg",
       "extra_photos": [
         "assets/food/coonies-market-info-1.jpg",
         "assets/food/coonies-market-info-2.jpg"
-      ]
+      ],
+      "photo_count": 6
     }
   ]
 }
