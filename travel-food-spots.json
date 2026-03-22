@@ -470,6 +470,34 @@
         "assets/food/haeundae-market-3.jpg"
       ],
       "photo": "assets/food/haeundae-market-1.jpg"
+    },
+    {
+      "name": "Coonies Fresh Market / 南河生鮮市場クーニーズ",
+      "city": "Osaka",
+      "type": "Seafood Market / Grocery",
+      "status": "saved",
+      "area": "OUTSIDE CENTRAL OSAKA",
+      "location": "大阪府羽曳野市西浦3丁目6-920-1 (from screenshot text)",
+      "access": "From Shinsaibashi/central Osaka: ~55–70 min by train + local transfer, or taxi ~50–65 min",
+      "hours": "TBD (check latest before going)",
+      "price": "Low to mid; market pricing (reel highlights bargains/discounts)",
+      "signature": "Fresh seafood selection (including live tanks), meat bargains, nabe ingredients",
+      "notes": "From Nasha reel. Family-friendly market style stop; better as a planned half-day errand trip than a quick dinner hop.",
+      "must_try": "Seasonal seafood + nabe ingredients",
+      "link": "https://www.facebook.com/share/1DgBdvueUa/?mibextid=wwXIfr",
+      "distance_to_hotels": [
+        "🚇 ~55–70 min from LEOPARD Shinsaibashi (train + transfer)",
+        "🚕 ~50–65 min by taxi from LEOPARD Shinsaibashi"
+      ],
+      "photos": [
+        "assets/food/coonies-market-1.jpg",
+        "assets/food/coonies-market-2.jpg"
+      ],
+      "photo": "assets/food/coonies-market-1.jpg",
+      "extra_photos": [
+        "assets/food/coonies-market-info-1.jpg",
+        "assets/food/coonies-market-info-2.jpg"
+      ]
     }
   ]
 }
