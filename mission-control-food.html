@@ -147,11 +147,10 @@
       const hay = `${spot.name || ''} ${spot.notes || ''}`.toLowerCase();
 
       if (city === 'osaka') {
-        if (/umeda|kita/.test(hay)) return 'Umeda / Kita';
-        if (/namba|shinsaibashi|dotonbori|minami/.test(hay)) return 'Namba / Minami';
-        if (/tennoji|shinsekai|abeno/.test(hay)) return 'Tennoji / Shinsekai';
-        if (/tajiri|market|fishing|port/.test(hay)) return 'Markets / Port';
-        return 'Other Osaka';
+        if (/umeda|kita/.test(hay)) return 'UMEDA';
+        if (/namba|shinsaibashi|dotonbori|minami/.test(hay)) return 'NAMBA / SHINSAIBASHI';
+        if (/kyobashi/.test(hay)) return 'KYOBASHI';
+        return 'OUTSIDE CENTRAL OSAKA';
       }
 
       if (city === 'busan') {
@@ -251,7 +250,7 @@
           }, {});
 
           const preferredAreaOrder = city === 'Osaka'
-            ? ['UMEDA', 'NAMBA / SHINSAIBASHI', 'KYOBASHI', 'OUTSIDE OSAKA', 'OTHER OSAKA']
+            ? ['UMEDA', 'NAMBA / SHINSAIBASHI', 'KYOBASHI', 'OUTSIDE CENTRAL OSAKA']
             : city.startsWith('Busan')
               ? ['Haeundae Coast', 'Songjeong / East Coast', 'Yeongdo / Coast', 'Myeongji / Gangseo', 'Other Busan', 'Gijang']
               : [];
