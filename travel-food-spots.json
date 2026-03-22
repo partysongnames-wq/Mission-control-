@@ -172,8 +172,12 @@
       "must_try": "Raw oysters + oyster okonomiyaki + ikura bowls",
       "price": "~¥5,500 (~฿1,200-1,300) unlimited time",
       "link": "https://www.instagram.com/reel/placeholder",
-      "photo": "assets/food/osaka-oyster-unlimited-1.jpg",
-      "notes": "Osaka. Rare no-time-limit all-you-can-eat oyster restaurant. 220+ menu items including raw oysters, grilled oysters, fried oysters (カキフライ), oyster okonomiyaki, ikura bowls, rice bowls, and seafood. Hokkaido seasonal promos. From Nasha via 大阪グルメ【関西グルメ】."
+      "photo": "assets/food/osaka-oyster-unlimited-2.jpg",
+      "notes": "Osaka. Rare no-time-limit all-you-can-eat oyster restaurant. 220+ menu items including raw oysters, grilled oysters, fried oysters (カキフライ), oyster okonomiyaki, ikura bowls, rice bowls, and seafood. Hokkaido seasonal promos. From Nasha via 大阪グルメ【関西グルメ】.",
+      "photos": [
+        "assets/food/osaka-oyster-unlimited-2.jpg",
+        "assets/food/osaka-oyster-unlimited-3.jpg"
+      ]
     },
     {
       "name": "中トロと豚足 / Chutoro & Pork Feet (IG Reel)",
