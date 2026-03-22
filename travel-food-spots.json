@@ -46,7 +46,8 @@
       ],
       "notes": "Osaka spot where you can fish inside and have it prepared. Location: Osaka (Namba/Shinsaibashi area). From Shinsaibashi: ~10–15 minutes (walk + short train, depending on branch).",
       "area": "NAMBA / SHINSAIBASHI",
-      "closest_station": "Namba / Shinsaibashi area stations (branch-dependent)"
+      "closest_station": "Namba Station / Shinsaibashi Station (branch-dependent)",
+      "access": "Walk 8–15 min (branch-dependent) · From Shinsaibashi: ~10–15 min · From UMEDA: ~15–20 min"
     },
     {
       "name": "Jeju super ramen (FB reel)",
@@ -114,11 +115,11 @@
       ],
       "notes": "Osaka (Takatsuki) all-you-can-eat oyster restaurant. 12 oyster dishes + 24 other dishes. Oysters from Miyagi Prefecture. 2 min walk from Hankyu Takatsukishi Station. Hours: 17:00-00:00 (Fri 16:00, Sat-Sun 12:00). All-you-can-drink +¥1,000. Nasha sent.",
       "area": "OUTSIDE CENTRAL OSAKA",
-      "access": "Takatsuki · From Shinsaibashi: ~25 min by train · From UMEDA: ~15–20 min by train (closer to UMEDA)",
+      "access": "Walk ~2 min · From Shinsaibashi: ~25 min · From UMEDA: ~15–20 min (closer to UMEDA)",
       "location": "Takatsuki, Osaka (2 min walk from Hankyu Takatsukishi Station)",
       "hours": "17:00–00:00 (Fri 16:00, Sat–Sun 12:00)",
       "signature": "Miyagi oysters, 12 oyster dishes (+24 other dishes)",
-      "closest_station": "Hankyu Takatsukishi Station (~2 min walk)"
+      "closest_station": "Hankyu Takatsukishi Station"
     },
     {
       "name": "Spicy Oyster Stew (Lorari Gip / 로라리 깁) (FB/IG reel)",
@@ -172,7 +173,8 @@
         "assets/food/umeda-a5-wagyu-1.jpg",
         "assets/food/umeda-a5-wagyu-2.jpg"
       ],
-      "closest_station": "Osaka-Umeda / Osaka Station area"
+      "closest_station": "Osaka-Umeda Station / Osaka Station",
+      "access": "Walk ~5–10 min · From Shinsaibashi: ~15–20 min · From UMEDA: local"
     },
     {
       "name": "Bacchanale Shellfish Bar / 貝バル Bacchanale (IG Reel)",
@@ -189,7 +191,8 @@
         "assets/food/bacchanale-shellfish-3.jpg"
       ],
       "area": "UMEDA",
-      "closest_station": "Shinsaibashi Station"
+      "closest_station": "Shinsaibashi Station",
+      "access": "Walk ~5–8 min · From Shinsaibashi: local · From UMEDA: ~15–20 min"
     },
     {
       "name": "Yakiniku Gang / 焼肉ギャング 梅田店 (IG Reel)",
@@ -206,7 +209,8 @@
         "assets/food/yakiniku-gang-3.jpg"
       ],
       "area": "UMEDA",
-      "closest_station": "Osaka-Umeda / Osaka Station area"
+      "closest_station": "Osaka-Umeda Station / Osaka Station",
+      "access": "Walk ~5–10 min · From Shinsaibashi: ~15–20 min · From UMEDA: local"
     },
     {
       "name": "Osaka Oyster All-You-Can-Eat Unlimited Time (IG Reel)",
@@ -223,7 +227,8 @@
         "assets/food/osaka-oyster-unlimited-3.jpg"
       ],
       "area": "UMEDA",
-      "closest_station": "Osaka-Umeda area (exact branch TBD)"
+      "closest_station": "Osaka-Umeda area (exact branch TBD)",
+      "access": "Walk TBD · From Shinsaibashi: ~15–20 min · From UMEDA: local"
     },
     {
       "name": "中トロと豚足 / Chutoro & Pork Feet (IG Reel)",
@@ -240,7 +245,8 @@
         "assets/food/chutoro-buta-ashi-3.jpg"
       ],
       "area": "UMEDA",
-      "closest_station": "Tenma / Umeda area stations"
+      "closest_station": "Tenma Station / Higashi-Umeda area",
+      "access": "Walk ~5–10 min · From Shinsaibashi: ~20–25 min · From UMEDA: ~5–10 min"
     },
     {
       "name": "그날이후불타는삼겹살 / Burning Pork Belly After That Day (IG Reel)",
@@ -292,7 +298,8 @@
         "assets/food/sukiyaki-tsuruya-2.jpg"
       ],
       "area": "UMEDA",
-      "closest_station": "Nippombashi Station (~3 min walk)"
+      "closest_station": "Nippombashi Station",
+      "access": "Walk ~3 min · From Shinsaibashi: ~10 min · From UMEDA: ~20–25 min"
     },
     {
       "name": "Niku Tokidoki Lemon Umeda / 肉トキドキレモン 梅田 (IG Reel)",
@@ -309,7 +316,8 @@
         "assets/food/niku-tokidoki-lemon-2.jpg"
       ],
       "area": "UMEDA",
-      "closest_station": "Osaka-Umeda / Osaka Station area"
+      "closest_station": "Osaka-Umeda Station / Osaka Station",
+      "access": "Walk ~5–10 min · From Shinsaibashi: ~15–20 min · From UMEDA: local"
     },
     {
       "name": "Tajiri Port Sunday Morning Market / 田尻漁港日曜朝市 (IG Reel)",
@@ -327,8 +335,8 @@
       ],
       "notes": "Tajiri, Osaka (Sennan District). Local fishing port market ~40 stalls. Sundays only 7:00-12:00. Fresh seafood straight from boats, grilled squid, octopus rice, tempura. Very local authentic vibe, less touristy than Kuromon Market. From Nasha via usako_love.",
       "area": "OUTSIDE CENTRAL OSAKA",
-      "access": "Tajiri · From Shinsaibashi: ~60 min by train",
-      "closest_station": "Nankai Yoshiminosato area (plus local transfer)"
+      "access": "Walk/transfer required · From Shinsaibashi: ~60 min · From UMEDA: ~70–80 min",
+      "closest_station": "Nankai Yoshiminosato area + local transfer"
     },
     {
       "name": "Sendai Horumon Tokiwatei / 仙台ホルモン焼肉酒場 ときわ亭 (IG Reel)",
@@ -345,8 +353,8 @@
       ],
       "notes": "Doyamacho, Umeda, Osaka. ~3 min from Higashi-Umeda Station. Famous for beef tongue AYCE with '0-second lemon sour' taps at your table. Classic salt + green onion tongue (ねぎ塩タン). From Nasha via reel.",
       "area": "UMEDA",
-      "access": "UMEDA area",
-      "closest_station": "Higashi-Umeda Station (~3 min walk)"
+      "access": "Walk ~3 min · From Shinsaibashi: ~15–20 min · From UMEDA: local",
+      "closest_station": "Higashi-Umeda Station"
     },
     {
       "name": "Kaiten Sushi Jin / 回転寿司 仁 (IG Reel)",
@@ -364,7 +372,7 @@
       ],
       "notes": "Kyobashi, Osaka. 東野田町2丁目4-20 京橋ビル B1. Premium conveyor belt sushi - chef prepares fresh in front of you. Fresh fish from ports, thick cuts. High quality for cheap price. Open 11:00-22:00, no days off. From Nasha via Koki Hironaka.",
       "area": "KYOBASHI",
-      "access": "From Shinsaibashi: ~15–20 min by train · From UMEDA: ~10–15 min by train (closer to UMEDA)",
+      "access": "Walk ~3–6 min · From Shinsaibashi: ~15–20 min · From UMEDA: ~10–15 min (closer to UMEDA)",
       "closest_station": "Kyobashi Station"
     },
     {
@@ -382,7 +390,8 @@
       ],
       "notes": "2-10-21 Sonezaki, Kita-ku, Osaka. 3 min Higashi-Umeda, 7 min Osaka Station. Phone: 050-5456-0889. Premium all-you-can-eat yakiniku. Quality black wagyu focus, not just quantity. Higher-tier course includes uni + ikura AYCE. From Nasha.",
       "area": "UMEDA",
-      "closest_station": "Higashi-Umeda Station (~3 min) / Osaka Station (~7 min)"
+      "closest_station": "Higashi-Umeda Station / Osaka Station",
+      "access": "Walk ~3 min (Higashi-Umeda) or ~7 min (Osaka Sta) · From Shinsaibashi: ~15–20 min · From UMEDA: local"
     },
     {
       "name": "Yakiniku Gorichan Shinsaibashi / 焼肉ごりちゃん (IG Reel)",
@@ -399,7 +408,8 @@
       ],
       "notes": "1-3-13 Shinsaibashisuji, Chuo-ku, Osaka. ~3 min from Shinsaibashi Station. Lunch AYCE with 50mm thick-cut gyutan using rare タン元 (tongue root). Unlimited: rice, tongue curry, meat miso, tororo. Lunch 11:00-15:00, Dinner 17:00-23:00. No days off. From Nasha.",
       "area": "NAMBA / SHINSAIBASHI",
-      "closest_station": "Shinsaibashi Station (~3 min walk)"
+      "closest_station": "Shinsaibashi Station",
+      "access": "Walk ~3 min · From Shinsaibashi: local · From UMEDA: ~15–20 min"
     }
   ]
 }
