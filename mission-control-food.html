@@ -186,7 +186,13 @@
 
         statusEl.textContent = data.notes || 'Food spots loaded.';
 
-        listEl.innerHTML = Object.entries(byCity).map(([city, items]) => {
+        const cityEntries = Object.entries(byCity).sort(([a], [b]) => {
+          if (a === 'Tokyo') return 1;
+          if (b === 'Tokyo') return -1;
+          return a.localeCompare(b);
+        });
+
+        listEl.innerHTML = cityEntries.map(([city, items]) => {
           const cards = items.map(spot => {
             const name = spot.name || 'Untitled spot';
             const type = spot.type || 'Food';
