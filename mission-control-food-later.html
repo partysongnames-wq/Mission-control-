@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Food Spots · Mission Control</title>
+  <title>Food Spots (Later) · Mission Control</title>
   <style>
     :root{
       --bg:#030308;
@@ -86,8 +86,8 @@
   <div class="page">
     <div class="glass-header">
       <div>
-        <h1>Food Spots</h1>
-        <div class="subtitle">Restaurants, cafés, and food finds across the trip. Drop in links from Nasha and the list stays organized by city.</div>
+        <h1>Food Spots (Later)</h1>
+        <div class="subtitle">Off-trip food spots (not in current route).</div>
       </div>
       <div class="chipbar">
         <a class="chip" href="mission-control.html"><span class="ico">⟵</span>Mission</a>
@@ -96,8 +96,8 @@
         <a class="chip" href="mission-control-flight-alternatives.html"><span class="ico">⎇</span>Alts</a>
         <a class="chip" href="mission-control-rail-options.html"><span class="ico">🚆</span>Rail</a>
         <a class="chip" href="mission-control-hotels.html"><span class="ico">🏨</span>Hotels</a>
-        <a class="chip active" href="mission-control-food.html"><span class="ico">🍜</span>Food</a>
-        <a class="chip" href="mission-control-food-later.html"><span class="ico">📦</span>Later</a>
+        <a class="chip" href="mission-control-food.html"><span class="ico">🍜</span>Food</a>
+        <a class="chip active" href="mission-control-food-later.html"><span class="ico">📦</span>Later</a>
       </div>
     </div>
 
@@ -193,7 +193,7 @@
       .then(data => {
         const spots = Array.isArray(data.spots) ? data.spots : [];
         const offTripCities = new Set(['Tokyo','Jeju','Seoul']);
-        const tripSpots = spots.filter(spot => !offTripCities.has((spot.city || '').trim()));
+        const tripSpots = spots.filter(spot => offTripCities.has((spot.city || '').trim()));
         const byCity = tripSpots.reduce((acc, spot) => {
           const baseCity = (spot.city || 'Unsorted').trim() || 'Unsorted';
           const hay = `${spot.name || ''} ${spot.notes || ''} ${spot.area || ''}`.toLowerCase();
@@ -219,16 +219,12 @@
           return;
         }
 
-        statusEl.textContent = (data.notes || 'Food spots loaded.') + ' (Trip order view)';
+        statusEl.textContent = (data.notes || 'Food spots loaded.') + ' (Off-trip)';
 
         const cityOrder = [
-          'Hong Kong',
-          'Kokura',
-          'Hiroshima',
-          'Kurashiki',
-          'Osaka',
-          'Busan - Main',
-          'Busan - Gijang'
+          'Tokyo',
+          'Jeju',
+          'Seoul'
         ];
 
         const cityEntries = Object.entries(byCity).sort(([a], [b]) => {
