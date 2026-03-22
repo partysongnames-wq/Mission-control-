@@ -23,7 +23,28 @@
     .emoji-pin{font-size:18px;line-height:22px;text-align:center;filter:drop-shadow(0 1px 2px rgba(0,0,0,.45));}
     .map-legend{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px;font-size:.74rem;letter-spacing:.08em;color:#dce3ff;}
     .map-legend .lg{display:inline-flex;align-items:center;gap:6px;padding:4px 8px;border:1px solid rgba(255,255,255,.16);border-radius:999px;background:rgba(255,255,255,.05);}
+    .leaflet-popup-content{font-size:14px;line-height:1.4;}
+    .leaflet-tooltip{font-size:12px;}
     @media (max-width:980px){.grid{grid-template-columns:1fr;}.hero{grid-template-columns:1fr 1fr;}}
+    @media (max-width:680px){
+      body{padding:10px;}
+      .page{width:min(1240px,calc(100vw-12px));padding:12px;border-radius:18px;}
+      h1{font-size:1.05rem;letter-spacing:.12em;}
+      .subtitle{font-size:.9rem;line-height:1.45;}
+      .chip{font-size:.7rem;padding:7px 10px;letter-spacing:.12em;}
+      .hero{grid-template-columns:1fr 1fr;gap:8px;margin:10px 0;}
+      .hero-card{padding:10px;}
+      .hero-card h3{font-size:.62rem;letter-spacing:.2em;}
+      .hero-card strong{font-size:1rem;}
+      .card{padding:12px;border-radius:14px;}
+      .card h2{font-size:.92rem;letter-spacing:.14em;}
+      li,.note,.timeline .row div{font-size:.98rem;line-height:1.5;}
+      .when{font-size:.72rem;}
+      #osaka-map{height:420px;}
+      .map-legend{font-size:.86rem;gap:8px;}
+      .map-legend .lg{padding:6px 9px;}
+      .emoji-pin{font-size:22px;line-height:26px;}
+    }
   
     .osaka-map-wrap{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.10);border-radius:18px;padding:14px;margin:14px 0;}
     #osaka-map{height:360px;border-radius:12px;border:1px solid rgba(255,255,255,.14);overflow:hidden;}
