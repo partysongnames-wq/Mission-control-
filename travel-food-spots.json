@@ -445,6 +445,31 @@
         "🚇 ~14–18 min total from LEOPARD Shinsaibashi (train + walk)",
         "🚕 ~12–18 min by taxi from LEOPARD Shinsaibashi"
       ]
+    },
+    {
+      "name": "Haeundae Traditional Market / 해운대 전통시장 (Ssiat Hotteok)",
+      "city": "Busan",
+      "type": "Street Food / Market",
+      "status": "priority",
+      "area": "Haeundae Coast",
+      "location": "Haeundae Traditional Market (near Haeundae Beach)",
+      "access": "Subway Line 2 → Haeundae Station Exit 3 or 5, then ~5 min walk toward beach",
+      "hours": "Varies by stall (best evening)",
+      "price": "₩10,000 snacks (~฿250) typical for a few items",
+      "signature": "Ssiat hotteok (seed pancake), fishcake, fried snacks, dried mackerel products",
+      "notes": "Original Korean market feel. Popular queue spot for Ssiat Hotteok; worth lining up.",
+      "must_try": "Ssiat Hotteok (seed-filled pancake)",
+      "link": "https://www.facebook.com/share/1DgBdvueUa/?mibextid=wwXIfr",
+      "distance_to_hotels": [
+        "🚶 ~18 min walk to W Residence Hotel Haeundae",
+        "🚕 ~7 min by taxi to W Residence Hotel Haeundae"
+      ],
+      "photos": [
+        "assets/food/haeundae-market-1.jpg",
+        "assets/food/haeundae-market-2.jpg",
+        "assets/food/haeundae-market-3.jpg"
+      ],
+      "photo": "assets/food/haeundae-market-1.jpg"
     }
   ]
 }
