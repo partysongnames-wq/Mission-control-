@@ -279,7 +279,14 @@
               const previewPhotos = photos.slice(0, 2);
               const photoBlock = previewPhotos.length ? `<div class="spot-photo-grid">${previewPhotos.map(src => `<img class=\"spot-photo\" src=\"${src}\" alt=\"${name}\" />`).join('')}</div>` : '';
 
-              const distanceLines = Array.isArray(spot.distance_to_hotels) ? spot.distance_to_hotels : [];
+              let distanceLines = Array.isArray(spot.distance_to_hotels) ? spot.distance_to_hotels : [];
+              if (city === 'Busan - Main') {
+                const nearMain = distanceLines.filter(line => line.includes('W Residence Hotel Haeundae'));
+                if (nearMain.length) distanceLines = nearMain;
+              } else if (city === 'Busan - Gijang') {
+                const nearGijang = distanceLines.filter(line => line.includes('Busan Gijang The Club Hotel'));
+                if (nearGijang.length) distanceLines = nearGijang;
+              }
               const factLines = [
                 spot.location ? `📍 ${spot.location}` : '',
                 spot.closest_station ? `🚇 Closest station: ${spot.closest_station}` : '',
