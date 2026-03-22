@@ -155,7 +155,9 @@
       }
 
       if (city === 'busan') {
+        if (/gijang/.test(hay)) return 'Gijang';
         if (/haeundae|songjeong|cheongsapo/.test(hay)) return 'Haeundae Coast';
+        if (/yeongdo/.test(hay)) return 'Yeongdo / Coast';
         if (/myeongji|gangseo/.test(hay)) return 'Myeongji / Gangseo';
         return 'Other Busan';
       }
@@ -189,7 +191,14 @@
       .then(data => {
         const spots = Array.isArray(data.spots) ? data.spots : [];
         const byCity = spots.reduce((acc, spot) => {
-          const city = (spot.city || 'Unsorted').trim() || 'Unsorted';
+          const baseCity = (spot.city || 'Unsorted').trim() || 'Unsorted';
+          const hay = `${spot.name || ''} ${spot.notes || ''} ${spot.area || ''}`.toLowerCase();
+          let city = baseCity;
+
+          if (baseCity === 'Busan') {
+            city = /gijang/.test(hay) ? 'Busan - Gijang' : 'Busan - Main';
+          }
+
           if (!acc[city]) acc[city] = [];
           acc[city].push(spot);
           return acc;
@@ -208,13 +217,28 @@
 
         statusEl.textContent = data.notes || 'Food spots loaded.';
 
-        const cityBottom = ['Tokyo', 'Jeju'];
+        const cityOrder = [
+          'Hong Kong',
+          'Fukuoka',
+          'Kokura',
+          'Kurashiki',
+          'Hiroshima',
+          'Osaka',
+          'Busan - Main',
+          'Busan - Gijang',
+          'Tokyo',
+          'Jeju',
+          'Seoul'
+        ];
+
         const cityEntries = Object.entries(byCity).sort(([a], [b]) => {
-          const aBottom = cityBottom.includes(a);
-          const bBottom = cityBottom.includes(b);
-          if (aBottom && !bBottom) return 1;
-          if (!aBottom && bBottom) return -1;
-          if (aBottom && bBottom) return cityBottom.indexOf(a) - cityBottom.indexOf(b);
+          const ia = cityOrder.indexOf(a);
+          const ib = cityOrder.indexOf(b);
+          if (ia !== -1 || ib !== -1) {
+            if (ia === -1) return 1;
+            if (ib === -1) return -1;
+            return ia - ib;
+          }
           return a.localeCompare(b);
         });
 
@@ -228,8 +252,8 @@
 
           const preferredAreaOrder = city === 'Osaka'
             ? ['Umeda / Kita', 'Namba / Minami', 'Tennoji / Shinsekai', 'Markets / Port', 'Other Osaka']
-            : city === 'Busan'
-              ? ['Haeundae Coast', 'Songjeong / East Coast', 'Yeongdo / Coast', 'Myeongji / Gangseo', 'Other Busan']
+            : city.startsWith('Busan')
+              ? ['Haeundae Coast', 'Songjeong / East Coast', 'Yeongdo / Coast', 'Myeongji / Gangseo', 'Other Busan', 'Gijang']
               : [];
 
           const areaEntries = Object.entries(byArea).sort(([a], [b]) => {
@@ -264,7 +288,7 @@
                   <div class="spot-title">${name}</div>
                   ${spot.price ? `<div class="spot-price" style="font-size:.78rem;color:#ffd9a1;letter-spacing:.06em;margin-top:2px;">${formatPrice(spot.price)}</div>` : ''}
                   <div class="spot-meta">
-                    <span class="pill">${city}</span>
+                    <span class="pill">${city.startsWith('Busan -') ? 'Busan' : city}</span>
                     <span class="${statusClass(status)}">${status}</span>
                   </div>
                   <div class="spot-notes">${[notes, mustTry].filter(Boolean).join(' · ') || 'No notes yet.'}</div>
