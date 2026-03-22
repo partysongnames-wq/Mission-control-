@@ -140,7 +140,12 @@
       "price": "From ¥1,480 (~฿330) to ¥4,090 (~฿950) full A5 plan",
       "link": "https://www.instagram.com/reel/placeholder",
       "notes": "Umeda, Osaka (marked 'osaka-gourmet'). All-you-can-eat A5 beef BBQ shipped directly from Miyazaki. Includes A5 skirt steak (ハラミ), kalbi, horumon, curry, and fried chicken (唐揚げ). Budget-friendly option from ¥1,480; full A5 experience around ¥4,090. Grilled at table. From Nasha via 우아한사라씨 (Woahan Sarah).",
-      "area": "UMEDA"
+      "area": "UMEDA",
+      "photo": "assets/food/umeda-a5-wagyu-1.jpg",
+      "photos": [
+        "assets/food/umeda-a5-wagyu-1.jpg",
+        "assets/food/umeda-a5-wagyu-2.jpg"
+      ]
     },
     {
       "name": "Bacchanale Shellfish Bar / 貝バル Bacchanale (IG Reel)",
