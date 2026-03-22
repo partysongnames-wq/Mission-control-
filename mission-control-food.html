@@ -222,7 +222,22 @@
             return acc;
           }, {});
 
-          const areaEntries = Object.entries(byArea).sort(([a], [b]) => a.localeCompare(b));
+          const preferredAreaOrder = city === 'Osaka'
+            ? ['Umeda / Kita', 'Namba / Minami', 'Tennoji / Shinsekai', 'Markets / Port', 'Other Osaka']
+            : city === 'Busan'
+              ? ['Haeundae Coast', 'Songjeong / East Coast', 'Yeongdo / Coast', 'Myeongji / Gangseo', 'Other Busan']
+              : [];
+
+          const areaEntries = Object.entries(byArea).sort(([a], [b]) => {
+            const ia = preferredAreaOrder.indexOf(a);
+            const ib = preferredAreaOrder.indexOf(b);
+            if (ia !== -1 || ib !== -1) {
+              if (ia === -1) return 1;
+              if (ib === -1) return -1;
+              return ia - ib;
+            }
+            return a.localeCompare(b);
+          });
 
           const areaSections = areaEntries.map(([area, areaItems]) => {
             const cards = areaItems.map(spot => {

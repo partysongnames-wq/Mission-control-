@@ -24,7 +24,8 @@
         "assets/food/busan-seafood.jpg",
         "assets/food/busan-seafood-2.jpg"
       ],
-      "notes": "By the sea in Busan. Nasha sent as a seaside seafood spot."
+      "notes": "By the sea in Busan. Nasha sent as a seaside seafood spot.",
+      "area": "Yeongdo / Coast"
     },
     {
       "name": "Osaka fishing restaurant (FB reel)",
@@ -68,7 +69,8 @@
         "assets/food/unknown-seafood-4.jpg",
         "assets/food/unknown-seafood-1.jpg"
       ],
-      "notes": "Named on reel: 101 The Terrace (101더테라스). Seaside view; jjukkumi shabu + seafood broth. Location pinned to Busan per Trent (low confidence)."
+      "notes": "Named on reel: 101 The Terrace (101더테라스). Seaside view; jjukkumi shabu + seafood broth. Location pinned to Busan per Trent (low confidence).",
+      "area": "Haeundae Coast"
     },
     {
       "name": "Yongsan Udon Bar seafood (FB reel)",
@@ -113,7 +115,8 @@
         "assets/food/busan-oyster-stew-1.jpg",
         "assets/food/busan-oyster-stew-2.jpg"
       ],
-      "notes": "Busan spicy oyster stew (굴찌개) spot. Features generous oysters in spicy red broth, served with rice. Bowl shows '로라리 깁' (Lorari Gip/House). From Nasha via 우아한사라씨 (Woahan Sarah) reel."
+      "notes": "Busan spicy oyster stew (굴찌개) spot. Features generous oysters in spicy red broth, served with rice. Bowl shows '로라리 깁' (Lorari Gip/House). From Nasha via 우아한사라씨 (Woahan Sarah) reel.",
+      "area": "Haeundae Coast"
     },
     {
       "name": "Dalbit Grilled Mackerel / 달빛에구운고등어 (IG Reel)",
@@ -123,7 +126,8 @@
       "must_try": "Wood-fired grilled mackerel + buffet sides",
       "price": "₩12,000–17,000 (~฿300–500)",
       "link": "https://www.instagram.com/reel/placeholder",
-      "notes": "Songjeong Beach, Busan. Ocean-view Korean seafood restaurant. Wood-fired grilled fish + buffet sides (bulgogi, japchae, fresh omelet, kimchi, salads). Casual local vibe, popular with families. Can get busy at peak times. From Nasha via 우아한사라씨 (Woahan Sarah)."
+      "notes": "Songjeong Beach, Busan. Ocean-view Korean seafood restaurant. Wood-fired grilled fish + buffet sides (bulgogi, japchae, fresh omelet, kimchi, salads). Casual local vibe, popular with families. Can get busy at peak times. From Nasha via 우아한사라씨 (Woahan Sarah).",
+      "area": "Songjeong / East Coast"
     },
     {
       "name": "Umeda A5 Wagyu BBQ All-you-can-eat (IG Reel)",
@@ -207,7 +211,8 @@
         "assets/food/busan-fire-bbq-1.jpg",
         "assets/food/busan-fire-bbq-2.jpg"
       ],
-      "notes": "Myeongji, Busan (Gangseo-gu). Large-scale Korean BBQ (700 pyeong venue) with live iron plate cooking and dramatic fire show performances. Chefs cook pork belly, squid, seafood, and fried rice on oversized flat grills with flame effects. High-energy entertainment dining. Popular for groups. Mid-range pricing. From Nasha via 우아한사라씨."
+      "notes": "Myeongji, Busan (Gangseo-gu). Large-scale Korean BBQ (700 pyeong venue) with live iron plate cooking and dramatic fire show performances. Chefs cook pork belly, squid, seafood, and fried rice on oversized flat grills with flame effects. High-energy entertainment dining. Popular for groups. Mid-range pricing. From Nasha via 우아한사라씨.",
+      "area": "Myeongji / Gangseo"
     },
     {
       "name": "The Aquatic Market (IG Reel)",
