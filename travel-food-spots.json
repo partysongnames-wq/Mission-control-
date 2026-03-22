@@ -146,7 +146,8 @@
       "notes": "Shinsaibashi, Osaka. Casual seafood bar specializing in shellfish. Signature: white clam shabu-shabu. Also serves assorted fresh shellfish, pork slices for shabu, seaweed, vegetables. Izakaya-style with drinks. From Nasha via 우아한사라씨 (Woahan Sarah).",
       "photos": [
         "assets/food/bacchanale-shellfish-1.jpg",
-        "assets/food/bacchanale-shellfish-2.jpg"
+        "assets/food/bacchanale-shellfish-2.jpg",
+        "assets/food/bacchanale-shellfish-3.jpg"
       ]
     },
     {
@@ -160,8 +161,7 @@
       "photo": "assets/food/yakiniku-gang-1.jpg",
       "notes": "Umeda, Osaka. Premium all-you-can-eat yakiniku with A5 Wagyu and thick-cut tongue focus. High-end buffet style. From Nasha via Koki Hironaka reel.",
       "photos": [
-        "assets/food/yakiniku-gang-1.jpg",
-        "assets/food/yakiniku-gang-2.jpg"
+        "assets/food/yakiniku-gang-1.jpg"
       ]
     },
     {
