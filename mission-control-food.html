@@ -68,6 +68,9 @@
     .pill.priority{border-color:rgba(255,179,71,.5);color:#ffdfb0;background:rgba(255,179,71,.15);}    
     .pill.visited{border-color:rgba(16,163,127,.5);color:#9ff1db;background:rgba(16,163,127,.12);}    
     .pill.saved{border-color:rgba(255,255,255,.22);color:#fff;background:rgba(255,255,255,.08);}    
+
+    .spot-card.market{border-color:rgba(255,198,109,.55);box-shadow:0 0 0 1px rgba(255,198,109,.22) inset, 0 10px 28px rgba(0,0,0,.35);}
+    .pill.market{border-color:rgba(255,198,109,.6);color:#ffe2b5;background:rgba(255,198,109,.16);}
     .spot-link{color:#ffd9a1;text-decoration:none;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;}
     .spot-link:hover{text-decoration:underline;}
     .spot-extra{font-size:.7rem;letter-spacing:.12em;color:var(--muted);text-transform:uppercase;display:flex;gap:6px;align-items:center;flex-wrap:wrap;}
@@ -275,6 +278,7 @@
               const mustTry = spot.must_try ? `Must-try: ${spot.must_try}` : '';
               const link = spot.link ? `<a class="spot-link" href="${spot.link}" target="_blank" rel="noopener">Open link</a>` : '';
               const status = prettyStatus(spot.status);
+              const isMarket = /market|시장|市場/i.test(`${type} ${name}`);
               const photos = Array.isArray(spot.photos) ? spot.photos : (spot.photo ? [spot.photo] : []);
               const previewPhotos = photos.slice(0, 2);
               const photoBlock = previewPhotos.length ? `<div class="spot-photo-grid">${previewPhotos.map(src => `<img class=\"spot-photo\" src=\"${src}?v=20260322c\" alt=\"${name}\" />`).join('')}</div>` : '';
@@ -297,7 +301,7 @@
                 ...distanceLines
               ].filter(Boolean);
               return `
-                <div class="spot-card">
+                <div class="spot-card${isMarket ? " market" : ""}">
                   ${photoBlock}
                   <div class="spot-type">${type}</div>
                   <div class="spot-title">${name}</div>
@@ -305,6 +309,7 @@
                   <div class="spot-meta">
                     <span class="pill">${city.startsWith('Busan -') ? 'Busan' : city}</span>
                     <span class="${statusClass(status)}">${status}</span>
+                    ${isMarket ? `<span class="pill market">market stop</span>` : ""}
                   </div>
                   ${factLines.length ? `<div class="spot-facts">${factLines.map(line => `<div class=\"spot-fact\">${line}</div>`).join('')}</div>` : ''}
                   <div class="spot-notes">${[notes, mustTry].filter(Boolean).join(' · ') || 'No notes yet.'}</div>
