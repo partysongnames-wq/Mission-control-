@@ -176,15 +176,19 @@
       "notes": "Osaka. Rare no-time-limit all-you-can-eat oyster restaurant. 220+ menu items including raw oysters, grilled oysters, fried oysters (カキフライ), oyster okonomiyaki, ikura bowls, rice bowls, and seafood. Hokkaido seasonal promos. From Nasha via 大阪グルメ【関西グルメ】."
     },
     {
-      "name": "中トロと豚足 本店 / Chutoro to Buta-ashi (IG Reel)",
+      "name": "中トロと豚足 / Chutoro & Pork Feet (IG Reel)",
       "city": "Osaka",
       "type": "Izakaya / Standing Bar",
       "status": "saved",
       "must_try": "Chutoro (fatty tuna) + pork feet + octopus sashimi",
       "price": "Most dishes ¥49-399 (~฿12-90), drinks ~¥300. ¥1 promos!",
       "link": "https://www.instagram.com/reel/placeholder",
-      "photo": "assets/food/chutoro-buta-ashi-1.jpg",
-      "notes": "Umeda/Temma, Osaka. 24-hour standing izakaya (立ち飲み屋). Ultra budget-friendly with ¥1 promo items. Famous for chutoro (fatty tuna), pork feet dishes, and octopus sashimi (~¥299). Classic Osaka local experience. Most dishes under ¥400. From Nasha via 大阪グルメ【関西グルメ】."
+      "photo": "assets/food/chutoro-buta-ashi-2.jpg",
+      "notes": "Umeda/Temma, Osaka. 24-hour standing izakaya (立ち飲み屋). Ultra budget-friendly with ¥1 promo items. Famous for chutoro (fatty tuna), pork feet dishes, and octopus sashimi (~¥299). Classic Osaka local experience. Most dishes under ¥400. From Nasha via 大阪グルメ【関西グルメ】.",
+      "photos": [
+        "assets/food/chutoro-buta-ashi-2.jpg",
+        "assets/food/chutoro-buta-ashi-3.jpg"
+      ]
     },
     {
       "name": "그날이후불타는삼겹살 / Burning Pork Belly After That Day (IG Reel)",
@@ -196,8 +200,7 @@
       "photo": "assets/food/busan-fire-bbq-1.jpg",
       "photos": [
         "assets/food/busan-fire-bbq-1.jpg",
-        "assets/food/busan-fire-bbq-2.jpg",
-        "assets/food/busan-fire-bbq-3.jpg"
+        "assets/food/busan-fire-bbq-2.jpg"
       ],
       "notes": "Myeongji, Busan (Gangseo-gu). Large-scale Korean BBQ (700 pyeong venue) with live iron plate cooking and dramatic fire show performances. Chefs cook pork belly, squid, seafood, and fried rice on oversized flat grills with flame effects. High-energy entertainment dining. Popular for groups. Mid-range pricing. From Nasha via 우아한사라씨."
     },
