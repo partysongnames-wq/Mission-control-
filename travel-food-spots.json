@@ -107,20 +107,24 @@
       "type": "Restaurant / Oysters",
       "status": "saved",
       "must_try": "Miyagi oysters - 12 different oyster dishes",
-      "price": "¥4,980 (~฿1,195) (walk-in discount ¥4,480 (~฿1,075) before 6pm/after 9pm)",
+      "price": "Oyster all-you-can-eat course ¥4,980 (~฿1,195); ¥4,480 (~฿1,075) if entering before 18:00 or after 21:00; all-you-can-drink +¥1,000",
       "link": "https://www.facebook.com/share/r/placeholder/?mibextid=wwXIfr",
       "photo": "assets/food/takumi-oysters-1.jpg",
       "photos": [
         "assets/food/takumi-oysters-1.jpg",
         "assets/food/takumi-oysters-2.jpg"
       ],
-      "notes": "Osaka (Takatsuki) all-you-can-eat oyster restaurant. 12 oyster dishes + 24 other dishes. Oysters from Miyagi Prefecture. 2 min walk from Hankyu Takatsukishi Station. Hours: 17:00-00:00 (Fri 16:00, Sat-Sun 12:00). All-you-can-drink +¥1,000. Nasha sent.",
+      "notes": "From Takumi Shimizu reel. Uses Miyagi oysters and same-day oyster stock with hygiene emphasis. Also offers ~24 non-oyster dishes. Popular Osaka-side oyster AYCE spot in Takatsuki.",
       "area": "OUTSIDE CENTRAL OSAKA",
-      "access": "From Shinsaibashi Station: ~25 min",
-      "location": "Takatsuki, Osaka (2 min walk from Hankyu Takatsukishi Station)",
-      "hours": "17:00–00:00 (Fri 16:00, Sat–Sun 12:00)",
+      "access": "From LEOPARD Shinsaibashi: 🚇 ~28–35 min (Shinsaibashi → Umeda/Osaka-Umeda → Hankyu Takatsukishi) + 🚶 2 min walk",
+      "location": "〒569-0803 大阪府高槻市高槻町14-8 幸ビル2F (Stand B / スタンドB)",
+      "hours": "17:00–00:00 (Fri from 16:00, Sat/Sun from 12:00)",
       "signature": "Miyagi oysters, 12 oyster dishes (+24 other dishes)",
-      "closest_station": "Hankyu Takatsukishi Station"
+      "closest_station": "Hankyu Takatsukishi Station",
+      "distance_to_hotels": [
+        "🚇 ~30–37 min total from LEOPARD Shinsaibashi (train + 2 min walk)",
+        "🚕 ~35–55 min by taxi from LEOPARD Shinsaibashi"
+      ]
     },
     {
       "name": "Spicy Oyster Stew (Lorari Gip / 로라리 깁) (FB/IG reel)",
