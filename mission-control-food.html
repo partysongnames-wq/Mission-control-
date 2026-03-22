@@ -141,6 +141,28 @@
       return status;
     };
 
+    const inferArea = (spot = {}) => {
+      if (spot.area) return spot.area;
+      const city = (spot.city || '').toLowerCase();
+      const hay = `${spot.name || ''} ${spot.notes || ''}`.toLowerCase();
+
+      if (city === 'osaka') {
+        if (/umeda|kita/.test(hay)) return 'Umeda / Kita';
+        if (/namba|shinsaibashi|dotonbori|minami/.test(hay)) return 'Namba / Minami';
+        if (/tennoji|shinsekai|abeno/.test(hay)) return 'Tennoji / Shinsekai';
+        if (/tajiri|market|fishing|port/.test(hay)) return 'Markets / Port';
+        return 'Other Osaka';
+      }
+
+      if (city === 'busan') {
+        if (/haeundae|songjeong|cheongsapo/.test(hay)) return 'Haeundae Coast';
+        if (/myeongji|gangseo/.test(hay)) return 'Myeongji / Gangseo';
+        return 'Other Busan';
+      }
+
+      return 'All areas';
+    };
+
     // Convert yen to baht (roughly ¥100 = ฿23-25, using 0.24 rate)
     const formatPrice = (priceStr) => {
       if (!priceStr) return '';
@@ -193,31 +215,49 @@
         });
 
         listEl.innerHTML = cityEntries.map(([city, items]) => {
-          const cards = items.map(spot => {
-            const name = spot.name || 'Untitled spot';
-            const type = spot.type || 'Food';
-            const notes = spot.notes || '';
-            const mustTry = spot.must_try ? `Must-try: ${spot.must_try}` : '';
-            const link = spot.link ? `<a class="spot-link" href="${spot.link}" target="_blank" rel="noopener">Open link</a>` : '';
-            const status = prettyStatus(spot.status);
-            const photos = Array.isArray(spot.photos) ? spot.photos : (spot.photo ? [spot.photo] : []);
-            const previewPhotos = photos.slice(0, 2);
-            const extraPhotos = photos.slice(2);
-            const photoBlock = previewPhotos.length ? `<div class="spot-photo-grid">${previewPhotos.map(src => `<img class=\"spot-photo\" src=\"${src}\" alt=\"${name}\" />`).join('')}</div>` : '';
-            const extraLinks = extraPhotos.length ? `<div class=\"spot-extra\">More photos: ${extraPhotos.map((src, i) => `<a class=\\\"spot-extra-link\\\" href=\\\"${src}\\\" target=\\\"_blank\\\" rel=\\\"noopener\\\">${i + 3}</a>`).join(' ')}</div>` : '';
-            return `
-              <div class="spot-card">
-                ${photoBlock}
-                ${extraLinks}
-                <div class="spot-type">${type}</div>
-                <div class="spot-title">${name}</div>
-                ${spot.price ? `<div class="spot-price" style="font-size:.78rem;color:#ffd9a1;letter-spacing:.06em;margin-top:2px;">${formatPrice(spot.price)}</div>` : ''}
-                <div class="spot-meta">
-                  <span class="pill">${city}</span>
-                  <span class="${statusClass(status)}">${status}</span>
+          const byArea = items.reduce((acc, spot) => {
+            const area = inferArea(spot);
+            if (!acc[area]) acc[area] = [];
+            acc[area].push(spot);
+            return acc;
+          }, {});
+
+          const areaEntries = Object.entries(byArea).sort(([a], [b]) => a.localeCompare(b));
+
+          const areaSections = areaEntries.map(([area, areaItems]) => {
+            const cards = areaItems.map(spot => {
+              const name = spot.name || 'Untitled spot';
+              const type = spot.type || 'Food';
+              const notes = spot.notes || '';
+              const mustTry = spot.must_try ? `Must-try: ${spot.must_try}` : '';
+              const link = spot.link ? `<a class="spot-link" href="${spot.link}" target="_blank" rel="noopener">Open link</a>` : '';
+              const status = prettyStatus(spot.status);
+              const photos = Array.isArray(spot.photos) ? spot.photos : (spot.photo ? [spot.photo] : []);
+              const previewPhotos = photos.slice(0, 2);
+              const extraPhotos = photos.slice(2);
+              const photoBlock = previewPhotos.length ? `<div class="spot-photo-grid">${previewPhotos.map(src => `<img class=\"spot-photo\" src=\"${src}\" alt=\"${name}\" />`).join('')}</div>` : '';
+              const extraLinks = extraPhotos.length ? `<div class=\"spot-extra\">More photos: ${extraPhotos.map((src, i) => `<a class=\\\"spot-extra-link\\\" href=\\\"${src}\\\" target=\\\"_blank\\\" rel=\\\"noopener\\\">${i + 3}</a>`).join(' ')}</div>` : '';
+              return `
+                <div class="spot-card">
+                  ${photoBlock}
+                  ${extraLinks}
+                  <div class="spot-type">${type}</div>
+                  <div class="spot-title">${name}</div>
+                  ${spot.price ? `<div class="spot-price" style="font-size:.78rem;color:#ffd9a1;letter-spacing:.06em;margin-top:2px;">${formatPrice(spot.price)}</div>` : ''}
+                  <div class="spot-meta">
+                    <span class="pill">${city}</span>
+                    <span class="${statusClass(status)}">${status}</span>
+                  </div>
+                  <div class="spot-notes">${[notes, mustTry].filter(Boolean).join(' · ') || 'No notes yet.'}</div>
+                  ${link}
                 </div>
-                <div class="spot-notes">${[notes, mustTry].filter(Boolean).join(' · ') || 'No notes yet.'}</div>
-                ${link}
+              `;
+            }).join('');
+
+            return `
+              <div style="margin:12px 0 18px;">
+                <div style="font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:#bfc7e6;margin:0 0 10px;">${area} · ${areaItems.length}</div>
+                <div class="card-grid">${cards}</div>
               </div>
             `;
           }).join('');
@@ -231,7 +271,7 @@
                 </div>
                 <div class="city-count">${items.length} total</div>
               </div>
-              <div class="card-grid">${cards}</div>
+              ${areaSections}
             </section>
           `;
         }).join('');
