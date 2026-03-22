@@ -232,7 +232,11 @@
       "price": "¥3,000 (~฿650) all-you-can-eat + drink",
       "link": "https://www.instagram.com/reel/placeholder",
       "photo": "assets/food/niku-tokidoki-lemon-1.jpg",
-      "notes": "Umeda, Osaka (near station). All-you-can-eat izakaya with grilled oysters on teppan, DIY takoyaki making, and 190+ menu items. Includes all-you-can-drink (lemon sour, etc.). Mix of seafood, street food, cheese dishes, meat, noodles. Fun interactive chaotic izakaya vibe. Great for groups. From Nasha via まーしゅ."
+      "notes": "Umeda, Osaka (near station). All-you-can-eat izakaya with grilled oysters on teppan, DIY takoyaki making, and 190+ menu items. Includes all-you-can-drink (lemon sour, etc.). Mix of seafood, street food, cheese dishes, meat, noodles. Fun interactive chaotic izakaya vibe. Great for groups. From Nasha via まーしゅ.",
+      "photos": [
+        "assets/food/niku-tokidoki-lemon-1.jpg",
+        "assets/food/niku-tokidoki-lemon-2.jpg"
+      ]
     },
     {
       "name": "Tajiri Port Sunday Morning Market / 田尻漁港日曜朝市 (IG Reel)",
