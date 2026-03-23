@@ -569,20 +569,20 @@
       "lng": 135.549194
     },
     {
-      "name": "Susabi Yu Sanjo / すさび湯三条",
-      "city": "Kyoto",
+      "name": "Susabi Yu Umeda Higashidori / すし酒場 すさび湯 梅田東通り店",
+      "city": "Osaka",
       "type": "Izakaya / Budget Drinks",
       "status": "saved",
-      "area": "KYOTO SANJO",
-      "location": "Sanjo / Kawaramachi area, Kyoto",
-      "closest_station": "Keihan Sanjo Station",
-      "access": "~4 min walk from Keihan Sanjo Station",
-      "signature": "Lemon sour/drinks promo",
-      "notes": "From screenshots: drinks almost all around ¥170 (promo-style pricing).",
-      "price": "~¥170 drinks promo (as shown)",
+      "area": "UMEDA",
+      "location": "大阪府大阪市北区小松原町5-5",
+      "closest_station": "Higashi-Umeda / Umeda Station",
+      "access": "~5 min walk from Umeda-area stations",
+      "signature": "Low-price drink promo (often around ¥170; check current menu)",
+      "notes": "Switched from Kyoto branch to Osaka branch closest to hotel among confirmed branches: Umeda Higashidori. Keep as Osaka-side alternative to avoid Kyoto transit.",
+      "price": "Budget izakaya pricing (promo drinks often around ¥170)",
       "link": "",
-      "lat": 35.0094,
-      "lng": 135.7727
+      "lat": 34.70205,
+      "lng": 135.5011
     },
     {
       "name": "Ichibante / 一番手 (Umeda)",
