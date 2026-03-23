@@ -548,7 +548,9 @@
       "notes": "Confirmed from screenshots: #鶴橋グルメ #鶴橋寿司 and phone match. Reel mentions eel/anago around ¥250 per piece.",
       "price": "Budget to mid (reel highlight: eel/anago ~¥250 per piece)",
       "link": "",
-      "hours": "TBD (verify on map before visit)"
+      "hours": "TBD (verify on map before visit)",
+      "lat": 34.6669,
+      "lng": 135.5305
     },
     {
       "name": "Katsugyo Center Daisho / 活魚センター大昌",
@@ -562,7 +564,9 @@
       "signature": "Live tanks, wholesale-style seafood",
       "notes": "Confirmed from storefront screenshots (活魚センター vertical sign) and map detail. Better as daytime stop.",
       "price": "Market pricing (reel showed lobster sign オマール海老 ¥4,500)",
-      "link": ""
+      "link": "",
+      "lat": 34.657045,
+      "lng": 135.549194
     },
     {
       "name": "Susabi Yu Sanjo / すさび湯三条",
@@ -576,7 +580,9 @@
       "signature": "Lemon sour/drinks promo",
       "notes": "From screenshots: drinks almost all around ¥170 (promo-style pricing).",
       "price": "~¥170 drinks promo (as shown)",
-      "link": ""
+      "link": "",
+      "lat": 35.0094,
+      "lng": 135.7727
     },
     {
       "name": "Ichibante / 一番手 (Umeda)",
@@ -589,7 +595,9 @@
       "signature": "Ultra-cheap izakaya pricing; mixed bar food including pizza promo, fried items, skewers",
       "notes": "Confirmed from screenshot overlay/map card: Ichibante (一番手), Osaka-Umeda/Nishi-Umeda area. Ultra-cheap pricing shown in reel (¥99 food / ¥199 drinks).",
       "link": "",
-      "hours": "TBD"
+      "hours": "TBD",
+      "lat": 34.70067,
+      "lng": 135.49597
     }
   ]
 }

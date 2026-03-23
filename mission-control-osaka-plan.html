@@ -251,6 +251,7 @@
     const pickEmoji = (spot) => {
       const t = `${spot.type||''} ${spot.name||''} ${spot.signature||''} ${spot.notes||''}`.toLowerCase();
       // prioritize explicit "market" tagging so market spots don't get overridden by fish/shellfish keywords
+      if ((spot.city||'').toLowerCase()==='kyoto') return '🏯';
       if (t.includes('market')) return '🍢';
       if (t.includes('outlet') || t.includes('shopping') || t.includes('lalaport') || t.includes('beams')) return '🛍';
       if (t.includes('oyster') || t.includes('굴')) return '🦪';
@@ -279,6 +280,14 @@
         if (bounds.length) osakaMap.fitBounds(bounds, { padding: [30, 30] });
       })
       .catch(() => { if (bounds.length) osakaMap.fitBounds(bounds, { padding: [30, 30] }); });
+  </script>
+
+</body>
+</html>ounds(bounds, { padding: [30, 30] }); });
+  </script>
+
+</body>
+</html>h) osakaMap.fitBounds(bounds, { padding: [30, 30] }); });
   </script>
 
 </body>
