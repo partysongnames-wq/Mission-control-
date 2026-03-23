@@ -580,9 +580,15 @@
       "signature": "Low-price drink promo (often around ¥170; check current menu)",
       "notes": "Switched from Kyoto branch to Osaka branch closest to hotel among confirmed branches: Umeda Higashidori. Keep as Osaka-side alternative to avoid Kyoto transit.",
       "price": "Budget izakaya pricing (promo drinks often around ¥170)",
-      "link": "",
+      "link": "https://www.hotpepper.jp/strJ001118040/",
       "lat": 34.70205,
-      "lng": 135.5011
+      "lng": 135.5011,
+      "photo": "assets/food/susabi-yu-1.jpg",
+      "photos": [
+        "assets/food/susabi-yu-1.jpg",
+        "assets/food/susabi-yu-2.jpg",
+        "assets/food/susabi-yu-3.jpg"
+      ]
     },
     {
       "name": "Ichibante / 一番手 (Umeda)",

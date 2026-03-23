@@ -23,8 +23,21 @@
     .emoji-pin{font-size:18px;line-height:22px;text-align:center;filter:drop-shadow(0 1px 2px rgba(0,0,0,.45));}
     .map-legend{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px;font-size:.74rem;letter-spacing:.08em;color:#dce3ff;}
     .map-legend .lg{display:inline-flex;align-items:center;gap:6px;padding:4px 8px;border:1px solid rgba(255,255,255,.16);border-radius:999px;background:rgba(255,255,255,.05);}
-    .leaflet-popup-content{font-size:14px;line-height:1.4;}
+    .leaflet-popup-content{font-size:14px;line-height:1.4; margin:10px 12px;}
+    .leaflet-popup-content-wrapper{background:#111522;color:#f5f7ff;border:1px solid rgba(255,255,255,.14);border-radius:16px;}
+    .leaflet-popup-tip{background:#111522;}
     .leaflet-tooltip{font-size:12px;}
+    .map-spot-card{min-width:240px;max-width:300px;}
+    .map-spot-photos{display:flex;gap:8px;overflow-x:auto;margin-bottom:10px;}
+    .map-spot-photos img{width:92px;height:92px;object-fit:cover;border-radius:10px;border:1px solid rgba(255,255,255,.14);flex:0 0 auto;}
+    .map-spot-type{font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:#ffd9a1;margin-bottom:4px;}
+    .map-spot-name{font-weight:700;font-size:1rem;line-height:1.3;margin-bottom:6px;}
+    .map-spot-price{color:#ffd9a1;font-size:.8rem;margin-bottom:8px;}
+    .map-spot-badges{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px;}
+    .map-badge{display:inline-flex;align-items:center;padding:3px 8px;border-radius:999px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.06);font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;}
+    .map-spot-fact,.map-spot-notes{font-size:.78rem;line-height:1.4;color:#dce3ff;margin-bottom:6px;}
+    .map-spot-link{color:#ffd9a1;text-decoration:none;font-size:.75rem;letter-spacing:.08em;}
+    .map-spot-link:hover{text-decoration:underline;}
     @media (max-width:980px){.grid{grid-template-columns:1fr;}.hero{grid-template-columns:1fr 1fr;}}
     @media (max-width:680px){
       body{padding:10px;}
@@ -273,6 +286,22 @@
         .replace(/(^-|-$)/g, '')
         .slice(0, 80);
 
+    const renderSpotPopup = (spot) => {
+      const photos = Array.isArray(spot.photos) ? spot.photos : (spot.photo ? [spot.photo] : []);
+      const photoHtml = photos.slice(0,2).map(src => `<img src="${src}?v=20260323b" alt="${spot.name||'spot'}" />`).join('');
+      const facts = [
+        spot.closest_station ? `🚇 Closest station: ${spot.closest_station}` : '',
+        spot.access ? `🚉 ${spot.access}` : '',
+        spot.location ? `📍 ${spot.location}` : '',
+        spot.hours ? `🕒 ${spot.hours}` : ''
+      ].filter(Boolean).slice(0,3).map(line => `<div class="map-spot-fact">${line}</div>`).join('');
+      const badges = [`<span class="map-badge">${spot.city||'Osaka'}</span>`, `<span class="map-badge">${(spot.status||'saved')}</span>`].join('');
+      const notes = spot.notes ? `<div class="map-spot-notes">${spot.notes}</div>` : '';
+      const foodHref = `mission-control-food.html#spot-${slugifyName(spot.name||'spot')}`;
+      const reelLink = spot.link ? `<a class="map-spot-link" href="${spot.link}" target="_blank" rel="noopener">Open source ↗</a>` : '';
+      return `<div class="map-spot-card">${photoHtml ? `<div class="map-spot-photos">${photoHtml}</div>` : ''}<div class="map-spot-type">${spot.type||''}</div><div class="map-spot-name">${spot.name||'Spot'}</div>${spot.price ? `<div class="map-spot-price">${spot.price}</div>` : ''}<div class="map-spot-badges">${badges}</div>${facts}${notes}<a class="map-spot-link" href="${foodHref}" target="_blank" rel="noopener">View full food card ↗</a>${reelLink ? `<br/>${reelLink}` : ''}</div>`;
+    };
+
     fetch('travel-food-spots.json', {cache:'no-store'})
       .then(r=>r.json())
       .then(data => {
@@ -285,9 +314,8 @@
           const lng = (typeof spot.lng === 'number') ? spot.lng : (a[1] + (Math.floor(idx/5)%5-2)*0.0025);
           const icon = emojiIcon(pickEmoji(spot));
           const cityLabel = spot.city ? `${spot.city} · ` : '';
-          const foodHref = `mission-control-food.html#spot-${slugifyName(spot.name||'spot')}`;
-          const popup = `<b>${spot.name||'Osaka spot'}</b><br/>${cityLabel}${spot.area||'Osaka'}<br/><span style="color:#ffd9a1">${spot.type||''}</span><br/><a href="${foodHref}" target="_blank" rel="noopener" style="color:#ffd9a1">View details ↗</a>`;
-          L.marker([lat,lng], {icon}).addTo(osakaMap).bindPopup(popup).bindTooltip(spot.name||'Spot');
+          const popup = renderSpotPopup(spot);
+          L.marker([lat,lng], {icon}).addTo(osakaMap).bindPopup(popup, { maxWidth: 320 }).bindTooltip(spot.name||'Spot');
           bounds.push([lat,lng]);
         });
         if (bounds.length) osakaMap.fitBounds(bounds, { padding: [30, 30] });
