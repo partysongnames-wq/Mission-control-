@@ -1,5 +1,5 @@
 {
-  "updated": "2026-03-21",
+  "updated": "2026-03-23",
   "notes": "Food spots from Nasha's reels and research - PHOTOS NEED UPDATE for Dalbit, Takumi Shimizu, and Umeda A5 Wagyu",
   "spots": [
     {
@@ -533,6 +533,63 @@
         "assets/food/osaka-kizu-market-4.jpg"
       ],
       "photo": "assets/food/osaka-kizu-market-1.jpg"
+    },
+    {
+      "name": "Sushi Kou / すし幸 (Tsuruhashi)",
+      "city": "Osaka",
+      "type": "Restaurant / Sushi",
+      "status": "saved",
+      "area": "TSURUHASHI",
+      "location": "大阪府大阪市天王寺区舟橋町20-13",
+      "closest_station": "JR Tsuruhashi Station (Central Exit)",
+      "access": "~110m from JR Tsuruhashi Station",
+      "phone": "06-6762-7680",
+      "signature": "Standing sushi; tuna and eel-heavy counter style",
+      "notes": "Confirmed from screenshots: #鶴橋グルメ #鶴橋寿司 and phone match. Reel mentions eel/anago around ¥250 per piece.",
+      "price": "Budget to mid (reel highlight: eel/anago ~¥250 per piece)",
+      "link": "",
+      "hours": "TBD (verify on map before visit)"
+    },
+    {
+      "name": "Katsugyo Center Daisho / 活魚センター大昌",
+      "city": "Osaka",
+      "type": "Seafood Market / Live Fish Center",
+      "status": "saved",
+      "area": "OUTSIDE CENTRAL OSAKA",
+      "location": "2 Chome-1-19 Tajima, Ikuno Ward, Osaka, 544-0011",
+      "plus_code": "MG2R+36 Osaka, Japan",
+      "hours": "09:00–15:00 (Closed Sunday)",
+      "signature": "Live tanks, wholesale-style seafood",
+      "notes": "Confirmed from storefront screenshots (活魚センター vertical sign) and map detail. Better as daytime stop.",
+      "price": "Market pricing (reel showed lobster sign オマール海老 ¥4,500)",
+      "link": ""
+    },
+    {
+      "name": "Susabi Yu Sanjo / すさび湯三条",
+      "city": "Kyoto",
+      "type": "Izakaya / Budget Drinks",
+      "status": "saved",
+      "area": "KYOTO SANJO",
+      "location": "Sanjo / Kawaramachi area, Kyoto",
+      "closest_station": "Keihan Sanjo Station",
+      "access": "~4 min walk from Keihan Sanjo Station",
+      "signature": "Lemon sour/drinks promo",
+      "notes": "From screenshots: drinks almost all around ¥170 (promo-style pricing).",
+      "price": "~¥170 drinks promo (as shown)",
+      "link": ""
+    },
+    {
+      "name": "Ichibante / 一番手 (Umeda)",
+      "city": "Osaka",
+      "type": "Izakaya / Budget",
+      "status": "saved",
+      "area": "UMEDA",
+      "location": "Nishi-Umeda area, Osaka (exact branch/address TBD)",
+      "price": "Promo items shown: ¥99 food, ¥199 drink/beer",
+      "signature": "Ultra-cheap izakaya pricing; mixed bar food including pizza promo, fried items, skewers",
+      "notes": "Confirmed from screenshot overlay/map card: Ichibante (一番手), Osaka-Umeda/Nishi-Umeda area. Ultra-cheap pricing shown in reel (¥99 food / ¥199 drinks).",
+      "link": "",
+      "hours": "TBD"
     }
   ]
 }

@@ -78,7 +78,7 @@
     <section class="osaka-map-wrap">
       <h2 style="margin:0 0 10px;font-size:.95rem;letter-spacing:.2em;text-transform:uppercase;">Osaka Key Map (City View)</h2>
       <div id="osaka-map"></div>
-      <div class="note">Pins: your hotel, Bentencho (brother stay area), Umeda meetup option, USJ, baseball option, Kadoma outlet, plus Osaka food spots. English-first basemap enabled; all pin names/popups are in English.</div>
+      <div class="note">Pins: your hotel, Bentencho (brother stay area), Umeda meetup option, USJ, baseball option, Kadoma outlet, plus Kansai food spots (Osaka + nearby cities like Kyoto). English-first basemap enabled; all pin names/popups are in English.</div>
       <div class="map-legend">
         <span class="lg">🦪 Oyster-focused</span>
         <span class="lg">🦞 Shellfish/mixed seafood</span>
@@ -250,14 +250,15 @@
 
     const pickEmoji = (spot) => {
       const t = `${spot.type||''} ${spot.name||''} ${spot.signature||''} ${spot.notes||''}`.toLowerCase();
+      // prioritize explicit "market" tagging so market spots don't get overridden by fish/shellfish keywords
+      if (t.includes('market')) return '🍢';
+      if (t.includes('outlet') || t.includes('shopping') || t.includes('lalaport') || t.includes('beams')) return '🛍';
       if (t.includes('oyster') || t.includes('굴')) return '🦪';
       if (t.includes('shellfish') || t.includes('hotpot') || t.includes('uni') || t.includes('crab') || t.includes('prawn')) return '🦞';
       if (t.includes('fish') || t.includes('mackerel') || t.includes('sashimi')) return '🐟';
       if (t.includes('yakiniku') || t.includes('bbq') || t.includes('horumon') || t.includes('meat')) return '🥩';
       if (t.includes('sushi')) return '🍣';
       if (t.includes('udon') || t.includes('ramen') || t.includes('noodle')) return '🍜';
-      if (t.includes('outlet') || t.includes('shopping') || t.includes('lalaport') || t.includes('beams')) return '🛍';
-      if (t.includes('market')) return '🍢';
       return '🍽️';
     };
 
@@ -278,6 +279,10 @@
         if (bounds.length) osakaMap.fitBounds(bounds, { padding: [30, 30] });
       })
       .catch(() => { if (bounds.length) osakaMap.fitBounds(bounds, { padding: [30, 30] }); });
+  </script>
+
+</body>
+</html>ounds(bounds, { padding: [30, 30] }); });
   </script>
 
 </body>
