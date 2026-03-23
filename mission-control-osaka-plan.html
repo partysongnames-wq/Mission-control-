@@ -245,12 +245,13 @@
       'UMEDA': [34.7025,135.4959],
       'NAMBA / SHINSAIBASHI': [34.6696,135.5012],
       'KYOBASHI': [34.6978,135.5343],
-      'OUTSIDE CENTRAL OSAKA': [34.7180,135.5480]
+      'OUTSIDE CENTRAL OSAKA': [34.7180,135.5480],
+      'TSURUHASHI': [34.6669,135.5305],
+      'KYOTO SANJO': [35.0094,135.7727]
     };
 
     const pickEmoji = (spot) => {
       const t = `${spot.type||''} ${spot.name||''} ${spot.signature||''} ${spot.notes||''}`.toLowerCase();
-      // prioritize explicit "market" tagging so market spots don't get overridden by fish/shellfish keywords
       if ((spot.city||'').toLowerCase()==='kyoto') return '🏯';
       if (t.includes('market')) return '🍢';
       if (t.includes('outlet') || t.includes('shopping') || t.includes('lalaport') || t.includes('beams')) return '🛍';
@@ -263,35 +264,35 @@
       return '🍽️';
     };
 
+    const slugifyName = (value = '') =>
+      String(value)
+        .toLowerCase()
+        .normalize('NFKD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/(^-|-$)/g, '')
+        .slice(0, 80);
+
     fetch('travel-food-spots.json', {cache:'no-store'})
       .then(r=>r.json())
       .then(data => {
-        const spots = (data.spots||[]).filter(s => (s.city||'').trim()==='Osaka');
+        const kansaiCities = new Set(['Osaka','Kyoto','Kobe','Nara','Shiga','Wakayama','Hyogo']);
+        const spots = (data.spots||[]).filter(s => kansaiCities.has((s.city||'').trim()));
         spots.forEach((spot, idx) => {
           const a = areaCenter[spot.area] || areaCenter['OUTSIDE CENTRAL OSAKA'];
-          // slight spread so markers don't fully overlap
-          const lat = a[0] + ((idx%5)-2)*0.0025;
-          const lng = a[1] + (Math.floor(idx/5)%5-2)*0.0025;
+          // use exact coordinates when provided; otherwise apply slight spread so markers don't fully overlap
+          const lat = (typeof spot.lat === 'number') ? spot.lat : (a[0] + ((idx%5)-2)*0.0025);
+          const lng = (typeof spot.lng === 'number') ? spot.lng : (a[1] + (Math.floor(idx/5)%5-2)*0.0025);
           const icon = emojiIcon(pickEmoji(spot));
-          const popup = `<b>${spot.name||'Osaka spot'}</b><br/>${spot.area||'Osaka'}<br/><span style="color:#ffd9a1">${spot.type||''}</span>`;
+          const cityLabel = spot.city ? `${spot.city} · ` : '';
+          const foodHref = `mission-control-food.html#spot-${slugifyName(spot.name||'spot')}`;
+          const popup = `<b>${spot.name||'Osaka spot'}</b><br/>${cityLabel}${spot.area||'Osaka'}<br/><span style="color:#ffd9a1">${spot.type||''}</span><br/><a href="${foodHref}" target="_blank" rel="noopener" style="color:#ffd9a1">View details ↗</a>`;
           L.marker([lat,lng], {icon}).addTo(osakaMap).bindPopup(popup).bindTooltip(spot.name||'Spot');
           bounds.push([lat,lng]);
         });
         if (bounds.length) osakaMap.fitBounds(bounds, { padding: [30, 30] });
       })
       .catch(() => { if (bounds.length) osakaMap.fitBounds(bounds, { padding: [30, 30] }); });
-  </script>
-
-</body>
-</html>ounds(bounds, { padding: [30, 30] }); });
-  </script>
-
-</body>
-</html>h) osakaMap.fitBounds(bounds, { padding: [30, 30] }); });
-  </script>
-
-</body>
-</html>ounds(bounds, { padding: [30, 30] }); });
   </script>
 
 </body>

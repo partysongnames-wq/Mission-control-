@@ -70,6 +70,7 @@
     .pill.saved{border-color:rgba(255,255,255,.22);color:#fff;background:rgba(255,255,255,.08);}    
 
     .spot-card.market{border-color:rgba(255,198,109,.55);box-shadow:0 0 0 1px rgba(255,198,109,.22) inset, 0 10px 28px rgba(0,0,0,.35);}
+    .spot-card:target{outline:2px solid rgba(255,179,71,.85);box-shadow:0 0 0 3px rgba(255,179,71,.25),0 12px 28px rgba(0,0,0,.45);scroll-margin-top:90px;}
     .pill.market{border-color:rgba(255,198,109,.6);color:#ffe2b5;background:rgba(255,198,109,.16);}
     .spot-link{color:#ffd9a1;text-decoration:none;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;}
     .spot-link:hover{text-decoration:underline;}
@@ -147,6 +148,15 @@
       if (!status) return 'saved';
       return status;
     };
+
+    const slugifyName = (value = '') =>
+      String(value)
+        .toLowerCase()
+        .normalize('NFKD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/(^-|-$)/g, '')
+        .slice(0, 80);
 
     const inferArea = (spot = {}) => {
       if (spot.area) return spot.area;
@@ -302,7 +312,7 @@
                 ...distanceLines
               ].filter(Boolean);
               return `
-                <div class="spot-card${isMarket ? " market" : ""}">
+                <div id="spot-${slugifyName(name)}" class="spot-card${isMarket ? " market" : ""}">
                   ${photoBlock}
                   <div class="spot-type">${type}</div>
                   <div class="spot-title">${name}</div>
