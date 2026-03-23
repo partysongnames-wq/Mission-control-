@@ -38,6 +38,10 @@
     .map-spot-fact,.map-spot-notes{font-size:.78rem;line-height:1.4;color:#dce3ff;margin-bottom:6px;}
     .map-spot-link{color:#ffd9a1;text-decoration:none;font-size:.75rem;letter-spacing:.08em;}
     .map-spot-link:hover{text-decoration:underline;}
+    .map-spot-compact{min-width:160px;}
+    .map-spot-compact .map-spot-name{margin-bottom:0;}
+    .map-spot-expand{display:inline-block;margin-top:6px;color:#ffd9a1;text-decoration:none;font-size:.75rem;}
+    .map-spot-expand:hover{text-decoration:underline;}
     @media (max-width:980px){.grid{grid-template-columns:1fr;}.hero{grid-template-columns:1fr 1fr;}}
     @media (max-width:680px){
       body{padding:10px;}
@@ -286,7 +290,10 @@
         .replace(/(^-|-$)/g, '')
         .slice(0, 80);
 
-    const renderSpotPopup = (spot) => {
+    const renderSpotPopup = (spot, expanded = false) => {
+      if (!expanded) {
+        return `<div class="map-spot-card map-spot-compact"><div class="map-spot-type">${spot.type||''}</div><div class="map-spot-name">${spot.name||'Spot'}</div><div class="map-spot-fact">${spot.city||'Osaka'}${spot.area ? ` · ${spot.area}` : ''}</div><a href="#" class="map-spot-expand" data-expand="1">Open profile</a></div>`;
+      }
       const photos = Array.isArray(spot.photos) ? spot.photos : (spot.photo ? [spot.photo] : []);
       const photoHtml = photos.slice(0,2).map(src => `<img src="${src}?v=20260323b" alt="${spot.name||'spot'}" />`).join('');
       const facts = [
@@ -294,12 +301,11 @@
         spot.access ? `🚉 ${spot.access}` : '',
         spot.location ? `📍 ${spot.location}` : '',
         spot.hours ? `🕒 ${spot.hours}` : ''
-      ].filter(Boolean).slice(0,3).map(line => `<div class="map-spot-fact">${line}</div>`).join('');
+      ].filter(Boolean).slice(0,4).map(line => `<div class="map-spot-fact">${line}</div>`).join('');
       const badges = [`<span class="map-badge">${spot.city||'Osaka'}</span>`, `<span class="map-badge">${(spot.status||'saved')}</span>`].join('');
       const notes = spot.notes ? `<div class="map-spot-notes">${spot.notes}</div>` : '';
-      const foodHref = `mission-control-food.html#spot-${slugifyName(spot.name||'spot')}`;
       const reelLink = spot.link ? `<a class="map-spot-link" href="${spot.link}" target="_blank" rel="noopener">Open source ↗</a>` : '';
-      return `<div class="map-spot-card">${photoHtml ? `<div class="map-spot-photos">${photoHtml}</div>` : ''}<div class="map-spot-type">${spot.type||''}</div><div class="map-spot-name">${spot.name||'Spot'}</div>${spot.price ? `<div class="map-spot-price">${spot.price}</div>` : ''}<div class="map-spot-badges">${badges}</div>${facts}${notes}<a class="map-spot-link" href="${foodHref}" target="_blank" rel="noopener">View full food card ↗</a>${reelLink ? `<br/>${reelLink}` : ''}</div>`;
+      return `<div class="map-spot-card">${photoHtml ? `<div class="map-spot-photos">${photoHtml}</div>` : ''}<div class="map-spot-type">${spot.type||''}</div><div class="map-spot-name">${spot.name||'Spot'}</div>${spot.price ? `<div class="map-spot-price">${spot.price}</div>` : ''}<div class="map-spot-badges">${badges}</div>${facts}${notes}${reelLink}${reelLink ? '<br/>' : ''}<a href="#" class="map-spot-link" data-collapse="1">Collapse</a></div>`;
     };
 
     fetch('travel-food-spots.json', {cache:'no-store'})
@@ -314,8 +320,15 @@
           const lng = (typeof spot.lng === 'number') ? spot.lng : (a[1] + (Math.floor(idx/5)%5-2)*0.0025);
           const icon = emojiIcon(pickEmoji(spot));
           const cityLabel = spot.city ? `${spot.city} · ` : '';
-          const popup = renderSpotPopup(spot);
-          L.marker([lat,lng], {icon}).addTo(osakaMap).bindPopup(popup, { maxWidth: 320 }).bindTooltip(spot.name||'Spot');
+          const marker = L.marker([lat,lng], {icon}).addTo(osakaMap).bindPopup(renderSpotPopup(spot, false), { maxWidth: 320 }).bindTooltip(spot.name||'Spot');
+          marker.on('popupopen', (ev) => {
+            const el = ev.popup.getElement();
+            if (!el) return;
+            const expand = el.querySelector('[data-expand="1"]');
+            const collapse = el.querySelector('[data-collapse="1"]');
+            if (expand) expand.onclick = (e) => { e.preventDefault(); marker.setPopupContent(renderSpotPopup(spot, true)); marker.openPopup(); };
+            if (collapse) collapse.onclick = (e) => { e.preventDefault(); marker.setPopupContent(renderSpotPopup(spot, false)); marker.openPopup(); };
+          });
           bounds.push([lat,lng]);
         });
         if (bounds.length) osakaMap.fitBounds(bounds, { padding: [30, 30] });
