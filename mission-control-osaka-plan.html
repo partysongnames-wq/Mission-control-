@@ -236,13 +236,70 @@
     }).addTo(osakaMap);
 
     const osakaPoints = [
-      { name: '🏨 LEOPARD Shinsaibashi (You)', lat: 34.6723, lng: 135.5015 },
-      { name: '👬 Bentencho Station (Brother stay area)', lat: 34.6696, lng: 135.4605 },
-      { name: '📍 Midpoint option: Hommachi', lat: 34.6841, lng: 135.4970 },
-      { name: '📍 Option: Umeda', lat: 34.7025, lng: 135.4959 },
-      { name: '🎢 Universal Studios Japan', lat: 34.6654, lng: 135.4323 },
-      { name: '⚾ Baseball option: Kyocera Dome Osaka', lat: 34.6692, lng: 135.4760 },
-      { name: '🛍 Mitsui Outlet / LaLaport Kadoma', lat: 34.7403, lng: 135.5852 }
+      {
+        name: 'LEOPARD Shinsaibashi (Your hotel)',
+        emoji: '🏨',
+        type: 'Hotel base',
+        summary: 'Main base for Osaka stay. Metro-friendly for city hops.',
+        lat: 34.6723,
+        lng: 135.5015,
+        photos: ['assets/hotels/leopard-shinsaibashi-1.jpg', 'assets/hotels/leopard-shinsaibashi-2.jpg'],
+        mapUrl: 'https://www.google.com/maps/search/?api=1&query=LEOPARD+Shinsaibashi+Osaka'
+      },
+      {
+        name: 'Bentencho Station (Brother stay area)',
+        emoji: '👬',
+        type: 'Meetup area',
+        summary: 'Useful meetup anchor on Osaka Loop Line side.',
+        lat: 34.6696,
+        lng: 135.4605,
+        mapUrl: 'https://www.google.com/maps/search/?api=1&query=Bentencho+Station+Osaka'
+      },
+      {
+        name: 'Midpoint option: Hommachi',
+        emoji: '📍',
+        type: 'Meetup midpoint',
+        summary: 'Good central compromise between Umeda and Namba/Shinsaibashi.',
+        lat: 34.6841,
+        lng: 135.4970,
+        mapUrl: 'https://www.google.com/maps/search/?api=1&query=Hommachi+Station+Osaka'
+      },
+      {
+        name: 'Option: Umeda',
+        emoji: '📍',
+        type: 'Major hub',
+        summary: 'Large station cluster with lots of dining/shopping options.',
+        lat: 34.7025,
+        lng: 135.4959,
+        mapUrl: 'https://www.google.com/maps/search/?api=1&query=Umeda+Station+Osaka'
+      },
+      {
+        name: 'Universal Studios Japan',
+        emoji: '🎢',
+        type: 'Theme park',
+        summary: 'Full-day activity. Best to lock time window in advance.',
+        lat: 34.6654,
+        lng: 135.4323,
+        mapUrl: 'https://www.google.com/maps/search/?api=1&query=Universal+Studios+Japan'
+      },
+      {
+        name: 'Baseball option: Kyocera Dome Osaka',
+        emoji: '⚾',
+        type: 'Event spot',
+        summary: 'Evening baseball option with easy return to central Osaka.',
+        lat: 34.6692,
+        lng: 135.4760,
+        mapUrl: 'https://www.google.com/maps/search/?api=1&query=Kyocera+Dome+Osaka'
+      },
+      {
+        name: 'Mitsui Outlet / LaLaport Kadoma',
+        emoji: '🛍',
+        type: 'Outlet shopping',
+        summary: 'Shopping block destination (BEAMS + outlet brands).',
+        lat: 34.7403,
+        lng: 135.5852,
+        mapUrl: 'https://www.google.com/maps/search/?api=1&query=Mitsui+Outlet+Park+Osaka+Kadoma'
+      }
     ];
 
     const emojiIcon = (emoji) => L.divIcon({
@@ -252,9 +309,20 @@
       iconAnchor: [12,12]
     });
 
+    const renderPointPopup = (point) => {
+      const photoHtml = (point.photos || []).slice(0,2).map(src => `<img src="${src}?v=20260325a" alt="${point.name}" />`).join('');
+      const facts = [
+        point.type ? `<div class="map-spot-fact">🏷 ${point.type}</div>` : '',
+        point.summary ? `<div class="map-spot-fact">ℹ️ ${point.summary}</div>` : ''
+      ].filter(Boolean).join('');
+      const link = point.mapUrl ? `<a class="map-spot-link" href="${point.mapUrl}" target="_blank" rel="noopener">Open in Google Maps ↗</a>` : '';
+      return `<div class="map-spot-card">${photoHtml ? `<div class="map-spot-photos">${photoHtml}</div>` : ''}<div class="map-spot-name">${point.emoji || '📍'} ${point.name}</div>${facts}${link}</div>`;
+    };
+
     const bounds = [];
     osakaPoints.forEach(p => {
-      const m = L.marker([p.lat, p.lng]).addTo(osakaMap).bindPopup(`<b>${p.name}</b>`);
+      const icon = emojiIcon(p.emoji || '📍');
+      L.marker([p.lat, p.lng], {icon}).addTo(osakaMap).bindPopup(renderPointPopup(p), { maxWidth: 320 }).bindTooltip(p.name);
       bounds.push([p.lat, p.lng]);
     });
 
