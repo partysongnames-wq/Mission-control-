@@ -61,10 +61,23 @@
       .map-legend{font-size:.86rem;gap:8px;}
       .map-legend .lg{padding:6px 9px;}
       .emoji-pin{font-size:22px;line-height:26px;}
+      .map-controls{top:18px;right:18px;}
+      .map-control-btn,.map-control-link{font-size:.68rem;padding:7px 10px;}
+      .osaka-map-wrap.map-fullscreen #osaka-map{height:calc(100dvh - 190px);height:calc(100vh - 190px);} 
     }
   
-    .osaka-map-wrap{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.10);border-radius:18px;padding:14px;margin:14px 0;}
+    .osaka-map-wrap{position:relative;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.10);border-radius:18px;padding:14px;margin:14px 0;}
+    .map-controls{position:absolute;top:22px;right:22px;z-index:1000;display:flex;gap:8px;align-items:center;}
+    .map-control-btn,.map-control-link{display:inline-flex;align-items:center;justify-content:center;gap:6px;border-radius:999px;padding:8px 12px;border:1px solid rgba(255,255,255,.18);background:rgba(3,3,8,.72);color:#fff;text-decoration:none;font-size:.72rem;letter-spacing:.08em;backdrop-filter:blur(4px);}
+    .map-control-btn{cursor:pointer;font-family:inherit;}
+    .map-control-btn:hover,.map-control-link:hover{background:rgba(255,255,255,.16);}
+    .map-control-link{display:none;}
     #osaka-map{height:360px;border-radius:12px;border:1px solid rgba(255,255,255,.14);overflow:hidden;}
+    body.map-lock{overflow:hidden;}
+    .osaka-map-wrap.map-fullscreen{position:fixed;inset:0;z-index:9999;border-radius:0;margin:0;border:none;padding:calc(10px + env(safe-area-inset-top)) 10px calc(12px + env(safe-area-inset-bottom));background:rgba(3,3,8,.98);display:flex;flex-direction:column;}
+    .osaka-map-wrap.map-fullscreen h2{padding-right:120px;}
+    .osaka-map-wrap.map-fullscreen #osaka-map{height:calc(100dvh - 170px);height:calc(100vh - 170px);border-radius:14px;flex:1 1 auto;min-height:280px;touch-action:pan-x pan-y;}
+    .osaka-map-wrap.map-fullscreen .map-control-link{display:inline-flex;}
   </style>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
 
@@ -92,8 +105,12 @@
       <div class="hero-card"><h3>Decision Pending</h3><strong>USJ + Baseball</strong></div>
     </section>
 
-    <section class="osaka-map-wrap">
+    <section class="osaka-map-wrap" id="osaka-map-wrap">
       <h2 style="margin:0 0 10px;font-size:.95rem;letter-spacing:.2em;text-transform:uppercase;">Osaka Key Map (City View)</h2>
+      <div class="map-controls">
+        <button class="map-control-btn" id="map-fullscreen-toggle" type="button" aria-label="Expand map" aria-expanded="false">⛶ Expand map</button>
+        <a class="map-control-link" id="map-google-link" href="https://www.google.com/maps" target="_blank" rel="noopener">↗ Google Maps</a>
+      </div>
       <div id="osaka-map"></div>
       <div class="note">Pins: your hotel, Bentencho (brother stay area), Umeda meetup option, USJ, baseball option, Kadoma outlet, plus Kansai food spots (Osaka + nearby cities like Kyoto). English-first basemap enabled; all pin names/popups are in English.</div>
       <div class="map-legend">
@@ -228,12 +245,50 @@
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <script>
-    const osakaMap = L.map('osaka-map', { tap: false, closePopupOnClick: false }).setView([34.679, 135.497], 12);
+    const osakaMap = L.map('osaka-map').setView([34.679, 135.497], 12);
+    const mapWrap = document.getElementById('osaka-map-wrap');
+    const mapToggle = document.getElementById('map-fullscreen-toggle');
+    const mapGoogleLink = document.getElementById('map-google-link');
+    let mapScrollY = 0;
+
+    const updateGoogleMapLink = () => {
+      const c = osakaMap.getCenter();
+      const z = osakaMap.getZoom();
+      mapGoogleLink.href = `https://www.google.com/maps/@${c.lat},${c.lng},${Math.max(z, 12)}z`;
+    };
+
+    const setMapFullscreen = (isFullscreen) => {
+      if (isFullscreen) {
+        mapScrollY = window.scrollY;
+        mapWrap.classList.add('map-fullscreen');
+        document.body.classList.add('map-lock');
+        mapToggle.textContent = '✕ Close map';
+        mapToggle.setAttribute('aria-label', 'Close full-screen map');
+        mapToggle.setAttribute('aria-expanded', 'true');
+      } else {
+        mapWrap.classList.remove('map-fullscreen');
+        document.body.classList.remove('map-lock');
+        mapToggle.textContent = '⛶ Expand map';
+        mapToggle.setAttribute('aria-label', 'Expand map');
+        mapToggle.setAttribute('aria-expanded', 'false');
+        window.scrollTo({ top: mapScrollY, behavior: 'auto' });
+      }
+      updateGoogleMapLink();
+      setTimeout(() => osakaMap.invalidateSize(), 60);
+    };
+
+    mapToggle.addEventListener('click', () => setMapFullscreen(!mapWrap.classList.contains('map-fullscreen')));
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && mapWrap.classList.contains('map-fullscreen')) setMapFullscreen(false);
+    });
+
     L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
       maxZoom: 19,
       subdomains: 'abcd',
       attribution: '&copy; OpenStreetMap contributors &copy; CARTO'
     }).addTo(osakaMap);
+    osakaMap.on('moveend zoomend', updateGoogleMapLink);
+    updateGoogleMapLink();
 
     const osakaPoints = [
       {
@@ -358,10 +413,7 @@
         .replace(/(^-|-$)/g, '')
         .slice(0, 80);
 
-    const renderSpotPopup = (spot, expanded = false) => {
-      if (!expanded) {
-        return `<div class="map-spot-card map-spot-compact"><div class="map-spot-type">${spot.type||''}</div><div class="map-spot-name">${spot.name||'Spot'}</div><div class="map-spot-fact">${spot.city||'Osaka'}${spot.area ? ` · ${spot.area}` : ''}</div><a href="#" class="map-spot-expand" data-expand="1">Open profile</a></div>`;
-      }
+    const renderSpotPopup = (spot, expanded = true) => {
       const photos = Array.isArray(spot.photos) ? spot.photos : (spot.photo ? [spot.photo] : []);
       const photoHtml = photos.slice(0,2).map(src => `<img src="${src}?v=20260323b" alt="${spot.name||'spot'}" />`).join('');
       const facts = [
@@ -373,7 +425,7 @@
       const badges = [`<span class="map-badge">${spot.city||'Osaka'}</span>`, `<span class="map-badge">${(spot.status||'saved')}</span>`].join('');
       const notes = spot.notes ? `<div class="map-spot-notes">${spot.notes}</div>` : '';
       const reelLink = spot.link ? `<a class="map-spot-link" href="${spot.link}" target="_blank" rel="noopener">Open source ↗</a>` : '';
-      return `<div class="map-spot-card">${photoHtml ? `<div class="map-spot-photos">${photoHtml}</div>` : ''}<div class="map-spot-type">${spot.type||''}</div><div class="map-spot-name">${spot.name||'Spot'}</div>${spot.price ? `<div class="map-spot-price">${spot.price}</div>` : ''}<div class="map-spot-badges">${badges}</div>${facts}${notes}${reelLink}${reelLink ? '<br/>' : ''}<a href="#" class="map-spot-link" data-collapse="1">Collapse</a></div>`;
+      return `<div class="map-spot-card">${photoHtml ? `<div class="map-spot-photos">${photoHtml}</div>` : ''}<div class="map-spot-type">${spot.type||''}</div><div class="map-spot-name">${spot.name||'Spot'}</div>${spot.price ? `<div class="map-spot-price">${spot.price}</div>` : ''}<div class="map-spot-badges">${badges}</div>${facts}${notes}${reelLink}</div>`;
     };
 
     fetch('travel-food-spots.json', {cache:'no-store'})
@@ -388,17 +440,7 @@
           const lng = (typeof spot.lng === 'number') ? spot.lng : (a[1] + (Math.floor(idx/5)%5-2)*0.0025);
           const icon = emojiIcon(pickEmoji(spot));
           const cityLabel = spot.city ? `${spot.city} · ` : '';
-          const marker = L.marker([lat,lng], {icon}).addTo(osakaMap).bindPopup(renderSpotPopup(spot, false), { maxWidth: 320, autoClose: false, closeOnClick: false }).bindTooltip(spot.name||'Spot');
-          marker.on('popupopen', (ev) => {
-            const el = ev.popup.getElement();
-            if (!el) return;
-            L.DomEvent.disableClickPropagation(el);
-            L.DomEvent.disableScrollPropagation(el);
-            const expand = el.querySelector('[data-expand="1"]');
-            const collapse = el.querySelector('[data-collapse="1"]');
-            if (expand) expand.onclick = (e) => { e.preventDefault(); marker.setPopupContent(renderSpotPopup(spot, true)); marker.openPopup(); };
-            if (collapse) collapse.onclick = (e) => { e.preventDefault(); marker.setPopupContent(renderSpotPopup(spot, false)); marker.openPopup(); };
-          });
+          L.marker([lat,lng], {icon}).addTo(osakaMap).bindPopup(renderSpotPopup(spot, true), { maxWidth: 320 }).bindTooltip(spot.name||'Spot');
           bounds.push([lat,lng]);
         });
         if (bounds.length) osakaMap.fitBounds(bounds, { padding: [30, 30] });
