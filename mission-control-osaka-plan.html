@@ -228,7 +228,7 @@
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <script>
-    const osakaMap = L.map('osaka-map').setView([34.679, 135.497], 12);
+    const osakaMap = L.map('osaka-map', { tap: false, closePopupOnClick: false }).setView([34.679, 135.497], 12);
     L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
       maxZoom: 19,
       subdomains: 'abcd',
@@ -320,10 +320,12 @@
           const lng = (typeof spot.lng === 'number') ? spot.lng : (a[1] + (Math.floor(idx/5)%5-2)*0.0025);
           const icon = emojiIcon(pickEmoji(spot));
           const cityLabel = spot.city ? `${spot.city} · ` : '';
-          const marker = L.marker([lat,lng], {icon}).addTo(osakaMap).bindPopup(renderSpotPopup(spot, false), { maxWidth: 320 }).bindTooltip(spot.name||'Spot');
+          const marker = L.marker([lat,lng], {icon}).addTo(osakaMap).bindPopup(renderSpotPopup(spot, false), { maxWidth: 320, autoClose: false, closeOnClick: false }).bindTooltip(spot.name||'Spot');
           marker.on('popupopen', (ev) => {
             const el = ev.popup.getElement();
             if (!el) return;
+            L.DomEvent.disableClickPropagation(el);
+            L.DomEvent.disableScrollPropagation(el);
             const expand = el.querySelector('[data-expand="1"]');
             const collapse = el.querySelector('[data-collapse="1"]');
             if (expand) expand.onclick = (e) => { e.preventDefault(); marker.setPopupContent(renderSpotPopup(spot, true)); marker.openPopup(); };
