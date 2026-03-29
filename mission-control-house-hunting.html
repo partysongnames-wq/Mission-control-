@@ -46,6 +46,16 @@
     .custom-marker.viewed{background:var(--accent2);box-shadow:0 4px 12px rgba(16,163,127,.5);}
     .custom-marker.priority{background:#ffd700;box-shadow:0 4px 20px rgba(255,215,0,.9);width:32px;height:32px;border-width:4px;border-color:#ff8c00;animation:pulse 2s infinite;}
     @keyframes pulse{0%,100%{transform:scale(1);}50%{transform:scale(1.15);}}
+
+    .leaflet-popup-content-wrapper{background:#141a2a;color:#f5f7ff;border:1px solid rgba(255,255,255,.16);border-radius:14px;}
+    .leaflet-popup-tip{background:#141a2a;}
+    .map-popup{width:min(300px,70vw);}
+    .map-popup h4{margin:0 0 6px;font-size:.95rem;}
+    .map-popup .meta{font-size:.75rem;color:var(--muted);margin-bottom:8px;line-height:1.4;}
+    .map-popup .price{display:inline-block;font-size:.72rem;padding:4px 10px;border-radius:999px;background:rgba(167,139,250,.2);border:1px solid rgba(167,139,250,.4);margin-bottom:8px;}
+    .map-popup .gallery{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px;}
+    .map-popup .gallery img{width:100%;height:80px;object-fit:cover;border-radius:8px;border:1px solid rgba(255,255,255,.15);}
+    .map-popup .note{font-size:.72rem;color:#cfd6f8;line-height:1.35;}
     
     .stats-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px;}
     .stat-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.10);border-radius:16px;padding:16px;text-align:center;transition:.2s;}
@@ -328,7 +338,11 @@
         size: "~36 sqm",
         distance: "~15 min walk to station (shuttle bus available)",
         status: "viewed",
-        image: "https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=800&q=80",
+        image: "assets/condos/cooper-visit-1.jpg",
+        gallery: [
+          "assets/condos/cooper-visit-1.jpg",
+          "https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=800&q=80"
+        ],
         details: "Viewed in person. Basic-layout rooms used space well despite compact size. Convenient for Nasha's new work and close to a major food street.",
         rooms: [
           {name: "Best layout", specs: "~36 sqm, basic layout", price: "TBD", status: "viewed"},
@@ -346,7 +360,11 @@
         distance: "Near Sam Yan area transit",
         status: "new",
         image: "https://images.unsplash.com/photo-1600607687644-c7171b42498f?auto=format&fit=crop&w=800&q=80",
-        details: "Next target to inspect. Could not get inside on first attempt; planning to view today.",
+        gallery: [
+          "https://images.unsplash.com/photo-1600607687644-c7171b42498f?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1600607688960-e095ff83135f?auto=format&fit=crop&w=800&q=80"
+        ],
+        details: "Next target to inspect. Could not get inside on first attempt; planning to view today.", 
         rooms: [
           {name: "Pending viewing", specs: "Will update after walkthrough", price: "TBD", status: "pending"}
         ],
@@ -375,6 +393,20 @@
       addMarkers();
     }
 
+    function getPopupHtml(condo) {
+      const gallery = (condo.gallery && condo.gallery.length ? condo.gallery : [condo.image]).slice(0, 2);
+      const galleryHtml = gallery.map(src => `<img src="${src}" alt="${condo.name}" loading="lazy">`).join('');
+      return `
+        <div class="map-popup">
+          <h4>${condo.name}</h4>
+          <div class="meta">📍 ${condo.location}<br>${condo.distance}</div>
+          <div class="price">${condo.price}</div>
+          <div class="gallery">${galleryHtml}</div>
+          <div class="note">${condo.status === 'priority' ? '★ Nasha priority · ' : ''}${condo.details}</div>
+        </div>
+      `;
+    }
+
     function addMarkers() {
       markers.forEach(m => map.removeLayer(m));
       markers = [];
@@ -396,7 +428,7 @@
         });
         
         const marker = L.marker(condo.coords, {icon})
-          .bindPopup(`<b>${condo.name}</b><br>${condo.location}<br>${condo.price}${condo.status === 'priority' ? '<br><b>★ NASHA PRIORITY</b>' : ''}`)
+          .bindPopup(getPopupHtml(condo), { maxWidth: 320 })
           .bindTooltip(`<b>${condo.name}</b>${condo.price ? `<br>${condo.price}` : ''}`, {
             direction: 'top',
             offset: [0, -14],
@@ -407,14 +439,8 @@
         
         marker.on('mouseover', () => marker.openTooltip());
         marker.on('mouseout', () => marker.closeTooltip());
-        marker.on('click', () => scrollToCondo(condo.id));
         markers.push(marker);
       });
-    }
-
-    function scrollToCondo(id) {
-      const el = document.getElementById(`condo-${id}`);
-      if (el) el.scrollIntoView({behavior: 'smooth', block: 'center'});
     }
 
     function renderCondos() {
