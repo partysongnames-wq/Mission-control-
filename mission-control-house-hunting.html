@@ -54,6 +54,7 @@
     .station-marker.mrt{background:linear-gradient(135deg,#9b8cff,#7b6dff);box-shadow:0 0 0 3px rgba(123,109,255,.25),0 4px 10px rgba(0,0,0,.35);}
     .job-marker{width:18px;height:18px;transform:rotate(45deg);background:linear-gradient(135deg,#ff9f43,#ff6f91);border:2px solid #ffe0c2;box-shadow:0 0 0 3px rgba(255,111,145,.28),0 4px 12px rgba(0,0,0,.4);border-radius:4px;}
     .job-marker.trent{background:linear-gradient(135deg,#4cc9f0,#4895ef);border-color:#dff2ff;box-shadow:0 0 0 3px rgba(72,149,239,.28),0 4px 12px rgba(0,0,0,.4);}
+    .sauna-marker{font-size:18px;line-height:18px;filter:drop-shadow(0 2px 6px rgba(0,0,0,.45));}
     .map-legend{position:absolute;z-index:500;right:12px;bottom:12px;background:rgba(10,14,24,.85);border:1px solid rgba(255,255,255,.18);border-radius:12px;padding:8px 10px;backdrop-filter:blur(8px);font-size:.68rem;letter-spacing:.06em;color:#dce4ff;display:flex;gap:12px;align-items:center;}
     .map-legend .item{display:flex;align-items:center;gap:6px;}
     .map-legend .dot{width:10px;height:10px;border-radius:50%;display:inline-block;}
@@ -61,6 +62,7 @@
     .map-legend .dot.mrt{background:#7b6dff;box-shadow:0 0 0 2px rgba(123,109,255,.25);}
     .map-legend .dot.job{background:#ff7b8f;box-shadow:0 0 0 2px rgba(255,123,143,.28);}
     .map-legend .dot.trent{background:#4895ef;box-shadow:0 0 0 2px rgba(72,149,239,.28);}
+    .map-legend .dot.sauna{background:#ff9f43;box-shadow:0 0 0 2px rgba(255,159,67,.3);}
 
     .stats-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px;}
     .stat-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.10);border-radius:16px;padding:16px;text-align:center;transition:.2s;}
@@ -152,6 +154,7 @@
           <span class="item"><span class="dot mrt"></span>MRT</span>
           <span class="item"><span class="dot job"></span>Nasha Job</span>
           <span class="item"><span class="dot trent"></span>Trent Work</span>
+          <span class="item"><span class="dot sauna"></span>Sauna</span>
         </div>
       </div>
 
@@ -396,6 +399,15 @@
       }
     ];
 
+    const saunaSpots = [
+      {
+        name: "Yunomori Onsen & Spa Sathorn 10",
+        location: "Soi Sathorn 10",
+        coords: [13.7222568, 100.5274151],
+        note: "Onsen + sauna"
+      }
+    ];
+
     const stations = [
       { name: "Wongwian Yai BTS", line: "BTS", coords: [13.7214, 100.4954] },
       { name: "Pho Nimit BTS", line: "BTS", coords: [13.7191, 100.4862] },
@@ -439,6 +451,7 @@
     let markers = [];
     let stationMarkers = [];
     let jobMarkers = [];
+    let saunaMarkers = [];
     let currentFilter = 'all';
 
     function initMap() {
@@ -458,6 +471,7 @@
       addMarkers();
       addStationMarkers();
       addJobMarkers();
+      addSaunaMarkers();
     }
 
     function addStationMarkers() {
@@ -508,6 +522,32 @@
           .addTo(map);
 
         jobMarkers.push(marker);
+      });
+    }
+
+    function addSaunaMarkers() {
+      saunaMarkers.forEach(m => map.removeLayer(m));
+      saunaMarkers = [];
+
+      saunaSpots.forEach(spot => {
+        const icon = L.divIcon({
+          html: `<div class="sauna-marker">♨️</div>`,
+          className: '',
+          iconSize: [18, 18],
+          iconAnchor: [9, 9]
+        });
+
+        const marker = L.marker(spot.coords, { icon, interactive: true })
+          .bindPopup(`<b>${spot.name}</b><br>${spot.location}<br><i>${spot.note}</i>`, { maxWidth: 280 })
+          .bindTooltip(`<b>${spot.name}</b><br>${spot.note}`, {
+            direction: 'top',
+            offset: [0, -10],
+            opacity: 0.95,
+            sticky: true
+          })
+          .addTo(map);
+
+        saunaMarkers.push(marker);
       });
     }
 
