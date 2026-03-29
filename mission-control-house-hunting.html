@@ -52,11 +52,13 @@
 
     .station-marker{width:16px;height:16px;border-radius:50%;background:linear-gradient(135deg,#63e6ff,#22c1ff);border:2px solid #e6fbff;box-shadow:0 0 0 3px rgba(34,193,255,.25),0 4px 10px rgba(0,0,0,.35);}
     .station-marker.mrt{background:linear-gradient(135deg,#9b8cff,#7b6dff);box-shadow:0 0 0 3px rgba(123,109,255,.25),0 4px 10px rgba(0,0,0,.35);}
+    .job-marker{width:18px;height:18px;transform:rotate(45deg);background:linear-gradient(135deg,#ff9f43,#ff6f91);border:2px solid #ffe0c2;box-shadow:0 0 0 3px rgba(255,111,145,.28),0 4px 12px rgba(0,0,0,.4);border-radius:4px;}
     .map-legend{position:absolute;z-index:500;right:12px;bottom:12px;background:rgba(10,14,24,.85);border:1px solid rgba(255,255,255,.18);border-radius:12px;padding:8px 10px;backdrop-filter:blur(8px);font-size:.68rem;letter-spacing:.06em;color:#dce4ff;display:flex;gap:12px;align-items:center;}
     .map-legend .item{display:flex;align-items:center;gap:6px;}
     .map-legend .dot{width:10px;height:10px;border-radius:50%;display:inline-block;}
     .map-legend .dot.bts{background:#22c1ff;box-shadow:0 0 0 2px rgba(34,193,255,.25);}
     .map-legend .dot.mrt{background:#7b6dff;box-shadow:0 0 0 2px rgba(123,109,255,.25);}
+    .map-legend .dot.job{background:#ff7b8f;box-shadow:0 0 0 2px rgba(255,123,143,.28);}
     
     .stats-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px;}
     .stat-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.10);border-radius:16px;padding:16px;text-align:center;transition:.2s;}
@@ -146,6 +148,7 @@
         <div class="map-legend">
           <span class="item"><span class="dot bts"></span>BTS</span>
           <span class="item"><span class="dot mrt"></span>MRT</span>
+          <span class="item"><span class="dot job"></span>Nasha Job</span>
         </div>
       </div>
       
@@ -373,6 +376,15 @@
       }
     ];
 
+    const jobs = [
+      {
+        name: "Nasha Potential Job (Round 2)",
+        location: "Siam@Siam Design Hotel Bangkok, 865 Rama I Rd",
+        coords: [13.7472289, 100.5269059],
+        note: "In progress: 2nd round interview"
+      }
+    ];
+
     const stations = [
       { name: "Wongwian Yai BTS", line: "BTS", coords: [13.7217, 100.4958] },
       { name: "Pho Nimit BTS", line: "BTS", coords: [13.7192, 100.4862] },
@@ -415,6 +427,7 @@
     let map;
     let markers = [];
     let stationMarkers = [];
+    let jobMarkers = [];
     let currentFilter = 'all';
 
     function initMap() {
@@ -433,6 +446,7 @@
       
       addMarkers();
       addStationMarkers();
+      addJobMarkers();
     }
 
     function addStationMarkers() {
@@ -457,6 +471,32 @@
           .addTo(map);
 
         stationMarkers.push(marker);
+      });
+    }
+
+    function addJobMarkers() {
+      jobMarkers.forEach(m => map.removeLayer(m));
+      jobMarkers = [];
+
+      jobs.forEach(job => {
+        const icon = L.divIcon({
+          html: `<div class="job-marker"></div>`,
+          className: '',
+          iconSize: [18, 18],
+          iconAnchor: [9, 9]
+        });
+
+        const marker = L.marker(job.coords, { icon, interactive: true })
+          .bindPopup(`<b>${job.name}</b><br>${job.location}<br><i>${job.note}</i>`, { maxWidth: 300 })
+          .bindTooltip(`<b>${job.name}</b><br>${job.note}`, {
+            direction: 'top',
+            offset: [0, -10],
+            opacity: 0.95,
+            sticky: true
+          })
+          .addTo(map);
+
+        jobMarkers.push(marker);
       });
     }
 
