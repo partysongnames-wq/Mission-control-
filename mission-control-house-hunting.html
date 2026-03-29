@@ -148,7 +148,7 @@
           <button class="chip active" onclick="filterCondos('all')">All</button>
           <button class="chip" onclick="filterCondos('priority')" style="background:rgba(255,111,176,.2);border-color:rgba(255,111,176,.5);">★ Priority</button>
           <button class="chip" onclick="filterCondos('shortlist')">Shortlist</button>
-          <button class="chip" onclick="filterCondos('viewed')">Viewed</button>
+          <button class="chip" onclick="filterCondos('viewed')">Recently Viewed</button>
         </div>
       </div>
       
@@ -170,7 +170,7 @@
           <strong id="stat-shortlist">0</strong>
         </div>
         <div class="stat-card">
-          <h3>Viewed</h3>
+          <h3>Recently Viewed</h3>
           <strong id="stat-viewed">0</strong>
         </div>
         <div class="stat-card">
@@ -415,6 +415,11 @@
       { name: "Itsaraphap MRT", line: "MRT", coords: [13.7379, 100.4877] }
     ];
 
+    // Mark all current condos as recently viewed except Ideo Sam Yan (pending today's walkthrough)
+    condos.forEach(condo => {
+      if (condo.id !== 11) condo.status = 'viewed';
+    });
+
     let map;
     let markers = [];
     let stationMarkers = [];
@@ -522,10 +527,12 @@
       let viewedCount = 0;
       let priorityCount = 0;
       
-      // Sort: priority first, then others
+      // Sort: Ideo Sam Yan first (target today), then recently viewed, then others
       const sortedCondos = [...condos].sort((a, b) => {
-        if (a.status === 'priority' && b.status !== 'priority') return -1;
-        if (b.status === 'priority' && a.status !== 'priority') return 1;
+        if (a.id === 11) return -1;
+        if (b.id === 11) return 1;
+        if (a.status === 'viewed' && b.status !== 'viewed') return -1;
+        if (b.status === 'viewed' && a.status !== 'viewed') return 1;
         return 0;
       });
       
@@ -565,7 +572,7 @@
           badgeText = '★ Shortlist';
         } else if (condo.status === 'viewed') {
           badgeClass = 'viewed';
-          badgeText = '✓ Viewed';
+          badgeText = '✓ Recently Viewed';
         } else {
           badgeClass = 'new';
           badgeText = '● Other';
@@ -580,7 +587,7 @@
             </div>
             <div class="condo-actions">
               <button class="action-btn ${condo.status === 'shortlist' ? 'active' : ''}" onclick="toggleShortlist(${condo.id})" title="Toggle shortlist">★</button>
-              <button class="action-btn ${condo.status === 'viewed' ? 'active' : ''}" onclick="toggleViewed(${condo.id})" title="Mark as viewed">✓</button>
+              <button class="action-btn ${condo.status === 'viewed' ? 'active' : ''}" onclick="toggleViewed(${condo.id})" title="Mark as recently viewed">✓</button>
             </div>
           </div>
           <div class="condo-body">
@@ -622,7 +629,7 @@
       currentFilter = filter;
       document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
       event.target.classList.add('active');
-      document.getElementById('filter-label').textContent = filter === 'all' ? 'Showing all' : filter === 'priority' ? '★ Showing Nasha Priorities' : `Showing ${filter}`;
+      document.getElementById('filter-label').textContent = filter === 'all' ? 'Showing all' : filter === 'priority' ? '★ Showing Nasha Priorities' : filter === 'viewed' ? 'Showing recently viewed' : `Showing ${filter}`;
       renderCondos();
       addMarkers();
     }
