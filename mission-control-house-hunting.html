@@ -224,16 +224,17 @@
         name: "Supalai Loft Prajadhipok",
         location: "Prajadhipok Road, Wongwian Yai",
         coords: [13.7190, 100.4890],
-        price: "฿22,000",
-        size: "47 sqm",
+        price: "฿22,000-26,000",
+        size: "47-55 sqm",
         distance: "200m to Wongwian Yai BTS",
         status: "priority",
-        image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80",
-        details: "Pool, gym, sauna. Same building you currently live in. North-facing, Bosch appliances, lots of storage.",
+        image: "https://www.living-img.com/path/og_post/2514044.jpg", // Verified Supalai listing image (LivingInsider)
+        details: "Multiple verified listings tracked: FB post (Khun Tong) for 47 sqm 1BR+multi room at ฿22,000, and LivingInsider M0939 for 55 sqm 2BR at ฿26,000. Both in Supalai Loft Prajadhipok near Wongwian Yai BTS.",
         rooms: [
-          {name: "Unit 525/123 or 515/123", specs: "47 sqm, 1BR + multi-purpose", price: "฿22,000", status: "available"}
+          {name: "FB - Khun Tong", specs: "47 sqm, 1BR + multi-purpose room", price: "฿22,000", status: "available"},
+          {name: "LivingInsider M0939", specs: "55 sqm, 2BR/1BA, 12A floor", price: "฿26,000", status: "available"}
         ],
-        notes: "NASHA PRIORITY - Good fallback if staying at SNR. Contact: Khun Tong 082-663-6245 / Line: oonwaa"
+        notes: "NASHA PRIORITY. FB listing contact: Khun Tong 082-663-6245 / Line: oonwaa. LivingInsider #2514044 contact: Line @lp.group (1-year lease, 2 months deposit + 1 month advance)."
       },
       {
         id: 1,
@@ -363,8 +364,16 @@
         
         const marker = L.marker(condo.coords, {icon})
           .bindPopup(`<b>${condo.name}</b><br>${condo.location}<br>${condo.price}${condo.status === 'priority' ? '<br><b>★ NASHA PRIORITY</b>' : ''}`)
+          .bindTooltip(`<b>${condo.name}</b>${condo.price ? `<br>${condo.price}` : ''}`, {
+            direction: 'top',
+            offset: [0, -14],
+            opacity: 0.95,
+            sticky: true
+          })
           .addTo(map);
         
+        marker.on('mouseover', () => marker.openTooltip());
+        marker.on('mouseout', () => marker.closeTooltip());
         marker.on('click', () => scrollToCondo(condo.id));
         markers.push(marker);
       });
