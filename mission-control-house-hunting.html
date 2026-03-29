@@ -30,7 +30,7 @@
     .chip{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.16);background:rgba(12,14,24,.28);color:#fff;text-decoration:none;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;cursor:pointer;transition:.15s;}
     .chip:hover{transform:translateY(-1px);background:rgba(255,255,255,.10);border-color:rgba(255,255,255,.26);}
     .chip.active{background:rgba(255,111,176,.14);border-color:rgba(255,111,176,.50);color:#ffd9e8;}
-    
+
     .map-container{border-radius:20px;overflow:hidden;border:1px solid rgba(255,255,255,.12);margin-bottom:20px;box-shadow:0 10px 40px rgba(0,0,0,.4);}
     #map{height:clamp(420px,58vh,760px);width:100%;background:var(--card-alt);}
     .custom-marker{background:var(--accent);border:3px solid #fff;border-radius:50%;width:24px;height:24px;box-shadow:0 4px 12px rgba(255,111,176,.5);cursor:pointer;transition:.2s;}
@@ -53,13 +53,15 @@
     .station-marker{width:16px;height:16px;border-radius:50%;background:linear-gradient(135deg,#63e6ff,#22c1ff);border:2px solid #e6fbff;box-shadow:0 0 0 3px rgba(34,193,255,.25),0 4px 10px rgba(0,0,0,.35);}
     .station-marker.mrt{background:linear-gradient(135deg,#9b8cff,#7b6dff);box-shadow:0 0 0 3px rgba(123,109,255,.25),0 4px 10px rgba(0,0,0,.35);}
     .job-marker{width:18px;height:18px;transform:rotate(45deg);background:linear-gradient(135deg,#ff9f43,#ff6f91);border:2px solid #ffe0c2;box-shadow:0 0 0 3px rgba(255,111,145,.28),0 4px 12px rgba(0,0,0,.4);border-radius:4px;}
+    .job-marker.trent{background:linear-gradient(135deg,#4cc9f0,#4895ef);border-color:#dff2ff;box-shadow:0 0 0 3px rgba(72,149,239,.28),0 4px 12px rgba(0,0,0,.4);}
     .map-legend{position:absolute;z-index:500;right:12px;bottom:12px;background:rgba(10,14,24,.85);border:1px solid rgba(255,255,255,.18);border-radius:12px;padding:8px 10px;backdrop-filter:blur(8px);font-size:.68rem;letter-spacing:.06em;color:#dce4ff;display:flex;gap:12px;align-items:center;}
     .map-legend .item{display:flex;align-items:center;gap:6px;}
     .map-legend .dot{width:10px;height:10px;border-radius:50%;display:inline-block;}
     .map-legend .dot.bts{background:#22c1ff;box-shadow:0 0 0 2px rgba(34,193,255,.25);}
     .map-legend .dot.mrt{background:#7b6dff;box-shadow:0 0 0 2px rgba(123,109,255,.25);}
     .map-legend .dot.job{background:#ff7b8f;box-shadow:0 0 0 2px rgba(255,123,143,.28);}
-    
+    .map-legend .dot.trent{background:#4895ef;box-shadow:0 0 0 2px rgba(72,149,239,.28);}
+
     .stats-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px;}
     .stat-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.10);border-radius:16px;padding:16px;text-align:center;transition:.2s;}
     .stat-card:hover{background:rgba(255,255,255,.06);transform:translateY(-2px);}
@@ -68,7 +70,7 @@
     .stat-card:nth-child(2) strong{color:var(--accent3);}
     .stat-card:nth-child(3) strong{color:var(--accent2);}
     .stat-card:nth-child(4) strong{color:#a78bfa;}
-    
+
     .section-title{font-size:1rem;letter-spacing:.2em;text-transform:uppercase;margin:24px 0 16px;display:flex;justify-content:space-between;align-items:center;}
     .condo-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(380px,1fr));gap:20px;}
     .condo-card{background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.12);border-radius:20px;overflow:hidden;transition:all .25s ease;box-shadow:0 8px 30px rgba(0,0,0,.3);}
@@ -142,16 +144,17 @@
           <button class="chip" onclick="filterCondos('viewed')">Recently Viewed</button>
         </div>
       </div>
-      
+
       <div class="map-container" style="position:relative;">
         <div id="map"></div>
         <div class="map-legend">
           <span class="item"><span class="dot bts"></span>BTS</span>
           <span class="item"><span class="dot mrt"></span>MRT</span>
           <span class="item"><span class="dot job"></span>Nasha Job</span>
+          <span class="item"><span class="dot trent"></span>Trent Work</span>
         </div>
       </div>
-      
+
       <div class="stats-bar">
         <div class="stat-card">
           <h3>Properties</h3>
@@ -170,16 +173,16 @@
           <strong id="stat-units">0</strong>
         </div>
       </div>
-      
+
       <div class="section-title">
         <span>Properties</span>
         <span id="filter-label">Showing all</span>
       </div>
-      
+
       <div class="condo-grid" id="condo-grid"></div>
     </div>
   </div>
-  
+
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script>
     const condos = [
@@ -368,7 +371,7 @@
           "https://images.unsplash.com/photo-1600607687644-c7171b42498f?auto=format&fit=crop&w=800&q=80",
           "https://images.unsplash.com/photo-1600607688960-e095ff83135f?auto=format&fit=crop&w=800&q=80"
         ],
-        details: "Next target to inspect. Could not get inside on first attempt; planning to view today.", 
+        details: "Next target to inspect. Could not get inside on first attempt; planning to view today.",
         rooms: [
           {name: "Pending viewing", specs: "Will update after walkthrough", price: "TBD", status: "pending"}
         ],
@@ -378,10 +381,18 @@
 
     const jobs = [
       {
-        name: "Design Hotel Siam @Siam", 
+        name: "Design Hotel Siam @Siam",
         location: "Siam@Siam Design Hotel Bangkok, 865 Rama I Rd",
         coords: [13.7472289, 100.5269059],
-        note: "In progress: 2nd round interview"
+        note: "In progress: 2nd round interview",
+        type: "nasha"
+      },
+      {
+        name: "EduFirst School (CentralWorld)",
+        location: "CentralWorld Tower, Rama I Rd",
+        coords: [13.7452312, 100.5389856],
+        note: "Trent work location",
+        type: "trent"
       }
     ];
 
@@ -443,7 +454,7 @@
         subdomains: 'abcd',
         maxZoom: 20
       }).addTo(map);
-      
+
       addMarkers();
       addStationMarkers();
       addJobMarkers();
@@ -480,7 +491,7 @@
 
       jobs.forEach(job => {
         const icon = L.divIcon({
-          html: `<div class="job-marker"></div>`,
+          html: `<div class="job-marker ${job.type === 'trent' ? 'trent' : ''}"></div>`,
           className: '',
           iconSize: [18, 18],
           iconAnchor: [9, 9]
@@ -517,15 +528,15 @@
     function addMarkers() {
       markers.forEach(m => map.removeLayer(m));
       markers = [];
-      
+
       condos.forEach(condo => {
         if (currentFilter !== 'all' && condo.status !== currentFilter) return;
-        
+
         let markerClass = '';
         if (condo.status === 'priority') markerClass = 'priority';
         else if (condo.status === 'shortlist') markerClass = 'shortlist';
         else if (condo.status === 'viewed') markerClass = 'viewed';
-        
+
         const markerHtml = `<div class="custom-marker ${markerClass}"></div>`;
         const icon = L.divIcon({
           html: markerHtml,
@@ -533,7 +544,7 @@
           iconSize: [24, 24],
           iconAnchor: [12, 12]
         });
-        
+
         const marker = L.marker(condo.coords, {icon})
           .bindPopup(getPopupHtml(condo), { maxWidth: 320 })
           .bindTooltip(`<b>${condo.name}</b>${condo.price ? `<br>${condo.price}` : ''}`, {
@@ -543,7 +554,7 @@
             sticky: true
           })
           .addTo(map);
-        
+
         marker.on('mouseover', () => marker.openTooltip());
         marker.on('mouseout', () => marker.closeTooltip());
         markers.push(marker);
@@ -553,12 +564,12 @@
     function renderCondos() {
       const grid = document.getElementById('condo-grid');
       grid.innerHTML = '';
-      
+
       let totalUnits = 0;
       let shortlistCount = 0;
       let viewedCount = 0;
       let priorityCount = 0;
-      
+
       // Sort: Ideo Sam Yan first (target today), then recently viewed, then others
       const sortedCondos = [...condos].sort((a, b) => {
         if (a.id === 11) return -1;
@@ -567,21 +578,21 @@
         if (b.status === 'viewed' && a.status !== 'viewed') return 1;
         return 0;
       });
-      
+
       sortedCondos.forEach(condo => {
         totalUnits += condo.rooms.length;
         if (condo.status === 'shortlist') shortlistCount++;
         if (condo.status === 'viewed') viewedCount++;
         if (condo.status === 'priority') priorityCount++;
-        
+
         if (currentFilter !== 'all' && condo.status !== currentFilter) return;
-        
+
         const card = document.createElement('div');
         const isPriority = condo.status === 'priority';
         const isDeprioritized = !isPriority;
         card.className = `condo-card ${condo.status} ${isDeprioritized ? 'deprioritized' : ''}`;
         card.id = `condo-${condo.id}`;
-        
+
         const roomsHtml = condo.rooms.map(room => `
           <div class="room-item">
             <div class="room-info">
@@ -594,7 +605,7 @@
             </div>
           </div>
         `).join('');
-        
+
         let badgeClass, badgeText;
         if (condo.status === 'priority') {
           badgeClass = 'priority';
@@ -609,7 +620,7 @@
           badgeClass = 'new';
           badgeText = '● Other';
         }
-        
+
         card.innerHTML = `
           <div class="condo-header">
             <img src="${condo.image}" alt="${condo.name}" loading="lazy">
@@ -647,10 +658,10 @@
             </div>
           </div>
         `;
-        
+
         grid.appendChild(card);
       });
-      
+
       document.getElementById('stat-total').textContent = condos.length;
       document.getElementById('stat-shortlist').textContent = shortlistCount;
       document.getElementById('stat-viewed').textContent = viewedCount;
