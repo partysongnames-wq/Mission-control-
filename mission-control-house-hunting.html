@@ -56,6 +56,14 @@
     .map-popup .gallery{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px;}
     .map-popup .gallery img{width:100%;height:80px;object-fit:cover;border-radius:8px;border:1px solid rgba(255,255,255,.15);}
     .map-popup .note{font-size:.72rem;color:#cfd6f8;line-height:1.35;}
+
+    .station-marker{width:16px;height:16px;border-radius:50%;background:linear-gradient(135deg,#63e6ff,#22c1ff);border:2px solid #e6fbff;box-shadow:0 0 0 3px rgba(34,193,255,.25),0 4px 10px rgba(0,0,0,.35);}
+    .station-marker.mrt{background:linear-gradient(135deg,#9b8cff,#7b6dff);box-shadow:0 0 0 3px rgba(123,109,255,.25),0 4px 10px rgba(0,0,0,.35);}
+    .map-legend{position:absolute;z-index:500;right:12px;bottom:12px;background:rgba(10,14,24,.85);border:1px solid rgba(255,255,255,.18);border-radius:12px;padding:8px 10px;backdrop-filter:blur(8px);font-size:.68rem;letter-spacing:.06em;color:#dce4ff;display:flex;gap:12px;align-items:center;}
+    .map-legend .item{display:flex;align-items:center;gap:6px;}
+    .map-legend .dot{width:10px;height:10px;border-radius:50%;display:inline-block;}
+    .map-legend .dot.bts{background:#22c1ff;box-shadow:0 0 0 2px rgba(34,193,255,.25);}
+    .map-legend .dot.mrt{background:#7b6dff;box-shadow:0 0 0 2px rgba(123,109,255,.25);}
     
     .stats-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px;}
     .stat-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.10);border-radius:16px;padding:16px;text-align:center;transition:.2s;}
@@ -144,8 +152,12 @@
         </div>
       </div>
       
-      <div class="map-container">
+      <div class="map-container" style="position:relative;">
         <div id="map"></div>
+        <div class="map-legend">
+          <span class="item"><span class="dot bts"></span>BTS</span>
+          <span class="item"><span class="dot mrt"></span>MRT</span>
+        </div>
       </div>
       
       <div class="stats-bar">
@@ -372,8 +384,19 @@
       }
     ];
 
+    const stations = [
+      { name: "Wongwian Yai BTS", line: "BTS", coords: [13.7217, 100.4958] },
+      { name: "Krung Thonburi BTS", line: "BTS", coords: [13.7210, 100.5021] },
+      { name: "Saphan Taksin BTS", line: "BTS", coords: [13.7189, 100.5142] },
+      { name: "Chong Nonsi BTS", line: "BTS", coords: [13.7237, 100.5291] },
+      { name: "Sala Daeng BTS", line: "BTS", coords: [13.7285, 100.5340] },
+      { name: "Silom MRT", line: "MRT", coords: [13.7293, 100.5368] },
+      { name: "Sam Yan MRT", line: "MRT", coords: [13.7306, 100.5302] }
+    ];
+
     let map;
     let markers = [];
+    let stationMarkers = [];
     let currentFilter = 'all';
 
     function initMap() {
@@ -391,6 +414,32 @@
       }).addTo(map);
       
       addMarkers();
+      addStationMarkers();
+    }
+
+    function addStationMarkers() {
+      stationMarkers.forEach(m => map.removeLayer(m));
+      stationMarkers = [];
+
+      stations.forEach(station => {
+        const icon = L.divIcon({
+          html: `<div class="station-marker ${station.line === 'MRT' ? 'mrt' : ''}"></div>`,
+          className: '',
+          iconSize: [16, 16],
+          iconAnchor: [8, 8]
+        });
+
+        const marker = L.marker(station.coords, { icon, interactive: true })
+          .bindTooltip(`<b>${station.name}</b><br>${station.line} Station`, {
+            direction: 'top',
+            offset: [0, -10],
+            opacity: 0.95,
+            sticky: true
+          })
+          .addTo(map);
+
+        stationMarkers.push(marker);
+      });
     }
 
     function getPopupHtml(condo) {
