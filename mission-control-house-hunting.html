@@ -655,7 +655,7 @@
         if (currentFilter !== 'all' && condo.status !== currentFilter) return;
 
         const card = document.createElement('div');
-        const isPriority = condo.status === 'priority';
+        const isPriority = condo.status === 'priority' || condo.id === 11;
         const isDeprioritized = !isPriority;
         card.className = `condo-card ${condo.status} ${isDeprioritized ? 'deprioritized' : ''}`;
         card.id = `condo-${condo.id}`;
@@ -674,7 +674,10 @@
         `).join('');
 
         let badgeClass, badgeText;
-        if (condo.status === 'priority') {
+        if (condo.id === 11) {
+          badgeClass = 'priority';
+          badgeText = '★ LOCKED IN';
+        } else if (condo.status === 'priority') {
           badgeClass = 'priority';
           badgeText = '★ NASHA PRIORITY';
         } else if (condo.status === 'shortlist') {
