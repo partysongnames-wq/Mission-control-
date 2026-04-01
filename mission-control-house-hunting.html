@@ -104,7 +104,9 @@
     .meta-item{text-align:center;}
     .meta-item strong{display:block;font-size:1.1rem;color:var(--accent3);}
     .meta-item span{font-size:.65rem;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;}
-    .condo-details{font-size:.85rem;color:var(--muted);line-height:1.5;margin-bottom:16px;}
+    .condo-details{font-size:.85rem;color:var(--muted);line-height:1.5;margin-bottom:12px;}
+    .condo-gallery-inline{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:0 0 14px;}
+    .condo-gallery-inline img{width:100%;height:88px;object-fit:cover;border-radius:10px;border:1px solid rgba(255,255,255,.18);}
     .room-list{display:flex;flex-direction:column;gap:8px;}
     .room-item{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:rgba(255,255,255,.04);border-radius:10px;border:1px solid rgba(255,255,255,.08);transition:.2s;cursor:pointer;}
     .room-item:hover{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.15);}
@@ -673,6 +675,11 @@
           </div>
         `).join('');
 
+        const galleryImages = (condo.gallery && condo.gallery.length ? condo.gallery : [condo.image]).slice(0, 6);
+        const galleryHtmlInline = galleryImages.length
+          ? `<div class="condo-gallery-inline">${galleryImages.map(src => `<img src="${src}" alt="${condo.name}" loading="lazy">`).join('')}</div>`
+          : '';
+
         let badgeClass, badgeText;
         if (condo.id === 11) {
           badgeClass = 'priority';
@@ -721,6 +728,7 @@
               </div>
             </div>
             <div class="condo-details">${condo.details}</div>
+            ${galleryHtmlInline}
             <div class="room-list">${roomsHtml}</div>
             <div class="notes-box">
               <h4>Notes</h4>
