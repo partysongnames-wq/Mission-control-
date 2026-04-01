@@ -25,7 +25,10 @@
     .item b{display:block;font-size:.88rem}
     .item span{font-size:.76rem;color:var(--muted)}
     .checklist li{margin:6px 0;color:#d8e3ff;font-size:.86rem}
-    @media (max-width:980px){.grid{grid-template-columns:1fr}#map{height:56vh;min-height:420px}}
+    .photo-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .photo-grid img{width:100%;height:120px;object-fit:cover;border-radius:10px;border:1px solid rgba(255,255,255,.16)}
+    .note{font-size:.76rem;color:var(--muted);margin-top:6px;line-height:1.35}
+    @media (max-width:980px){.grid{grid-template-columns:1fr}#map{height:56vh;min-height:420px}.photo-grid{grid-template-columns:1fr}}
   </style>
 </head>
 <body>
@@ -68,6 +71,15 @@
 
         <h3 style="margin-top:14px">Seafood / Local Favs</h3>
         <div class="list" id="seafood-list"></div>
+
+        <h3 style="margin-top:14px">Trent-Verified Food Photos</h3>
+        <div class="photo-grid">
+          <img src="assets/food/father-son-1.jpg" alt="Father & Son smash box photo 1" loading="lazy">
+          <img src="assets/food/father-son-2.jpg" alt="Father & Son smash box photo 2" loading="lazy">
+          <img src="assets/food/father-son-3.jpg" alt="Father & Son smash box photo 3" loading="lazy">
+          <img src="assets/food/kebab-bar-1.jpg" alt="Kebab Bar Halal photo" loading="lazy">
+        </div>
+        <div class="note">Father & Son’s - The Smash Box: 4.9★ (~39 reviews), ~10 min, price shown ฿200–400. Kebab Bar Halal: outdoor vibe snapshot added for neighborhood scouting.</div>
 
         <h3 style="margin-top:14px">First 7 Days Checklist</h3>
         <ul class="checklist">
