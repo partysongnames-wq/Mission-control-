@@ -577,7 +577,7 @@
     }
 
     function getPopupHtml(condo) {
-      const gallery = (condo.gallery && condo.gallery.length ? condo.gallery : [condo.image]).slice(0, 2);
+      const gallery = (condo.gallery && condo.gallery.length ? condo.gallery : [condo.image]);
       const galleryHtml = gallery.map(src => `<img src="${src}" alt="${condo.name}" loading="lazy">`).join('');
       return `
         <div class="map-popup">
