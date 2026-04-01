@@ -44,6 +44,10 @@
           <button class="chip active" data-layer="all">All</button>
           <button class="chip" data-layer="stations">Stations</button>
           <button class="chip" data-layer="onsen">Onsen</button>
+          <button class="chip" data-layer="convenience">7-Eleven</button>
+          <button class="chip" data-layer="cheapEats">Cheap Eats</button>
+          <button class="chip" data-layer="western">Western Comfort</button>
+          <button class="chip" data-layer="seafood">Seafood / Local Favs</button>
           <button class="chip" data-layer="essentials">Essentials</button>
         </div>
         <div id="map"></div>
@@ -55,6 +59,15 @@
 
         <h3 style="margin-top:14px">Nearest Transport</h3>
         <div class="list" id="stations-list"></div>
+
+        <h3 style="margin-top:14px">Cheap Eats (walkable)</h3>
+        <div class="list" id="cheap-list"></div>
+
+        <h3 style="margin-top:14px">Western Comfort</h3>
+        <div class="list" id="western-list"></div>
+
+        <h3 style="margin-top:14px">Seafood / Local Favs</h3>
+        <div class="list" id="seafood-list"></div>
 
         <h3 style="margin-top:14px">First 7 Days Checklist</h3>
         <ul class="checklist">
@@ -87,7 +100,33 @@
     const essentials = [
       {name:'Samyan Mitrtown', coords:[13.7307,100.5285], note:'Mall, groceries, food'},
       {name:'Chamchuri Square', coords:[13.7302,100.5314], note:'Groceries + daily errands'},
+      {name:'MaxValu', coords:[13.733226,100.526495], note:'Supermarket (late hours)'},
       {name:'Bang Rak District Office Area', coords:[13.7265,100.5223], note:'Admin/services zone'}
+    ];
+
+    const convenience = [
+      {name:'7-Eleven (nearest)', coords:[13.731721,100.523813], note:'~1 min walk'},
+      {name:'7-Eleven', coords:[13.731408,100.522199], note:'~2 min walk'},
+      {name:'7-Eleven', coords:[13.730012,100.523674], note:'~2-3 min walk'},
+      {name:'7-Eleven', coords:[13.732251,100.526410], note:'Near Samyan Mitrtown side'}
+    ];
+
+    const cheapEats = [
+      {name:'เจ๊น้อย เย็นตาโฟ', coords:[13.732738,100.522554], note:'Local noodle spot'},
+      {name:'ข้าวหมูแดง อาย้ง', coords:[13.728791,100.524104], note:'Budget Thai rice plate'},
+      {name:'ก๋วยเตี๋ยวปากหม้อ บ้านอุ๊ย', coords:[13.731054,100.521494], note:'Noodle + quick meal'},
+      {name:'ครัวโอปอ ไทยฟู้ด', coords:[13.731245,100.520489], note:'Cheap Thai comfort food'}
+    ];
+
+    const western = [
+      {name:'Buns & More', coords:[13.734117,100.526286], note:'Burger comfort food'},
+      {name:'Starbucks (Samyan area)', coords:[13.733284,100.526705], note:'Coffee/work fallback'},
+      {name:'Café Amazon', coords:[13.734811,100.524904], note:'Quick coffee nearby'}
+    ];
+
+    const seafood = [
+      {name:'แซลมอนรีพับบลิค', coords:[13.731465,100.521002], note:'Seafood/japanese casual'},
+      {name:'Somboon Seafood (Sam Yan / Chamchuri area)', coords:[13.7302,100.5314], note:'Popular seafood pick (pin near Chamchuri)'}
     ];
 
     const map = L.map('map', {zoomControl:true}).setView(chapter.coords, 15);
@@ -99,6 +138,10 @@
       chapter: L.layerGroup().addTo(map),
       stations: L.layerGroup().addTo(map),
       onsen: L.layerGroup().addTo(map),
+      convenience: L.layerGroup().addTo(map),
+      cheapEats: L.layerGroup().addTo(map),
+      western: L.layerGroup().addTo(map),
+      seafood: L.layerGroup().addTo(map),
       essentials: L.layerGroup().addTo(map)
     };
 
@@ -106,19 +149,34 @@
     const stationIcon = L.divIcon({html:'<div style="width:14px;height:14px;border-radius:50%;background:#5ecbff;border:2px solid #dff5ff"></div>', className:'', iconSize:[14,14], iconAnchor:[7,7]});
     const onsenIcon = L.divIcon({html:'<div style="font-size:18px">♨️</div>', className:'', iconSize:[18,18], iconAnchor:[9,9]});
     const essentialIcon = L.divIcon({html:'<div style="width:14px;height:14px;border-radius:4px;transform:rotate(45deg);background:#48d597;border:2px solid #dffff4"></div>', className:'', iconSize:[14,14], iconAnchor:[7,7]});
+    const convenienceIcon = L.divIcon({html:'<div style="width:14px;height:14px;border-radius:3px;background:#ff8d5e;border:2px solid #ffe8dc"></div>', className:'', iconSize:[14,14], iconAnchor:[7,7]});
+    const cheapIcon = L.divIcon({html:'<div style="width:14px;height:14px;border-radius:50%;background:#ffd84a;border:2px solid #fff6cc"></div>', className:'', iconSize:[14,14], iconAnchor:[7,7]});
+    const westernIcon = L.divIcon({html:'<div style="width:14px;height:14px;border-radius:4px;background:#f09cff;border:2px solid #fce5ff"></div>', className:'', iconSize:[14,14], iconAnchor:[7,7]});
+    const seafoodIcon = L.divIcon({html:'<div style="width:14px;height:14px;border-radius:50%;background:#7de3c1;border:2px solid #dffff4"></div>', className:'', iconSize:[14,14], iconAnchor:[7,7]});
 
     L.marker(chapter.coords,{icon:chapterIcon}).bindPopup(`<b>${chapter.name}</b><br>${chapter.note}`).addTo(groups.chapter);
 
     stations.forEach(s => L.marker(s.coords,{icon:stationIcon}).bindPopup(`<b>${s.name}</b><br>${s.walk}`).addTo(groups.stations));
     onsen.forEach(o => L.marker(o.coords,{icon:onsenIcon}).bindPopup(`<b>${o.name}</b><br>${o.note}`).addTo(groups.onsen));
     essentials.forEach(e => L.marker(e.coords,{icon:essentialIcon}).bindPopup(`<b>${e.name}</b><br>${e.note}`).addTo(groups.essentials));
+    convenience.forEach(p => L.marker(p.coords,{icon:convenienceIcon}).bindPopup(`<b>${p.name}</b><br>${p.note}`).addTo(groups.convenience));
+    cheapEats.forEach(p => L.marker(p.coords,{icon:cheapIcon}).bindPopup(`<b>${p.name}</b><br>${p.note}`).addTo(groups.cheapEats));
+    western.forEach(p => L.marker(p.coords,{icon:westernIcon}).bindPopup(`<b>${p.name}</b><br>${p.note}`).addTo(groups.western));
+    seafood.forEach(p => L.marker(p.coords,{icon:seafoodIcon}).bindPopup(`<b>${p.name}</b><br>${p.note}`).addTo(groups.seafood));
 
     document.getElementById('stations-list').innerHTML = stations
       .map(s => `<div class="item"><b>${s.name}</b><span>${s.walk}</span></div>`).join('');
+    document.getElementById('cheap-list').innerHTML = cheapEats
+      .map(p => `<div class="item"><b>${p.name}</b><span>${p.note}</span></div>`).join('');
+    document.getElementById('western-list').innerHTML = western
+      .map(p => `<div class="item"><b>${p.name}</b><span>${p.note}</span></div>`).join('');
+    document.getElementById('seafood-list').innerHTML = seafood
+      .map(p => `<div class="item"><b>${p.name}</b><span>${p.note}</span></div>`).join('');
 
+    const layers = ['stations','onsen','convenience','cheapEats','western','seafood','essentials'];
     const setLayer = mode => {
-      ['stations','onsen','essentials'].forEach(k => map.removeLayer(groups[k]));
-      if(mode === 'all'){['stations','onsen','essentials'].forEach(k => groups[k].addTo(map));}
+      layers.forEach(k => map.removeLayer(groups[k]));
+      if(mode === 'all'){layers.forEach(k => groups[k].addTo(map));}
       else groups[mode].addTo(map);
     };
 
