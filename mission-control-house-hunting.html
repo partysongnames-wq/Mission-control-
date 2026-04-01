@@ -38,6 +38,7 @@
     .custom-marker.shortlist{background:var(--accent3);box-shadow:0 4px 12px rgba(255,179,71,.5);}
     .custom-marker.viewed{background:var(--accent2);box-shadow:0 4px 12px rgba(16,163,127,.5);}
     .custom-marker.priority{background:#ffd700;box-shadow:0 4px 20px rgba(255,215,0,.9);width:32px;height:32px;border-width:4px;border-color:#ff8c00;animation:pulse 2s infinite;}
+    .custom-marker.locked-star{width:34px;height:34px;background:radial-gradient(circle at 35% 30%,#ffe27a 0%,#d4a514 55%,#8a6b00 100%);clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);border:2px solid #111;box-shadow:0 0 0 2px rgba(255,215,0,.45),0 8px 18px rgba(0,0,0,.55);animation:pulse 2s infinite;}
     @keyframes pulse{0%,100%{transform:scale(1);}50%{transform:scale(1.15);}}
 
     .leaflet-popup-content-wrapper{background:#141a2a;color:#f5f7ff;border:1px solid rgba(255,255,255,.16);border-radius:14px;}
@@ -365,20 +366,20 @@
         name: "Ideo Sam Yan",
         location: "Sam Yan / Si Phraya",
         coords: [13.7315, 100.5256],
-        price: "TBD",
-        size: "TBD",
+        price: "฿30,000 (discounted)",
+        size: "~70 sqm",
         distance: "~300-450m to Sam Yan MRT (about 4-6 min walk)",
-        status: "new",
+        status: "priority",
         image: "https://images.unsplash.com/photo-1600607687644-c7171b42498f?auto=format&fit=crop&w=800&q=80",
         gallery: [
           "https://images.unsplash.com/photo-1600607687644-c7171b42498f?auto=format&fit=crop&w=800&q=80",
           "https://images.unsplash.com/photo-1600607688960-e095ff83135f?auto=format&fit=crop&w=800&q=80"
         ],
-        details: "Next target to inspect. Could not get inside on first attempt; planning to view today.",
+        details: "✅ Decided and deposit paid. Top floor zone (27F, one below pool). Move-in planned end of April. Public area sauna confirmed working.",
         rooms: [
-          {name: "Pending viewing", specs: "Will update after walkthrough", price: "TBD", status: "pending"}
+          {name: "Chosen unit", specs: "~70 sqm, 27F", price: "฿30,000/mo", status: "available"}
         ],
-        notes: "Didn't get inside yet. Recheck today and update interior quality, heat/comfort, sauna, and walkability."
+        notes: "DECIDED PLACE. Upfront move-in target: ฿90,000 (3 x ฿30,000). Deposit already partially paid (half-month accepted). Agent mentioned extra savings possible by renting out car + motorbike spaces (~฿3,500/mo). Included: free Wi-Fi, furniture, 49\" TV. Not included: washing machine (agent offering ฿6,000 fee credit). Contract not signed yet; confirm 12-month term + who holds deposit + refund timeline in writing before final payment."
       }
     ];
 
@@ -577,7 +578,9 @@
         else if (condo.status === 'shortlist') markerClass = 'shortlist';
         else if (condo.status === 'viewed') markerClass = 'viewed';
 
-        const markerHtml = `<div class="custom-marker ${markerClass}"></div>`;
+        const markerHtml = condo.id === 11
+          ? `<div class="custom-marker locked-star" title="Locked in"></div>`
+          : `<div class="custom-marker ${markerClass}"></div>`;
         const icon = L.divIcon({
           html: markerHtml,
           className: '',
