@@ -135,25 +135,27 @@
     ];
 
     const cheapEats = [
-      {name:'เจ๊น้อย เย็นตาโฟ', coords:[13.732738,100.522554], note:'Local noodle spot'},
-      {name:'ข้าวหมูแดง อาย้ง', coords:[13.728791,100.524104], note:'Budget Thai rice plate'},
-      {name:'ก๋วยเตี๋ยวปากหม้อ บ้านอุ๊ย', coords:[13.731054,100.521494], note:'Noodle + quick meal'},
-      {name:'ครัวโอปอ ไทยฟู้ด', coords:[13.731245,100.520489], note:'Cheap Thai comfort food'},
-      {name:'Yummy Thai Food', coords:[13.732642,100.522120], note:'4.7★ · ฿1–200 · ~11 min'},
-      {name:'Hia Tee Yai @ Nares', coords:[13.7320,100.5219], note:'4.8★ · ฿1–200 · ~10 min'}
+      {name:'เจ๊น้อย เย็นตาโฟ', coords:[13.732738,100.522554], note:'Local noodle spot', walk:'~6 min', price:'฿', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=%E0%B9%80%E0%B8%88%E0%B9%8A%E0%B8%99%E0%B9%89%E0%B8%AD%E0%B8%A2+%E0%B9%80%E0%B8%A2%E0%B9%87%E0%B8%99%E0%B8%95%E0%B8%B2%E0%B9%82%E0%B8%9F+Bangkok'},
+      {name:'ข้าวหมูแดง อาย้ง', coords:[13.728791,100.524104], note:'Budget Thai rice plate', walk:'~7 min', price:'฿', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=%E0%B8%82%E0%B9%89%E0%B8%B2%E0%B8%A7%E0%B8%AB%E0%B8%A1%E0%B8%B9%E0%B9%81%E0%B8%94%E0%B8%87+%E0%B8%AD%E0%B8%B2%E0%B8%A2%E0%B9%89%E0%B8%87+Bangkok'},
+      {name:'ก๋วยเตี๋ยวปากหม้อ บ้านอุ๊ย', coords:[13.731054,100.521494], note:'Noodle + quick meal', walk:'~6 min', price:'฿', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=%E0%B8%81%E0%B9%8B%E0%B8%A7%E0%B8%A2%E0%B9%80%E0%B8%95%E0%B8%B5%E0%B9%8B%E0%B8%A2%E0%B8%A7%E0%B8%9B%E0%B8%B2%E0%B8%81%E0%B8%AB%E0%B8%A1%E0%B9%89%E0%B8%AD+%E0%B8%9A%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B8%AD%E0%B8%B8%E0%B9%8A%E0%B8%A2+Bangkok'},
+      {name:'ครัวโอปอ ไทยฟู้ด', coords:[13.731245,100.520489], note:'Cheap Thai comfort food', walk:'~8 min', price:'฿', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=%E0%B8%84%E0%B8%A3%E0%B8%B1%E0%B8%A7%E0%B9%82%E0%B8%AD%E0%B8%9B%E0%B8%AD+%E0%B9%84%E0%B8%97%E0%B8%A2%E0%B8%9F%E0%B8%B9%E0%B9%89%E0%B8%94+Bangkok'},
+      {name:'Yummy Thai Food', coords:[13.732642,100.522120], note:'Local casual seating style', walk:'~11 min', price:'฿1–200', rating:'4.7★ (~507)', image:'assets/food/yummy-thai-1.jpg', maps:'https://www.google.com/maps/search/?api=1&query=Yummy+Thai+Food+Bangkok'},
+      {name:'Hia Tee Yai @ Nares', coords:[13.7320,100.5219], note:'Late casual Thai meals', walk:'~10 min', price:'฿1–200', rating:'4.8★ (~200)', image:'assets/food/hia-tee-yai-1.jpg', maps:'https://www.google.com/maps/search/?api=1&query=Hia+Tee+Yai+%40+Nares+Bangkok'}
     ];
 
     const western = [
-      {name:'Buns & More', coords:[13.734117,100.526286], note:'Burger comfort food'},
-      {name:'Mimi\'s Bangkok', coords:[13.7319,100.5253], note:'Date-night vibe · 4.9★'},
-      {name:'Starbucks (Samyan area)', coords:[13.733284,100.526705], note:'Coffee/work fallback'},
-      {name:'Café Amazon', coords:[13.734811,100.524904], note:'Quick coffee nearby'}
+      {name:'Buns & More', coords:[13.734117,100.526286], note:'Burger comfort food', walk:'~9 min', price:'฿200–400', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=Buns+%26+More+Samyan+Bangkok'},
+      {name:'Mimi\'s Bangkok', coords:[13.7319,100.5253], note:'Strong date-night vibe', walk:'~10 min', price:'฿200–400', rating:'4.9★ (~339)', image:'assets/food/mimis-1.jpg', maps:'https://www.google.com/maps/search/?api=1&query=Mimi%27s+Bangkok'},
+      {name:'Kebab Bar Halal (Bangkok)', coords:[13.7316,100.5257], note:'Open late and easy comfort-food stop', walk:'~10 min', price:'฿200–400', rating:'4.5★ (~95)', image:'assets/food/kebab-bar-1.jpg', maps:'https://www.google.com/maps/search/?api=1&query=Kebab+Bar+Halal+Bangkok'},
+      {name:'Father & Son\'s - The Smash Box', coords:[13.7317,100.5252], note:'High-rated smash burger pick', walk:'~10 min', price:'฿200–400', rating:'4.9★ (~39)', image:'assets/food/father-son-1.jpg', maps:'https://www.google.com/maps/search/?api=1&query=Father+%26+Son%27s+The+Smash+Box+Bangkok'},
+      {name:'Starbucks (Samyan area)', coords:[13.733284,100.526705], note:'Coffee/work fallback', walk:'~8 min', price:'฿฿', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=Starbucks+Samyan+Mitrtown'},
+      {name:'Café Amazon', coords:[13.734811,100.524904], note:'Quick coffee nearby', walk:'~8 min', price:'฿', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=Cafe+Amazon+Samyan+Bangkok'}
     ];
 
     const seafood = [
-      {name:'แซลมอนรีพับบลิค', coords:[13.731465,100.521002], note:'Seafood/japanese casual'},
-      {name:'Markintiny (มากินที่นี่)', coords:[13.7319,100.5228], note:'4.6★ · ฿200–400 · Thai seafood-friendly menu'},
-      {name:'Somboon Seafood (Sam Yan / Chamchuri area)', coords:[13.7302,100.5314], note:'Popular seafood pick (pin near Chamchuri)'}
+      {name:'แซลมอนรีพับบลิค', coords:[13.731465,100.521002], note:'Seafood/japanese casual', walk:'~7 min', price:'฿฿', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=%E0%B9%81%E0%B8%8B%E0%B8%A5%E0%B8%A1%E0%B8%AD%E0%B8%99%E0%B8%A3%E0%B8%B5%E0%B8%9E%E0%B8%B1%E0%B8%9A%E0%B8%9A%E0%B8%A5%E0%B8%B4%E0%B8%84+Bangkok'},
+      {name:'Markintiny (มากินที่นี่)', coords:[13.7319,100.5228], note:'Thai seafood-friendly menu', walk:'~11 min', price:'฿200–400', rating:'4.6★ (~529)', image:'assets/food/markintiny-1.jpg', maps:'https://www.google.com/maps/search/?api=1&query=Markintiny+Bangkok'},
+      {name:'Somboon Seafood (Sam Yan / Chamchuri area)', coords:[13.7302,100.5314], note:'Popular seafood pick', walk:'~12 min', price:'฿฿฿', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=Somboon+Seafood+Sam+Yan'}
     ];
 
     const map = L.map('map', {zoomControl:true}).setView(chapter.coords, 15);
@@ -173,6 +175,12 @@
     };
 
     const chapterIcon = L.divIcon({html:'<div style="width:32px;height:32px;clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);background:radial-gradient(circle at 35% 30%,#ffe27a 0%,#d4a514 60%,#8a6b00 100%);border:2px solid #111;box-shadow:0 0 0 2px rgba(255,215,0,.35)"></div>', className:'', iconSize:[32,32], iconAnchor:[16,16]});
+    const foodPopup = (p) => {
+      const meta = [p.rating, p.price, p.walk].filter(Boolean).join(' · ');
+      const img = p.image ? `<img src="${p.image}" alt="${p.name}" style="width:100%;height:120px;object-fit:cover;border-radius:8px;margin:6px 0 8px;border:1px solid rgba(255,255,255,.2);">` : '';
+      const mapsBtn = p.maps ? `<a href="${p.maps}" target="_blank" style="display:inline-block;margin-top:6px;padding:6px 9px;border-radius:999px;border:1px solid #7dd3fc;color:#c8f1ff;text-decoration:none;font-size:12px;">Open in Google Maps ↗</a>` : '';
+      return `<div style="width:240px"><b>${p.name}</b><br><span style="font-size:12px;color:#a8b7d8">${meta}</span>${img}<div style="font-size:12px;color:#dbe7ff">${p.note || ''}</div>${mapsBtn}</div>`;
+    };
     const stationIcon = L.divIcon({html:'<div style="width:14px;height:14px;border-radius:50%;background:#5ecbff;border:2px solid #dff5ff"></div>', className:'', iconSize:[14,14], iconAnchor:[7,7]});
     const onsenIcon = L.divIcon({html:'<div style="font-size:18px">♨️</div>', className:'', iconSize:[18,18], iconAnchor:[9,9]});
     const essentialIcon = L.divIcon({html:'<div style="width:14px;height:14px;border-radius:4px;transform:rotate(45deg);background:#48d597;border:2px solid #dffff4"></div>', className:'', iconSize:[14,14], iconAnchor:[7,7]});
@@ -187,9 +195,9 @@
     onsen.forEach(o => L.marker(o.coords,{icon:onsenIcon}).bindPopup(`<b>${o.name}</b><br>${o.note}`).addTo(groups.onsen));
     essentials.forEach(e => L.marker(e.coords,{icon:essentialIcon}).bindPopup(`<b>${e.name}</b><br>${e.note}`).addTo(groups.essentials));
     convenience.forEach(p => L.marker(p.coords,{icon:convenienceIcon}).bindPopup(`<b>${p.name}</b><br>${p.note}`).addTo(groups.convenience));
-    cheapEats.forEach(p => L.marker(p.coords,{icon:cheapIcon}).bindPopup(`<b>${p.name}</b><br>${p.note}`).addTo(groups.cheapEats));
-    western.forEach(p => L.marker(p.coords,{icon:westernIcon}).bindPopup(`<b>${p.name}</b><br>${p.note}`).addTo(groups.western));
-    seafood.forEach(p => L.marker(p.coords,{icon:seafoodIcon}).bindPopup(`<b>${p.name}</b><br>${p.note}`).addTo(groups.seafood));
+    cheapEats.forEach(p => L.marker(p.coords,{icon:cheapIcon}).bindPopup(foodPopup(p), {maxWidth: 280}).addTo(groups.cheapEats));
+    western.forEach(p => L.marker(p.coords,{icon:westernIcon}).bindPopup(foodPopup(p), {maxWidth: 280}).addTo(groups.western));
+    seafood.forEach(p => L.marker(p.coords,{icon:seafoodIcon}).bindPopup(foodPopup(p), {maxWidth: 280}).addTo(groups.seafood));
 
     document.getElementById('stations-list').innerHTML = stations
       .map(s => `<div class="item"><b>${s.name}</b><span>${s.walk}</span></div>`).join('');
