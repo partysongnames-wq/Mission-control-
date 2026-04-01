@@ -677,7 +677,7 @@
 
         const galleryImages = (condo.gallery && condo.gallery.length ? condo.gallery : [condo.image]).slice(0, 6);
         const galleryHtmlInline = galleryImages.length
-          ? `<div class="condo-gallery-inline">${galleryImages.map(src => `<img src="${src}" alt="${condo.name}" loading="lazy">`).join('')}</div>`
+          ? `<div class="condo-gallery-inline-wrap"><div style="font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:#ffb3c7;margin:0 0 6px;">Room Photos</div><div class="condo-gallery-inline">${galleryImages.map(src => `<img src="${src}" alt="${condo.name}" loading="lazy">`).join('')}</div></div>`
           : '';
 
         let badgeClass, badgeText;
@@ -728,7 +728,7 @@
               </div>
             </div>
             <div class="condo-details">${condo.details}</div>
-            ${galleryHtmlInline}
+            ${(condo.id === 11 ? galleryHtmlInline : '')}
             <div class="room-list">${roomsHtml}</div>
             <div class="notes-box">
               <h4>Notes</h4>
