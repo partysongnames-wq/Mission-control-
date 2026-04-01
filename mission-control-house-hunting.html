@@ -200,12 +200,12 @@
         distance: "370m to Wongwian Yai BTS",
         status: "priority",
         image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80",
-        details: "Pool, sauna, gym, co-working space, 24hr security. Built 2019 by Ananda Development.",
+        details: "✅ Decided and deposit paid. Top-floor area (27F, one below pool). Move-in planned end of April. Pool/sauna/gym/co-working, 24hr security. Built 2019 by Ananda Development.",
         rooms: [
-          {name: "2BR", specs: "55 sqm, 11-20F", price: "฿27,000", status: "available"},
-          {name: "3BR Duplex", specs: "79 sqm, 27/28F", price: "฿32,000", status: "available"}
+          {name: "Chosen unit", specs: "Top-floor area, 27F", price: "฿30,000/mo", status: "available"},
+          {name: "Other known option", specs: "3BR Duplex, 27/28F", price: "฿32,000", status: "available"}
         ],
-        notes: "NASHA PRIORITY. Contact: Suwit (3BR) Line: @salesbenecondo | Tanyaporn (2BR) Line: simplygae"
+        notes: "DECIDED PLACE. Upfront move-in target: ฿90,000 (3 x ฿30,000). Deposit already partially paid (half-month accepted). Agent mentioned extra savings possible by renting out car + motorbike spaces (~฿3,500/mo). Included: free Wi-Fi, furniture, 49\" TV. Not included: washing machine (agent offering ฿6,000 fee credit). Contract not signed yet; confirm 12-month term + who holds deposit + refund timeline in writing before final payment."
       },
       {
         id: 3,
@@ -369,17 +369,17 @@
         price: "฿30,000 (discounted)",
         size: "~70 sqm",
         distance: "~300-450m to Sam Yan MRT (about 4-6 min walk)",
-        status: "priority",
+        status: "new",
         image: "https://images.unsplash.com/photo-1600607687644-c7171b42498f?auto=format&fit=crop&w=800&q=80",
         gallery: [
           "https://images.unsplash.com/photo-1600607687644-c7171b42498f?auto=format&fit=crop&w=800&q=80",
           "https://images.unsplash.com/photo-1600607688960-e095ff83135f?auto=format&fit=crop&w=800&q=80"
         ],
-        details: "✅ Decided and deposit paid. Top floor zone (27F, one below pool). Move-in planned end of April. Public area sauna confirmed working.",
+        details: "Next target to inspect. Could not get inside on first attempt; planning to view today.",
         rooms: [
-          {name: "Chosen unit", specs: "~70 sqm, 27F", price: "฿30,000/mo", status: "available"}
+          {name: "Pending viewing", specs: "Will update after walkthrough", price: "TBD", status: "pending"}
         ],
-        notes: "DECIDED PLACE. Upfront move-in target: ฿90,000 (3 x ฿30,000). Deposit already partially paid (half-month accepted). Agent mentioned extra savings possible by renting out car + motorbike spaces (~฿3,500/mo). Included: free Wi-Fi, furniture, 49\" TV. Not included: washing machine (agent offering ฿6,000 fee credit). Contract not signed yet; confirm 12-month term + who holds deposit + refund timeline in writing before final payment."
+        notes: "Didn't get inside yet. Recheck today and update interior quality, heat/comfort, sauna, and walkability."
       }
     ];
 
@@ -578,7 +578,7 @@
         else if (condo.status === 'shortlist') markerClass = 'shortlist';
         else if (condo.status === 'viewed') markerClass = 'viewed';
 
-        const markerHtml = condo.id === 11
+        const markerHtml = condo.id === 6
           ? `<div class="custom-marker locked-star" title="Locked in"></div>`
           : `<div class="custom-marker ${markerClass}"></div>`;
         const icon = L.divIcon({
