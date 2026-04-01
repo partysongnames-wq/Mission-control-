@@ -467,7 +467,7 @@
     // Status normalization: only Cooper is recently viewed; Ideo Sam Yan pending; keep known priorities
     condos.forEach(condo => {
       if (condo.id === 10) condo.status = 'viewed';
-      else if (condo.id === 11) condo.status = 'new';
+      else if (condo.id === 11) condo.status = 'priority';
       else if ([6, 3, 8].includes(condo.id)) condo.status = 'priority';
       else condo.status = 'new';
     });
