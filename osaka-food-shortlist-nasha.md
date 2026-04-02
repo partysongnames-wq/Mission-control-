@@ -100,6 +100,15 @@ _Curated from your reel collection. Cleaned for easy sharing._
 - **Photos:** 3 images saved (hard-cropped, art-directed close-up)
 - **Status:** 🆕 newly added
 
+### Ikiki Kaiten Sushi (45 yen per piece, FB Reel)
+- **Why go:** Budget conveyor sushi with very low per-piece pricing
+- **Must-try:** Live fish + tuna selections
+- **Budget:** From ~¥45 per piece (reel claim)
+- **Location:** Branch/location TBC (reel says details in comments)
+- **Map:** https://maps.google.com/?q=Ikiki+Kaiten+Sushi+Osaka
+- **Photos:** 3 images saved (hard-cropped)
+- **Status:** 🆕 newly added (branch confirmation pending)
+
 ## 🧭 Optional / Special-Mission Spots
 - **Zauo Fishing Restaurant Osaka (FB reel)** — Restaurant / Fishing (NAMBA / SHINSAIBASHI)
 - **All-you-can-eat Oysters (Takumi Shimizu) (FB reel)** — Miyagi oysters, 12 oyster dishes (+24 other dishes) (OUTSIDE CENTRAL OSAKA)
