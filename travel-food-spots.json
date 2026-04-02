@@ -631,6 +631,35 @@
         "🚇 ~18–22 min total from LEOPARD Shinsaibashi (Midosuji line + walk)",
         "🚕 ~12–18 min by taxi from LEOPARD Shinsaibashi"
       ]
+    },
+    {
+      "name": "Sennichimae Day-Drinking Izakaya (67-year old, FB Reel)",
+      "city": "Osaka",
+      "type": "Izakaya / Day-drinking",
+      "status": "saved",
+      "area": "NAMBA / SHINSAIBASHI",
+      "location": "1-4-14 Sennichimae, Chuo-ku, Osaka",
+      "closest_station": "Nihombashi Station",
+      "access": "Subway/Kintetsu Nihombashi: ~3 min walk; Kintetsu Namba: ~7 min; Nankai Namba: ~10 min",
+      "phone": "06-6211-0339",
+      "hours": "TBD (verify before going)",
+      "price": "Budget to mid izakaya pricing (exact menu prices not shown in reel)",
+      "signature": "Classic Showa-style day drinking, oden/stew + skewers + old-school counter vibe",
+      "must_try": "Oden/stew + kushi skewers + draft beer/sour",
+      "notes": "From Osaka Gourmet Kansai reel. Described as a long-running (~67 years) local day-drinking izakaya with nostalgic atmosphere in the Namba/Sennichimae area.",
+      "link": "https://www.facebook.com/share/r/18cKmdcBDY/?mibextid=wwXIfr",
+      "map_url": "https://maps.google.com/?q=1-4-14+Sennichimae+Chuo-ku+Osaka+06-6211-0339",
+      "photo": "assets/food/sennichimae-day-drinking-1.jpg",
+      "photos": [
+        "assets/food/sennichimae-day-drinking-1.jpg",
+        "assets/food/sennichimae-day-drinking-2.jpg",
+        "assets/food/sennichimae-day-drinking-3.jpg"
+      ],
+      "distance_to_hotels": [
+        "🚇 ~10–15 min total from LEOPARD Shinsaibashi (train/walk)",
+        "🚶 ~20–25 min walk from LEOPARD Shinsaibashi",
+        "🚕 ~6–12 min taxi from LEOPARD Shinsaibashi"
+      ]
     }
   ]
 }
