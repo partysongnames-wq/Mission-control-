@@ -742,6 +742,23 @@
         "🚇 ~20–28 min from LEOPARD Shinsaibashi (Midosuji + walk)",
         "🚕 ~18–28 min by taxi from LEOPARD Shinsaibashi"
       ]
+    },
+    {
+      "name": "Gomi no Ichi / 五味の市 (Hinase Fish Market)",
+      "city": "Okayama - Bizen/Hinase",
+      "type": "Fish Market / Seafood",
+      "status": "saved",
+      "area": "Hinase (Bizen)",
+      "location": "801-8 Hinasecho Hinase, Bizen, Okayama 701-3204, Japan",
+      "closest_station": "Hinase area (local access)",
+      "access": "Best by car/taxi from Kurashiki/Okayama side; check train+local transfer timing",
+      "hours": "TBD (verify latest market days/hours before going)",
+      "price": "Market pricing",
+      "signature": "Local seafood market (fresh fish, shellfish, market-style eats)",
+      "must_try": "Seasonal seafood and market grilled items",
+      "notes": "Added from Nasha-shared Google Maps pin. Off Osaka, but relevant to wider route planning.",
+      "link": "https://maps.app.goo.gl/AytasqjRwabVsgku8?g_st=ic",
+      "map_url": "https://maps.google.com/?q=GomiNo+Ichi,+801-8+Hinasecho+Hinase,+Bizen,+Okayama+701-3204,+Japan"
     }
   ]
 }
