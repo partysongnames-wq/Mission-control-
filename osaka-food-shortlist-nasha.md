@@ -90,6 +90,16 @@ _Curated from your reel collection. Cleaned for easy sharing._
 - **Photos:** 3 images saved (hard-cropped, no side black borders)
 - **Status:** 🆕 newly added
 
+### Kaisen Monogatari Namba Shinsaibashi / 海鮮物語 難波心斎橋店 (FB Reel)
+- **Why go:** Trendy Osaka red-shrimp shabu-shabu in Dotonbori
+- **Must-try:** Red shrimp shabu-shabu
+- **Budget:** ¥4,500 shrimp shabu course / ~¥7,980 premium course (reel info)
+- **Location:** Nicoo Building 2F, 1-6-12 Dotonbori, Chuo-ku, Osaka 542-0071
+- **Access:** ~5–8 min from Namba/Shinsaibashi area
+- **Map:** https://maps.google.com/?q=海鮮物語+難波心斎橋店+1-6-12+Dotonbori+Chuo-ku+Osaka
+- **Photos:** 3 images saved (hard-cropped, art-directed close-up)
+- **Status:** 🆕 newly added
+
 ## 🧭 Optional / Special-Mission Spots
 - **Zauo Fishing Restaurant Osaka (FB reel)** — Restaurant / Fishing (NAMBA / SHINSAIBASHI)
 - **All-you-can-eat Oysters (Takumi Shimizu) (FB reel)** — Miyagi oysters, 12 oyster dishes (+24 other dishes) (OUTSIDE CENTRAL OSAKA)

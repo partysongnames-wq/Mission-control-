@@ -759,6 +759,34 @@
       "notes": "Added from Nasha-shared Google Maps pin. Off Osaka, but relevant to wider route planning.",
       "link": "https://maps.app.goo.gl/AytasqjRwabVsgku8?g_st=ic",
       "map_url": "https://maps.google.com/?q=GomiNo+Ichi,+801-8+Hinasecho+Hinase,+Bizen,+Okayama+701-3204,+Japan"
+    },
+    {
+      "name": "Kaisen Monogatari Namba Shinsaibashi / 海鮮物語 難波心斎橋店 (FB Reel)",
+      "city": "Osaka",
+      "type": "Seafood Izakaya / Shrimp Shabu-shabu",
+      "status": "saved",
+      "area": "NAMBA / SHINSAIBASHI",
+      "location": "Nicoo Building 2F, 1-6-12 Dotonbori, Chuo-ku, Osaka 542-0071",
+      "closest_station": "Namba / Shinsaibashi",
+      "access": "~5–8 min from Namba/Shinsaibashi area",
+      "phone": "050-5594-4051",
+      "hours": "Mon-Thu/Sun 17:00–02:00; Fri/Sat/Pre-holiday 17:00–03:00 (verify latest)",
+      "price": "Shrimp shabu course ¥4,500; premium course with extras ~¥7,980 (reel promo info)",
+      "signature": "Red shrimp shabu-shabu (Osaka trend spot) with rich shrimp sweetness",
+      "must_try": "Red shrimp shabu-shabu",
+      "notes": "From Noa Osaka Gourmet reel. Dotonbori seafood izakaya highlighted for shrimp shabu with follower promo language.",
+      "link": "https://www.facebook.com/share/r/1Kcy7LmDxh/?mibextid=wwXIfr",
+      "map_url": "https://maps.google.com/?q=海鮮物語+難波心斎橋店+1-6-12+Dotonbori+Chuo-ku+Osaka",
+      "photo": "assets/food/kaisen-monogatari-shrimp-1.jpg",
+      "photos": [
+        "assets/food/kaisen-monogatari-shrimp-1.jpg",
+        "assets/food/kaisen-monogatari-shrimp-2.jpg",
+        "assets/food/kaisen-monogatari-shrimp-3.jpg"
+      ],
+      "distance_to_hotels": [
+        "🚶 ~12–18 min walk from LEOPARD Shinsaibashi",
+        "🚕 ~5–10 min taxi from LEOPARD Shinsaibashi"
+      ]
     }
   ]
 }
