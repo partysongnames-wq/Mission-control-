@@ -1,5 +1,5 @@
 {
-  "updated": "2026-03-23",
+  "updated": "2026-04-02",
   "notes": "Food spots from Nasha's reels and research - PHOTOS NEED UPDATE for Dalbit, Takumi Shimizu, and Umeda A5 Wagyu",
   "spots": [
     {
@@ -604,6 +604,33 @@
       "hours": "TBD",
       "lat": 34.70067,
       "lng": 135.49597
+    },
+    {
+      "name": "Uoshin Sakaba Umeda Teppan / 魚心酒場 梅田てっぺん部 (FB Reel)",
+      "city": "Osaka",
+      "type": "Izakaya / Seafood / Oyster",
+      "status": "saved",
+      "area": "UMEDA",
+      "location": "4-16 Doyamacho, Kita-ku, Osaka",
+      "closest_station": "Umeda Station",
+      "access": "From Umeda Station: ~5 min walk",
+      "hours": "17:00–23:00 (verify latest before going)",
+      "price": "Oyster AYCE 90 min ¥4,980 incl. tax; Chutoro AYCE add-on +¥1,000 (promo conditions may apply)",
+      "signature": "All-you-can-eat grilled oysters + chutoro option",
+      "must_try": "Grilled oysters + chutoro",
+      "notes": "From FB reel (Noa Osaka Gourmet). Weekday-popular oyster AYCE in Umeda with optional chutoro add-on by sushi chef. Reel mentions Instagram like/follow promo; confirm conditions in-store.",
+      "link": "https://www.facebook.com/share/r/18caoEMZgP/?mibextid=wwXIfr",
+      "map_url": "https://maps.google.com/?q=Uoshin+Sakaba+Umeda+Teppan+4-16+Doyamacho+Osaka",
+      "photo": "assets/food/uoshin-umeda-teppan-1.jpg",
+      "photos": [
+        "assets/food/uoshin-umeda-teppan-1.jpg",
+        "assets/food/uoshin-umeda-teppan-2.jpg",
+        "assets/food/uoshin-umeda-teppan-3.jpg"
+      ],
+      "distance_to_hotels": [
+        "🚇 ~18–22 min total from LEOPARD Shinsaibashi (Midosuji line + walk)",
+        "🚕 ~12–18 min by taxi from LEOPARD Shinsaibashi"
+      ]
     }
   ]
 }
