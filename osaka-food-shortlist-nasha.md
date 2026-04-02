@@ -60,6 +60,16 @@ _Curated from your reel collection. Cleaned for easy sharing._
 - **Photos:** 3 images saved
 - **Status:** 🆕 newly added
 
+### Amakusa no Megumi / 天草の恵み (Umeda, FB Reel)
+- **Why go:** Seafood shabu-shabu (buri, shrimp, pufferfish) + rich zosui finish
+- **Must-try:** Seafood shabu-shabu + eel & shrimp tempura
+- **Budget:** ~¥4,000–¥5,000 per person
+- **Location:** 2-14-21 Sonezaki, Kita-ku, Osaka (1F-3F)
+- **Access:** ~2 min walk from Higashi-Umeda Station (Hatsutenjin area)
+- **Map:** https://maps.google.com/?q=Amakusa+no+Megumi+2-14-21+Sonezaki+Kita-ku+Osaka
+- **Photos:** 3 images saved
+- **Status:** 🆕 newly added
+
 ## 🧭 Optional / Special-Mission Spots
 - **Zauo Fishing Restaurant Osaka (FB reel)** — Restaurant / Fishing (NAMBA / SHINSAIBASHI)
 - **All-you-can-eat Oysters (Takumi Shimizu) (FB reel)** — Miyagi oysters, 12 oyster dishes (+24 other dishes) (OUTSIDE CENTRAL OSAKA)

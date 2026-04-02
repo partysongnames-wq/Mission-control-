@@ -660,6 +660,34 @@
         "🚶 ~20–25 min walk from LEOPARD Shinsaibashi",
         "🚕 ~6–12 min taxi from LEOPARD Shinsaibashi"
       ]
+    },
+    {
+      "name": "Amakusa no Megumi / 天草の恵み (Umeda, FB Reel)",
+      "city": "Osaka",
+      "type": "Izakaya / Seafood Shabu-shabu",
+      "status": "saved",
+      "area": "UMEDA",
+      "location": "2-14-21 Sonezaki, Kita-ku, Osaka (1F-3F)",
+      "closest_station": "Higashi-Umeda Station",
+      "access": "~2 min walk from Higashi-Umeda Station (near Umeda/Osaka Station, Hatsutenjin area)",
+      "hours": "17:30–23:30 (L.O. food 22:30 / drinks 23:00)",
+      "closed": "Sunday (opens before holiday; may close following Monday — verify)",
+      "price": "~¥4,000–¥5,000 per person",
+      "signature": "Seafood shabu-shabu (buri, shrimp, pufferfish) + salmon/fugu zosui finish",
+      "must_try": "Seafood shabu-shabu + eel & shrimp tempura",
+      "notes": "From Uta Osaka Gourmet reel. Calm, date-friendly seafood izakaya in Umeda/Hatsutenjin with Amakusa-sourced seafood emphasis.",
+      "link": "https://www.facebook.com/share/r/1C8vnjUFVF/?mibextid=wwXIfr",
+      "map_url": "https://maps.google.com/?q=Amakusa+no+Megumi+2-14-21+Sonezaki+Kita-ku+Osaka",
+      "photo": "assets/food/amakusa-no-megumi-1.jpg",
+      "photos": [
+        "assets/food/amakusa-no-megumi-1.jpg",
+        "assets/food/amakusa-no-megumi-2.jpg",
+        "assets/food/amakusa-no-megumi-3.jpg"
+      ],
+      "distance_to_hotels": [
+        "🚇 ~15–20 min total from LEOPARD Shinsaibashi (Midosuji + walk)",
+        "🚕 ~12–18 min by taxi from LEOPARD Shinsaibashi"
+      ]
     }
   ]
 }
