@@ -491,8 +491,7 @@
       const notes = spot.notes ? `<div class="map-spot-notes">${spot.notes}</div>` : '';
       const mapHref = spot.map_url || spot.mapUrl || (spot.location ? `https://maps.google.com/?q=${encodeURIComponent(spot.location)}` : '');
       const mapLink = mapHref ? `<a class="map-spot-link" href="${mapHref}" target="_blank" rel="noopener">Open in Google Maps ↗</a>` : '';
-      const reelLink = spot.link ? `<a class="map-spot-link" href="${spot.link}" target="_blank" rel="noopener">Open source ↗</a>` : '';
-      const links = [mapLink, reelLink].filter(Boolean).join(' · ');
+      const links = mapLink;
       return `<div class="map-spot-card">${photoHtml ? `<div class="map-spot-photos">${photoHtml}</div>` : ''}<div class="map-spot-type">${spot.type||''}</div><div class="map-spot-name">${spot.name||'Spot'}</div>${spot.price ? `<div class="map-spot-price">${spot.price}</div>` : ''}<div class="map-spot-badges">${badges}</div>${facts}${notes}${links}</div>`;
     };
 
