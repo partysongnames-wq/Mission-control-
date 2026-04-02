@@ -688,6 +688,33 @@
         "🚇 ~15–20 min total from LEOPARD Shinsaibashi (Midosuji + walk)",
         "🚕 ~12–18 min by taxi from LEOPARD Shinsaibashi"
       ]
+    },
+    {
+      "name": "Original Butchikiri Sushi Uoshinami Namba / 元祖ぶっち切り寿司 魚心南 難波店 (FB Reel)",
+      "city": "Osaka",
+      "type": "Restaurant / Sushi",
+      "status": "saved",
+      "area": "NAMBA / SHINSAIBASHI",
+      "location": "1-7-9 Sennichimae 1F, Chuo-ku, Osaka 542-0074",
+      "closest_station": "Namba Station",
+      "access": "~5 min walk from Namba area stations (caption says Tsurunamba/Namba area)",
+      "hours": "TBD (caption: irregular holidays / non-scheduled closed days)",
+      "price": "From ~¥90 per piece (reel claim; verify in-store menu)",
+      "signature": "Large-cut sushi value style (\"3x revolving sushi\" style marketing)",
+      "must_try": "Assorted tuna/salmon/white fish pieces; value platter style",
+      "notes": "From FB reel by __koyuking01. Caption names Original Butchikiri Sushi Uoshinami Namba branch with strong value positioning.",
+      "link": "https://www.facebook.com/share/r/1FBBZnf8pS/?mibextid=wwXIfr",
+      "map_url": "https://maps.google.com/?q=1-7-9+Sennichimae+Chuo-ku+Osaka+Uoshinami+Namba",
+      "photo": "assets/food/uoshinami-namba-1.jpg",
+      "photos": [
+        "assets/food/uoshinami-namba-1.jpg",
+        "assets/food/uoshinami-namba-2.jpg",
+        "assets/food/uoshinami-namba-3.jpg"
+      ],
+      "distance_to_hotels": [
+        "🚇 ~8–15 min from LEOPARD Shinsaibashi (train/walk)",
+        "🚕 ~5–10 min by taxi from LEOPARD Shinsaibashi"
+      ]
     }
   ]
 }

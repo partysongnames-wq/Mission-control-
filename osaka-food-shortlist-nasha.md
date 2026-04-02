@@ -70,6 +70,16 @@ _Curated from your reel collection. Cleaned for easy sharing._
 - **Photos:** 3 images saved
 - **Status:** 🆕 newly added
 
+### Original Butchikiri Sushi Uoshinami Namba / 元祖ぶっち切り寿司 魚心南 難波店 (FB Reel)
+- **Why go:** Big-cut value sushi in Namba with strong cost-performance vibe
+- **Must-try:** Assorted value sushi (tuna/salmon/white fish)
+- **Budget:** From ~¥90 per piece (reel claim; verify)
+- **Location:** 1-7-9 Sennichimae 1F, Chuo-ku, Osaka 542-0074
+- **Access:** ~5 min walk from Namba area stations
+- **Map:** https://maps.google.com/?q=1-7-9+Sennichimae+Chuo-ku+Osaka+Uoshinami+Namba
+- **Photos:** 3 images saved (hard-cropped, no side black borders)
+- **Status:** 🆕 newly added
+
 ## 🧭 Optional / Special-Mission Spots
 - **Zauo Fishing Restaurant Osaka (FB reel)** — Restaurant / Fishing (NAMBA / SHINSAIBASHI)
 - **All-you-can-eat Oysters (Takumi Shimizu) (FB reel)** — Miyagi oysters, 12 oyster dishes (+24 other dishes) (OUTSIDE CENTRAL OSAKA)
