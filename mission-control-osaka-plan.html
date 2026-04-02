@@ -22,7 +22,11 @@
     .note{margin-top:10px;color:var(--muted);font-size:.84rem;line-height:1.5;} .link{color:#ffd9a1;text-decoration:none;} .link:hover{text-decoration:underline;}
     .emoji-pin{font-size:18px;line-height:22px;text-align:center;filter:drop-shadow(0 1px 2px rgba(0,0,0,.45));}
     .map-legend{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px;font-size:.74rem;letter-spacing:.08em;color:#dce3ff;}
-    .map-legend .lg{display:inline-flex;align-items:center;gap:6px;padding:4px 8px;border:1px solid rgba(255,255,255,.16);border-radius:999px;background:rgba(255,255,255,.05);}
+    .map-legend .lg{display:inline-flex;align-items:center;gap:6px;padding:4px 8px;border:1px solid rgba(255,255,255,.16);border-radius:999px;background:rgba(255,255,255,.05);} 
+    .map-filter-bar{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;align-items:center;}
+    .filter-btn{border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.06);color:#fff;border-radius:999px;padding:6px 10px;font-size:.68rem;letter-spacing:.08em;cursor:pointer;}
+    .filter-btn.active{background:rgba(255,179,71,.2);border-color:rgba(255,179,71,.55);} 
+    .region-select{background:rgba(3,3,8,.72);color:#fff;border:1px solid rgba(255,255,255,.2);border-radius:999px;padding:7px 10px;font-size:.72rem;}
     .leaflet-popup-content{font-size:14px;line-height:1.4; margin:10px 12px;}
     .leaflet-popup-content-wrapper{background:#111522;color:#f5f7ff;border:1px solid rgba(255,255,255,.14);border-radius:16px;}
     .leaflet-popup-tip{background:#111522;}
@@ -113,6 +117,26 @@
       </div>
       <div id="osaka-map"></div>
       <div class="note">Pins: your hotel, Bentencho (brother stay area), Umeda meetup option, USJ, baseball option, Kadoma outlet, plus Kansai food spots (Osaka + nearby cities like Kyoto). English-first basemap enabled; all pin names/popups are in English.</div>
+      <div class="map-filter-bar" id="map-type-filters">
+        <button class="filter-btn active" data-type="all">All</button>
+        <button class="filter-btn" data-type="sushi">🍣 Sushi</button>
+        <button class="filter-btn" data-type="yakiniku">🥩 Yakiniku</button>
+        <button class="filter-btn" data-type="oyster">🦪 Oyster</button>
+        <button class="filter-btn" data-type="seafood">🐟 Seafood</button>
+        <button class="filter-btn" data-type="market">🍢 Market</button>
+        <button class="filter-btn" data-type="noodles">🍜 Noodles</button>
+        <button class="filter-btn" data-type="pending">⚠️ Pending address</button>
+      </div>
+      <div class="map-filter-bar">
+        <span class="note" style="margin:0">Region jump:</span>
+        <select id="map-region-jump" class="region-select">
+          <option value="osaka">Osaka</option>
+          <option value="okayama">Okayama / Bizen</option>
+          <option value="kurashiki">Kurashiki</option>
+          <option value="hiroshima">Hiroshima</option>
+          <option value="kokura">Kokura</option>
+        </select>
+      </div>
       <div class="map-legend">
         <span class="lg">🦪 Oyster-focused</span>
         <span class="lg">🦞 Shellfish/mixed seafood</span>
@@ -404,6 +428,32 @@
       'KYOTO SANJO': [35.0094,135.7727]
     };
 
+    const regionCenters = {
+      osaka: { center:[34.679,135.497], zoom:12 },
+      okayama: { center:[34.6647,134.1693], zoom:11 },
+      kurashiki: { center:[34.5850,133.7712], zoom:12 },
+      hiroshima: { center:[34.3853,132.4553], zoom:12 },
+      kokura: { center:[33.8833,130.8751], zoom:12 }
+    };
+
+    const typeFiltersEl = document.getElementById('map-type-filters');
+    const regionJumpEl = document.getElementById('map-region-jump');
+    let activeTypeFilter = 'all';
+    const foodLayers = [];
+
+    const spotMatchesType = (spot, type) => {
+      if (type === 'all') return true;
+      const t = `${spot.type||''} ${spot.name||''} ${spot.signature||''} ${spot.notes||''}`.toLowerCase();
+      if (type === 'sushi') return t.includes('sushi') || t.includes('寿司');
+      if (type === 'yakiniku') return t.includes('yakiniku') || t.includes('bbq') || t.includes('焼肉') || t.includes('horumon');
+      if (type === 'oyster') return t.includes('oyster') || t.includes('牡蠣') || t.includes('カキ');
+      if (type === 'seafood') return t.includes('seafood') || t.includes('fish') || t.includes('sashimi') || t.includes('shellfish');
+      if (type === 'market') return t.includes('market') || t.includes('市場');
+      if (type === 'noodles') return t.includes('ramen') || t.includes('udon') || t.includes('noodle');
+      if (type === 'pending') return (spot.status || '').toLowerCase().includes('pending');
+      return true;
+    };
+
     const pickEmoji = (spot) => {
       const t = `${spot.type||''} ${spot.name||''} ${spot.signature||''} ${spot.notes||''}`.toLowerCase();
       if ((spot.city||'').toLowerCase()==='kyoto') return '🏯';
@@ -443,21 +493,50 @@
       return `<div class="map-spot-card">${photoHtml ? `<div class="map-spot-photos">${photoHtml}</div>` : ''}<div class="map-spot-type">${spot.type||''}</div><div class="map-spot-name">${spot.name||'Spot'}</div>${spot.price ? `<div class="map-spot-price">${spot.price}</div>` : ''}<div class="map-spot-badges">${badges}</div>${facts}${notes}${reelLink}</div>`;
     };
 
+    const applyTypeFilter = () => {
+      foodLayers.forEach(({ marker, spot }) => {
+        const show = spotMatchesType(spot, activeTypeFilter);
+        if (show) {
+          if (!osakaMap.hasLayer(marker)) marker.addTo(osakaMap);
+        } else {
+          if (osakaMap.hasLayer(marker)) osakaMap.removeLayer(marker);
+        }
+      });
+    };
+
+    if (typeFiltersEl) {
+      typeFiltersEl.addEventListener('click', (e) => {
+        const btn = e.target.closest('.filter-btn');
+        if (!btn) return;
+        activeTypeFilter = btn.dataset.type || 'all';
+        typeFiltersEl.querySelectorAll('.filter-btn').forEach(b => b.classList.toggle('active', b === btn));
+        applyTypeFilter();
+      });
+    }
+
+    if (regionJumpEl) {
+      regionJumpEl.addEventListener('change', () => {
+        const key = regionJumpEl.value;
+        const cfg = regionCenters[key];
+        if (!cfg) return;
+        osakaMap.setView(cfg.center, cfg.zoom, { animate: true });
+      });
+    }
+
     fetch('travel-food-spots.json', {cache:'no-store'})
       .then(r=>r.json())
       .then(data => {
-        const kansaiCities = new Set(['Osaka','Kyoto','Kobe','Nara','Shiga','Wakayama','Hyogo']);
-        const spots = (data.spots||[]).filter(s => kansaiCities.has((s.city||'').trim()));
+        const spots = (data.spots||[]).filter(s => (s.city||'').toLowerCase().includes('osaka'));
         spots.forEach((spot, idx) => {
           const a = areaCenter[spot.area] || areaCenter['OUTSIDE CENTRAL OSAKA'];
-          // use exact coordinates when provided; otherwise apply slight spread so markers don't fully overlap
           const lat = (typeof spot.lat === 'number') ? spot.lat : (a[0] + ((idx%5)-2)*0.0025);
           const lng = (typeof spot.lng === 'number') ? spot.lng : (a[1] + (Math.floor(idx/5)%5-2)*0.0025);
           const icon = emojiIcon(pickEmoji(spot));
-          const cityLabel = spot.city ? `${spot.city} · ` : '';
-          L.marker([lat,lng], {icon}).addTo(osakaMap).bindPopup(renderSpotPopup(spot, true), { maxWidth: 320 }).bindTooltip(spot.name||'Spot');
+          const marker = L.marker([lat,lng], {icon}).addTo(osakaMap).bindPopup(renderSpotPopup(spot, true), { maxWidth: 320 }).bindTooltip(spot.name||'Spot');
+          foodLayers.push({ marker, spot });
           bounds.push([lat,lng]);
         });
+        applyTypeFilter();
         if (bounds.length) osakaMap.fitBounds(bounds, { padding: [30, 30] });
       })
       .catch(() => { if (bounds.length) osakaMap.fitBounds(bounds, { padding: [30, 30] }); });
