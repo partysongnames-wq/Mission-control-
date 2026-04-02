@@ -792,16 +792,16 @@
       "name": "Ikiki Kaiten Sushi (45 yen per piece, FB Reel)",
       "city": "Osaka",
       "type": "Conveyor Sushi / Budget Sushi",
-      "status": "saved",
+      "status": "pending-address",
       "area": "OUTSIDE CENTRAL OSAKA",
-      "location": "Branch/location TBC (caption says in comments; storefront sign indicates Ikiki Kaiten Sushi)",
+      "location": "Address pending confirmation (reel says location in comments)",
       "closest_station": "TBD",
-      "access": "TBD after exact branch confirmation",
+      "access": "Pending exact branch address",
       "hours": "TBD",
       "price": "From ~¥45 per piece (reel claim), ~¥1,500 per person for light meal",
       "signature": "Ultra-budget sushi pricing with live fish/tuna highlight",
       "must_try": "Live fish and tuna selections",
-      "notes": "From Fuudate reel. Exact branch details were posted in comments not fully visible in reel overlay; placeholder entry saved so it is not lost.",
+      "notes": "From Fuudate reel. Exact branch details were posted in comments not fully visible in reel overlay; placeholder entry saved so it is not lost. Address not confirmed yet after comments scan; do not treat as finalized pin.",
       "link": "https://www.facebook.com/share/r/18hvMx8JiH/?mibextid=wwXIfr",
       "map_url": "https://maps.google.com/?q=Ikiki+Kaiten+Sushi+Osaka",
       "photo": "assets/food/ikiki-kaiten-sushi-1.jpg",
@@ -811,8 +811,7 @@
         "assets/food/ikiki-kaiten-sushi-3.jpg"
       ],
       "distance_to_hotels": [
-        "🚇 TBD after branch confirmation",
-        "🚕 TBD after branch confirmation"
+        "TBD after exact branch confirmation"
       ]
     }
   ]
