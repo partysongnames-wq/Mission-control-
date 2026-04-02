@@ -80,6 +80,16 @@ _Curated from your reel collection. Cleaned for easy sharing._
 - **Photos:** 3 images saved (hard-cropped, no side black borders)
 - **Status:** 🆕 newly added
 
+### Kaki Taiko Tennoji / カキ小屋 (Abeno Q’s Mall limited, FB Reel)
+- **Why go:** Tennoji-side oyster all-you-can-eat style, lively open-air setup
+- **Must-try:** Grilled oysters + seafood platter items
+- **Budget:** TBD (reel highlights oyster AYCE concept)
+- **Location:** Abeno Q’s Mall area, Tennoji, Osaka (limited-time setup)
+- **Access:** ~5–10 min walk around Tennoji station/Abeno area
+- **Map:** https://maps.google.com/?q=Abeno+Q%27s+Mall+Tennoji+Osaka+Kaki+Taiko
+- **Photos:** 3 images saved (hard-cropped, no side black borders)
+- **Status:** 🆕 newly added
+
 ## 🧭 Optional / Special-Mission Spots
 - **Zauo Fishing Restaurant Osaka (FB reel)** — Restaurant / Fishing (NAMBA / SHINSAIBASHI)
 - **All-you-can-eat Oysters (Takumi Shimizu) (FB reel)** — Miyagi oysters, 12 oyster dishes (+24 other dishes) (OUTSIDE CENTRAL OSAKA)

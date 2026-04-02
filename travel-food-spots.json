@@ -715,6 +715,33 @@
         "🚇 ~8–15 min from LEOPARD Shinsaibashi (train/walk)",
         "🚕 ~5–10 min by taxi from LEOPARD Shinsaibashi"
       ]
+    },
+    {
+      "name": "Kaki Taiko Tennoji / カキ小屋 (Abeno Q’s Mall limited, FB Reel)",
+      "city": "Osaka",
+      "type": "Oyster BBQ / Seafood Event-style",
+      "status": "saved",
+      "area": "TENNOJI / ABENO",
+      "location": "Abeno Q’s Mall area, Tennoji, Osaka (limited-time setup)",
+      "closest_station": "Tennoji Station",
+      "access": "~5–10 min walk around Abeno Q’s Mall / Tennoji station area",
+      "hours": "TBD (limited-time / pop-up style; verify current operation)",
+      "price": "TBD (reel highlights all-you-can-eat oyster concept)",
+      "signature": "All-you-can-eat oysters in open-air/tent style seafood setup",
+      "must_try": "Grilled oysters + seafood platter items",
+      "notes": "From Koki Hironaka FB reel. Caption says Kaki Taiko appeared near Abeno Cues Mall in Tennoji for limited time.",
+      "link": "https://www.facebook.com/share/r/18NeR2Hq3f/?mibextid=wwXIfr",
+      "map_url": "https://maps.google.com/?q=Abeno+Q%27s+Mall+Tennoji+Osaka+Kaki+Taiko",
+      "photo": "assets/food/kaki-taiko-tennoji-1.jpg",
+      "photos": [
+        "assets/food/kaki-taiko-tennoji-1.jpg",
+        "assets/food/kaki-taiko-tennoji-2.jpg",
+        "assets/food/kaki-taiko-tennoji-3.jpg"
+      ],
+      "distance_to_hotels": [
+        "🚇 ~20–28 min from LEOPARD Shinsaibashi (Midosuji + walk)",
+        "🚕 ~18–28 min by taxi from LEOPARD Shinsaibashi"
+      ]
     }
   ]
 }
