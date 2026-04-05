@@ -72,6 +72,7 @@
     .spot-card.market{border-color:rgba(255,198,109,.55);box-shadow:0 0 0 1px rgba(255,198,109,.22) inset, 0 10px 28px rgba(0,0,0,.35);}
     .spot-card:target{outline:2px solid rgba(255,179,71,.85);box-shadow:0 0 0 3px rgba(255,179,71,.25),0 12px 28px rgba(0,0,0,.45);scroll-margin-top:90px;}
     .pill.market{border-color:rgba(255,198,109,.6);color:#ffe2b5;background:rgba(255,198,109,.16);}
+    .pill.chain{border-color:rgba(98,168,255,.65);color:#cfe5ff;background:rgba(98,168,255,.16);} 
     .spot-link{color:#ffd9a1;text-decoration:none;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;}
     .spot-link:hover{text-decoration:underline;}
     .spot-extra{font-size:.7rem;letter-spacing:.12em;color:var(--muted);text-transform:uppercase;display:flex;gap:6px;align-items:center;flex-wrap:wrap;}
@@ -266,7 +267,7 @@
           }, {});
 
           const preferredAreaOrder = city === 'Osaka'
-            ? ['UMEDA', 'NAMBA / SHINSAIBASHI', 'KYOBASHI', 'OUTSIDE CENTRAL OSAKA']
+            ? ['UMEDA', 'NAMBA / SHINSAIBASHI', 'TENMA', 'KYOBASHI', 'OUTSIDE CENTRAL OSAKA']
             : city.startsWith('Busan')
               ? ['Haeundae Coast', 'Songjeong / East Coast', 'Yeongdo / Coast', 'Myeongji / Gangseo', 'Other Busan', 'Gijang']
               : [];
@@ -289,6 +290,7 @@
               const notes = spot.notes || '';
               const mustTry = spot.must_try ? `Must-try: ${spot.must_try}` : '';
               const link = spot.link ? `<a class="spot-link" href="${spot.link}" target="_blank" rel="noopener">Open link</a>` : '';
+              const mapLink = spot.map_url ? `<a class="spot-link" href="${spot.map_url}" target="_blank" rel="noopener">Open map</a>` : '';
               const status = prettyStatus(spot.status);
               const isMarket = /market|시장|市場/i.test(`${type} ${name}`);
               const photos = Array.isArray(spot.photos) ? spot.photos : (spot.photo ? [spot.photo] : []);
@@ -321,11 +323,12 @@
                   <div class="spot-meta">
                     <span class="pill">${city.startsWith('Busan -') ? 'Busan' : city}</span>
                     <span class="${statusClass(status)}">${status}</span>
+                    ${spot.chain ? `<span class="pill chain">⛓ chain</span>` : ""}
                     ${isMarket ? `<span class="pill market">market stop</span>` : ""}
                   </div>
                   ${factLines.length ? `<div class="spot-facts">${factLines.map(line => `<div class=\"spot-fact\">${line}</div>`).join('')}</div>` : ''}
                   <div class="spot-notes">${[notes, mustTry].filter(Boolean).join(' · ') || 'No notes yet.'}</div>
-                  ${link}
+                  ${[link,mapLink].filter(Boolean).join(' · ')}
                 </div>
               `;
             }).join('');

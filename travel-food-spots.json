@@ -445,7 +445,9 @@
       "closest_station": "Shinsaibashi Station",
       "access": "From Shinsaibashi Station: ~3 min",
       "from_hotel": "From LEOPARD Shinsaibashi: ~3–5 min walk · ~2–3 min taxi",
-      "map_url": "https://maps.google.com/?q=Yakiniku+Gorichan+Shinsaibashi+%2F+%E7%84%BC%E8%82%89%E3%81%94%E3%82%8A%E3%81%A1%E3%82%83%E3%82%93+%28IG+Reel%29"
+      "map_url": "https://maps.google.com/?q=Yakiniku+Gorichan+Shinsaibashi+%2F+%E7%84%BC%E8%82%89%E3%81%94%E3%82%8A%E3%81%A1%E3%82%83%E3%82%93+%28IG+Reel%29",
+      "chain": true,
+      "chain_group": "Yakiniku Gorichan (焼肉ごりちゃん)"
     },
     {
       "name": "Nikai no Oasis KITTE Osaka / ニカイノオアシス KITTE大阪",
@@ -871,6 +873,61 @@
         "🚕 ~45–70 min by taxi from LEOPARD Shinsaibashi (traffic-dependent)"
       ],
       "location_confidence": "high (address captured in provided screenshot overlay)"
+    },
+    {
+      "name": "Yakiniku Gorichan Tenma / 焼肉ごりちゃん 天満店",
+      "city": "Osaka",
+      "type": "Restaurant / BBQ",
+      "status": "priority",
+      "chain": true,
+      "chain_group": "Yakiniku Gorichan (焼肉ごりちゃん)",
+      "area": "TENMA",
+      "location": "大阪府大阪市北区天神橋4-2-19",
+      "closest_station": "JR Tenma Station",
+      "access": "~2 min walk from JR Tenma Station; walkable from Ogimachi Station",
+      "hours": "17:00–24:00 (Food LO 23:00 / Drink LO 23:30)",
+      "closed": "Monday",
+      "signature": "Thick-cut tongue + harami + kuroge wagyu",
+      "must_try": "Famous thick-cut salt tongue, green-onion tongue/harami, black wagyu",
+      "notes": "Verified from Trent screenshots + reel caption translation. Very popular/high-energy branch.",
+      "link": "https://www.facebook.com/share/r/1BLdnXRZo8/?mibextid=wwXIfr",
+      "map_url": "https://maps.google.com/?q=%E5%A4%A7%E9%98%AA%E5%BA%9C%E5%A4%A7%E9%98%AA%E5%B8%82%E5%8C%97%E5%8C%BA%E5%A4%A9%E7%A5%9E%E6%A9%8B4-2-19",
+      "photos": [
+        "assets/food/gorichan-tenma-1.jpg",
+        "assets/food/gorichan-tenma-2.jpg"
+      ],
+      "photo": "assets/food/gorichan-tenma-1.jpg"
+    },
+    {
+      "name": "Yakiniku Gorichan Umeda Main / 焼肉ごりちゃん 梅田本店",
+      "city": "Osaka",
+      "type": "Restaurant / BBQ",
+      "status": "saved",
+      "chain": true,
+      "chain_group": "Yakiniku Gorichan (焼肉ごりちゃん)",
+      "area": "UMEDA",
+      "location": "大阪府大阪市北区堂山町8-21 石本ビル B1F",
+      "closest_station": "Nakazakicho / Higashi-Umeda / Umeda",
+      "access": "~4–6 min walk depending station exit",
+      "hours": "Late-night branch (verify latest hours before visit)",
+      "signature": "A5 wagyu, thick-cut tongue, harami",
+      "notes": "Branch candidate from shared branch info; keep as chain option near Umeda nightlife.",
+      "map_url": "https://maps.google.com/?q=%E5%A4%A7%E9%98%AA%E5%BA%9C%E5%A4%A7%E9%98%AA%E5%B8%82%E5%8C%97%E5%8C%BA%E5%A0%82%E5%B1%B1%E7%94%BA8-21+%E7%9F%B3%E6%9C%AC%E3%83%93%E3%83%AB+B1F"
+    },
+    {
+      "name": "Yakiniku Gorichan Namba (branch check) / 焼肉ごりちゃん 難波",
+      "city": "Osaka",
+      "type": "Restaurant / BBQ",
+      "status": "saved",
+      "chain": true,
+      "chain_group": "Yakiniku Gorichan (焼肉ごりちゃん)",
+      "area": "NAMBA / SHINSAIBASHI",
+      "location": "Namba area branch (exact address to pin before visit)",
+      "closest_station": "Namba Station",
+      "access": "Expected easy access from Minami side",
+      "signature": "Same chain menu concept (thick-cut tongue / wagyu / harami)",
+      "notes": "Added as chain placeholder so Namba-side option is visible; exact branch pin to confirm before routing.",
+      "map_url": "https://maps.google.com/?q=%E7%84%BC%E8%82%89%E3%81%94%E3%82%8A%E3%81%A1%E3%82%83%E3%82%93+%E9%9B%A3%E6%B3%A2"
     }
   ]
 }
