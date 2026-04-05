@@ -329,35 +329,43 @@
       const s2 = document.getElementById('total-nasha-line');
       const s3 = document.getElementById('total-trent-line');
       
-      // Show both return options
-      const optA = meta.total_cost_nasha_separate || t.nashaSum;
-      const optB = meta.total_cost_trent_separate || t.trentSum;
-      const together = meta.total_cost_together_each || t.trentSum;
-      const premium = meta.together_premium || (together * 2 - optA - optB);
-      
-      if (totalEl) {
-        totalEl.innerHTML = `<div style="font-size:1.1rem;opacity:.7;margin-bottom:4px;">OPTION A: Separate (cheaper)</div>${fmt(optA)} <span style="opacity:.5">/</span> ${fmt(optB)}`;
-      }
-      if (s1) s1.innerHTML = `<span style="opacity:.7">Shared flights:</span> ${fmt(t.sharedSum)}`;
-      if (s2) s2.innerHTML = `<span style="opacity:.7">Nasha:</span> ${fmt(optA)} <span style="font-size:.7rem;opacity:.5">(Vietnam Airlines)</span>`;
-      if (s3) s3.innerHTML = `<span style="opacity:.7">Trent:</span> ${fmt(optB)} <span style="font-size:.7rem;opacity:.5">(Jeju Air)</span>`;
-      
-      // Add Option B display
+      const allBooked = (flights || []).length > 0 && (flights || []).every(f => (f.status || '').toLowerCase() === 'booked');
       const bracket = document.getElementById('total-bracket');
-      if (bracket){
-        bracket.innerHTML = `<div style="margin-bottom:8px;padding:8px 12px;background:rgba(250,204,21,.12);border-radius:12px;border:1px solid rgba(250,204,21,.3);"><strong>OPTION B: Fly together</strong><br/>Both: ${fmt(together)} each <span style="opacity:.6">(+${fmt(premium)} THB total)</span><br/><span style="font-size:.75rem;opacity:.7">More Busan time, arrive together, Nasha takes bag</span></div>`;
+
+      if (allBooked) {
+        if (totalEl) totalEl.innerHTML = `Final itinerary booked ✅`;
+        if (s1) s1.innerHTML = `<span style="opacity:.7">Shared flights:</span> ${fmt(t.sharedSum)}`;
+        if (s2) s2.innerHTML = `<span style="opacity:.7">Status:</span> All flights booked`;
+        if (s3) s3.innerHTML = `<span style="opacity:.7">Mode:</span> Booked`;
+        if (bracket) bracket.textContent = 'No pending flight scenarios';
+      } else {
+        const optA = meta.total_cost_nasha_separate || t.nashaSum;
+        const optB = meta.total_cost_trent_separate || t.trentSum;
+        const together = meta.total_cost_together_each || t.trentSum;
+        const premium = meta.together_premium || (together * 2 - optA - optB);
+        if (totalEl) {
+          totalEl.innerHTML = `<div style="font-size:1.1rem;opacity:.7;margin-bottom:4px;">OPTION A: Separate (cheaper)</div>${fmt(optA)} <span style="opacity:.5">/</span> ${fmt(optB)}`;
+        }
+        if (s1) s1.innerHTML = `<span style="opacity:.7">Shared flights:</span> ${fmt(t.sharedSum)}`;
+        if (s2) s2.innerHTML = `<span style="opacity:.7">Nasha:</span> ${fmt(optA)} <span style="font-size:.7rem;opacity:.5">(Vietnam Airlines)</span>`;
+        if (s3) s3.innerHTML = `<span style="opacity:.7">Trent:</span> ${fmt(optB)} <span style="font-size:.7rem;opacity:.5">(Jeju Air)</span>`;
+        if (bracket){
+          bracket.innerHTML = `<div style="margin-bottom:8px;padding:8px 12px;background:rgba(250,204,21,.12);border-radius:12px;border:1px solid rgba(250,204,21,.3);"><strong>OPTION B: Fly together</strong><br/>Both: ${fmt(together)} each <span style="opacity:.6">(+${fmt(premium)} THB total)</span><br/><span style="font-size:.75rem;opacity:.7">More Busan time, arrive together, Nasha takes bag</span></div>`;
+        }
       }
       document.getElementById('trip-notes').textContent = meta.notes;
       const plc = document.getElementById('prices-last-checked');
-      if (plc) plc.textContent = meta.prices_last_checked || '—';
+      if (plc) plc.textContent = allBooked ? 'Booked ✓' : (meta.prices_last_checked || '—');
       const ps = document.getElementById('prices-source');
-      if (ps) ps.textContent = meta.prices_source ? `Source: ${meta.prices_source}` : '';
+      if (ps) ps.textContent = allBooked ? 'Status: final' : (meta.prices_source ? `Source: ${meta.prices_source}` : '');
       const pr = document.getElementById('prices-last-result');
-      if (pr) pr.textContent = meta.prices_last_result || '';
+      if (pr) pr.textContent = allBooked ? 'Price monitoring complete for flights.' : (meta.prices_last_result || '');
       const tbd = (typeof meta.total_cost_tbd === 'number') ? meta.total_cost_tbd : 0;
-      document.getElementById('cost-tbd').textContent = `Pending: THB ${Math.round(tbd).toLocaleString()}`;
+      document.getElementById('cost-tbd').textContent = allBooked ? 'Pending: THB 0' : `Pending: THB ${Math.round(tbd).toLocaleString()}`;
       document.getElementById('baggage-plan').textContent = meta.baggage_plan;
       document.getElementById('return-plan').textContent = meta.return_plan;
+      const btn = document.getElementById('check-now');
+      if (btn) btn.style.display = allBooked ? 'none' : 'inline-block';
     }
     function renderPlanOptions(meta){
       const wrap = document.getElementById('plan-options-list');
