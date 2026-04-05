@@ -146,6 +146,7 @@
         <span class="lg">🍜 Noodles</span>
         <span class="lg">🍢 Food market</span>
         <span class="lg">🛍 Shopping/outlet</span>
+        <span class="lg">⛓ Chain location</span>
       </div>
     </section>
 
@@ -487,7 +488,8 @@
         spot.location ? `📍 ${spot.location}` : '',
         spot.hours ? `🕒 ${spot.hours}` : ''
       ].filter(Boolean).slice(0,4).map(line => `<div class="map-spot-fact">${line}</div>`).join('');
-      const badges = [`<span class="map-badge">${spot.city||'Osaka'}</span>`, `<span class="map-badge">${(spot.status||'saved')}</span>`].join('');
+      const chainBadge = spot.chain ? `<span class="map-badge">⛓ chain</span>` : '';
+      const badges = [`<span class="map-badge">${spot.city||'Osaka'}</span>`, `<span class="map-badge">${(spot.status||'saved')}</span>`, chainBadge].filter(Boolean).join('');
       const notes = spot.notes ? `<div class="map-spot-notes">${spot.notes}</div>` : '';
       const mapHref = spot.map_url || spot.mapUrl || (spot.location ? `https://maps.google.com/?q=${encodeURIComponent(spot.location)}` : '');
       const mapLink = mapHref ? `<a class="map-spot-link" href="${mapHref}" target="_blank" rel="noopener">Open in Google Maps ↗</a>` : '';
