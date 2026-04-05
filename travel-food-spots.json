@@ -209,8 +209,10 @@
       ],
       "closest_station": "Osaka-Umeda Station / Osaka Station",
       "access": "From UMEDA Station: ~5–10 min",
-      "map_url": "https://maps.google.com/?q=Umeda+A5+Wagyu+BBQ+All-you-can-eat+%28IG+Reel%29",
-      "gps_status": "approx_area"
+      "map_url": "https://www.google.com/maps/search/?api=1&query=%E6%A2%85%E7%94%B0%20A5%20%E5%92%8C%E7%89%9B%20%E9%A3%9F%E3%81%B9%E6%94%BE%E9%A1%8C%20%E7%84%BC%E8%82%89",
+      "gps_status": "approx_area",
+      "map_query": "梅田 A5 和牛 食べ放題 焼肉",
+      "map_verified": "name-search batch3"
     },
     {
       "name": "Bacchanale Shellfish Bar / 貝バル Bacchanale (IG Reel)",
@@ -296,8 +298,10 @@
       "area": "UMEDA",
       "closest_station": "Tenma Station / Higashi-Umeda area",
       "access": "From UMEDA Station: ~5–10 min",
-      "map_url": "https://maps.google.com/?q=%E4%B8%AD%E3%83%88%E3%83%AD%E3%81%A8%E8%B1%9A%E8%B6%B3+%2F+Chutoro+%26+Pork+Feet+%28IG+Reel%29",
-      "gps_status": "approx_area"
+      "map_url": "https://www.google.com/maps/search/?api=1&query=%E4%B8%AD%E3%83%88%E3%83%AD%E3%81%A8%E8%B1%9A%E8%B6%B3%20%E5%A4%A7%E9%98%AA",
+      "gps_status": "approx_area",
+      "map_query": "中トロと豚足 大阪",
+      "map_verified": "name-search batch3"
     },
     {
       "name": "그날이후불타는삼겹살 / Burning Pork Belly After That Day (IG Reel)",
@@ -361,8 +365,10 @@
       "closest_station": "Nippombashi Station",
       "access": "From Shinsaibashi Station: ~10 min",
       "from_hotel": "From LEOPARD Shinsaibashi: ~10–15 min walk · ~4–7 min taxi",
-      "map_url": "https://maps.google.com/?q=Sukiyaki+Tsuruya+%2F+%E9%B6%B4%E3%82%84+%28IG+Reel%29",
-      "gps_status": "approx_area"
+      "map_url": "https://www.google.com/maps/search/?api=1&query=%E3%81%99%E3%81%8D%E7%84%BC%E3%81%8D%20%E9%B6%B4%E3%82%84%20%E5%A4%A7%E9%98%AA",
+      "gps_status": "approx_area",
+      "map_query": "すき焼き 鶴や 大阪",
+      "map_verified": "name-search batch3"
     },
     {
       "name": "Niku Tokidoki Lemon Umeda / 肉トキドキレモン 梅田 (IG Reel)",
@@ -381,8 +387,10 @@
       "area": "UMEDA",
       "closest_station": "Osaka-Umeda Station / Osaka Station",
       "access": "From UMEDA Station: ~5–10 min",
-      "map_url": "https://maps.google.com/?q=Niku+Tokidoki+Lemon+Umeda+%2F+%E8%82%89%E3%83%88%E3%82%AD%E3%83%89%E3%82%AD%E3%83%AC%E3%83%A2%E3%83%B3+%E6%A2%85%E7%94%B0+%28IG+Reel%29",
-      "gps_status": "approx_area"
+      "map_url": "https://www.google.com/maps/search/?api=1&query=%E8%82%89%E3%83%88%E3%82%AD%E3%83%89%E3%82%AD%E3%83%AC%E3%83%A2%E3%83%B3%20%E6%A2%85%E7%94%B0",
+      "gps_status": "approx_area",
+      "map_query": "肉トキドキレモン 梅田",
+      "map_verified": "name-search batch3"
     },
     {
       "name": "Tajiri Port Sunday Morning Market / 田尻漁港日曜朝市 (IG Reel)",
@@ -533,8 +541,10 @@
         "🚇 ~14–18 min total from LEOPARD Shinsaibashi (train + walk)",
         "🚕 ~12–18 min by taxi from LEOPARD Shinsaibashi"
       ],
-      "map_url": "https://maps.google.com/?q=%E5%A4%A7%E9%98%AA%E5%BA%9C%E5%A4%A7%E9%98%AA%E5%B8%82%E5%8C%97%E5%8C%BA%E6%A2%85%E7%94%B03-2-2+KITTE%E5%A4%A7%E9%98%AA+B1F",
-      "gps_status": "approx_area"
+      "map_url": "https://www.google.com/maps/search/?api=1&query=%E3%83%8B%E3%82%AB%E3%82%A4%E3%83%8E%E3%82%AA%E3%82%A2%E3%82%B7%E3%82%B9%20KITTE%E5%A4%A7%E9%98%AA",
+      "gps_status": "approx_area",
+      "map_query": "ニカイノオアシス KITTE大阪",
+      "map_verified": "name-search batch3"
     },
     {
       "name": "Haeundae Traditional Market / 해운대 전통시장 (Ssiat Hotteok)",
@@ -689,8 +699,10 @@
         "assets/food/susabi-yu-2.jpg",
         "assets/food/susabi-yu-3.jpg"
       ],
-      "map_url": "https://maps.google.com/?q=%E5%A4%A7%E9%98%AA%E5%BA%9C%E5%A4%A7%E9%98%AA%E5%B8%82%E5%8C%97%E5%8C%BA%E5%B0%8F%E6%9D%BE%E5%8E%9F%E7%94%BA5-5",
-      "gps_status": "exact"
+      "map_url": "https://www.google.com/maps/search/?api=1&query=%E3%81%99%E3%81%97%E9%85%92%E5%A0%B4%20%E3%81%99%E3%81%95%E3%81%B3%E6%B9%AF%20%E6%A2%85%E7%94%B0%E6%9D%B1%E9%80%9A%E3%82%8A%E5%BA%97",
+      "gps_status": "exact",
+      "map_query": "すし酒場 すさび湯 梅田東通り店",
+      "map_verified": "name-search batch3"
     },
     {
       "name": "Ichibante / 一番手 (Umeda)",
@@ -706,8 +718,10 @@
       "hours": "TBD",
       "lat": 34.70067,
       "lng": 135.49597,
-      "map_url": "https://maps.google.com/?q=Nishi-Umeda+area%2C+Osaka+%28exact+branch%2Faddress+TBD%29",
-      "gps_status": "exact"
+      "map_url": "https://www.google.com/maps/search/?api=1&query=%E4%B8%80%E7%95%AA%E6%89%8B%20%E6%A2%85%E7%94%B0",
+      "gps_status": "exact",
+      "map_query": "一番手 梅田",
+      "map_verified": "name-search batch3"
     },
     {
       "name": "Uoshin Sakaba Umeda Teppan / 魚心酒場 梅田てっぺん部 (FB Reel)",
@@ -755,7 +769,7 @@
       "must_try": "Oden/stew + kushi skewers + draft beer/sour",
       "notes": "From Osaka Gourmet Kansai reel. Described as a long-running (~67 years) local day-drinking izakaya with nostalgic atmosphere in the Namba/Sennichimae area.",
       "link": "https://www.facebook.com/share/r/18cKmdcBDY/?mibextid=wwXIfr",
-      "map_url": "https://maps.google.com/?q=1-4-14+Sennichimae+Chuo-ku+Osaka+06-6211-0339",
+      "map_url": "https://www.google.com/maps/search/?api=1&query=%E5%8D%83%E6%97%A5%E5%89%8D%20%E6%98%BC%E9%A3%B2%E3%81%BF%20%E5%B1%85%E9%85%92%E5%B1%8B%20%E5%A4%A7%E9%98%AA",
       "photo": "assets/food/sennichimae-day-drinking-1.jpg",
       "photos": [
         "assets/food/sennichimae-day-drinking-1.jpg",
@@ -767,7 +781,9 @@
         "🚶 ~20–25 min walk from LEOPARD Shinsaibashi",
         "🚕 ~6–12 min taxi from LEOPARD Shinsaibashi"
       ],
-      "gps_status": "approx_area"
+      "gps_status": "approx_area",
+      "map_query": "千日前 昼飲み 居酒屋 大阪",
+      "map_verified": "name-search batch3"
     },
     {
       "name": "Amakusa no Megumi / 天草の恵み (Umeda, FB Reel)",
@@ -785,7 +801,7 @@
       "must_try": "Seafood shabu-shabu + eel & shrimp tempura",
       "notes": "From Uta Osaka Gourmet reel. Calm, date-friendly seafood izakaya in Umeda/Hatsutenjin with Amakusa-sourced seafood emphasis.",
       "link": "https://www.facebook.com/share/r/1C8vnjUFVF/?mibextid=wwXIfr",
-      "map_url": "https://maps.google.com/?q=Amakusa+no+Megumi+2-14-21+Sonezaki+Kita-ku+Osaka",
+      "map_url": "https://www.google.com/maps/search/?api=1&query=%E5%A4%A9%E8%8D%89%E3%81%AE%E6%81%B5%E3%81%BF%20%E6%A2%85%E7%94%B0",
       "photo": "assets/food/amakusa-no-megumi-1.jpg",
       "photos": [
         "assets/food/amakusa-no-megumi-1.jpg",
@@ -796,7 +812,9 @@
         "🚇 ~15–20 min total from LEOPARD Shinsaibashi (Midosuji + walk)",
         "🚕 ~12–18 min by taxi from LEOPARD Shinsaibashi"
       ],
-      "gps_status": "approx_area"
+      "gps_status": "approx_area",
+      "map_query": "天草の恵み 梅田",
+      "map_verified": "name-search batch3"
     },
     {
       "name": "Original Butchikiri Sushi Uoshinami Namba / 元祖ぶっち切り寿司 魚心南 難波店 (FB Reel)",
@@ -1046,9 +1064,9 @@
     },
     "gps_accuracy_pass": {
       "date": "2026-04-05",
-      "batch": "Osaka batch 2 (seafood + markets)",
-      "updated_spots": 12,
-      "method": "Google Maps name-query links updated; coordinates kept approximate unless explicitly verified"
+      "batch": "Osaka batch 3 (remaining general spots)",
+      "updated_spots": 9,
+      "method": "Google Maps name-query links updated for remaining Osaka spots"
     }
   }
 }
