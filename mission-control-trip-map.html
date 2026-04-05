@@ -39,6 +39,7 @@
       <button class="btn" data-layer="stations">Shinkansen</button>
       <button class="btn" data-layer="food">Food</button>
       <button class="btn" data-layer="chains">Chains only</button>
+      <button class="btn" data-layer="exact">Exact GPS only</button>
     </div>
     <div class="mode" id="mode-label">Mode: All</div>
     <div class="note">🟡 Yellow dot = chain candidate. Hotels shown for Japan stays (Kokura, Hiroshima, Kurashiki, Osaka). Non-address food pins use area-based placement (not exact GPS) until exact coordinates are added.</div>
@@ -138,9 +139,11 @@
             : (t.includes('sushi') || t.includes('寿司')) ? '🍣'
             : (t.includes('udon') || t.includes('ramen') || t.includes('noodle')) ? '🍜'
             : '🍽️';
+          const gpsStatus = s.gps_status || ((typeof s.lat==='number' && typeof s.lng==='number') ? 'exact' : 'approx_area');
           const m = L.marker([lat,lng], {icon:icon(em,isChain)}).addTo(map)
-            .bindPopup(`<b>${s.name||'Spot'}</b><br/>${s.city||''}${isChain?'<br/>🟡 chain':''}${s.map_url?`<br/><a href="${s.map_url}" target="_blank" rel="noopener">Open map ↗</a>`:''}`);
+            .bindPopup(`<b>${s.name||'Spot'}</b><br/>${s.city||''}${isChain?'<br/>🟡 chain':''}<br/>📍 GPS: ${gpsStatus === 'exact' ? 'Exact' : 'Approximate'}${s.map_url?`<br/><a href="${s.map_url}" target="_blank" rel="noopener">Open map ↗</a>`:''}`);
           m._isChain = isChain;
+          m._gpsExact = gpsStatus === 'exact';
           addMarker(layers.food,m,[lat,lng]);
         });
 
@@ -148,7 +151,7 @@
       });
 
     const modeLabel = document.getElementById('mode-label');
-    const prettyMode = (m) => ({all:'All',hotels:'Hotels',stations:'Shinkansen',food:'Food',chains:'Chains only'}[m] || 'All');
+    const prettyMode = (m) => ({all:'All',hotels:'Hotels',stations:'Shinkansen',food:'Food',chains:'Chains only',exact:'Exact GPS only'}[m] || 'All');
 
     const toggleLayerMode = (mode) => {
       if (modeLabel) modeLabel.textContent = `Mode: ${prettyMode(mode)}`;
@@ -161,6 +164,7 @@
       if (mode==='stations') { add(layers.stations); return; }
       if (mode==='food') { add(layers.food); return; }
       if (mode==='chains') { layers.food.filter(m=>m._isChain).forEach(m=>m.addTo(map)); return; }
+      if (mode==='exact') { layers.hotels.forEach(m=>m.addTo(map)); layers.stations.forEach(m=>m.addTo(map)); layers.food.filter(m=>m._gpsExact).forEach(m=>m.addTo(map)); return; }
     };
 
     const layerEl = document.getElementById('layers');

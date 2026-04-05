@@ -11,7 +11,8 @@
       "link": "https://www.facebook.com/share/v/18GJj9ZywH/?mibextid=wwXIfr",
       "photo": "assets/food/tokyo-crab-buffet.jpg",
       "notes": "From Nasha reel. ¥12,000 (~฿2,400). Not on the current itinerary; keep as extra/idea.",
-      "map_url": "https://maps.google.com/?q=Giant+crab+leg+buffet+%28FB+reel%29"
+      "map_url": "https://maps.google.com/?q=Giant+crab+leg+buffet+%28FB+reel%29",
+      "gps_status": "approx_area"
     },
     {
       "name": "Yeongdo Haenyeo Village seafood (TikTok)",
@@ -32,7 +33,8 @@
         "🚕 ~62 min by taxi to Busan Gijang The Club Hotel (typical range 50–75 min)"
       ],
       "distance_estimate_note": "Estimated from area-level location; refine later with exact pin + live traffic.",
-      "map_url": "https://maps.google.com/?q=Yeongdo+Haenyeo+Village+seafood+%28TikTok%29"
+      "map_url": "https://maps.google.com/?q=Yeongdo+Haenyeo+Village+seafood+%28TikTok%29",
+      "gps_status": "approx_area"
     },
     {
       "name": "Zauo Fishing Restaurant Osaka (FB reel)",
@@ -58,7 +60,8 @@
       "other_city_options": [
         "Tokyo/Shinjuku area"
       ],
-      "fukuoka_status": "temporarily_closed_reported"
+      "fukuoka_status": "temporarily_closed_reported",
+      "gps_status": "approx_area"
     },
     {
       "name": "Jeju super ramen (FB reel)",
@@ -74,7 +77,8 @@
         "assets/food/jeju-ramen-2.jpg"
       ],
       "notes": "Super ramen in Jeju. Nasha note: ฿560 per person.",
-      "map_url": "https://maps.google.com/?q=Jeju+super+ramen+%28FB+reel%29"
+      "map_url": "https://maps.google.com/?q=Jeju+super+ramen+%28FB+reel%29",
+      "gps_status": "approx_area"
     },
     {
       "name": "101 The Terrace (Seafood hotpot) (FB reel)",
@@ -97,7 +101,8 @@
         "🚕 ~42 min by taxi to Busan Gijang The Club Hotel"
       ],
       "distance_estimate_note": "Estimated from area-level location; refine later with exact pin + live traffic.",
-      "map_url": "https://maps.google.com/?q=101+The+Terrace+%28Seafood+hotpot%29+%28FB+reel%29"
+      "map_url": "https://maps.google.com/?q=101+The+Terrace+%28Seafood+hotpot%29+%28FB+reel%29",
+      "gps_status": "approx_area"
     },
     {
       "name": "Yongsan Udon Bar seafood (FB reel)",
@@ -112,7 +117,8 @@
         "assets/food/seoul-raw-seafood-2.jpg"
       ],
       "notes": "Seoul (Yongsan) udon bar with raw seafood; from Nasha reel.",
-      "map_url": "https://maps.google.com/?q=Yongsan+Udon+Bar+seafood+%28FB+reel%29"
+      "map_url": "https://maps.google.com/?q=Yongsan+Udon+Bar+seafood+%28FB+reel%29",
+      "gps_status": "approx_area"
     },
     {
       "name": "All-you-can-eat Oysters (Takumi Shimizu) (FB reel)",
@@ -138,7 +144,8 @@
         "🚇 ~30–37 min total from LEOPARD Shinsaibashi (train + 2 min walk)",
         "🚕 ~35–55 min by taxi from LEOPARD Shinsaibashi"
       ],
-      "map_url": "https://maps.google.com/?q=%E3%80%92569-0803+%E5%A4%A7%E9%98%AA%E5%BA%9C%E9%AB%98%E6%A7%BB%E5%B8%82%E9%AB%98%E6%A7%BB%E7%94%BA14-8+%E5%B9%B8%E3%83%93%E3%83%AB2F+%28Stand+B+%2F+%E3%82%B9%E3%82%BF%E3%83%B3%E3%83%89B%29"
+      "map_url": "https://maps.google.com/?q=%E3%80%92569-0803+%E5%A4%A7%E9%98%AA%E5%BA%9C%E9%AB%98%E6%A7%BB%E5%B8%82%E9%AB%98%E6%A7%BB%E7%94%BA14-8+%E5%B9%B8%E3%83%93%E3%83%AB2F+%28Stand+B+%2F+%E3%82%B9%E3%82%BF%E3%83%B3%E3%83%89B%29",
+      "gps_status": "approx_area"
     },
     {
       "name": "Spicy Oyster Stew (Lorari Gip / 로라리 깁) (FB/IG reel)",
@@ -160,7 +167,8 @@
         "🚕 ~43 min by taxi to Busan Gijang The Club Hotel"
       ],
       "distance_estimate_note": "Estimated from area-level location; refine later with exact pin + live traffic.",
-      "map_url": "https://maps.google.com/?q=Spicy+Oyster+Stew+%28Lorari+Gip+%2F+%EB%A1%9C%EB%9D%BC%EB%A6%AC+%EA%B9%81%29+%28FB%2FIG+reel%29"
+      "map_url": "https://maps.google.com/?q=Spicy+Oyster+Stew+%28Lorari+Gip+%2F+%EB%A1%9C%EB%9D%BC%EB%A6%AC+%EA%B9%81%29+%28FB%2FIG+reel%29",
+      "gps_status": "approx_area"
     },
     {
       "name": "Dalbit Grilled Mackerel / 달빛에구운고등어 (IG Reel)",
@@ -177,7 +185,8 @@
         "🚕 ~23 min by taxi to Busan Gijang The Club Hotel"
       ],
       "distance_estimate_note": "Estimated from area-level location; refine later with exact pin + live traffic.",
-      "map_url": "https://maps.google.com/?q=Dalbit+Grilled+Mackerel+%2F+%EB%8B%AC%EB%B9%9B%EC%97%90%EA%B5%AC%EC%9A%B4%EA%B3%A0%EB%93%B1%EC%96%B4+%28IG+Reel%29"
+      "map_url": "https://maps.google.com/?q=Dalbit+Grilled+Mackerel+%2F+%EB%8B%AC%EB%B9%9B%EC%97%90%EA%B5%AC%EC%9A%B4%EA%B3%A0%EB%93%B1%EC%96%B4+%28IG+Reel%29",
+      "gps_status": "approx_area"
     },
     {
       "name": "Umeda A5 Wagyu BBQ All-you-can-eat (IG Reel)",
@@ -196,7 +205,8 @@
       ],
       "closest_station": "Osaka-Umeda Station / Osaka Station",
       "access": "From UMEDA Station: ~5–10 min",
-      "map_url": "https://maps.google.com/?q=Umeda+A5+Wagyu+BBQ+All-you-can-eat+%28IG+Reel%29"
+      "map_url": "https://maps.google.com/?q=Umeda+A5+Wagyu+BBQ+All-you-can-eat+%28IG+Reel%29",
+      "gps_status": "approx_area"
     },
     {
       "name": "Bacchanale Shellfish Bar / 貝バル Bacchanale (IG Reel)",
@@ -216,7 +226,8 @@
       "closest_station": "Shinsaibashi Station",
       "access": "From Shinsaibashi Station: ~5–8 min",
       "from_hotel": "From LEOPARD Shinsaibashi: ~5–8 min walk · ~2–4 min taxi",
-      "map_url": "https://maps.google.com/?q=Bacchanale+Shellfish+Bar+%2F+%E8%B2%9D%E3%83%90%E3%83%AB+Bacchanale+%28IG+Reel%29"
+      "map_url": "https://maps.google.com/?q=Bacchanale+Shellfish+Bar+%2F+%E8%B2%9D%E3%83%90%E3%83%AB+Bacchanale+%28IG+Reel%29",
+      "gps_status": "approx_area"
     },
     {
       "name": "Yakiniku Gang / 焼肉ギャング 梅田店 (IG Reel)",
@@ -235,7 +246,8 @@
       "area": "UMEDA",
       "closest_station": "Osaka-Umeda Station / Osaka Station",
       "access": "From UMEDA Station: ~5–10 min",
-      "map_url": "https://maps.google.com/?q=Yakiniku+Gang+%2F+%E7%84%BC%E8%82%89%E3%82%AE%E3%83%A3%E3%83%B3%E3%82%B0+%E6%A2%85%E7%94%B0%E5%BA%97+%28IG+Reel%29"
+      "map_url": "https://maps.google.com/?q=Yakiniku+Gang+%2F+%E7%84%BC%E8%82%89%E3%82%AE%E3%83%A3%E3%83%B3%E3%82%B0+%E6%A2%85%E7%94%B0%E5%BA%97+%28IG+Reel%29",
+      "gps_status": "approx_area"
     },
     {
       "name": "Osaka Oyster All-You-Can-Eat Unlimited Time (IG Reel)",
@@ -254,7 +266,8 @@
       "area": "UMEDA",
       "closest_station": "Osaka-Umeda area (exact branch TBD)",
       "access": "From UMEDA Station: ~5–10 min (exact branch TBD)",
-      "map_url": "https://maps.google.com/?q=Osaka+Oyster+All-You-Can-Eat+Unlimited+Time+%28IG+Reel%29"
+      "map_url": "https://maps.google.com/?q=Osaka+Oyster+All-You-Can-Eat+Unlimited+Time+%28IG+Reel%29",
+      "gps_status": "approx_area"
     },
     {
       "name": "中トロと豚足 / Chutoro & Pork Feet (IG Reel)",
@@ -273,7 +286,8 @@
       "area": "UMEDA",
       "closest_station": "Tenma Station / Higashi-Umeda area",
       "access": "From UMEDA Station: ~5–10 min",
-      "map_url": "https://maps.google.com/?q=%E4%B8%AD%E3%83%88%E3%83%AD%E3%81%A8%E8%B1%9A%E8%B6%B3+%2F+Chutoro+%26+Pork+Feet+%28IG+Reel%29"
+      "map_url": "https://maps.google.com/?q=%E4%B8%AD%E3%83%88%E3%83%AD%E3%81%A8%E8%B1%9A%E8%B6%B3+%2F+Chutoro+%26+Pork+Feet+%28IG+Reel%29",
+      "gps_status": "approx_area"
     },
     {
       "name": "그날이후불타는삼겹살 / Burning Pork Belly After That Day (IG Reel)",
@@ -294,7 +308,8 @@
         "🚕 ~66 min by taxi to Busan Gijang The Club Hotel (typical range 55–80 min)"
       ],
       "distance_estimate_note": "Estimated from area-level location; refine later with exact pin + live traffic.",
-      "map_url": "https://maps.google.com/?q=%EA%B7%B8%EB%82%A0%EC%9D%B4%ED%9B%84%EB%B6%88%ED%83%80%EB%8A%94%EC%82%BC%EA%B2%B9%EC%82%B4+%2F+Burning+Pork+Belly+After+That+Day+%28IG+Reel%29"
+      "map_url": "https://maps.google.com/?q=%EA%B7%B8%EB%82%A0%EC%9D%B4%ED%9B%84%EB%B6%88%ED%83%80%EB%8A%94%EC%82%BC%EA%B2%B9%EC%82%B4+%2F+Burning+Pork+Belly+After+That+Day+%28IG+Reel%29",
+      "gps_status": "approx_area"
     },
     {
       "name": "The Aquatic Market (IG Reel)",
@@ -315,7 +330,8 @@
         "🚇 ~22 min by MTR + short walk to Dorsett Wanchai Hong Kong (estimate)"
       ],
       "distance_estimate_note": "Branch/location not pinned yet; timing is a central-HK estimate and will tighten after exact pin.",
-      "map_url": "https://maps.google.com/?q=The+Aquatic+Market+%28IG+Reel%29"
+      "map_url": "https://maps.google.com/?q=The+Aquatic+Market+%28IG+Reel%29",
+      "gps_status": "approx_area"
     },
     {
       "name": "Sukiyaki Tsuruya / 鶴や (IG Reel)",
@@ -335,7 +351,8 @@
       "closest_station": "Nippombashi Station",
       "access": "From Shinsaibashi Station: ~10 min",
       "from_hotel": "From LEOPARD Shinsaibashi: ~10–15 min walk · ~4–7 min taxi",
-      "map_url": "https://maps.google.com/?q=Sukiyaki+Tsuruya+%2F+%E9%B6%B4%E3%82%84+%28IG+Reel%29"
+      "map_url": "https://maps.google.com/?q=Sukiyaki+Tsuruya+%2F+%E9%B6%B4%E3%82%84+%28IG+Reel%29",
+      "gps_status": "approx_area"
     },
     {
       "name": "Niku Tokidoki Lemon Umeda / 肉トキドキレモン 梅田 (IG Reel)",
@@ -354,7 +371,8 @@
       "area": "UMEDA",
       "closest_station": "Osaka-Umeda Station / Osaka Station",
       "access": "From UMEDA Station: ~5–10 min",
-      "map_url": "https://maps.google.com/?q=Niku+Tokidoki+Lemon+Umeda+%2F+%E8%82%89%E3%83%88%E3%82%AD%E3%83%89%E3%82%AD%E3%83%AC%E3%83%A2%E3%83%B3+%E6%A2%85%E7%94%B0+%28IG+Reel%29"
+      "map_url": "https://maps.google.com/?q=Niku+Tokidoki+Lemon+Umeda+%2F+%E8%82%89%E3%83%88%E3%82%AD%E3%83%89%E3%82%AD%E3%83%AC%E3%83%A2%E3%83%B3+%E6%A2%85%E7%94%B0+%28IG+Reel%29",
+      "gps_status": "approx_area"
     },
     {
       "name": "Tajiri Port Sunday Morning Market / 田尻漁港日曜朝市 (IG Reel)",
@@ -374,7 +392,8 @@
       "area": "OUTSIDE CENTRAL OSAKA",
       "access": "From Shinsaibashi Station: ~60 min",
       "closest_station": "Nankai Yoshiminosato area + local transfer",
-      "map_url": "https://maps.google.com/?q=Tajiri+Port+Sunday+Morning+Market+%2F+%E7%94%B0%E5%B0%BB%E6%BC%81%E6%B8%AF%E6%97%A5%E6%9B%9C%E6%9C%9D%E5%B8%82+%28IG+Reel%29"
+      "map_url": "https://maps.google.com/?q=Tajiri+Port+Sunday+Morning+Market+%2F+%E7%94%B0%E5%B0%BB%E6%BC%81%E6%B8%AF%E6%97%A5%E6%9B%9C%E6%9C%9D%E5%B8%82+%28IG+Reel%29",
+      "gps_status": "approx_area"
     },
     {
       "name": "Sendai Horumon Tokiwatei / 仙台ホルモン焼肉酒場 ときわ亭 (IG Reel)",
@@ -400,7 +419,8 @@
       "other_city_options": [
         "Fukuoka (multiple branches)",
         "Other major cities"
-      ]
+      ],
+      "gps_status": "approx_area"
     },
     {
       "name": "Kaiten Sushi Jin / 回転寿司 仁 (IG Reel)",
@@ -420,7 +440,8 @@
       "area": "KYOBASHI",
       "access": "From Shinsaibashi Station: ~15–20 min",
       "closest_station": "Kyobashi Station",
-      "map_url": "https://maps.google.com/?q=Kaiten+Sushi+Jin+%2F+%E5%9B%9E%E8%BB%A2%E5%AF%BF%E5%8F%B8+%E4%BB%81+%28IG+Reel%29"
+      "map_url": "https://maps.google.com/?q=Kaiten+Sushi+Jin+%2F+%E5%9B%9E%E8%BB%A2%E5%AF%BF%E5%8F%B8+%E4%BB%81+%28IG+Reel%29",
+      "gps_status": "approx_area"
     },
     {
       "name": "Yakiniku Lab Umeda / 焼肉Lab 梅田店 (IG Reel)",
@@ -439,7 +460,8 @@
       "area": "UMEDA",
       "closest_station": "Higashi-Umeda Station / Osaka Station",
       "access": "From UMEDA Station: ~3–7 min",
-      "map_url": "https://maps.google.com/?q=Yakiniku+Lab+Umeda+%2F+%E7%84%BC%E8%82%89Lab+%E6%A2%85%E7%94%B0%E5%BA%97+%28IG+Reel%29"
+      "map_url": "https://maps.google.com/?q=Yakiniku+Lab+Umeda+%2F+%E7%84%BC%E8%82%89Lab+%E6%A2%85%E7%94%B0%E5%BA%97+%28IG+Reel%29",
+      "gps_status": "approx_area"
     },
     {
       "name": "Yakiniku Gorichan Shinsaibashi / 焼肉ごりちゃん (IG Reel)",
@@ -461,7 +483,8 @@
       "from_hotel": "From LEOPARD Shinsaibashi: ~3–5 min walk · ~2–3 min taxi",
       "map_url": "https://maps.google.com/?q=Yakiniku+Gorichan+Shinsaibashi+%2F+%E7%84%BC%E8%82%89%E3%81%94%E3%82%8A%E3%81%A1%E3%82%83%E3%82%93+%28IG+Reel%29",
       "chain": true,
-      "chain_group": "Yakiniku Gorichan (焼肉ごりちゃん)"
+      "chain_group": "Yakiniku Gorichan (焼肉ごりちゃん)",
+      "gps_status": "approx_area"
     },
     {
       "name": "Nikai no Oasis KITTE Osaka / ニカイノオアシス KITTE大阪",
@@ -488,7 +511,8 @@
         "🚇 ~14–18 min total from LEOPARD Shinsaibashi (train + walk)",
         "🚕 ~12–18 min by taxi from LEOPARD Shinsaibashi"
       ],
-      "map_url": "https://maps.google.com/?q=%E5%A4%A7%E9%98%AA%E5%BA%9C%E5%A4%A7%E9%98%AA%E5%B8%82%E5%8C%97%E5%8C%BA%E6%A2%85%E7%94%B03-2-2+KITTE%E5%A4%A7%E9%98%AA+B1F"
+      "map_url": "https://maps.google.com/?q=%E5%A4%A7%E9%98%AA%E5%BA%9C%E5%A4%A7%E9%98%AA%E5%B8%82%E5%8C%97%E5%8C%BA%E6%A2%85%E7%94%B03-2-2+KITTE%E5%A4%A7%E9%98%AA+B1F",
+      "gps_status": "approx_area"
     },
     {
       "name": "Haeundae Traditional Market / 해운대 전통시장 (Ssiat Hotteok)",
@@ -514,7 +538,8 @@
         "assets/food/haeundae-market-3.jpg"
       ],
       "photo": "assets/food/haeundae-market-1.jpg",
-      "map_url": "https://maps.google.com/?q=Haeundae+Traditional+Market+%28near+Haeundae+Beach%29"
+      "map_url": "https://maps.google.com/?q=Haeundae+Traditional+Market+%28near+Haeundae+Beach%29",
+      "gps_status": "approx_area"
     },
     {
       "name": "Coonies Fresh Market / 南河生鮮市場クーニーズ",
@@ -548,7 +573,8 @@
         "assets/food/coonies-market-info-2.jpg"
       ],
       "photo_count": 6,
-      "map_url": "https://maps.google.com/?q=%E5%A4%A7%E9%98%AA%E5%BA%9C%E7%BE%BD%E6%9B%B3%E9%87%8E%E5%B8%82%E8%A5%BF%E6%B5%A63%E4%B8%81%E7%9B%AE6-920-1+%28from+screenshot+text%29"
+      "map_url": "https://maps.google.com/?q=%E5%A4%A7%E9%98%AA%E5%BA%9C%E7%BE%BD%E6%9B%B3%E9%87%8E%E5%B8%82%E8%A5%BF%E6%B5%A63%E4%B8%81%E7%9B%AE6-920-1+%28from+screenshot+text%29",
+      "gps_status": "approx_area"
     },
     {
       "name": "Osaka Kizu Wholesale Market / 大阪木津卸売市場",
@@ -575,7 +601,8 @@
         "assets/food/osaka-kizu-market-4.jpg"
       ],
       "photo": "assets/food/osaka-kizu-market-1.jpg",
-      "map_url": "https://maps.google.com/?q=%E5%A4%A7%E9%98%AA%E5%BA%9C%E5%A4%A7%E9%98%AA%E5%B8%82%E6%B5%AA%E9%80%9F%E5%8C%BA%E6%95%B7%E6%B4%A5%E6%9D%B12-2-8+%28Osaka+Kizu+Wholesale+Market%29"
+      "map_url": "https://maps.google.com/?q=%E5%A4%A7%E9%98%AA%E5%BA%9C%E5%A4%A7%E9%98%AA%E5%B8%82%E6%B5%AA%E9%80%9F%E5%8C%BA%E6%95%B7%E6%B4%A5%E6%9D%B12-2-8+%28Osaka+Kizu+Wholesale+Market%29",
+      "gps_status": "approx_area"
     },
     {
       "name": "Sushi Kou / すし幸 (Tsuruhashi)",
@@ -594,7 +621,8 @@
       "hours": "TBD (verify on map before visit)",
       "lat": 34.6669,
       "lng": 135.5305,
-      "map_url": "https://maps.google.com/?q=%E5%A4%A7%E9%98%AA%E5%BA%9C%E5%A4%A7%E9%98%AA%E5%B8%82%E5%A4%A9%E7%8E%8B%E5%AF%BA%E5%8C%BA%E8%88%9F%E6%A9%8B%E7%94%BA20-13"
+      "map_url": "https://maps.google.com/?q=%E5%A4%A7%E9%98%AA%E5%BA%9C%E5%A4%A7%E9%98%AA%E5%B8%82%E5%A4%A9%E7%8E%8B%E5%AF%BA%E5%8C%BA%E8%88%9F%E6%A9%8B%E7%94%BA20-13",
+      "gps_status": "exact"
     },
     {
       "name": "Katsugyo Center Daisho / 活魚センター大昌",
@@ -611,7 +639,8 @@
       "link": "",
       "lat": 34.657045,
       "lng": 135.549194,
-      "map_url": "https://maps.google.com/?q=2+Chome-1-19+Tajima%2C+Ikuno+Ward%2C+Osaka%2C+544-0011"
+      "map_url": "https://maps.google.com/?q=2+Chome-1-19+Tajima%2C+Ikuno+Ward%2C+Osaka%2C+544-0011",
+      "gps_status": "exact"
     },
     {
       "name": "Susabi Yu Umeda Higashidori / すし酒場 すさび湯 梅田東通り店",
@@ -634,7 +663,8 @@
         "assets/food/susabi-yu-2.jpg",
         "assets/food/susabi-yu-3.jpg"
       ],
-      "map_url": "https://maps.google.com/?q=%E5%A4%A7%E9%98%AA%E5%BA%9C%E5%A4%A7%E9%98%AA%E5%B8%82%E5%8C%97%E5%8C%BA%E5%B0%8F%E6%9D%BE%E5%8E%9F%E7%94%BA5-5"
+      "map_url": "https://maps.google.com/?q=%E5%A4%A7%E9%98%AA%E5%BA%9C%E5%A4%A7%E9%98%AA%E5%B8%82%E5%8C%97%E5%8C%BA%E5%B0%8F%E6%9D%BE%E5%8E%9F%E7%94%BA5-5",
+      "gps_status": "exact"
     },
     {
       "name": "Ichibante / 一番手 (Umeda)",
@@ -650,7 +680,8 @@
       "hours": "TBD",
       "lat": 34.70067,
       "lng": 135.49597,
-      "map_url": "https://maps.google.com/?q=Nishi-Umeda+area%2C+Osaka+%28exact+branch%2Faddress+TBD%29"
+      "map_url": "https://maps.google.com/?q=Nishi-Umeda+area%2C+Osaka+%28exact+branch%2Faddress+TBD%29",
+      "gps_status": "exact"
     },
     {
       "name": "Uoshin Sakaba Umeda Teppan / 魚心酒場 梅田てっぺん部 (FB Reel)",
@@ -677,7 +708,8 @@
       "distance_to_hotels": [
         "🚇 ~18–22 min total from LEOPARD Shinsaibashi (Midosuji line + walk)",
         "🚕 ~12–18 min by taxi from LEOPARD Shinsaibashi"
-      ]
+      ],
+      "gps_status": "approx_area"
     },
     {
       "name": "Sennichimae Day-Drinking Izakaya (67-year old, FB Reel)",
@@ -706,7 +738,8 @@
         "🚇 ~10–15 min total from LEOPARD Shinsaibashi (train/walk)",
         "🚶 ~20–25 min walk from LEOPARD Shinsaibashi",
         "🚕 ~6–12 min taxi from LEOPARD Shinsaibashi"
-      ]
+      ],
+      "gps_status": "approx_area"
     },
     {
       "name": "Amakusa no Megumi / 天草の恵み (Umeda, FB Reel)",
@@ -734,7 +767,8 @@
       "distance_to_hotels": [
         "🚇 ~15–20 min total from LEOPARD Shinsaibashi (Midosuji + walk)",
         "🚕 ~12–18 min by taxi from LEOPARD Shinsaibashi"
-      ]
+      ],
+      "gps_status": "approx_area"
     },
     {
       "name": "Original Butchikiri Sushi Uoshinami Namba / 元祖ぶっち切り寿司 魚心南 難波店 (FB Reel)",
@@ -761,7 +795,8 @@
       "distance_to_hotels": [
         "🚇 ~8–15 min from LEOPARD Shinsaibashi (train/walk)",
         "🚕 ~5–10 min by taxi from LEOPARD Shinsaibashi"
-      ]
+      ],
+      "gps_status": "approx_area"
     },
     {
       "name": "Kaki Taiko Tennoji / カキ小屋 (Abeno Q’s Mall limited, FB Reel)",
@@ -788,7 +823,8 @@
       "distance_to_hotels": [
         "🚇 ~20–28 min from LEOPARD Shinsaibashi (Midosuji + walk)",
         "🚕 ~18–28 min by taxi from LEOPARD Shinsaibashi"
-      ]
+      ],
+      "gps_status": "approx_area"
     },
     {
       "name": "Gomi no Ichi / 五味の市 (Hinase Fish Market)",
@@ -805,7 +841,8 @@
       "must_try": "Seasonal seafood and market grilled items",
       "notes": "Added from Nasha-shared Google Maps pin. Off Osaka, but relevant to wider route planning.",
       "link": "https://maps.app.goo.gl/AytasqjRwabVsgku8?g_st=ic",
-      "map_url": "https://maps.google.com/?q=GomiNo+Ichi,+801-8+Hinasecho+Hinase,+Bizen,+Okayama+701-3204,+Japan"
+      "map_url": "https://maps.google.com/?q=GomiNo+Ichi,+801-8+Hinasecho+Hinase,+Bizen,+Okayama+701-3204,+Japan",
+      "gps_status": "approx_area"
     },
     {
       "name": "Kaisen Monogatari Namba Shinsaibashi / 海鮮物語 難波心斎橋店 (FB Reel)",
@@ -833,7 +870,8 @@
       "distance_to_hotels": [
         "🚶 ~12–18 min walk from LEOPARD Shinsaibashi",
         "🚕 ~5–10 min taxi from LEOPARD Shinsaibashi"
-      ]
+      ],
+      "gps_status": "approx_area"
     },
     {
       "name": "Ikiki Kaiten Sushi (45 yen per piece, FB Reel)",
@@ -859,7 +897,8 @@
       ],
       "distance_to_hotels": [
         "TBD after exact branch confirmation"
-      ]
+      ],
+      "gps_status": "approx_area"
     },
     {
       "name": "Iwashiya / いわし屋 (Sannomiya, Kobe)",
@@ -886,7 +925,8 @@
         "🚇 ~45–60 min from LEOPARD Shinsaibashi (Osaka) via Sannomiya-bound lines + short walk",
         "🚕 ~45–70 min by taxi from LEOPARD Shinsaibashi (traffic-dependent)"
       ],
-      "location_confidence": "high (address captured in provided screenshot overlay)"
+      "location_confidence": "high (address captured in provided screenshot overlay)",
+      "gps_status": "approx_area"
     },
     {
       "name": "Yakiniku Gorichan Tenma / 焼肉ごりちゃん 天満店",
@@ -910,7 +950,8 @@
         "assets/food/gorichan-tenma-1.jpg",
         "assets/food/gorichan-tenma-2.jpg"
       ],
-      "photo": "assets/food/gorichan-tenma-1.jpg"
+      "photo": "assets/food/gorichan-tenma-1.jpg",
+      "gps_status": "approx_area"
     },
     {
       "name": "Yakiniku Gorichan Umeda Main / 焼肉ごりちゃん 梅田本店",
@@ -926,7 +967,8 @@
       "hours": "Late-night branch (verify latest hours before visit)",
       "signature": "A5 wagyu, thick-cut tongue, harami",
       "notes": "Branch candidate from shared branch info; keep as chain option near Umeda nightlife.",
-      "map_url": "https://maps.google.com/?q=%E5%A4%A7%E9%98%AA%E5%BA%9C%E5%A4%A7%E9%98%AA%E5%B8%82%E5%8C%97%E5%8C%BA%E5%A0%82%E5%B1%B1%E7%94%BA8-21+%E7%9F%B3%E6%9C%AC%E3%83%93%E3%83%AB+B1F"
+      "map_url": "https://maps.google.com/?q=%E5%A4%A7%E9%98%AA%E5%BA%9C%E5%A4%A7%E9%98%AA%E5%B8%82%E5%8C%97%E5%8C%BA%E5%A0%82%E5%B1%B1%E7%94%BA8-21+%E7%9F%B3%E6%9C%AC%E3%83%93%E3%83%AB+B1F",
+      "gps_status": "approx_area"
     },
     {
       "name": "Yakiniku Gorichan Namba (branch check) / 焼肉ごりちゃん 難波",
@@ -941,7 +983,8 @@
       "access": "Expected easy access from Minami side",
       "signature": "Same chain menu concept (thick-cut tongue / wagyu / harami)",
       "notes": "Added as chain placeholder so Namba-side option is visible; exact branch pin to confirm before routing.",
-      "map_url": "https://maps.google.com/?q=%E7%84%BC%E8%82%89%E3%81%94%E3%82%8A%E3%81%A1%E3%82%83%E3%82%93+%E9%9B%A3%E6%B3%A2"
+      "map_url": "https://maps.google.com/?q=%E7%84%BC%E8%82%89%E3%81%94%E3%82%8A%E3%81%A1%E3%82%83%E3%82%93+%E9%9B%A3%E6%B3%A2",
+      "gps_status": "approx_area"
     }
   ],
   "meta": {
@@ -954,6 +997,12 @@
         "Tokiwatei (ときわ亭)"
       ],
       "note": "Initial quick audit; remaining Osaka spots pending deeper chain verification."
+    },
+    "gps_accuracy_pass": {
+      "date": "2026-04-05",
+      "exact_count": 4,
+      "approx_count": 39,
+      "note": "Exact where coordinates exist in dataset; others remain area-based approximations pending manual geocoding."
     }
   }
 }
