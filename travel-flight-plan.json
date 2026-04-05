@@ -5,8 +5,8 @@
     "total_cost_per_person": 12400,
     "total_cost_tbd": 1200,
     "baggage_plan": "Outbound: carry-on only (7kg each on HK Express). Return: bring foldable duffel; add checked bag only on the leg we need (likely return).",
-    "return_plan": "Confirmed: Air Busan direct PUS→BKK booked. Alternate return options removed.",
-    "notes": "Trip: Bangkok→Hong Kong→Fukuoka→(rail)→Osaka→Busan→Bangkok. Return flight now confirmed/booked.",
+    "return_plan": "Confirmed and booked: Air Busan direct PUS→BKK.",
+    "notes": "Trip fully booked: flights and accommodations confirmed. Dashboard now in booked mode.",
     "rail_pass_window": "11–17 Apr 2026",
     "rail_pass": {
       "name": "JR Sanyo–San’in Area Pass (7-day)",
@@ -25,7 +25,7 @@
     },
     "prices_last_checked": "2026-03-14 12:43 +07",
     "prices_source": "Skyscanner live",
-    "prices_last_result": "Return confirmed: kept booked Air Busan direct option and removed undecided alternatives.",
+    "prices_last_result": "Booking phase completed. Price-watch clutter removed from main dashboard.",
     "prices_last_changes": [
       {
         "flight_id": "flight7",
@@ -56,10 +56,10 @@
     "active_plan_mode": "single",
     "plan_options": [
       {
-        "id": "final_plan",
+        "id": "booked_mode",
         "label": "Final booked itinerary",
         "status": "active",
-        "summary": "Return flight confirmed. Unselected return options removed."
+        "summary": "Flights + accommodations confirmed. No pending option comparisons."
       }
     ],
     "family_schedule_constraints": {
@@ -414,45 +414,21 @@
   ],
   "decisions": [
     {
-      "label": "Updated Skyscanner tracker links for returns to 19 Apr (Nasha + Trent options A/B).",
+      "label": "All flights booked and confirmed.",
       "done": true
     },
     {
-      "label": "BKK→HKG: confirm 1×15kg checked bag add-on cost for chosen airline.",
+      "label": "All accommodations booked and confirmed.",
       "done": true
-    },
-    {
-      "label": "Osaka stay: ensure accommodation keeps you in Osaka on 14 Apr.",
-      "done": false
-    },
-    {
-      "label": "Return: pick if Trent returns 19th (arrive same day) vs 20th (cheaper).",
-      "done": true
-    },
-    {
-      "label": "Protect Osaka 14–16 Apr for Andrew + family meetup (USJ 15th, baseball evening 16th).",
-      "done": false
-    },
-    {
-      "label": "Compare Option A/B/C side-by-side with baggage + transfer friction included (not fare only).",
-      "done": false
-    },
-    {
-      "label": "Choose winner by rule: cheapest low-stress option with realistic baggage handling.",
-      "done": false
     }
   ],
   "risks": [
     {
-      "label": "16 Apr double-flight day (Osaka→Busan→Jeju) — buffer for delays",
+      "label": "Airport transfer timing (hotel → airport) — reconfirm day before departure.",
       "active": true
     },
     {
-      "label": "Self-transfer days: plan airport→hotel transfers + check-in cutoffs",
-      "active": true
-    },
-    {
-      "label": "Airport transfer costs not covered by JR pass (especially KIX access) may change true cheapest route.",
+      "label": "Check-in and baggage rules — verify online check-in windows per airline.",
       "active": true
     }
   ],
@@ -523,7 +499,7 @@
       "photo": "assets/cities/jeju.svg"
     }
   ],
-  "message_summary": "Updated itinerary loaded. Prices will be checked via Skyscanner app.link trackers every 6h; updates only when Δ ≥ THB 300 pp.",
+  "message_summary": "Booked mode active: all flights and accommodations confirmed. Focus now is operations (check-in, transfer timing, packing).",
   "deals_radar": [
     {
       "title": "Recent drops (≥ THB 300 pp)",
