@@ -1044,11 +1044,11 @@
       "closest_station": "Namba Station",
       "access": "Expected easy access from Minami side",
       "signature": "Same chain menu concept (thick-cut tongue / wagyu / harami)",
-      "notes": "Added as chain placeholder so Namba-side option is visible; exact branch pin to confirm before routing.",
-      "map_url": "https://www.google.com/maps/search/?api=1&query=%E7%84%BC%E8%82%89%E3%81%94%E3%82%8A%E3%81%A1%E3%82%83%E3%82%93%20%E3%81%AA%E3%82%93%E3%81%B0%E5%BA%97",
+      "notes": "Added as chain placeholder so Namba-side option is visible; exact branch pin to confirm before routing. Final branch should be confirmed on arrival day.",
+      "map_url": "https://www.google.com/maps/search/?api=1&query=%E7%84%BC%E8%82%89%E3%81%94%E3%82%8A%E3%81%A1%E3%82%83%E3%82%93%20%E3%81%AA%E3%82%93%E3%81%B0%E6%9C%AC%E5%BA%97",
       "gps_status": "approx_area",
-      "map_query": "焼肉ごりちゃん なんば店",
-      "map_verified": "name-search refined (Namba branch check)"
+      "map_query": "焼肉ごりちゃん なんば本店",
+      "map_verified": "name-search refined (Namba main branch)"
     },
     {
       "name": "Tokiwatei Hakata Haruyoshi / ときわ亭 博多春吉店",
