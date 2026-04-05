@@ -333,7 +333,7 @@
       const bracket = document.getElementById('total-bracket');
 
       if (allBooked) {
-        if (totalEl) totalEl.innerHTML = `Final itinerary booked ✅`;
+        if (totalEl) totalEl.innerHTML = `Final itinerary ✅`;
         if (s1) s1.innerHTML = `<span style="opacity:.7">Shared flights:</span> ${fmt(t.sharedSum)}`;
         if (s2) s2.innerHTML = `<span style="opacity:.7">Status:</span> All flights booked`;
         if (s3) s3.innerHTML = `<span style="opacity:.7">Mode:</span> Booked`;
@@ -359,7 +359,7 @@
       const ps = document.getElementById('prices-source');
       if (ps) ps.textContent = allBooked ? 'Status: final' : (meta.prices_source ? `Source: ${meta.prices_source}` : '');
       const pr = document.getElementById('prices-last-result');
-      if (pr) pr.textContent = allBooked ? 'Price monitoring complete for flights.' : (meta.prices_last_result || '');
+      if (pr) pr.textContent = allBooked ? 'No active fare monitoring.' : (meta.prices_last_result || '');
       const tbd = (typeof meta.total_cost_tbd === 'number') ? meta.total_cost_tbd : 0;
       document.getElementById('cost-tbd').textContent = allBooked ? 'Pending: THB 0' : `Pending: THB ${Math.round(tbd).toLocaleString()}`;
       document.getElementById('baggage-plan').textContent = meta.baggage_plan;

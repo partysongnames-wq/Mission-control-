@@ -5,8 +5,8 @@
     "total_cost_per_person": 12400,
     "total_cost_tbd": 1200,
     "baggage_plan": "Outbound: carry-on only (7kg each on HK Express). Return: bring foldable duffel; add checked bag only on the leg we need (likely return).",
-    "return_plan": "Confirmed and booked: Air Busan direct PUS→BKK.",
-    "notes": "Trip fully booked: flights and accommodations confirmed. Dashboard now in booked mode.",
+    "return_plan": "PUS → BKK: Air Busan direct.",
+    "notes": "Final itinerary for Apr 9–20.",
     "rail_pass_window": "11–17 Apr 2026",
     "rail_pass": {
       "name": "JR Sanyo–San’in Area Pass (7-day)",
@@ -25,7 +25,7 @@
     },
     "prices_last_checked": "2026-03-14 12:43 +07",
     "prices_source": "Skyscanner live",
-    "prices_last_result": "Booking phase completed. Price-watch clutter removed from main dashboard.",
+    "prices_last_result": "No active fare monitoring.",
     "prices_last_changes": [
       {
         "flight_id": "flight7",
@@ -56,10 +56,10 @@
     "active_plan_mode": "single",
     "plan_options": [
       {
-        "id": "booked_mode",
-        "label": "Final booked itinerary",
+        "id": "final_plan",
+        "label": "Final itinerary",
         "status": "active",
-        "summary": "Flights + accommodations confirmed. No pending option comparisons."
+        "summary": "Set."
       }
     ],
     "family_schedule_constraints": {
@@ -414,21 +414,17 @@
   ],
   "decisions": [
     {
-      "label": "All flights booked and confirmed.",
-      "done": true
-    },
-    {
-      "label": "All accommodations booked and confirmed.",
+      "label": "Itinerary locked.",
       "done": true
     }
   ],
   "risks": [
     {
-      "label": "Airport transfer timing (hotel → airport): reconfirm pickup/route the night before.",
+      "label": "Check transfer timing the day before flights.",
       "active": false
     },
     {
-      "label": "Online check-in windows + baggage allowance: verify 24h before each flight.",
+      "label": "Verify check-in windows and baggage rules.",
       "active": false
     }
   ],
@@ -499,7 +495,7 @@
       "photo": "assets/cities/jeju.svg"
     }
   ],
-  "message_summary": "Booked mode active: all flights and accommodations confirmed. Focus now is operations (check-in, transfer timing, packing).",
+  "message_summary": "Final itinerary loaded.",
   "deals_radar": [
     {
       "title": "Recent drops (≥ THB 300 pp)",
