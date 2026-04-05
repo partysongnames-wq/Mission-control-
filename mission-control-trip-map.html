@@ -15,6 +15,7 @@
     .btn{border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.06);color:#fff;border-radius:999px;padding:6px 10px;font-size:.7rem;cursor:pointer}
     .btn.active{background:rgba(255,179,71,.2);border-color:rgba(255,179,71,.55)}
     .note{margin-top:8px;color:var(--muted);font-size:.86rem}
+    .mode{margin-top:6px;font-size:.78rem;letter-spacing:.08em;color:#ffd9a1}
   </style>
 </head>
 <body>
@@ -39,6 +40,7 @@
       <button class="btn" data-layer="food">Food</button>
       <button class="btn" data-layer="chains">Chains only</button>
     </div>
+    <div class="mode" id="mode-label">Mode: All</div>
     <div class="note">🟡 Yellow dot = chain candidate. Hotels shown for Japan stays (Kokura, Hiroshima, Kurashiki, Osaka).</div>
   </div>
 
@@ -115,7 +117,14 @@
           const lat = (typeof s.lat==='number') ? s.lat : base[0] + ((i%6)-3)*0.01;
           const lng = (typeof s.lng==='number') ? s.lng : base[1] + ((Math.floor(i/6)%6)-3)*0.01;
           const isChain = !!s.chain;
-          const em = (s.type||'').toLowerCase().includes('bbq') || (s.type||'').toLowerCase().includes('yakiniku') ? '🥩' : (s.type||'').toLowerCase().includes('sushi') ? '🍣' : '🍽️';
+          const t = `${s.type||''} ${s.name||''} ${s.signature||''} ${s.notes||''}`.toLowerCase();
+          const em = t.includes('market') || t.includes('市場') ? '🍢'
+            : (t.includes('oyster') || t.includes('牡蠣') || t.includes('カキ')) ? '🦪'
+            : (t.includes('seafood') || t.includes('fish') || t.includes('sashimi') || t.includes('shellfish')) ? '🐟'
+            : (t.includes('bbq') || t.includes('yakiniku') || t.includes('焼肉') || t.includes('horumon') || t.includes('meat')) ? '🥩'
+            : (t.includes('sushi') || t.includes('寿司')) ? '🍣'
+            : (t.includes('udon') || t.includes('ramen') || t.includes('noodle')) ? '🍜'
+            : '🍽️';
           const m = L.marker([lat,lng], {icon:icon(em,isChain)}).addTo(map)
             .bindPopup(`<b>${s.name||'Spot'}</b><br/>${s.city||''}${isChain?'<br/>🟡 chain':''}${s.map_url?`<br/><a href="${s.map_url}" target="_blank" rel="noopener">Open map ↗</a>`:''}`);
           m._isChain = isChain;
@@ -125,7 +134,11 @@
         if (bounds.length) map.fitBounds(bounds, {padding:[30,30]});
       });
 
+    const modeLabel = document.getElementById('mode-label');
+    const prettyMode = (m) => ({all:'All',hotels:'Hotels',stations:'Shinkansen',food:'Food',chains:'Chains only'}[m] || 'All');
+
     const toggleLayerMode = (mode) => {
+      if (modeLabel) modeLabel.textContent = `Mode: ${prettyMode(mode)}`;
       const all = [...layers.hotels, ...layers.stations, ...layers.food];
       all.forEach(m => { if (map.hasLayer(m)) map.removeLayer(m); });
 
