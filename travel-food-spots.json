@@ -54,11 +54,11 @@
       "map_url": "https://maps.google.com/?q=Zauo+Fishing+Restaurant+Osaka+%28FB+reel%29",
       "chain": true,
       "chain_group": "Zauo (ざうお)",
-      "chain_note": "Chain brand with multiple branches in Japan; keep Osaka branch for current route.",
+      "chain_note": "Fukuoka main-store result appears temporarily closed; keep Osaka branch as active option.",
       "other_city_options": [
-        "Fukuoka/Itoshima area (brand origin; detour)",
         "Tokyo/Shinjuku area"
-      ]
+      ],
+      "fukuoka_status": "temporarily_closed_reported"
     },
     {
       "name": "Jeju super ramen (FB reel)",
