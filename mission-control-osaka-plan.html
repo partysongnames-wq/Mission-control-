@@ -146,7 +146,7 @@
         <span class="lg">🍜 Noodles</span>
         <span class="lg">🍢 Food market</span>
         <span class="lg">🛍 Shopping/outlet</span>
-        <span class="lg">⛓ Chain location</span>
+        <span class="lg">🟡 Yellow dot = chain location</span>
       </div>
     </section>
 
@@ -396,9 +396,9 @@
       }
     ];
 
-    const emojiIcon = (emoji) => L.divIcon({
+    const emojiIcon = (emoji, isChain = false) => L.divIcon({
       className: 'emoji-pin',
-      html: `<div>${emoji}</div>`,
+      html: `<div style="position:relative;display:inline-block;">${emoji}${isChain ? '<span style="position:absolute;right:-6px;top:-5px;width:8px;height:8px;background:#ffd84d;border:1px solid #1c1c1c;border-radius:999px;"></span>' : ''}</div>`,
       iconSize: [24,24],
       iconAnchor: [12,12]
     });
@@ -494,8 +494,7 @@
         spot.location ? `📍 ${spot.location}` : '',
         spot.hours ? `🕒 ${spot.hours}` : ''
       ].filter(Boolean).slice(0,4).map(line => `<div class="map-spot-fact">${line}</div>`).join('');
-      const chainBadge = spot.chain ? `<span class="map-badge">⛓ chain</span>` : '';
-      const badges = [`<span class="map-badge">${spot.city||'Osaka'}</span>`, `<span class="map-badge">${(spot.status||'saved')}</span>`, chainBadge].filter(Boolean).join('');
+      const badges = [`<span class="map-badge">${spot.city||'Osaka'}</span>`, `<span class="map-badge">${(spot.status||'saved')}</span>`].filter(Boolean).join('');
       const notes = spot.notes ? `<div class="map-spot-notes">${spot.notes}</div>` : '';
       const mapHref = spot.map_url || spot.mapUrl || (spot.location ? `https://maps.google.com/?q=${encodeURIComponent(spot.location)}` : '');
       const mapLink = mapHref ? `<a class="map-spot-link" href="${mapHref}" target="_blank" rel="noopener">Open in Google Maps ↗</a>` : '';
@@ -541,7 +540,7 @@
           const a = areaCenter[spot.area] || areaCenter['OUTSIDE CENTRAL OSAKA'];
           const lat = (typeof spot.lat === 'number') ? spot.lat : (a[0] + ((idx%5)-2)*0.0025);
           const lng = (typeof spot.lng === 'number') ? spot.lng : (a[1] + (Math.floor(idx/5)%5-2)*0.0025);
-          const icon = emojiIcon(pickEmoji(spot));
+          const icon = emojiIcon(pickEmoji(spot), !!spot.chain);
           const marker = L.marker([lat,lng], {icon}).addTo(osakaMap).bindPopup(renderSpotPopup(spot, true), { maxWidth: 320 }).bindTooltip(spot.name||'Spot');
           foodLayers.push({ marker, spot });
           bounds.push([lat,lng]);
