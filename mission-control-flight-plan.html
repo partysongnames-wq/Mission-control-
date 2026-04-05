@@ -521,11 +521,11 @@
         const to = byCode.get(f.to_code);
         if (!from || !to) return;
 
+        const via = f.via_code ? byCode.get(f.via_code) : null;
         const party = (f.party || 'shared').toLowerCase();
-        const latlngs = [
-          [from.lat, from.lng],
-          [to.lat, to.lng]
-        ];
+        const latlngs = via
+          ? [[from.lat, from.lng], [via.lat, via.lng], [to.lat, to.lng]]
+          : [[from.lat, from.lng], [to.lat, to.lng]];
 
         const line = L.polyline(latlngs, {
           color: colorForParty(party),
@@ -545,6 +545,13 @@
 
         const markerFrom = L.circleMarker([from.lat, from.lng], mkStyle).addTo(map);
         markerFrom.bindTooltip(from.code, {permanent: false, direction: 'top'});
+
+        if (via) {
+          const viaStyle = { ...mkStyle, radius: 5, fillColor: '#8b5cf6' };
+          const markerVia = L.circleMarker([via.lat, via.lng], viaStyle).addTo(map);
+          markerVia.bindTooltip(`${via.code} (stop)`, {permanent: false, direction: 'top'});
+        }
+
         const markerTo = L.circleMarker([to.lat, to.lng], mkStyle).addTo(map);
         markerTo.bindTooltip(to.code, {permanent: false, direction: 'top'});
       });
@@ -577,7 +584,8 @@
         .filter(f => byCode.get(f.from_code) && byCode.get(f.to_code))
         .forEach(f => {
           const btn = document.createElement('button');
-          btn.textContent = `${f.from_code}→${f.to_code}: ${f.flight_number}`;
+          const viaText = f.via_code ? ` via ${f.via_code}` : '';
+          btn.textContent = `${f.from_code}→${f.to_code}${viaText}: ${f.flight_number}`;
           btn.addEventListener('click', () => showMapDetail(f));
           legend.appendChild(btn);
         });

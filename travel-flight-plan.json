@@ -1,12 +1,12 @@
 {
   "meta": {
     "trip_dates": "9–20 Apr 2026",
-    "route_chain": "BKK → HKG → FUK → (rail) → KIX → PUS → BKK",
+    "route_chain": "BKK → HKG → FUK → (rail) → KIX → PUS → SGN → BKK",
     "total_cost_per_person": 12400,
     "total_cost_tbd": 1200,
     "baggage_plan": "Outbound: carry-on only (7kg each on HK Express). Return: bring foldable duffel; add checked bag only on the leg we need (likely return).",
-    "return_plan": "PUS → BKK: Air Busan direct.",
-    "notes": "Final itinerary for Apr 9–20.",
+    "return_plan": "PUS → SGN → BKK (Vietnam Airlines, booked).",
+    "notes": "Final itinerary for Apr 9–20, including return via Vietnam.",
     "rail_pass_window": "11–17 Apr 2026",
     "rail_pass": {
       "name": "JR Sanyo–San’in Area Pass (7-day)",
@@ -315,23 +315,23 @@
     },
     {
       "id": "flight7",
-      "party": "trent",
+      "party": "shared",
       "date": "20 Apr",
       "from_code": "PUS",
       "from_city": "Busan",
       "to_code": "BKK",
       "to_city": "Bangkok",
-      "airline": "Air Busan",
-      "flight_number": "BX/TBD",
-      "depart": "18:00",
-      "arrive": "21:45",
+      "airline": "Vietnam Airlines",
+      "flight_number": "D5T03H",
+      "depart": "10:00",
+      "arrive": "18:30",
       "next_day": false,
-      "route_type": "direct",
+      "route_type": "1 stop (Vietnam)",
       "status": "booked",
       "price_per_person": 6210,
       "price_total": 12420,
-      "baggage_included": "Cabin bag + checked bag (1 piece each)",
-      "notes": "Booked return flight (final decision). Air Busan direct PUS→BKK.",
+      "baggage_included": "Checked baggage: 1 piece per person (per booking); cabin baggage per airline rules.",
+      "notes": "Booked return itinerary via Vietnam (1 stop). Mixed cabin. Total travel time ~10h30.",
       "risk_flags": [
         "promo_fare"
       ],
@@ -341,7 +341,7 @@
           "url": "https://www.skyscanner.co.th/transport/flights/pusa/bkkt/260419/?adultsv2=1&cabinclass=economy&preferdirects=true&rtn=0&sortby=cheapest"
         }
       ],
-      "pnr": "Booked (PNR in booking app)",
+      "pnr": "D5T03H",
       "price_history": [
         {
           "ts": "2026-03-04 23:49 +07",
@@ -409,7 +409,9 @@
           "source": "Trip.com screenshot"
         }
       ],
-      "track_price": false
+      "track_price": false,
+      "via_code": "SGN",
+      "via_city": "Ho Chi Minh City"
     }
   ],
   "decisions": [
@@ -425,6 +427,10 @@
     },
     {
       "label": "Verify check-in windows and baggage rules.",
+      "active": false
+    },
+    {
+      "label": "Vietnam transit leg: keep transfer buffer and check terminal/entry requirements.",
       "active": false
     }
   ],
@@ -493,6 +499,12 @@
       "lat": 35.1796,
       "lng": 129.0756,
       "photo": "assets/cities/busan-king-crab.jpg"
+    },
+    {
+      "code": "SGN",
+      "city": "Ho Chi Minh City",
+      "lat": 10.8188,
+      "lng": 106.6519
     }
   ],
   "message_summary": "Final itinerary loaded.",
