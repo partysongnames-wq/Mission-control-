@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Japan Trip Master Map · Mission Control</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+  <style>
+    :root{--bg:#030308;--panel:#101223;--muted:#a0a8c5;--border:rgba(255,255,255,.14);font-family:'Space Grotesk','Inter',system-ui;}
+    *{box-sizing:border-box} body{margin:0;min-height:100vh;background:radial-gradient(circle at top,#26395f,#030308 45%);color:#f5f7ff;display:flex;justify-content:center;padding:20px}
+    .page{width:min(1240px,calc(100vw - 24px));background:var(--panel);border:1px solid var(--border);border-radius:24px;padding:18px}
+    .head{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+    .chip{display:inline-flex;padding:7px 11px;border-radius:999px;border:1px solid rgba(255,255,255,.2);color:#fff;text-decoration:none;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase}
+    #map{height:560px;border-radius:14px;border:1px solid rgba(255,255,255,.15)}
+    .bar{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+    .btn{border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.06);color:#fff;border-radius:999px;padding:6px 10px;font-size:.7rem;cursor:pointer}
+    .btn.active{background:rgba(255,179,71,.2);border-color:rgba(255,179,71,.55)}
+    .note{margin-top:8px;color:var(--muted);font-size:.86rem}
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="head">
+      <div>
+        <h2 style="margin:0;letter-spacing:.18em;text-transform:uppercase;">Japan Trip Master Map</h2>
+        <div style="color:var(--muted);margin-top:6px;">Unified map: Japan hotels + shinkansen hubs + food candidates (including chain markers).</div>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:flex-start;">
+        <a class="chip" href="mission-control.html">⟵ Mission</a>
+        <a class="chip" href="mission-control-osaka-plan.html">📅 Osaka</a>
+        <a class="chip" href="mission-control-fukuoka-plan.html">🗾 Fukuoka</a>
+        <a class="chip" href="mission-control-food.html">🍜 Food</a>
+      </div>
+    </div>
+    <div id="map"></div>
+    <div class="bar" id="layers">
+      <button class="btn active" data-layer="all">All</button>
+      <button class="btn" data-layer="hotels">Hotels</button>
+      <button class="btn" data-layer="stations">Shinkansen</button>
+      <button class="btn" data-layer="food">Food</button>
+      <button class="btn" data-layer="chains">Chains only</button>
+    </div>
+    <div class="note">🟡 Yellow dot = chain candidate. Hotels shown for Japan stays (Kokura, Hiroshima, Kurashiki, Osaka).</div>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+  <script>
+    const map = L.map('map').setView([34.5, 134.8], 7);
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+      maxZoom: 19, subdomains: 'abcd', attribution: '&copy; OpenStreetMap contributors &copy; CARTO'
+    }).addTo(map);
+
+    const icon = (emoji, chain=false) => L.divIcon({
+      className:'',
+      html:`<div style="font-size:20px;position:relative;">${emoji}${chain?'<span style="position:absolute;right:-5px;top:-4px;width:8px;height:8px;background:#ffd84d;border:1px solid #222;border-radius:999px"></span>':''}</div>`,
+      iconSize:[24,24], iconAnchor:[12,12]
+    });
+
+    const hotelCoords = {
+      'kokura':[33.8844,130.8829],
+      'hiroshima':[34.3853,132.4553],
+      'kurashiki':[34.5850,133.7712],
+      'osaka2':[34.6723,135.5015]
+    };
+
+    const stations = [
+      {name:'Hakata Station (Shinkansen)', lat:33.5898,lng:130.4207},
+      {name:'Kokura Station (Shinkansen)', lat:33.8869,lng:130.8826},
+      {name:'Hiroshima Station (Shinkansen)', lat:34.3976,lng:132.4756},
+      {name:'Okayama Station (Shinkansen)', lat:34.6663,lng:133.9185},
+      {name:'Shin-Osaka Station (Shinkansen)', lat:34.7335,lng:135.5000},
+      {name:'Shin-Shimonoseki Station (Shinkansen)', lat:34.0031,lng:130.9504}
+    ];
+
+    const layers = { hotels:[], stations:[], food:[] };
+    const bounds=[];
+
+    const addMarker = (arr, marker, latlng) => { arr.push(marker); bounds.push(latlng); };
+
+    fetch('travel-flight-plan.json', {cache:'no-store'})
+      .then(r=>r.json())
+      .then(data => {
+        (data.hotels||[]).forEach(h => {
+          if (!hotelCoords[h.id]) return; // japan-only mapped set
+          const [lat,lng] = hotelCoords[h.id];
+          const m = L.marker([lat,lng], {icon:icon('🏨')}).addTo(map)
+            .bindPopup(`<b>${h.label||'Hotel'}</b><br/>${h.city||''}<br/>${h.check_in||''} → ${h.check_out||''}`);
+          addMarker(layers.hotels,m,[lat,lng]);
+        });
+
+        stations.forEach(s => {
+          const m = L.marker([s.lat,s.lng], {icon:icon('🚄')}).addTo(map)
+            .bindPopup(`<b>${s.name}</b>`);
+          addMarker(layers.stations,m,[s.lat,s.lng]);
+        });
+
+        return fetch('travel-food-spots.json',{cache:'no-store'}).then(r=>r.json());
+      })
+      .then(foodData => {
+        const cityBase = {
+          'osaka':[34.679,135.497],
+          'kokura':[33.8833,130.8751],
+          'hiroshima':[34.3853,132.4553],
+          'kurashiki':[34.5850,133.7712],
+          'okayama - bizen/hinase':[34.7345,134.2688],
+          'fukuoka':[33.5902,130.4017]
+        };
+
+        let idxByCity = {};
+        (foodData.spots||[]).forEach(s => {
+          const city = (s.city||'').toLowerCase();
+          if (!(city in cityBase)) return;
+          idxByCity[city] = (idxByCity[city] || 0) + 1;
+          const i = idxByCity[city];
+          const base = cityBase[city];
+          const lat = (typeof s.lat==='number') ? s.lat : base[0] + ((i%6)-3)*0.01;
+          const lng = (typeof s.lng==='number') ? s.lng : base[1] + ((Math.floor(i/6)%6)-3)*0.01;
+          const isChain = !!s.chain;
+          const em = (s.type||'').toLowerCase().includes('bbq') || (s.type||'').toLowerCase().includes('yakiniku') ? '🥩' : (s.type||'').toLowerCase().includes('sushi') ? '🍣' : '🍽️';
+          const m = L.marker([lat,lng], {icon:icon(em,isChain)}).addTo(map)
+            .bindPopup(`<b>${s.name||'Spot'}</b><br/>${s.city||''}${isChain?'<br/>🟡 chain':''}${s.map_url?`<br/><a href="${s.map_url}" target="_blank" rel="noopener">Open map ↗</a>`:''}`);
+          m._isChain = isChain;
+          addMarker(layers.food,m,[lat,lng]);
+        });
+
+        if (bounds.length) map.fitBounds(bounds, {padding:[30,30]});
+      });
+
+    const toggleLayerMode = (mode) => {
+      const all = [...layers.hotels, ...layers.stations, ...layers.food];
+      all.forEach(m => { if (map.hasLayer(m)) map.removeLayer(m); });
+
+      const add = (arr) => arr.forEach(m => m.addTo(map));
+      if (mode==='all') { add(layers.hotels); add(layers.stations); add(layers.food); return; }
+      if (mode==='hotels') { add(layers.hotels); return; }
+      if (mode==='stations') { add(layers.stations); return; }
+      if (mode==='food') { add(layers.food); return; }
+      if (mode==='chains') { layers.food.filter(m=>m._isChain).forEach(m=>m.addTo(map)); return; }
+    };
+
+    const layerEl = document.getElementById('layers');
+    layerEl.addEventListener('click', (e) => {
+      const btn = e.target.closest('.btn'); if (!btn) return;
+      layerEl.querySelectorAll('.btn').forEach(b=>b.classList.toggle('active', b===btn));
+      toggleLayerMode(btn.dataset.layer || 'all');
+    });
+  </script>
+</body>
+</html>
