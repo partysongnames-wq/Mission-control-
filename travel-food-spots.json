@@ -1049,6 +1049,44 @@
       "gps_status": "approx_area",
       "map_query": "焼肉ごりちゃん 難波 大阪",
       "map_verified": "name-search batch1"
+    },
+    {
+      "name": "Tokiwatei Hakata Haruyoshi / ときわ亭 博多春吉店",
+      "city": "Fukuoka",
+      "type": "Restaurant / BBQ",
+      "status": "saved",
+      "chain": true,
+      "chain_group": "Tokiwatei 0-second Lemon Sour (ときわ亭)",
+      "area": "HAKATA/TENJIN",
+      "notes": "Carry-over chain option from Osaka list for earlier trip timing.",
+      "other_city_options": [
+        "Osaka (Namba/Umeda area)",
+        "Other major cities"
+      ],
+      "map_query": "0秒レモンサワー 仙台ホルモン焼肉酒場 ときわ亭 博多春吉店",
+      "map_url": "https://www.google.com/maps/search/?api=1&query=0%E7%A7%92%E3%83%AC%E3%83%A2%E3%83%B3%E3%82%B5%E3%83%AF%E3%83%BC%20%E4%BB%99%E5%8F%B0%E3%83%9B%E3%83%AB%E3%83%A2%E3%83%B3%E7%84%BC%E8%82%89%E9%85%92%E5%A0%B4%20%E3%81%A8%E3%81%8D%E3%82%8F%E4%BA%AD%20%E5%8D%9A%E5%A4%9A%E6%98%A5%E5%90%89%E5%BA%97",
+      "gps_status": "approx_area",
+      "lat": 33.5865,
+      "lng": 130.4065
+    },
+    {
+      "name": "Tokiwatei Kokura Station Area / ときわ亭 小倉駅エリア",
+      "city": "Kokura",
+      "type": "Restaurant / BBQ",
+      "status": "saved",
+      "chain": true,
+      "chain_group": "Tokiwatei 0-second Lemon Sour (ときわ亭)",
+      "area": "KOKURA STATION",
+      "notes": "Kokura-side chain candidate near your hotel base; verify exact branch before booking.",
+      "other_city_options": [
+        "Osaka (Namba/Umeda area)",
+        "Fukuoka city"
+      ],
+      "map_query": "ときわ亭 小倉",
+      "map_url": "https://www.google.com/maps/search/?api=1&query=%E3%81%A8%E3%81%8D%E3%82%8F%E4%BA%AD%20%E5%B0%8F%E5%80%89",
+      "gps_status": "approx_area",
+      "lat": 33.8848,
+      "lng": 130.8828
     }
   ],
   "meta": {
@@ -1064,9 +1102,9 @@
     },
     "gps_accuracy_pass": {
       "date": "2026-04-05",
-      "batch": "Osaka batch 3 (remaining general spots)",
-      "updated_spots": 9,
-      "method": "Google Maps name-query links updated for remaining Osaka spots"
+      "batch": "Fukuoka/Kokura batch 1",
+      "updated_spots": 2,
+      "method": "Added chain carry-over candidates with real Google Maps name-search links"
     }
   }
 }
