@@ -51,7 +51,14 @@
       "closest_station": "Namba Station / Shinsaibashi Station (branch-dependent)",
       "access": "From Shinsaibashi Station: ~10–15 min (branch-dependent)",
       "from_hotel": "From LEOPARD Shinsaibashi: ~10–15 min walk · ~3–6 min taxi",
-      "map_url": "https://maps.google.com/?q=Zauo+Fishing+Restaurant+Osaka+%28FB+reel%29"
+      "map_url": "https://maps.google.com/?q=Zauo+Fishing+Restaurant+Osaka+%28FB+reel%29",
+      "chain": true,
+      "chain_group": "Zauo (ざうお)",
+      "chain_note": "Chain brand with multiple branches in Japan; keep Osaka branch for current route.",
+      "other_city_options": [
+        "Fukuoka/Itoshima area (brand origin; detour)",
+        "Tokyo/Shinjuku area"
+      ]
     },
     {
       "name": "Jeju super ramen (FB reel)",
@@ -386,7 +393,14 @@
       "area": "UMEDA",
       "access": "From UMEDA Station: ~3 min",
       "closest_station": "Higashi-Umeda Station",
-      "map_url": "https://maps.google.com/?q=Sendai+Horumon+Tokiwatei+%2F+%E4%BB%99%E5%8F%B0%E3%83%9B%E3%83%AB%E3%83%A2%E3%83%B3%E7%84%BC%E8%82%89%E9%85%92%E5%A0%B4+%E3%81%A8%E3%81%8D%E3%82%8F%E4%BA%AD+%28IG+Reel%29"
+      "map_url": "https://maps.google.com/?q=Sendai+Horumon+Tokiwatei+%2F+%E4%BB%99%E5%8F%B0%E3%83%9B%E3%83%AB%E3%83%A2%E3%83%B3%E7%84%BC%E8%82%89%E9%85%92%E5%A0%B4+%E3%81%A8%E3%81%8D%E3%82%8F%E4%BA%AD+%28IG+Reel%29",
+      "chain": true,
+      "chain_group": "Tokiwatei 0-second Lemon Sour (ときわ亭)",
+      "chain_note": "Nationwide chain. Fukuoka branches exist; can split visits across Osaka/Fukuoka.",
+      "other_city_options": [
+        "Fukuoka (multiple branches)",
+        "Other major cities"
+      ]
     },
     {
       "name": "Kaiten Sushi Jin / 回転寿司 仁 (IG Reel)",
@@ -929,5 +943,17 @@
       "notes": "Added as chain placeholder so Namba-side option is visible; exact branch pin to confirm before routing.",
       "map_url": "https://maps.google.com/?q=%E7%84%BC%E8%82%89%E3%81%94%E3%82%8A%E3%81%A1%E3%82%83%E3%82%93+%E9%9B%A3%E6%B3%A2"
     }
-  ]
+  ],
+  "meta": {
+    "chain_audit": {
+      "date": "2026-04-05",
+      "scope": "Osaka spots initial pass",
+      "confirmed_chain_groups": [
+        "Yakiniku Gorichan (焼肉ごりちゃん)",
+        "Zauo (ざうお)",
+        "Tokiwatei (ときわ亭)"
+      ],
+      "note": "Initial quick audit; remaining Osaka spots pending deeper chain verification."
+    }
+  }
 }
