@@ -268,7 +268,7 @@
       "price": "~¥5,500 (~฿1,200-1,300) unlimited time",
       "link": "https://www.instagram.com/reel/placeholder",
       "photo": "assets/food/osaka-oyster-unlimited-2.jpg",
-      "notes": "Osaka. Rare no-time-limit all-you-can-eat oyster restaurant. 220+ menu items including raw oysters, grilled oysters, fried oysters (カキフライ), oyster okonomiyaki, ikura bowls, rice bowls, and seafood. Hokkaido seasonal promos. From Nasha via 大阪グルメ【関西グルメ】.",
+      "notes": "Osaka. Rare no-time-limit all-you-can-eat oyster restaurant. 220+ menu items including raw oysters, grilled oysters, fried oysters (カキフライ), oyster okonomiyaki, ikura bowls, rice bowls, and seafood. Hokkaido seasonal promos. From Nasha via 大阪グルメ【関西グルメ】. Needs exact store/branch confirmation.",
       "photos": [
         "assets/food/osaka-oyster-unlimited-2.jpg",
         "assets/food/osaka-oyster-unlimited-3.jpg"
@@ -276,10 +276,10 @@
       "area": "UMEDA",
       "closest_station": "Osaka-Umeda area (exact branch TBD)",
       "access": "From UMEDA Station: ~5–10 min (exact branch TBD)",
-      "map_url": "https://www.google.com/maps/search/?api=1&query=%E7%89%A1%E8%A0%A3%20%E9%A3%9F%E3%81%B9%E6%94%BE%E9%A1%8C%20%E5%A4%A7%E9%98%AA%20%E7%84%A1%E5%88%B6%E9%99%90",
+      "map_url": "https://www.google.com/maps/search/?api=1&query=%E7%89%A1%E8%A0%A3%20%E9%A3%9F%E3%81%B9%E6%94%BE%E9%A1%8C%20%E5%A4%A7%E9%98%AA",
       "gps_status": "approx_area",
-      "map_query": "牡蠣 食べ放題 大阪 無制限",
-      "map_verified": "name-search batch2"
+      "map_query": "(needs exact store name from reel)",
+      "map_verified": "needs_exact_store"
     },
     {
       "name": "中トロと豚足 / Chutoro & Pork Feet (IG Reel)",
@@ -432,7 +432,7 @@
       "area": "UMEDA",
       "access": "From UMEDA Station: ~3 min",
       "closest_station": "Higashi-Umeda Station",
-      "map_url": "https://www.google.com/maps/search/?api=1&query=0%E7%A7%92%E3%83%AC%E3%83%A2%E3%83%B3%E3%82%B5%E3%83%AF%E3%83%BC%20%E4%BB%99%E5%8F%B0%E3%83%9B%E3%83%AB%E3%83%A2%E3%83%B3%E7%84%BC%E8%82%89%E9%85%92%E5%A0%B4%20%E3%81%A8%E3%81%8D%E3%82%8F%E4%BA%AD%20%E3%81%AA%E3%82%93%E3%81%B0%E5%8D%83%E6%97%A5%E5%89%8D%E5%BA%97",
+      "map_url": "https://www.google.com/maps/search/?api=1&query=0%E7%A7%92%E3%83%AC%E3%83%A2%E3%83%B3%E3%82%B5%E3%83%AF%E3%83%BC%20%E4%BB%99%E5%8F%B0%E3%83%9B%E3%83%AB%E3%83%A2%E3%83%B3%E7%84%BC%E8%82%89%E9%85%92%E5%A0%B4%20%E3%81%A8%E3%81%8D%E3%82%8F%E4%BA%AD%20%E6%A2%85%E7%94%B0",
       "chain": true,
       "chain_group": "Tokiwatei 0-second Lemon Sour (ときわ亭)",
       "chain_note": "Nationwide chain. Fukuoka branches exist; can split visits across Osaka/Fukuoka.",
@@ -441,8 +441,8 @@
         "Other major cities"
       ],
       "gps_status": "approx_area",
-      "map_query": "0秒レモンサワー 仙台ホルモン焼肉酒場 ときわ亭 なんば千日前店",
-      "map_verified": "name-search batch1"
+      "map_query": "0秒レモンサワー 仙台ホルモン焼肉酒場 ときわ亭 梅田",
+      "map_verified": "name-search corrected (Umeda-side)"
     },
     {
       "name": "Kaiten Sushi Jin / 回転寿司 仁 (IG Reel)",
@@ -719,9 +719,9 @@
       "lat": 34.70067,
       "lng": 135.49597,
       "map_url": "https://www.google.com/maps/search/?api=1&query=%E4%B8%80%E7%95%AA%E6%89%8B%20%E6%A2%85%E7%94%B0",
-      "gps_status": "exact",
+      "gps_status": "approx_area",
       "map_query": "一番手 梅田",
-      "map_verified": "name-search batch3"
+      "map_verified": "name-search corrected"
     },
     {
       "name": "Uoshin Sakaba Umeda Teppan / 魚心酒場 梅田てっぺん部 (FB Reel)",
@@ -938,9 +938,9 @@
       "price": "From ~¥45 per piece (reel claim), ~¥1,500 per person for light meal",
       "signature": "Ultra-budget sushi pricing with live fish/tuna highlight",
       "must_try": "Live fish and tuna selections",
-      "notes": "From Fuudate reel. Exact branch details were posted in comments not fully visible in reel overlay; placeholder entry saved so it is not lost. Address not confirmed yet after comments scan; do not treat as finalized pin.",
+      "notes": "From Fuudate reel. Exact branch details were posted in comments not fully visible in reel overlay; placeholder entry saved so it is not lost. Address not confirmed yet after comments scan; do not treat as finalized pin. Needs exact store/branch confirmation.",
       "link": "https://www.facebook.com/share/r/18hvMx8JiH/?mibextid=wwXIfr",
-      "map_url": "https://www.google.com/maps/search/?api=1&query=%E5%9B%9E%E8%BB%A2%E5%AF%BF%E5%8F%B8%2045%E5%86%86%20%E5%A4%A7%E9%98%AA",
+      "map_url": "https://www.google.com/maps/search/?api=1&query=%E5%9B%9E%E8%BB%A2%E5%AF%BF%E5%8F%B8%20%E5%A4%A7%E9%98%AA",
       "photo": "assets/food/ikiki-kaiten-sushi-1.jpg",
       "photos": [
         "assets/food/ikiki-kaiten-sushi-1.jpg",
@@ -951,8 +951,8 @@
         "TBD after exact branch confirmation"
       ],
       "gps_status": "approx_area",
-      "map_query": "回転寿司 45円 大阪",
-      "map_verified": "name-search batch2"
+      "map_query": "(needs exact store name from reel)",
+      "map_verified": "needs_exact_store"
     },
     {
       "name": "Iwashiya / いわし屋 (Sannomiya, Kobe)",
@@ -1045,10 +1045,10 @@
       "access": "Expected easy access from Minami side",
       "signature": "Same chain menu concept (thick-cut tongue / wagyu / harami)",
       "notes": "Added as chain placeholder so Namba-side option is visible; exact branch pin to confirm before routing.",
-      "map_url": "https://www.google.com/maps/search/?api=1&query=%E7%84%BC%E8%82%89%E3%81%94%E3%82%8A%E3%81%A1%E3%82%83%E3%82%93%20%E9%9B%A3%E6%B3%A2%20%E5%A4%A7%E9%98%AA",
+      "map_url": "https://www.google.com/maps/search/?api=1&query=%E7%84%BC%E8%82%89%E3%81%94%E3%82%8A%E3%81%A1%E3%82%83%E3%82%93%20%E3%81%AA%E3%82%93%E3%81%B0%E5%BA%97",
       "gps_status": "approx_area",
-      "map_query": "焼肉ごりちゃん 難波 大阪",
-      "map_verified": "name-search batch1"
+      "map_query": "焼肉ごりちゃん なんば店",
+      "map_verified": "name-search refined (Namba branch check)"
     },
     {
       "name": "Tokiwatei Hakata Haruyoshi / ときわ亭 博多春吉店",
