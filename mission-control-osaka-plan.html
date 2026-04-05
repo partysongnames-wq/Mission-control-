@@ -114,7 +114,8 @@
     <section class="osaka-map-wrap" id="osaka-map-wrap">
       <h2 style="margin:0 0 10px;font-size:.95rem;letter-spacing:.2em;text-transform:uppercase;">Osaka Key Map (City View)</h2>
       <div class="map-controls">
-        <button class="map-control-btn" id="map-locate-btn" type="button" aria-label="Show my location">📍 My location</button>
+        <button class="map-control-btn" id="map-locate-btn" type="button" aria-label="Show my location">📍 Locate once</button>
+        <button class="map-control-btn" id="map-live-btn" type="button" aria-label="Start live tracking" aria-pressed="false">🟢 Start live</button>
         <button class="map-control-btn" id="map-fullscreen-toggle" type="button" aria-label="Expand map" aria-expanded="false">⛶ Expand map</button>
         <a class="map-control-link" id="map-google-link" href="https://www.google.com/maps" target="_blank" rel="noopener">↗ Google Maps</a>
       </div>
@@ -291,10 +292,13 @@
     const mapWrap = document.getElementById('osaka-map-wrap');
     const mapToggle = document.getElementById('map-fullscreen-toggle');
     const mapLocateBtn = document.getElementById('map-locate-btn');
+    const mapLiveBtn = document.getElementById('map-live-btn');
     const mapGoogleLink = document.getElementById('map-google-link');
     let mapScrollY = 0;
     let userMarker = null;
     let userAccuracyCircle = null;
+    let liveWatchId = null;
+    let liveAutoStopTimer = null;
 
     const updateGoogleMapLink = () => {
       const c = osakaMap.getCenter();
@@ -327,42 +331,91 @@
       if (e.key === 'Escape' && mapWrap.classList.contains('map-fullscreen')) setMapFullscreen(false);
     });
 
+    const resetLocateLabel = (delay = 1400) => setTimeout(() => (mapLocateBtn.textContent = '📍 Locate once'), delay);
+
+    const paintUserLocation = (pos, shouldCenter = true) => {
+      const latlng = [pos.coords.latitude, pos.coords.longitude];
+      const accuracy = Math.max(12, Math.round(pos.coords.accuracy || 20));
+
+      if (userMarker) osakaMap.removeLayer(userMarker);
+      if (userAccuracyCircle) osakaMap.removeLayer(userAccuracyCircle);
+
+      userMarker = L.marker(latlng, { icon: emojiIcon('📍') }).addTo(osakaMap)
+        .bindPopup(`You are here<br/>Accuracy: ±${accuracy}m`);
+      userAccuracyCircle = L.circle(latlng, {
+        radius: accuracy,
+        color: '#4da3ff',
+        fillColor: '#4da3ff',
+        fillOpacity: 0.12,
+        weight: 1
+      }).addTo(osakaMap);
+
+      if (shouldCenter) osakaMap.setView(latlng, Math.max(osakaMap.getZoom(), 15), { animate: true });
+    };
+
+    const stopLiveTracking = (msg = '🟢 Start live') => {
+      if (liveWatchId !== null) {
+        navigator.geolocation.clearWatch(liveWatchId);
+        liveWatchId = null;
+      }
+      if (liveAutoStopTimer) {
+        clearTimeout(liveAutoStopTimer);
+        liveAutoStopTimer = null;
+      }
+      if (mapLiveBtn) {
+        mapLiveBtn.textContent = msg;
+        mapLiveBtn.setAttribute('aria-pressed', 'false');
+      }
+    };
+
     mapLocateBtn?.addEventListener('click', () => {
       if (!navigator.geolocation) {
         mapLocateBtn.textContent = '⚠️ No GPS support';
-        setTimeout(() => (mapLocateBtn.textContent = '📍 My location'), 1800);
+        resetLocateLabel(1800);
         return;
       }
 
       mapLocateBtn.textContent = '⏳ Locating...';
       navigator.geolocation.getCurrentPosition(
         (pos) => {
-          const latlng = [pos.coords.latitude, pos.coords.longitude];
-          const accuracy = Math.max(12, Math.round(pos.coords.accuracy || 20));
-
-          if (userMarker) osakaMap.removeLayer(userMarker);
-          if (userAccuracyCircle) osakaMap.removeLayer(userAccuracyCircle);
-
-          userMarker = L.marker(latlng, { icon: emojiIcon('📍') }).addTo(osakaMap)
-            .bindPopup(`You are here<br/>Accuracy: ±${accuracy}m`);
-          userAccuracyCircle = L.circle(latlng, {
-            radius: accuracy,
-            color: '#4da3ff',
-            fillColor: '#4da3ff',
-            fillOpacity: 0.12,
-            weight: 1
-          }).addTo(osakaMap);
-
-          osakaMap.setView(latlng, Math.max(osakaMap.getZoom(), 15), { animate: true });
+          paintUserLocation(pos, true);
           mapLocateBtn.textContent = '✅ Located';
-          setTimeout(() => (mapLocateBtn.textContent = '📍 My location'), 1400);
+          resetLocateLabel();
         },
         () => {
           mapLocateBtn.textContent = '❌ Location denied';
-          setTimeout(() => (mapLocateBtn.textContent = '📍 My location'), 1800);
+          resetLocateLabel(1800);
         },
         { enableHighAccuracy: true, timeout: 12000, maximumAge: 60000 }
       );
+    });
+
+    mapLiveBtn?.addEventListener('click', () => {
+      if (!navigator.geolocation) {
+        mapLiveBtn.textContent = '⚠️ No GPS support';
+        setTimeout(() => (mapLiveBtn.textContent = '🟢 Start live'), 1800);
+        return;
+      }
+
+      if (liveWatchId !== null) {
+        stopLiveTracking('🟢 Start live');
+        return;
+      }
+
+      mapLiveBtn.textContent = '⏹ Stop live';
+      mapLiveBtn.setAttribute('aria-pressed', 'true');
+
+      liveWatchId = navigator.geolocation.watchPosition(
+        (pos) => paintUserLocation(pos, true),
+        () => {
+          stopLiveTracking('❌ Live blocked');
+          setTimeout(() => (mapLiveBtn.textContent = '🟢 Start live'), 1800);
+        },
+        { enableHighAccuracy: false, timeout: 15000, maximumAge: 15000 }
+      );
+
+      // battery-safe auto-stop after 30 minutes
+      liveAutoStopTimer = setTimeout(() => stopLiveTracking('⏲ Live ended'), 30 * 60 * 1000);
     });
 
     L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
