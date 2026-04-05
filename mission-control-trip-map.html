@@ -41,7 +41,7 @@
       <button class="btn" data-layer="chains">Chains only</button>
     </div>
     <div class="mode" id="mode-label">Mode: All</div>
-    <div class="note">🟡 Yellow dot = chain candidate. Hotels shown for Japan stays (Kokura, Hiroshima, Kurashiki, Osaka).</div>
+    <div class="note">🟡 Yellow dot = chain candidate. Hotels shown for Japan stays (Kokura, Hiroshima, Kurashiki, Osaka). Non-address food pins use area-based placement (not exact GPS) until exact coordinates are added.</div>
   </div>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
@@ -106,16 +106,29 @@
           'okayama - bizen/hinase':[34.7345,134.2688],
           'fukuoka':[33.5902,130.4017]
         };
+        const osakaAreaBase = {
+          'UMEDA':[34.7025,135.4959],
+          'NAMBA / SHINSAIBASHI':[34.6696,135.5012],
+          'TENMA':[34.7045,135.5120],
+          'KYOBASHI':[34.6978,135.5343],
+          'TSURUHASHI':[34.6669,135.5305],
+          'OUTSIDE CENTRAL OSAKA':[34.6860,135.4800]
+        };
+        const hashNum = (str='') => Array.from(str).reduce((a,c)=>((a*31)+c.charCodeAt(0))>>>0,7);
+        const organicOffset = (seed, scale=0.007) => {
+          const a = ((seed % 360) * Math.PI) / 180;
+          const r = 0.0012 + ((seed % 1000) / 1000) * scale;
+          return [Math.sin(a) * r, Math.cos(a) * r];
+        };
 
-        let idxByCity = {};
         (foodData.spots||[]).forEach(s => {
           const city = (s.city||'').toLowerCase();
           if (!(city in cityBase)) return;
-          idxByCity[city] = (idxByCity[city] || 0) + 1;
-          const i = idxByCity[city];
-          const base = cityBase[city];
-          const lat = (typeof s.lat==='number') ? s.lat : base[0] + ((i%6)-3)*0.01;
-          const lng = (typeof s.lng==='number') ? s.lng : base[1] + ((Math.floor(i/6)%6)-3)*0.01;
+          const seed = hashNum(`${s.name||''}|${s.area||''}|${s.city||''}`);
+          const base = (city === 'osaka' && s.area && osakaAreaBase[s.area]) ? osakaAreaBase[s.area] : cityBase[city];
+          const [dLat, dLng] = organicOffset(seed, city === 'osaka' ? 0.0055 : 0.009);
+          const lat = (typeof s.lat==='number') ? s.lat : base[0] + dLat;
+          const lng = (typeof s.lng==='number') ? s.lng : base[1] + dLng;
           const isChain = !!s.chain;
           const t = `${s.type||''} ${s.name||''} ${s.signature||''} ${s.notes||''}`.toLowerCase();
           const em = t.includes('market') || t.includes('市場') ? '🍢'
