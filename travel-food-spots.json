@@ -1,5 +1,5 @@
 {
-  "updated": "2026-04-02",
+  "updated": "2026-04-05",
   "notes": "Food spots from Nasha's reels and research - PHOTOS NEED UPDATE for Dalbit, Takumi Shimizu, and Umeda A5 Wagyu",
   "spots": [
     {
@@ -844,6 +844,33 @@
       "distance_to_hotels": [
         "TBD after exact branch confirmation"
       ]
+    },
+    {
+      "name": "Iwashiya / いわし屋 (Sannomiya, Kobe)",
+      "city": "Kobe (Sannomiya)",
+      "type": "Restaurant / Seafood",
+      "status": "saved",
+      "area": "Sannomiya (Kobe, Kansai)",
+      "location": "1-9-17 Kitanagasa-dori, Chuo-ku, Kobe, Hyogo, Japan",
+      "closest_station": "Hankyu Kobe-Sannomiya Station (West Exit)",
+      "access": "~1 min north of Hankyu Sannomiya West Exit (per reel overlay)",
+      "signature": "Live sardine sashimi (泳ぎいわし) / seasonal seafood",
+      "must_try": "Raw sardine set + sashimi plate",
+      "notes": "Added from FB reel + screenshots. Address text in reel overlay matches: 1-9-17 Kitanagasa Street, Chuo-ku, Kobe. Kept as Kobe stop (not central Osaka).",
+      "link": "https://www.facebook.com/share/r/1CVfLqitiV/?mibextid=wwXIfr",
+      "photo": "assets/food/iwashiya-kobe-1.jpg",
+      "photos": [
+        "assets/food/iwashiya-kobe-1.jpg",
+        "assets/food/iwashiya-kobe-2.jpg",
+        "assets/food/iwashiya-kobe-3.jpg",
+        "assets/food/iwashiya-kobe-4.jpg"
+      ],
+      "map_url": "https://maps.google.com/?q=%E9%AD%9A%E6%97%AC%E3%83%BB%E7%A3%AF%E6%96%99%E7%90%86+%E3%81%84%E3%82%8F%E3%81%97%E5%B1%8B+1-9-17+Kitanagasadori+Chuo-ku+Kobe",
+      "distance_to_hotels": [
+        "🚇 ~45–60 min from LEOPARD Shinsaibashi (Osaka) via Sannomiya-bound lines + short walk",
+        "🚕 ~45–70 min by taxi from LEOPARD Shinsaibashi (traffic-dependent)"
+      ],
+      "location_confidence": "high (address captured in provided screenshot overlay)"
     }
   ]
 }
