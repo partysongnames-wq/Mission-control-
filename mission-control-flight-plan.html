@@ -276,7 +276,7 @@
       renderFlights(plan.flights);
       renderDecisions(plan.decisions);
       renderRisks(plan.risks);
-      renderMap(plan.map_points, plan.flights);
+      renderMap(plan.map_points, plan.flights, plan.hotels || []);
       } catch (e) {
         console.error('LoadPlan error:', e);
         document.getElementById('flight-rows').innerHTML = '<tr><td colspan="9" style="text-align:center;color:#ff6b6b;">Error loading data: ' + e.message + '</td></tr>';
@@ -424,7 +424,7 @@
         </li>
       `).join('');
     }
-    function renderMap(points, flights) {
+    function renderMap(points, flights, hotels) {
       const legend = document.getElementById('map-legend');
       const el = document.getElementById('leaflet-map');
       if (!el) return;
@@ -464,6 +464,51 @@
       }).addTo(map);
 
       const byCode = new Map(points.map(p => [p.code, p]));
+
+
+      // Rail overlay using booked hotel stops (Japan segment)
+      const hotelGeo = {
+        'Kokura': { lat: 33.8834, lng: 130.8752, label: 'Kokura (Hotel)' },
+        'Hiroshima': { lat: 34.3853, lng: 132.4553, label: 'Hiroshima (Hotel)' },
+        'Kurashiki': { lat: 34.5850, lng: 133.7721, label: 'Kurashiki (Hotel)' },
+        'Osaka': { lat: 34.6937, lng: 135.5023, label: 'Osaka (Hotel)' }
+      };
+
+      const bookedHotels = (hotels || [])
+        .filter(h => (h.status || '').toLowerCase() === 'booked')
+        .filter(h => hotelGeo[h.city])
+        .map(h => ({ ...h, ...hotelGeo[h.city] }));
+
+      const dedup = [];
+      const seenCity = new Set();
+      bookedHotels.forEach(h => {
+        if (!seenCity.has(h.city)) {
+          seenCity.add(h.city);
+          dedup.push(h);
+        }
+      });
+
+      if (dedup.length >= 2) {
+        const railLatLngs = dedup.map(h => [h.lat, h.lng]);
+        const railLine = L.polyline(railLatLngs, {
+          color: '#ffd166',
+          weight: 3,
+          opacity: 0.9,
+          dashArray: '6 8'
+        }).addTo(map);
+        railLine.bindTooltip('Rail journey (hotel stops)', { direction: 'top' });
+
+        dedup.forEach(h => {
+          const marker = L.circleMarker([h.lat, h.lng], {
+            radius: 5,
+            color: '#1f2937',
+            weight: 1.5,
+            fillColor: '#ffd166',
+            fillOpacity: 1
+          }).addTo(map);
+          marker.bindTooltip(`${h.label}: ${h.city}`, { direction: 'top' });
+        });
+      }
 
       function colorForParty(party) {
         if (party === 'trent') return '#10a37f';
@@ -536,6 +581,15 @@
           btn.addEventListener('click', () => showMapDetail(f));
           legend.appendChild(btn);
         });
+
+      if ((hotels || []).some(h => (h.status || '').toLowerCase() === 'booked' && ['Kokura','Hiroshima','Kurashiki','Osaka'].includes(h.city))) {
+        const railTag = document.createElement('button');
+        railTag.textContent = '⋯ Rail: hotel-stop route';
+        railTag.style.background = 'rgba(255,209,102,.18)';
+        railTag.style.border = '1px dashed rgba(255,209,102,.8)';
+        railTag.style.color = '#ffe7a6';
+        legend.appendChild(railTag);
+      }
     }
     function showMapDetail(flight) {
       alert(`Flight ${flight.flight_number} (${flight.from_code}→${flight.to_code}) status: ${flight.status}. Price: THB ${flight.price_per_person.toLocaleString()} pp.`);
