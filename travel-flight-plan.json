@@ -477,7 +477,8 @@
       "code": "FUK",
       "city": "Fukuoka",
       "lat": 33.5859,
-      "lng": 130.4507
+      "lng": 130.4507,
+      "photo": "assets/cities/fukuoka-night-market.jpg"
     },
     {
       "code": "KIX",
