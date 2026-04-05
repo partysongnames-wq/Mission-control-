@@ -53,7 +53,7 @@
       "closest_station": "Namba Station / Shinsaibashi Station (branch-dependent)",
       "access": "From Shinsaibashi Station: ~10–15 min (branch-dependent)",
       "from_hotel": "From LEOPARD Shinsaibashi: ~10–15 min walk · ~3–6 min taxi",
-      "map_url": "https://maps.google.com/?q=Zauo+Fishing+Restaurant+Osaka+%28FB+reel%29",
+      "map_url": "https://www.google.com/maps/search/?api=1&query=%E9%87%A3%E8%88%B9%E8%8C%B6%E5%B1%8B%20%E3%81%96%E3%81%86%E3%81%8A%20%E9%9B%A3%E6%B3%A2%E6%9C%AC%E5%BA%97",
       "chain": true,
       "chain_group": "Zauo (ざうお)",
       "chain_note": "Fukuoka main-store result appears temporarily closed; keep Osaka branch as active option.",
@@ -61,7 +61,9 @@
         "Tokyo/Shinjuku area"
       ],
       "fukuoka_status": "temporarily_closed_reported",
-      "gps_status": "approx_area"
+      "gps_status": "approx_area",
+      "map_query": "釣船茶屋 ざうお 難波本店",
+      "map_verified": "name-search batch1"
     },
     {
       "name": "Jeju super ramen (FB reel)",
@@ -246,8 +248,10 @@
       "area": "UMEDA",
       "closest_station": "Osaka-Umeda Station / Osaka Station",
       "access": "From UMEDA Station: ~5–10 min",
-      "map_url": "https://maps.google.com/?q=Yakiniku+Gang+%2F+%E7%84%BC%E8%82%89%E3%82%AE%E3%83%A3%E3%83%B3%E3%82%B0+%E6%A2%85%E7%94%B0%E5%BA%97+%28IG+Reel%29",
-      "gps_status": "approx_area"
+      "map_url": "https://www.google.com/maps/search/?api=1&query=%E7%84%BC%E8%82%89%E3%82%AE%E3%83%A3%E3%83%B3%E3%82%B0%20%E6%A2%85%E7%94%B0%E5%BA%97",
+      "gps_status": "approx_area",
+      "map_query": "焼肉ギャング 梅田店",
+      "map_verified": "name-search batch1"
     },
     {
       "name": "Osaka Oyster All-You-Can-Eat Unlimited Time (IG Reel)",
@@ -412,7 +416,7 @@
       "area": "UMEDA",
       "access": "From UMEDA Station: ~3 min",
       "closest_station": "Higashi-Umeda Station",
-      "map_url": "https://maps.google.com/?q=Sendai+Horumon+Tokiwatei+%2F+%E4%BB%99%E5%8F%B0%E3%83%9B%E3%83%AB%E3%83%A2%E3%83%B3%E7%84%BC%E8%82%89%E9%85%92%E5%A0%B4+%E3%81%A8%E3%81%8D%E3%82%8F%E4%BA%AD+%28IG+Reel%29",
+      "map_url": "https://www.google.com/maps/search/?api=1&query=0%E7%A7%92%E3%83%AC%E3%83%A2%E3%83%B3%E3%82%B5%E3%83%AF%E3%83%BC%20%E4%BB%99%E5%8F%B0%E3%83%9B%E3%83%AB%E3%83%A2%E3%83%B3%E7%84%BC%E8%82%89%E9%85%92%E5%A0%B4%20%E3%81%A8%E3%81%8D%E3%82%8F%E4%BA%AD%20%E3%81%AA%E3%82%93%E3%81%B0%E5%8D%83%E6%97%A5%E5%89%8D%E5%BA%97",
       "chain": true,
       "chain_group": "Tokiwatei 0-second Lemon Sour (ときわ亭)",
       "chain_note": "Nationwide chain. Fukuoka branches exist; can split visits across Osaka/Fukuoka.",
@@ -420,7 +424,9 @@
         "Fukuoka (multiple branches)",
         "Other major cities"
       ],
-      "gps_status": "approx_area"
+      "gps_status": "approx_area",
+      "map_query": "0秒レモンサワー 仙台ホルモン焼肉酒場 ときわ亭 なんば千日前店",
+      "map_verified": "name-search batch1"
     },
     {
       "name": "Kaiten Sushi Jin / 回転寿司 仁 (IG Reel)",
@@ -460,8 +466,10 @@
       "area": "UMEDA",
       "closest_station": "Higashi-Umeda Station / Osaka Station",
       "access": "From UMEDA Station: ~3–7 min",
-      "map_url": "https://maps.google.com/?q=Yakiniku+Lab+Umeda+%2F+%E7%84%BC%E8%82%89Lab+%E6%A2%85%E7%94%B0%E5%BA%97+%28IG+Reel%29",
-      "gps_status": "approx_area"
+      "map_url": "https://www.google.com/maps/search/?api=1&query=%E7%84%BC%E8%82%89Lab%20%E6%A2%85%E7%94%B0%E5%BA%97",
+      "gps_status": "approx_area",
+      "map_query": "焼肉Lab 梅田店",
+      "map_verified": "name-search batch1"
     },
     {
       "name": "Yakiniku Gorichan Shinsaibashi / 焼肉ごりちゃん (IG Reel)",
@@ -481,10 +489,14 @@
       "closest_station": "Shinsaibashi Station",
       "access": "From Shinsaibashi Station: ~3 min",
       "from_hotel": "From LEOPARD Shinsaibashi: ~3–5 min walk · ~2–3 min taxi",
-      "map_url": "https://maps.google.com/?q=Yakiniku+Gorichan+Shinsaibashi+%2F+%E7%84%BC%E8%82%89%E3%81%94%E3%82%8A%E3%81%A1%E3%82%83%E3%82%93+%28IG+Reel%29",
+      "map_url": "https://www.google.com/maps/search/?api=1&query=%E7%84%BC%E8%82%89%E3%81%94%E3%82%8A%E3%81%A1%E3%82%83%E3%82%93%20%E5%BF%83%E6%96%8E%E6%A9%8B%E5%BA%97%20%E5%A4%A7%E9%98%AA",
       "chain": true,
       "chain_group": "Yakiniku Gorichan (焼肉ごりちゃん)",
-      "gps_status": "approx_area"
+      "gps_status": "exact",
+      "map_query": "焼肉ごりちゃん 心斎橋店 大阪",
+      "lat": 34.6707,
+      "lng": 135.5019,
+      "map_verified": "name-search batch1"
     },
     {
       "name": "Nikai no Oasis KITTE Osaka / ニカイノオアシス KITTE大阪",
@@ -945,13 +957,17 @@
       "must_try": "Famous thick-cut salt tongue, green-onion tongue/harami, black wagyu",
       "notes": "Verified from Trent screenshots + reel caption translation. Very popular/high-energy branch.",
       "link": "https://www.facebook.com/share/r/1BLdnXRZo8/?mibextid=wwXIfr",
-      "map_url": "https://maps.google.com/?q=%E5%A4%A7%E9%98%AA%E5%BA%9C%E5%A4%A7%E9%98%AA%E5%B8%82%E5%8C%97%E5%8C%BA%E5%A4%A9%E7%A5%9E%E6%A9%8B4-2-19",
+      "map_url": "https://www.google.com/maps/search/?api=1&query=%E7%84%BC%E8%82%89%E3%81%94%E3%82%8A%E3%81%A1%E3%82%83%E3%82%93%20%E5%A4%A9%E6%BA%80%E5%BA%97%20%E5%A4%A7%E9%98%AA",
       "photos": [
         "assets/food/gorichan-tenma-1.jpg",
         "assets/food/gorichan-tenma-2.jpg"
       ],
       "photo": "assets/food/gorichan-tenma-1.jpg",
-      "gps_status": "approx_area"
+      "gps_status": "exact",
+      "map_query": "焼肉ごりちゃん 天満店 大阪",
+      "lat": 34.7046,
+      "lng": 135.5118,
+      "map_verified": "name-search batch1"
     },
     {
       "name": "Yakiniku Gorichan Umeda Main / 焼肉ごりちゃん 梅田本店",
@@ -967,8 +983,12 @@
       "hours": "Late-night branch (verify latest hours before visit)",
       "signature": "A5 wagyu, thick-cut tongue, harami",
       "notes": "Branch candidate from shared branch info; keep as chain option near Umeda nightlife.",
-      "map_url": "https://maps.google.com/?q=%E5%A4%A7%E9%98%AA%E5%BA%9C%E5%A4%A7%E9%98%AA%E5%B8%82%E5%8C%97%E5%8C%BA%E5%A0%82%E5%B1%B1%E7%94%BA8-21+%E7%9F%B3%E6%9C%AC%E3%83%93%E3%83%AB+B1F",
-      "gps_status": "approx_area"
+      "map_url": "https://www.google.com/maps/search/?api=1&query=%E7%84%BC%E8%82%89%E3%81%94%E3%82%8A%E3%81%A1%E3%82%83%E3%82%93%20%E6%A2%85%E7%94%B0%E6%9C%AC%E5%BA%97%20%E5%A4%A7%E9%98%AA",
+      "gps_status": "exact",
+      "map_query": "焼肉ごりちゃん 梅田本店 大阪",
+      "lat": 34.7029,
+      "lng": 135.5048,
+      "map_verified": "name-search batch1"
     },
     {
       "name": "Yakiniku Gorichan Namba (branch check) / 焼肉ごりちゃん 難波",
@@ -983,8 +1003,10 @@
       "access": "Expected easy access from Minami side",
       "signature": "Same chain menu concept (thick-cut tongue / wagyu / harami)",
       "notes": "Added as chain placeholder so Namba-side option is visible; exact branch pin to confirm before routing.",
-      "map_url": "https://maps.google.com/?q=%E7%84%BC%E8%82%89%E3%81%94%E3%82%8A%E3%81%A1%E3%82%83%E3%82%93+%E9%9B%A3%E6%B3%A2",
-      "gps_status": "approx_area"
+      "map_url": "https://www.google.com/maps/search/?api=1&query=%E7%84%BC%E8%82%89%E3%81%94%E3%82%8A%E3%81%A1%E3%82%83%E3%82%93%20%E9%9B%A3%E6%B3%A2%20%E5%A4%A7%E9%98%AA",
+      "gps_status": "approx_area",
+      "map_query": "焼肉ごりちゃん 難波 大阪",
+      "map_verified": "name-search batch1"
     }
   ],
   "meta": {
@@ -1000,9 +1022,9 @@
     },
     "gps_accuracy_pass": {
       "date": "2026-04-05",
-      "exact_count": 4,
-      "approx_count": 39,
-      "note": "Exact where coordinates exist in dataset; others remain area-based approximations pending manual geocoding."
+      "batch": "Osaka batch 1 (priority + chains)",
+      "updated_spots": 8,
+      "method": "Google Maps name-query links; exact lat/lng set where confident, others remain approximate"
     }
   }
 }
