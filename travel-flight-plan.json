@@ -471,28 +471,27 @@
       "city": "Hong Kong",
       "lat": 22.308,
       "lng": 113.9185,
-      "photo": "assets/cities/hong-kong.svg"
+      "photo": "assets/cities/hong-kong-photo.jpg"
+    },
+    {
+      "code": "FUK",
+      "city": "Fukuoka",
+      "lat": 33.5859,
+      "lng": 130.4507
     },
     {
       "code": "KIX",
       "city": "Osaka",
       "lat": 34.4347,
       "lng": 135.2441,
-      "photo": "assets/cities/osaka.svg"
+      "photo": "assets/cities/osaka.jpg"
     },
     {
       "code": "PUS",
       "city": "Busan",
       "lat": 35.1796,
       "lng": 129.0756,
-      "photo": "assets/cities/busan.svg"
-    },
-    {
-      "code": "CJU",
-      "city": "Jeju",
-      "lat": 33.5113,
-      "lng": 126.493,
-      "photo": "assets/cities/jeju.svg"
+      "photo": "assets/cities/busan.jpg"
     }
   ],
   "message_summary": "Final itinerary loaded.",

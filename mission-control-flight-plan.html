@@ -225,8 +225,8 @@
     <section class="map-panel">
       <div style="position:relative;z-index:1;">
         <strong style="letter-spacing:.35em;text-transform:uppercase;">Route Overview</strong>
-        <p style="margin:8px 0 0;opacity:.8;">BKK → HKG → KIX → PUS → CJU → PUS → BKK</p>
-        <p style="margin:12px 0 0;font-size:.85rem;opacity:.7;">Live route map with party coloring + quick flight highlights.</p>
+        <p id="map-route-chain" style="margin:8px 0 0;opacity:.8;">—</p>
+        <p id="map-subtitle" style="margin:12px 0 0;font-size:.85rem;opacity:.7;">Live route map for current itinerary.</p>
       </div>
       <div id="leaflet-map" aria-label="Flight route map"></div>
       <div class="map-legend" id="map-legend"></div>
@@ -339,6 +339,10 @@
       document.getElementById('cost-tbd').textContent = allBooked ? 'Pending: THB 0' : `Pending: THB ${Math.round(tbd).toLocaleString()}`;
       document.getElementById('baggage-plan').textContent = meta.baggage_plan;
       document.getElementById('return-plan').textContent = meta.return_plan;
+      const mapRoute = document.getElementById('map-route-chain');
+      if (mapRoute) mapRoute.textContent = meta.route_chain || 'Current itinerary route';
+      const mapSub = document.getElementById('map-subtitle');
+      if (mapSub) mapSub.textContent = allBooked ? 'Current booked route.' : 'Live route map for current itinerary.';
       const btn = document.getElementById('check-now');
       if (btn) btn.style.display = allBooked ? 'none' : 'inline-block';
     }
