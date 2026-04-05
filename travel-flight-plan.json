@@ -328,8 +328,8 @@
       "next_day": false,
       "route_type": "1 stop (Vietnam)",
       "status": "booked",
-      "price_per_person": 6210,
-      "price_total": 12420,
+      "price_per_person": 6800,
+      "price_total": 13600,
       "baggage_included": "Checked baggage: 1 piece per person (per booking); cabin baggage per airline rules.",
       "notes": "Booked return itinerary via Vietnam (1 stop). Mixed cabin. Total travel time ~10h30.",
       "risk_flags": [
@@ -407,6 +407,11 @@
           "ts": "2026-03-19 18:52 +07",
           "price_per_person": 6210,
           "source": "Trip.com screenshot"
+        },
+        {
+          "ts": "2026-04-05 11:28 +07",
+          "price_per_person": 6800,
+          "source": "User confirmation"
         }
       ],
       "track_price": false,
