@@ -215,35 +215,12 @@
       <strong id="risk-title" style="letter-spacing:.35em;text-transform:uppercase;">Risk flags</strong>
       <ul id="risk-list"></ul>
     </section>
-    <section class="costs">
-      <strong style="letter-spacing:.35em;text-transform:uppercase;">Cost breakdown</strong>
-      <div class="cost-grid">
-        <div class="cost-card">
-          <p style="margin:0;font-size:.8rem;letter-spacing:.25em;color:var(--muted);">Per person total</p>
-          <strong id="cost-per-person" style="font-size:1.4rem;letter-spacing:.2em;"></strong>
-        </div>
-        <div class="cost-card">
-          <p style="margin:0;font-size:.8rem;letter-spacing:.25em;color:var(--muted);">JR pass</p>
-          <strong id="jr-pass"></strong>
-        </div>
-        <div class="cost-card">
-          <p style="margin:0;font-size:.8rem;letter-spacing:.25em;color:var(--muted);">Expected add-ons</p>
-          <ul id="add-ons" style="margin:8px 0 0;padding-left:16px;font-size:.85rem;line-height:1.4;"></ul>
-        </div>
-        <div class="cost-card">
-          <p style="margin:0;font-size:.8rem;letter-spacing:.25em;color:var(--muted);">Split responsibility</p>
-          <ul id="split-list" style="margin:8px 0 0;padding-left:16px;font-size:.85rem;line-height:1.4;"></ul>
-        </div>
-      </div>
-    </section>
+    
     <section class="links">
-      <strong style="letter-spacing:.35em;text-transform:uppercase;">Links & artifacts</strong>
+      <strong style="letter-spacing:.35em;text-transform:uppercase;">Calendar</strong>
       <div class="cta" style="margin-top:16px;flex-wrap:wrap;">
-        <button onclick="alert('Open Trip.com / airline booking reference manually.')">Trip.com & carriers</button>
-        <button class="primary" onclick="alert('Generate PDF or copy the current plan from the browser.')">Download / Share</button>
-        <button onclick="window.open('/flight-plan.ics','_blank')">Calendar (ICS)</button>
+        <button onclick="window.open('/flight-plan.ics','_blank')">Open flight calendar (ICS)</button>
       </div>
-      <div class="message-block" id="message-summary"></div>
     </section>
     <section class="map-panel">
       <div style="position:relative;z-index:1;">
@@ -299,8 +276,6 @@
       renderFlights(plan.flights);
       renderDecisions(plan.decisions);
       renderRisks(plan.risks);
-      renderCosts(plan.cost_breakdown);
-      renderMessage(plan.message_summary);
       renderMap(plan.map_points, plan.flights);
       } catch (e) {
         console.error('LoadPlan error:', e);
@@ -444,15 +419,6 @@
           <strong>${risk.active ? 'Active' : 'Monitor'}</strong>
         </li>
       `).join('');
-    }
-    function renderCosts(costs) {
-      document.getElementById('cost-per-person').textContent = `THB ${costs.per_person_total.toLocaleString()}`;
-      document.getElementById('jr-pass').textContent = `THB ${costs.jr_pass.toLocaleString()}`;
-      document.getElementById('add-ons').innerHTML = costs.expected_add_ons.map(add => `<li>${add.label}: THB ${add.amount.toLocaleString()}</li>`).join('');
-      document.getElementById('split-list').innerHTML = costs.splits.map(split => `<li><strong>${split.person}</strong><span>${split.notes} — THB ${split.amount.toLocaleString()}</span></li>`).join('');
-    }
-    function renderMessage(text) {
-      document.getElementById('message-summary').textContent = text;
     }
     function renderMap(points, flights) {
       const legend = document.getElementById('map-legend');
