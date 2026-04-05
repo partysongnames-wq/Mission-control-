@@ -80,6 +80,8 @@
     .spot-extra-link:hover{background:rgba(255,255,255,.1);} 
 
     .empty-state{padding:20px;border-radius:18px;border:1px dashed rgba(255,255,255,.18);color:var(--muted);font-size:.8rem;letter-spacing:.12em;text-align:center;background:rgba(255,255,255,.02);}    
+    .filter-btn{border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.06);color:#fff;border-radius:999px;padding:6px 10px;font-size:.68rem;letter-spacing:.08em;cursor:pointer;}
+    .filter-btn.active{background:rgba(255,179,71,.2);border-color:rgba(255,179,71,.55);} 
 
     @media (max-width: 720px){
       .hero{grid-template-columns:1fr 1fr;}
@@ -102,6 +104,7 @@
         <a class="chip" href="mission-control-rail-options.html"><span class="ico">🚆</span>Rail</a>
         <a class="chip" href="mission-control-hotels.html"><span class="ico">🏨</span>Hotels</a>
         <a class="chip" href="mission-control-osaka-plan.html"><span class="ico">📅</span>Osaka</a>
+        <a class="chip" href="mission-control-fukuoka-plan.html"><span class="ico">🗾</span>Fukuoka</a>
         <a class="chip active" href="mission-control-food.html"><span class="ico">🍜</span>Food</a>
         <a class="chip" href="mission-control-food-later.html"><span class="ico">📦</span>Later</a>
       </div>
@@ -127,6 +130,10 @@
     </section>
 
     <div id="status" class="status-message">Loading food spots…</div>
+    <div class="map-filter-bar" id="food-filters" style="margin:8px 0 14px;display:flex;gap:8px;flex-wrap:wrap;">
+      <button class="filter-btn active" data-mode="all">All spots</button>
+      <button class="filter-btn" data-mode="cross-city">Available in other stops</button>
+    </div>
     <div id="food-list"></div>
   </div>
 
@@ -137,6 +144,9 @@
     const cityEl = document.getElementById('city-count');
     const priorityEl = document.getElementById('priority-count');
     const updatedEl = document.getElementById('last-updated');
+    const foodFiltersEl = document.getElementById('food-filters');
+    const urlParams = new URLSearchParams(location.search);
+    let activeMode = urlParams.get('mode') === 'cross-city' ? 'cross-city' : 'all';
 
     const statusClass = (status = '') => {
       const key = (status || 'saved').toLowerCase();
@@ -203,12 +213,28 @@
       return priceStr;
     };
 
+    if (foodFiltersEl) {
+      foodFiltersEl.querySelectorAll('.filter-btn').forEach(b => b.classList.toggle('active', (b.dataset.mode || 'all') === activeMode));
+      foodFiltersEl.addEventListener('click', (e) => {
+        const btn = e.target.closest('.filter-btn');
+        if (!btn) return;
+        const mode = btn.dataset.mode || 'all';
+        const next = new URL(location.href);
+        if (mode === 'cross-city') next.searchParams.set('mode', 'cross-city');
+        else next.searchParams.delete('mode');
+        location.href = next.toString();
+      });
+    }
+
     fetch('travel-food-spots.json', { cache: 'no-store' })
       .then(res => res.json())
       .then(data => {
         const spots = Array.isArray(data.spots) ? data.spots : [];
         const offTripCities = new Set(['Tokyo','Jeju','Seoul']);
-        const tripSpots = spots.filter(spot => !offTripCities.has((spot.city || '').trim()));
+        const baseTripSpots = spots.filter(spot => !offTripCities.has((spot.city || '').trim()));
+        const tripSpots = activeMode === 'cross-city'
+          ? baseTripSpots.filter(s => Array.isArray(s.other_city_options) && s.other_city_options.length)
+          : baseTripSpots;
         const byCity = tripSpots.reduce((acc, spot) => {
           const baseCity = (spot.city || 'Unsorted').trim() || 'Unsorted';
           const hay = `${spot.name || ''} ${spot.notes || ''} ${spot.area || ''}`.toLowerCase();
@@ -234,7 +260,7 @@
           return;
         }
 
-        statusEl.textContent = (data.notes || 'Food spots loaded.') + ' (Trip order view)';
+        statusEl.textContent = (data.notes || 'Food spots loaded.') + (activeMode === 'cross-city' ? ' (Cross-city chain options)' : ' (Trip order view)');
 
         const cityOrder = [
           'Hong Kong',
@@ -312,6 +338,7 @@
                 spot.access ? `🚉 ${spot.access}` : '',
                 spot.hours ? `🕒 ${spot.hours}` : '',
                 spot.signature ? `✨ ${spot.signature}` : '',
+                (Array.isArray(spot.other_city_options) && spot.other_city_options.length) ? `🔁 Also in: ${spot.other_city_options.join(' · ')}` : '',
                 ...distanceLines
               ].filter(Boolean);
               return `

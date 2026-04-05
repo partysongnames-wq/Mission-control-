@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Fukuoka Area Plan · Mission Control</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+  <style>
+    :root{--bg:#030308;--panel:#101223;--muted:#a0a8c5;--border:rgba(255,255,255,.14);font-family:'Space Grotesk','Inter',system-ui;}
+    *{box-sizing:border-box} body{margin:0;min-height:100vh;background:radial-gradient(circle at top,#233a5f,#030308 45%);color:#f5f7ff;display:flex;justify-content:center;padding:20px}
+    .page{width:min(1180px,calc(100vw - 24px));background:var(--panel);border:1px solid var(--border);border-radius:24px;padding:18px}
+    .head{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+    .chip{display:inline-flex;padding:7px 11px;border-radius:999px;border:1px solid rgba(255,255,255,.2);color:#fff;text-decoration:none;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase}
+    #map{height:460px;border-radius:14px;border:1px solid rgba(255,255,255,.15)}
+    .note{margin-top:10px;color:var(--muted);font-size:.86rem}
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="head">
+      <div>
+        <h2 style="margin:0;letter-spacing:.18em;text-transform:uppercase;">Fukuoka Area (2-night block)</h2>
+        <div style="color:var(--muted);margin-top:6px;">Includes Fukuoka + nearby stopovers (Kokura/Shimonoseki) and chain options worth moving from Osaka.</div>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:flex-start;">
+        <a class="chip" href="mission-control.html">⟵ Mission</a>
+        <a class="chip" href="mission-control-food.html">🍜 Food</a>
+        <a class="chip" href="mission-control-osaka-plan.html">📅 Osaka</a>
+      </div>
+    </div>
+    <div id="map"></div>
+    <div class="note">🟡 Yellow dot = chain candidate you could do here instead of Osaka.</div>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+  <script>
+    const map = L.map('map').setView([33.5902,130.4017], 10);
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+      maxZoom: 19, subdomains: 'abcd', attribution: '&copy; OpenStreetMap contributors &copy; CARTO'
+    }).addTo(map);
+
+    const icon = (emoji, chain=false) => L.divIcon({
+      className:'',
+      html:`<div style="font-size:20px;position:relative;">${emoji}${chain?'<span style="position:absolute;right:-5px;top:-4px;width:8px;height:8px;background:#ffd84d;border:1px solid #222;border-radius:999px"></span>':''}</div>`,
+      iconSize:[24,24],iconAnchor:[12,12]
+    });
+
+    const centers = {
+      'fukuoka': [33.5902,130.4017],
+      'kokura': [33.8833,130.8751],
+      'shimonoseki': [33.9578,130.9415]
+    };
+
+    const bounds = [];
+    fetch('travel-food-spots.json', {cache:'no-store'})
+      .then(r=>r.json())
+      .then(data => {
+        const spots = (data.spots||[]).filter(s => {
+          const city = (s.city||'').toLowerCase();
+          const other = Array.isArray(s.other_city_options) ? s.other_city_options.join(' ').toLowerCase() : '';
+          return city.includes('fukuoka') || city.includes('kokura') || city.includes('shimonoseki') || other.includes('fukuoka');
+        });
+
+        spots.forEach((s,idx) => {
+          const city = (s.city||'').toLowerCase();
+          const base = city.includes('kokura') ? centers.kokura : city.includes('shimonoseki') ? centers.shimonoseki : centers.fukuoka;
+          const lat = typeof s.lat === 'number' ? s.lat : base[0] + ((idx%5)-2)*0.01;
+          const lng = typeof s.lng === 'number' ? s.lng : base[1] + ((Math.floor(idx/5)%5)-2)*0.01;
+          const em = (s.type||'').toLowerCase().includes('bbq') || (s.type||'').toLowerCase().includes('yakiniku') ? '🥩' : '🍽️';
+          const m = L.marker([lat,lng], {icon: icon(em, !!s.chain)}).addTo(map);
+          m.bindPopup(`<div style="min-width:220px"><b>${s.name||'Spot'}</b><br/><span style="opacity:.8">${s.city||''}</span><br/>${s.chain?'<span style="font-size:.78rem">🟡 chain option</span><br/>':''}${s.other_city_options?`<div style="font-size:.78rem;opacity:.9">Also in: ${s.other_city_options.join(' · ')}</div>`:''}${s.map_url?`<a href="${s.map_url}" target="_blank" rel="noopener">Open map ↗</a>`:''}</div>`);
+          bounds.push([lat,lng]);
+        });
+
+        if (!spots.length) {
+          L.marker(centers.fukuoka,{icon:icon('📍')}).addTo(map).bindPopup('No Fukuoka candidates yet.');
+          return;
+        }
+        map.fitBounds(bounds, {padding:[30,30]});
+      });
+  </script>
+</body>
+</html>
