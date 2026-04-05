@@ -109,7 +109,12 @@
           const lng = typeof s.lng === 'number' ? s.lng : base[1] + ((Math.floor(idx/5)%5)-2)*0.01;
           const em = (s.type||'').toLowerCase().includes('bbq') || (s.type||'').toLowerCase().includes('yakiniku') ? '🥩' : '🍽️';
           const m = L.marker([lat,lng], {icon: icon(em, !!s.chain)}).addTo(map);
-          m.bindPopup(`<div style="min-width:220px"><b>${s.name||'Spot'}</b><br/><span style="opacity:.8">${s.city||''}</span><br/>${s.chain?'<span style="font-size:.78rem">🟡 chain option</span><br/>':''}${s.other_city_options?`<div style="font-size:.78rem;opacity:.9">Also in: ${s.other_city_options.join(' · ')}</div>`:''}${s.map_url?`<a href="${s.map_url}" target="_blank" rel="noopener">Open map ↗</a>`:''}</div>`);
+          const hasFukuokaAlt = Array.isArray(s.other_city_options) && s.other_city_options.join(' ').toLowerCase().includes('fukuoka');
+          const cityLower = (s.city || '').toLowerCase();
+          const derivedMapUrl = (cityLower.includes('fukuoka') || cityLower.includes('kokura') || cityLower.includes('shimonoseki'))
+            ? (s.map_url || '')
+            : (hasFukuokaAlt ? `https://maps.google.com/?q=${encodeURIComponent((s.chain_group || s.name || 'restaurant') + ' Fukuoka')}` : (s.map_url || ''));
+          m.bindPopup(`<div style="min-width:220px"><b>${s.name||'Spot'}</b><br/><span style="opacity:.8">${s.city||''}</span><br/>${s.chain?'<span style="font-size:.78rem">🟡 chain option</span><br/>':''}${s.other_city_options?`<div style="font-size:.78rem;opacity:.9">Also in: ${s.other_city_options.join(' · ')}</div>`:''}${derivedMapUrl?`<a href="${derivedMapUrl}" target="_blank" rel="noopener">Open map ↗</a>`:''}</div>`);
           bounds.push([lat,lng]);
         });
 
