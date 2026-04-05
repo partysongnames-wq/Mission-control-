@@ -212,7 +212,7 @@
       <ul id="decisions-list"></ul>
     </section>
     <section class="risks">
-      <strong style="letter-spacing:.35em;text-transform:uppercase;">Risk flags</strong>
+      <strong id="risk-title" style="letter-spacing:.35em;text-transform:uppercase;">Risk flags</strong>
       <ul id="risk-list"></ul>
     </section>
     <section class="costs">
@@ -386,8 +386,10 @@
 
     function renderFlights(flights) {
       const tbody = document.getElementById('flight-rows');
+      const allBooked = (flights || []).length > 0 && (flights || []).every(f => (f.status || '').toLowerCase() === 'booked');
       tbody.innerHTML = flights.map(flight => {
         const party = (flight.party || 'shared').toLowerCase();
+        const rowParty = allBooked ? 'shared' : party;
         const statusClass = flight.status === 'booked' ? 'booked' : (flight.status === 'on hold' ? 'on' : 'planned');
         const timeRange = `${flight.depart} → ${flight.arrive}${flight.next_day ? ' +1' : ''}`;
         const routeDesc = `${flight.from_code} → ${flight.to_code} (${flight.from_city} → ${flight.to_city})`;
@@ -397,7 +399,7 @@
         const isPlanB = planTag.includes('plan b');
         const planChip = flight.plan_tag ? `<br><span class="plan-chip ${isPlanB ? 'b' : 'a'}">${flight.plan_tag}</span>` : '';
         return `
-          <tr class="flight-row ${party} ${isPlanB ? 'planb' : ''}">
+          <tr class="flight-row ${rowParty} ${isPlanB ? 'planb' : ''}">
             <td>${flight.date}</td>
             <td>${routeDesc}${planChip}</td>
             <td>${flight.airline} ${flight.flight_number}<br><small>${flight.pnr || 'PNR TBD'}</small></td>
@@ -433,6 +435,9 @@
     }
     function renderRisks(risks) {
       const list = document.getElementById('risk-list');
+      const title = document.getElementById('risk-title');
+      const allPassive = (risks || []).every(r => !r.active);
+      if (title && allPassive) title.textContent = 'Ops reminders';
       list.innerHTML = risks.map(risk => `
         <li class="${risk.active ? 'active' : ''}">
           <span>${risk.label}</span>

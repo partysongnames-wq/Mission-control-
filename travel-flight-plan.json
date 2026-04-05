@@ -424,12 +424,12 @@
   ],
   "risks": [
     {
-      "label": "Airport transfer timing (hotel → airport) — reconfirm day before departure.",
-      "active": true
+      "label": "Airport transfer timing (hotel → airport): reconfirm pickup/route the night before.",
+      "active": false
     },
     {
-      "label": "Check-in and baggage rules — verify online check-in windows per airline.",
-      "active": true
+      "label": "Online check-in windows + baggage allowance: verify 24h before each flight.",
+      "active": false
     }
   ],
   "cost_breakdown": {
