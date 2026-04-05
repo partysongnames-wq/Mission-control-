@@ -21,6 +21,11 @@
     .photos{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;} .photos img{width:100%;height:170px;object-fit:cover;border-radius:12px;border:1px solid rgba(255,255,255,.14);} 
     .note{margin-top:10px;color:var(--muted);font-size:.84rem;line-height:1.5;} .link{color:#ffd9a1;text-decoration:none;} .link:hover{text-decoration:underline;}
     .emoji-pin{font-size:18px;line-height:22px;text-align:center;filter:drop-shadow(0 1px 2px rgba(0,0,0,.45));}
+    .user-dot-wrap{position:relative;width:18px;height:18px;}
+    .user-dot{position:absolute;left:50%;top:50%;width:12px;height:12px;transform:translate(-50%,-50%);background:#1a73e8;border:2px solid #fff;border-radius:999px;box-shadow:0 0 0 1px rgba(0,0,0,.25),0 2px 8px rgba(0,0,0,.35);}
+    .user-dot-pulse{position:absolute;left:50%;top:50%;width:24px;height:24px;transform:translate(-50%,-50%);border-radius:999px;background:rgba(26,115,232,.28);opacity:0;}
+    .user-dot-wrap.live .user-dot-pulse{animation:userPulse 1.8s ease-out infinite;opacity:1;}
+    @keyframes userPulse{0%{transform:translate(-50%,-50%) scale(.45);opacity:.85;}100%{transform:translate(-50%,-50%) scale(1.25);opacity:0;}}
     .map-legend{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px;font-size:.74rem;letter-spacing:.08em;color:#dce3ff;}
     .map-legend .lg{display:inline-flex;align-items:center;gap:6px;padding:4px 8px;border:1px solid rgba(255,255,255,.16);border-radius:999px;background:rgba(255,255,255,.05);} 
     .map-filter-bar{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;align-items:center;}
@@ -333,14 +338,14 @@
 
     const resetLocateLabel = (delay = 1400) => setTimeout(() => (mapLocateBtn.textContent = '📍 Locate once'), delay);
 
-    const paintUserLocation = (pos, shouldCenter = true) => {
+    const paintUserLocation = (pos, shouldCenter = true, isLive = false) => {
       const latlng = [pos.coords.latitude, pos.coords.longitude];
       const accuracy = Math.max(12, Math.round(pos.coords.accuracy || 20));
 
       if (userMarker) osakaMap.removeLayer(userMarker);
       if (userAccuracyCircle) osakaMap.removeLayer(userAccuracyCircle);
 
-      userMarker = L.marker(latlng, { icon: emojiIcon('📍') }).addTo(osakaMap)
+      userMarker = L.marker(latlng, { icon: userLocationIcon(isLive) }).addTo(osakaMap)
         .bindPopup(`You are here<br/>Accuracy: ±${accuracy}m`);
       userAccuracyCircle = L.circle(latlng, {
         radius: accuracy,
@@ -362,6 +367,7 @@
         clearTimeout(liveAutoStopTimer);
         liveAutoStopTimer = null;
       }
+      if (userMarker) userMarker.setIcon(userLocationIcon(false));
       if (mapLiveBtn) {
         mapLiveBtn.textContent = msg;
         mapLiveBtn.setAttribute('aria-pressed', 'false');
@@ -378,7 +384,7 @@
       mapLocateBtn.textContent = '⏳ Locating...';
       navigator.geolocation.getCurrentPosition(
         (pos) => {
-          paintUserLocation(pos, true);
+          paintUserLocation(pos, true, false);
           mapLocateBtn.textContent = '✅ Located';
           resetLocateLabel();
         },
@@ -406,7 +412,7 @@
       mapLiveBtn.setAttribute('aria-pressed', 'true');
 
       liveWatchId = navigator.geolocation.watchPosition(
-        (pos) => paintUserLocation(pos, true),
+        (pos) => paintUserLocation(pos, true, true),
         () => {
           stopLiveTracking('❌ Live blocked');
           setTimeout(() => (mapLiveBtn.textContent = '🟢 Start live'), 1800);
@@ -496,6 +502,13 @@
     const emojiIcon = (emoji, isChain = false) => L.divIcon({
       className: 'emoji-pin',
       html: `<div style="position:relative;display:inline-block;">${emoji}${isChain ? '<span style="position:absolute;right:-6px;top:-5px;width:8px;height:8px;background:#ffd84d;border:1px solid #1c1c1c;border-radius:999px;"></span>' : ''}</div>`,
+      iconSize: [24,24],
+      iconAnchor: [12,12]
+    });
+
+    const userLocationIcon = (isLive = false) => L.divIcon({
+      className: 'user-location-icon',
+      html: `<div class="user-dot-wrap ${isLive ? 'live' : ''}"><span class="user-dot-pulse"></span><span class="user-dot"></span></div>`,
       iconSize: [24,24],
       iconAnchor: [12,12]
     });
