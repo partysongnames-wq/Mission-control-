@@ -416,7 +416,13 @@
     const bounds = [];
     osakaPoints.forEach(p => {
       const icon = emojiIcon(p.emoji || '📍');
-      L.marker([p.lat, p.lng], {icon}).addTo(osakaMap).bindPopup(renderPointPopup(p), { maxWidth: 320 }).bindTooltip(p.name);
+      const isHotel = (p.name || '').toLowerCase().includes('hotel') || (p.type || '').toLowerCase().includes('hotel');
+      const marker = L.marker([p.lat, p.lng], {
+        icon,
+        zIndexOffset: isHotel ? 2500 : 800,
+        riseOnHover: true
+      }).addTo(osakaMap);
+      marker.bindPopup(renderPointPopup(p), { maxWidth: 320 }).bindTooltip(p.name);
       bounds.push([p.lat, p.lng]);
     });
 
