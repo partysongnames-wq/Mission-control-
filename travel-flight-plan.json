@@ -676,7 +676,8 @@
       "must_do": [
         "Dotonbori night walk",
         "One big shopping/arcade evening",
-        "Day trip: Hiroshima + Miyajima"
+        "Day trip: Hiroshima + Miyajima",
+        "Pharmacy run: buy beauty/drugstore items at any regular pharmacy (easy in Osaka)"
       ],
       "transit_notes": [
         "IC card (ICOCA) works widely",
@@ -705,7 +706,8 @@
           "url": "https://www.google.com/maps/search/?api=1&query=Dotonbori"
         }
       ],
-      "image": "assets/cities/osaka.jpg"
+      "image": "assets/cities/osaka.jpg",
+      "shopping_note": "Pharmacy beauty products are widely available across regular drugstores (not a single special shop needed)."
     },
     {
       "city": "Hiroshima",
