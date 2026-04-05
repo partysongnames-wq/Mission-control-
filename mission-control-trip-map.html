@@ -86,7 +86,8 @@
           if (!hotelCoords[h.id]) return; // japan-only mapped set
           const [lat,lng] = hotelCoords[h.id];
           const hotelMapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent((h.label||'Hotel') + ' ' + (h.city||'Japan'))}`;
-          const m = L.marker([lat,lng], {icon:icon('🏨')}).addTo(map)
+          const hotelEmoji = h.id === 'osaka2' ? '❤️' : '🏨';
+          const m = L.marker([lat,lng], {icon:icon(hotelEmoji)}).addTo(map)
             .bindPopup(`<b>${h.label||'Hotel'}</b><br/>${h.city||''}<br/>${h.check_in||''} → ${h.check_out||''}<br/><a href="${hotelMapUrl}" target="_blank" rel="noopener">Open map ↗</a>`);
           addMarker(layers.hotels,m,[lat,lng]);
         });
