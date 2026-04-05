@@ -50,7 +50,49 @@
       'shimonoseki': [33.9578,130.9415]
     };
 
+    const staticPoints = [
+      {
+        name:'Hotel (Fukuoka stay base)',
+        city:'Fukuoka',
+        emoji:'🏨',
+        lat:33.5902,
+        lng:130.4017,
+        summary:'Hotel base placeholder in central Fukuoka (replace with exact hotel pin when confirmed).'
+      },
+      {
+        name:'Hakata Station (Shinkansen)',
+        city:'Fukuoka',
+        emoji:'🚄',
+        lat:33.5898,
+        lng:130.4207,
+        summary:'Main Kyushu Shinkansen / Sanyo Shinkansen hub.'
+      },
+      {
+        name:'Kokura Station (Shinkansen)',
+        city:'Kokura',
+        emoji:'🚄',
+        lat:33.8869,
+        lng:130.8826,
+        summary:'Major rail hub for Kitakyushu / transfer point.'
+      },
+      {
+        name:'Shin-Shimonoseki Station (Shinkansen)',
+        city:'Shimonoseki',
+        emoji:'🚄',
+        lat:34.0031,
+        lng:130.9504,
+        summary:'Nearest Shinkansen stop on Shimonoseki side.'
+      }
+    ];
+
     const bounds = [];
+
+    staticPoints.forEach(pt => {
+      const marker = L.marker([pt.lat, pt.lng], { icon: icon(pt.emoji || '📍') }).addTo(map);
+      marker.bindPopup(`<div style="min-width:220px"><b>${pt.name}</b><br/><span style="opacity:.8">${pt.city}</span><br/><div style="font-size:.82rem;opacity:.9">${pt.summary || ''}</div></div>`);
+      bounds.push([pt.lat, pt.lng]);
+    });
+
     fetch('travel-food-spots.json', {cache:'no-store'})
       .then(r=>r.json())
       .then(data => {
