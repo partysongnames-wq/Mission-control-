@@ -5,8 +5,8 @@
     "total_cost_per_person": 12400,
     "total_cost_tbd": 1200,
     "baggage_plan": "Outbound: carry-on only (7kg each on HK Express). Return: bring foldable duffel; add checked bag only on the leg we need (likely return).",
-    "return_plan": "Flexible booking strategy: (1) If Air Busan direct stays <฿7k/person → book both together. (2) If Air Busan spikes >฿10k → split: Trent takes direct, Nasha takes Vietnam Airlines via SGN (~฿4,300). Max budget ceiling: ฿15k total, not ฿20k. Decision window: monitor daily, book when comfortable.",
-    "notes": "Trip: Bangkok→Hong Kong→Fukuoka→(rail)→Osaka→Busan→Bangkok. Apr 9-20. 3 flights booked. Return: monitoring Busan→Bangkok prices (direct vs Vietnam split strategy). Prices up 35%+ since Mar 5.",
+    "return_plan": "Confirmed: Air Busan direct PUS→BKK booked. Alternate return options removed.",
+    "notes": "Trip: Bangkok→Hong Kong→Fukuoka→(rail)→Osaka→Busan→Bangkok. Return flight now confirmed/booked.",
     "rail_pass_window": "11–17 Apr 2026",
     "rail_pass": {
       "name": "JR Sanyo–San’in Area Pass (7-day)",
@@ -25,7 +25,7 @@
     },
     "prices_last_checked": "2026-03-14 12:43 +07",
     "prices_source": "Skyscanner live",
-    "prices_last_result": "Removed all CJU (Jeju) flights — no longer visiting Jeju this trip.",
+    "prices_last_result": "Return confirmed: kept booked Air Busan direct option and removed undecided alternatives.",
     "prices_last_changes": [
       {
         "flight_id": "flight7",
@@ -56,10 +56,10 @@
     "active_plan_mode": "single",
     "plan_options": [
       {
-        "id": "current_plan",
-        "label": "Japan-Korea Trip (Jeju removed)",
+        "id": "final_plan",
+        "label": "Final booked itinerary",
         "status": "active",
-        "summary": "3 flights booked, 1 return leg pending decision."
+        "summary": "Return flight confirmed. Unselected return options removed."
       }
     ],
     "family_schedule_constraints": {
@@ -314,105 +314,6 @@
       }
     },
     {
-      "id": "flight6",
-      "party": "nasha",
-      "date": "19 Apr",
-      "from_code": "PUS",
-      "from_city": "Busan",
-      "to_code": "BKK",
-      "to_city": "Bangkok",
-      "airline": "Vietnam Airlines (<=12h option via SGN)",
-      "flight_number": "TBD",
-      "depart": "10:00",
-      "arrive": "20:05",
-      "next_day": false,
-      "route_type": "1 stop (SGN)",
-      "status": "planned",
-      "price_per_person": 4353,
-      "price_total": 4353,
-      "baggage_included": "1×15kg checked (shared bag) + carry-on",
-      "notes": "Nasha return option (19 Apr, <=12h via SGN). Live refresh 2026-03-14 11:59 +07: lowest seen THB 4,353.",
-      "risk_flags": [
-        "price_spike",
-        "vietnam-transit",
-        "max-duration-filter"
-      ],
-      "booking_links": [
-        {
-          "label": "Skyscanner (PUS→BKK 19 Apr, <=12h, via SGN)",
-          "url": "https://www.skyscanner.co.th/transport/flights/pusa/bkkt/260419/config/15628-2604191000--31703-1-9970-2604192005?adultsv2=1&cabinclass=economy&rtn=0&sortby=cheapest"
-        }
-      ],
-      "pnr": "PNR TBD",
-      "price_history": [
-        {
-          "ts": "2026-03-04 23:49 +07",
-          "price_per_person": 3605
-        },
-        {
-          "ts": "2026-03-05 00:17 +07",
-          "price_per_person": 3222
-        },
-        {
-          "ts": "2026-03-05 09:32 +07",
-          "price_per_person": 3332
-        },
-        {
-          "ts": "2026-03-05 09:35 +07",
-          "price_per_person": 3222
-        },
-        {
-          "ts": "2026-03-06 00:03 +07",
-          "price_per_person": 3222
-        },
-        {
-          "ts": "2026-03-07 00:12 +07",
-          "price_per_person": 3580
-        },
-        {
-          "ts": "2026-03-07 12:03 +07",
-          "price_per_person": 3543
-        },
-        {
-          "ts": "2026-03-07 18:17 +07",
-          "price_per_person": 3580
-        },
-        {
-          "ts": "2026-03-10 12:03 +07",
-          "price_per_person": 3543
-        },
-        {
-          "ts": "2026-03-11 00:03 +07",
-          "price_per_person": 3580
-        },
-        {
-          "ts": "2026-03-11 12:08 +07",
-          "price_per_person": 3517
-        },
-        {
-          "ts": "2026-03-11 12:14 +07",
-          "price_per_person": 3517
-        },
-        {
-          "ts": "2026-03-14 01:22 +07",
-          "price_per_person": 6156
-        },
-        {
-          "ts": "2026-03-14 01:34 +07",
-          "price_per_person": 3333
-        },
-        {
-          "ts": "2026-03-14 01:36 +07",
-          "price_per_person": 4115
-        },
-        {
-          "ts": "2026-03-14 11:59 +07",
-          "price_per_person": 4353
-        }
-      ],
-      "plan_tag": "Return (both plans)"
-    },
-    {
       "id": "flight7",
       "party": "trent",
       "date": "20 Apr",
@@ -426,11 +327,11 @@
       "arrive": "21:45",
       "next_day": false,
       "route_type": "direct",
-      "status": "planned",
+      "status": "booked",
       "price_per_person": 6210,
       "price_total": 12420,
       "baggage_included": "Cabin bag + checked bag (1 piece each)",
-      "notes": "Direct flight PUS→BKK. Updated price 2026-03-19: THB 6,210/person via Trip.com. Works for both travelers (no Vietnam transit).",
+      "notes": "Booked return flight (final decision). Air Busan direct PUS→BKK.",
       "risk_flags": [
         "promo_fare"
       ],
@@ -440,7 +341,7 @@
           "url": "https://www.skyscanner.co.th/transport/flights/pusa/bkkt/260419/?adultsv2=1&cabinclass=economy&preferdirects=true&rtn=0&sortby=cheapest"
         }
       ],
-      "pnr": "PNR TBD",
+      "pnr": "Booked (PNR in booking app)",
       "price_history": [
         {
           "ts": "2026-03-04 23:49 +07",
@@ -508,7 +409,8 @@
           "source": "Trip.com screenshot"
         }
       ],
-      "plan_tag": "Return (both plans)"
+      "plan_tag": "Return (both plans)",
+      "track_price": false
     }
   ],
   "decisions": [
@@ -526,7 +428,7 @@
     },
     {
       "label": "Return: pick if Trent returns 19th (arrive same day) vs 20th (cheaper).",
-      "done": false
+      "done": true
     },
     {
       "label": "Protect Osaka 14–16 Apr for Andrew + family meetup (USJ 15th, baseball evening 16th).",
@@ -544,10 +446,6 @@
   "risks": [
     {
       "label": "16 Apr double-flight day (Osaka→Busan→Jeju) — buffer for delays",
-      "active": true
-    },
-    {
-      "label": "Trent: Vietnam transit NOT allowed (passport <6 months) — avoid VN routes",
       "active": true
     },
     {
@@ -686,18 +584,6 @@
           "url": "https://skyscanner.app.link/ChNDzaIOe1b"
         },
         {
-          "flight_id": "flight6",
-          "route": "PUS→BKK",
-          "date": "19 Apr",
-          "airline": "TBD",
-          "times": "TBD→TBD",
-          "stops": "Direct",
-          "price_per_person": 3222,
-          "savings_vs_baseline": 0,
-          "note": "Low at 2026-03-05 00:17 +07 (current 3222)",
-          "url": "https://skyscanner.app.link/SI8z5NzRe1b"
-        },
-        {
           "flight_id": "flight1",
           "route": "BKK→HKG",
           "date": "09 Apr",
@@ -727,18 +613,6 @@
       "title": "Return hedge",
       "subtitle": "Compare Nasha vs Trent options at a glance",
       "deals": [
-        {
-          "flight_id": "flight6",
-          "route": "PUS→BKK",
-          "date": "19 Apr",
-          "airline": "TBD",
-          "times": "TBD→TBD",
-          "stops": "Direct",
-          "price_per_person": 3222,
-          "savings_vs_baseline": 0,
-          "note": "NASHA",
-          "url": "https://skyscanner.app.link/SI8z5NzRe1b"
-        },
         {
           "flight_id": "flight7",
           "route": "PUS→BKK",
@@ -1010,82 +884,7 @@
         "savings_vs_baseline": null
       }
     ],
-    "flight6": [
-      {
-        "route": "PUS→BKK",
-        "date": "19 Apr",
-        "airline": "Jin Air",
-        "times": "19:05 → 22:40",
-        "stops": "Direct",
-        "price_per_person": 4716,
-        "url": "https://www.trip.com",
-        "saved_at": "2026-03-10 02:07 +07",
-        "savings_vs_baseline": null,
-        "notes": "Direct option found by Trent; add link if needed."
-      },
-      {
-        "route": "PUS→BKK (via SGN)",
-        "date": "20 Apr",
-        "airline": "VietJet Air",
-        "times": "08:10 → 14:45",
-        "stops": "1 stop (Ho Chi Minh City, SGN)",
-        "price_per_person": 3309,
-        "url": "https://www.skyscanner.co.th/transport/flights/pusa/bkkt/260420/config/15628-2604200810--31705-1-9970-2604201445?adultsv2=1&cabinclass=economy&rtn=0&sortby=cheapest",
-        "saved_at": "2026-03-14 01:35 +07",
-        "savings_vs_baseline": null,
-        "notes": "Brown option (Nasha fallback): 20 Apr cheapest found with Vietnam transit (SGN). Faster than the 19 Apr 27h55 option."
-      }
-    ],
-    "flight7": [
-      {
-        "route": "PUS→BKK",
-        "date": "19 Apr",
-        "airline": "Thai Airways",
-        "times": "16:30 → 20:10",
-        "stops": "direct",
-        "price_per_person": 3845,
-        "url": "https://www.thaiairways.com/booking?ref=PUSBKK",
-        "saved_at": "2026-03-10 01:59 +07",
-        "savings_vs_baseline": 714,
-        "notes": "Direct TG alternate yet still below baseline; includes 5kg more carry-on."
-      },
-      {
-        "route": "PUS→BKK (via ICN)",
-        "date": "19 Apr",
-        "airline": "Korean Air + Thai",
-        "times": "09:10 → 14:15",
-        "stops": "1 stop (Seoul transit)",
-        "price_per_person": 3620,
-        "url": "https://www.koreanair.com/booking?ref=PUSBKK",
-        "saved_at": "2026-03-10 01:59 +07",
-        "savings_vs_baseline": 940,
-        "notes": "Layover screens at ICN; still under baseline despite extra segment, include lounge pass."
-      },
-      {
-        "route": "PUS→BKK",
-        "date": "19 Apr",
-        "airline": "Jin Air",
-        "times": "19:05 → 22:40",
-        "stops": "Direct",
-        "price_per_person": 4716,
-        "url": "https://www.trip.com",
-        "saved_at": "2026-03-10 02:06 +07",
-        "savings_vs_baseline": -156,
-        "notes": "Direct promotional price from Trip.com app (₿4,716)."
-      },
-      {
-        "route": "PUS→BKK",
-        "date": "20 Apr",
-        "airline": "Air Busan",
-        "times": "18:00 → 21:45",
-        "stops": "Direct",
-        "price_per_person": 4065,
-        "url": "https://www.kiwi.com/",
-        "saved_at": "2026-03-11 12:45 +07",
-        "savings_vs_baseline": 495,
-        "notes": "Trent screenshot option: direct Busan→Bangkok, low fare seen around THB 4,065–4,073 (Kiwi/TeaFlight)."
-      }
-    ],
+    "flight7": [],
     "flight8": [
       {
         "route": "CJU→BKK (via PUS)",
@@ -1660,5 +1459,5 @@
       }
     ]
   },
-  "_updated": "2026-03-19 22:00 +07"
+  "_updated": "2026-04-05 09:53 +07"
 }
