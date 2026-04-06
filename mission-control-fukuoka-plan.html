@@ -93,6 +93,7 @@
         city:'Fukuoka',
         category:'Sushi izakaya',
         emoji:'🍣',
+        photo:'assets/fukuoka-pins/sashisu.jpg',
         mapUrl:'https://www.google.com/maps/search/?api=1&query=%E3%81%99%E3%81%97%E9%85%92%E5%A0%B4+%E3%81%95%E3%81%97%E3%81%99+%E5%8D%9A%E5%A4%9A%E3%83%9E%E3%82%A4%E3%83%B3%E3%82%B0%E5%BA%97'
       },
       {
@@ -100,6 +101,7 @@
         city:'Fukuoka',
         category:'Donut shop',
         emoji:'🍩',
+        photo:'assets/fukuoka-pins/im-donut.jpg',
         mapUrl:'https://www.google.com/maps/search/?api=1&query=I%27m+donut%3F+%E7%A6%8F%E5%B2%A1%E5%BA%97'
       },
       {
@@ -107,6 +109,7 @@
         city:'Fukuoka',
         category:'Izakaya / grilled seafood-meat',
         emoji:'🍽️',
+        photo:'assets/fukuoka-pins/musashiza.jpg',
         mapUrl:'https://www.google.com/maps/search/?api=1&query=%E3%81%99%E3%81%BF%E5%8A%87%E5%A0%B4+%E3%82%80%E3%81%95%E3%81%97%E5%9D%90+%E7%A6%8F%E5%B2%A1'
       },
       {
@@ -114,6 +117,7 @@
         city:'Fukuoka',
         category:'Shabu-shabu / sukiyaki',
         emoji:'🍲',
+        photo:'assets/fukuoka-pins/shabu-zen.jpg',
         mapUrl:'https://www.google.com/maps/search/?api=1&query=Shabu-shabu+Sukiyaki+Shabu+Zen+Fukuoka+Showa-dori+Daimyo+Branch'
       },
       {
@@ -121,6 +125,7 @@
         city:'Fukuoka',
         category:'Yakiniku (A5 wagyu)',
         emoji:'🥩',
+        photo:'assets/fukuoka-pins/yakiniku-champion.jpg',
         mapUrl:'https://www.google.com/maps/search/?api=1&query=Yakiniku+Champion+JR+Hakata+City+Store'
       },
       {
@@ -128,6 +133,7 @@
         city:'Fukuoka',
         category:'Yakiniku',
         emoji:'🥩',
+        photo:'assets/fukuoka-pins/nikuichi.jpg',
         mapUrl:'https://www.google.com/maps/search/?api=1&query=%E3%81%AB%E3%81%8F%E5%B1%8B+%E8%82%89%E3%81%84%E3%81%A1+%E5%8D%9A%E5%A4%9A%E5%BA%97'
       },
       {
@@ -135,6 +141,7 @@
         city:'Fukuoka',
         category:'Seafood grill / oyster hut',
         emoji:'🦪',
+        photo:'assets/fukuoka-pins/karatomari-ebisu.jpg',
         mapUrl:'https://www.google.com/maps/search/?api=1&query=Karatomari+Ebisu+Oyster+Hut'
       }
     ];
@@ -181,7 +188,7 @@
           const lat = base[0] + (((idx % 4) - 1.5) * 0.012);
           const lng = base[1] + (((Math.floor(idx / 4) % 4) - 1.5) * 0.012);
           const m = L.marker([lat, lng], { icon: icon(p.emoji || '📌') }).addTo(map);
-          m.bindPopup(`<div style="min-width:220px"><b>${p.name}</b><br/><span style="opacity:.8">${p.city} · shortlist</span><br/><div style="font-size:.78rem;opacity:.9">${p.category || ''}</div>${p.mapUrl ? `<a href="${p.mapUrl}" target="_blank" rel="noopener">Open map ↗</a>` : ''}</div>`);
+          m.bindPopup(`<div style="min-width:240px;max-width:260px">${p.photo ? `<img src="${p.photo}" alt="${p.name}" style="width:100%;height:132px;object-fit:cover;border-radius:8px;margin-bottom:8px;border:1px solid rgba(0,0,0,.08)"/>` : ''}<b>${p.name}</b><br/><span style="opacity:.8">${p.city} · shortlist</span><br/><div style="font-size:.78rem;opacity:.9;margin:4px 0 6px">${p.category || ''}</div>${p.mapUrl ? `<a href="${p.mapUrl}" target="_blank" rel="noopener">Open map ↗</a>` : ''}</div>`);
           bounds.push([lat, lng]);
         });
 
