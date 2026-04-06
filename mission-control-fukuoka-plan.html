@@ -86,6 +86,59 @@
       }
     ];
 
+    // Added from trips/fukuoka-shortlist.md (Yoko shortlist)
+    const fukuokaShortlist = [
+      {
+        name:'Sushi Sakaba Sashisu Honten (Hakata Ming)',
+        city:'Fukuoka',
+        category:'Sushi izakaya',
+        emoji:'🍣',
+        mapUrl:'https://www.google.com/maps/search/?api=1&query=%E3%81%99%E3%81%97%E9%85%92%E5%A0%B4+%E3%81%95%E3%81%97%E3%81%99+%E5%8D%9A%E5%A4%9A%E3%83%9E%E3%82%A4%E3%83%B3%E3%82%B0%E5%BA%97'
+      },
+      {
+        name:'I\'m donut ? Fukuoka',
+        city:'Fukuoka',
+        category:'Donut shop',
+        emoji:'🍩',
+        mapUrl:'https://www.google.com/maps/search/?api=1&query=I%27m+donut%3F+%E7%A6%8F%E5%B2%A1%E5%BA%97'
+      },
+      {
+        name:'Musashiza (すみ劇場 むさし坐)',
+        city:'Fukuoka',
+        category:'Izakaya / grilled seafood-meat',
+        emoji:'🍽️',
+        mapUrl:'https://www.google.com/maps/search/?api=1&query=%E3%81%99%E3%81%BF%E5%8A%87%E5%A0%B4+%E3%82%80%E3%81%95%E3%81%97%E5%9D%90+%E7%A6%8F%E5%B2%A1'
+      },
+      {
+        name:'Shabu Zen Fukuoka Showa-dori Daimyo Branch',
+        city:'Fukuoka',
+        category:'Shabu-shabu / sukiyaki',
+        emoji:'🍲',
+        mapUrl:'https://www.google.com/maps/search/?api=1&query=Shabu-shabu+Sukiyaki+Shabu+Zen+Fukuoka+Showa-dori+Daimyo+Branch'
+      },
+      {
+        name:'Yakiniku Champion (JR Hakata City Store)',
+        city:'Fukuoka',
+        category:'Yakiniku (A5 wagyu)',
+        emoji:'🥩',
+        mapUrl:'https://www.google.com/maps/search/?api=1&query=Yakiniku+Champion+JR+Hakata+City+Store'
+      },
+      {
+        name:'Nikuya Nikuichi (Hakata Branch)',
+        city:'Fukuoka',
+        category:'Yakiniku',
+        emoji:'🥩',
+        mapUrl:'https://www.google.com/maps/search/?api=1&query=%E3%81%AB%E3%81%8F%E5%B1%8B+%E8%82%89%E3%81%84%E3%81%A1+%E5%8D%9A%E5%A4%9A%E5%BA%97'
+      },
+      {
+        name:'Karatomari Ebisu Oyster Hut',
+        city:'Fukuoka',
+        category:'Seafood grill / oyster hut',
+        emoji:'🦪',
+        mapUrl:'https://www.google.com/maps/search/?api=1&query=Karatomari+Ebisu+Oyster+Hut'
+      }
+    ];
+
     const bounds = [];
 
     staticPoints.forEach(pt => {
@@ -119,7 +172,20 @@
           bounds.push([lat,lng]);
         });
 
-        if (!spots.length) {
+        // Inject shortlist pins from trips/fukuoka-shortlist.md (avoid name duplicates)
+        const existingNames = new Set(spots.map(s => (s.name || '').toLowerCase()));
+        const addedShortlist = fukuokaShortlist.filter(p => !existingNames.has((p.name || '').toLowerCase()));
+
+        addedShortlist.forEach((p, idx) => {
+          const base = centers.fukuoka;
+          const lat = base[0] + (((idx % 4) - 1.5) * 0.012);
+          const lng = base[1] + (((Math.floor(idx / 4) % 4) - 1.5) * 0.012);
+          const m = L.marker([lat, lng], { icon: icon(p.emoji || '📌') }).addTo(map);
+          m.bindPopup(`<div style="min-width:220px"><b>${p.name}</b><br/><span style="opacity:.8">${p.city} · shortlist</span><br/><div style="font-size:.78rem;opacity:.9">${p.category || ''}</div>${p.mapUrl ? `<a href="${p.mapUrl}" target="_blank" rel="noopener">Open map ↗</a>` : ''}</div>`);
+          bounds.push([lat, lng]);
+        });
+
+        if (!spots.length && !addedShortlist.length) {
           L.marker(centers.fukuoka,{icon:icon('📍')}).addTo(map).bindPopup('No Fukuoka candidates yet.');
           return;
         }
