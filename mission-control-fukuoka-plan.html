@@ -163,6 +163,13 @@
           return city.includes('fukuoka') || city.includes('kokura') || city.includes('shimonoseki') || other.includes('fukuoka');
         });
 
+        const chainPhotoMap = new Map();
+        spots.forEach(s => {
+          const key = (s.chain_group || '').toLowerCase().trim();
+          const p = s.photo || (Array.isArray(s.photos) && s.photos.length ? s.photos[0] : '');
+          if (key && p && !chainPhotoMap.has(key)) chainPhotoMap.set(key, p);
+        });
+
         spots.forEach((s,idx) => {
           const city = (s.city||'').toLowerCase();
           const base = city.includes('kokura') ? centers.kokura : city.includes('shimonoseki') ? centers.shimonoseki : centers.fukuoka;
@@ -175,7 +182,8 @@
           const derivedMapUrl = (cityLower.includes('fukuoka') || cityLower.includes('kokura') || cityLower.includes('shimonoseki'))
             ? (s.map_url || '')
             : (hasFukuokaAlt ? `https://maps.google.com/?q=${encodeURIComponent((s.chain_group || s.name || 'restaurant') + ' Fukuoka')}` : (s.map_url || ''));
-          m.bindPopup(`<div style="min-width:220px"><b>${s.name||'Spot'}</b><br/><span style="opacity:.8">${s.city||''}</span><br/>${s.chain?'<span style="font-size:.78rem">🟡 chain option</span><br/>':''}${s.other_city_options?`<div style="font-size:.78rem;opacity:.9">Also in: ${s.other_city_options.join(' · ')}</div>`:''}${derivedMapUrl?`<a href="${derivedMapUrl}" target="_blank" rel="noopener">Open map ↗</a>`:''}</div>`);
+          const primaryPhoto = s.photo || (Array.isArray(s.photos) && s.photos.length ? s.photos[0] : '') || chainPhotoMap.get((s.chain_group || '').toLowerCase().trim()) || '';
+          m.bindPopup(`<div style="min-width:240px;max-width:260px">${primaryPhoto ? `<img src="${primaryPhoto}" alt="${s.name||'Spot'}" style="width:100%;height:132px;object-fit:cover;border-radius:8px;margin-bottom:8px;border:1px solid rgba(0,0,0,.08)"/>` : ''}<b>${s.name||'Spot'}</b><br/><span style="opacity:.8">${s.city||''}</span><br/>${s.chain?'<span style="font-size:.78rem">🟡 chain option</span><br/>':''}${s.other_city_options?`<div style="font-size:.78rem;opacity:.9">Also in: ${s.other_city_options.join(' · ')}</div>`:''}${derivedMapUrl?`<a href="${derivedMapUrl}" target="_blank" rel="noopener">Open map ↗</a>`:''}</div>`);
           bounds.push([lat,lng]);
         });
 
