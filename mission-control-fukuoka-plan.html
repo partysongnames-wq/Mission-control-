@@ -12,6 +12,33 @@
     .chip{display:inline-flex;padding:7px 11px;border-radius:999px;border:1px solid rgba(255,255,255,.2);color:#fff;text-decoration:none;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase}
     #map{height:460px;border-radius:14px;border:1px solid rgba(255,255,255,.15)}
     .note{margin-top:10px;color:var(--muted);font-size:.86rem}
+
+    .map-wrap{position:relative}
+    .map-controls{position:absolute;top:12px;right:12px;z-index:1000;display:flex;gap:8px;align-items:center;flex-wrap:wrap;max-width:85%;justify-content:flex-end}
+    .map-control-btn,.map-control-link{display:inline-flex;align-items:center;justify-content:center;gap:6px;border-radius:999px;padding:8px 12px;border:1px solid rgba(255,255,255,.18);background:rgba(3,3,8,.72);color:#fff;text-decoration:none;font-size:.72rem;letter-spacing:.08em;backdrop-filter:blur(4px)}
+    .map-control-btn{cursor:pointer;font-family:inherit}
+    .map-control-btn:hover,.map-control-link:hover{background:rgba(255,255,255,.16)}
+    .map-control-link{display:none}
+
+    .user-dot-wrap{position:relative;width:18px;height:18px;}
+    .user-dot{position:absolute;left:50%;top:50%;width:12px;height:12px;transform:translate(-50%,-50%);background:#1a73e8;border:2px solid #fff;border-radius:999px;box-shadow:0 0 0 1px rgba(0,0,0,.25),0 2px 8px rgba(0,0,0,.35);}
+    .user-dot-pulse{position:absolute;left:50%;top:50%;width:24px;height:24px;transform:translate(-50%,-50%);border-radius:999px;background:rgba(26,115,232,.28);opacity:0;}
+    .user-dot-wrap.live .user-dot-pulse{animation:userPulse 1.8s ease-out infinite;opacity:1;}
+    @keyframes userPulse{0%{transform:translate(-50%,-50%) scale(.45);opacity:.85;}100%{transform:translate(-50%,-50%) scale(1.25);opacity:0;}}
+
+    body.map-lock{overflow:hidden}
+    .map-wrap.map-fullscreen{position:fixed;inset:0;z-index:9999;border-radius:0;margin:0;border:none;padding:calc(10px + env(safe-area-inset-top)) 10px calc(12px + env(safe-area-inset-bottom));background:rgba(3,3,8,.98);display:flex;flex-direction:column}
+    .map-wrap.map-fullscreen #map{height:calc(100dvh - 120px);height:calc(100vh - 120px);border-radius:14px;flex:1 1 auto;min-height:280px;touch-action:pan-x pan-y}
+    .map-wrap.map-fullscreen .map-control-link{display:inline-flex}
+
+    @media (max-width: 820px){
+      body{padding:10px}
+      .page{width:min(1180px,calc(100vw - 12px));padding:12px;border-radius:18px}
+      #map{height:78vh;min-height:520px;border-radius:12px}
+      .map-controls{top:10px;right:10px;gap:6px}
+      .map-control-btn,.map-control-link{font-size:.68rem;padding:7px 10px}
+      .map-wrap.map-fullscreen #map{height:calc(100dvh - 140px);height:calc(100vh - 140px)}
+    }
   </style>
 </head>
 <body>
@@ -28,16 +55,150 @@
         <a class="chip" href="mission-control-trip-map.html">🌐 Master Map</a>
       </div>
     </div>
-    <div id="map"></div>
+    <section class="map-wrap" id="map-wrap">
+      <div class="map-controls">
+        <button class="map-control-btn" id="map-locate-btn" type="button" aria-label="Show my location">📍 Locate once</button>
+        <button class="map-control-btn" id="map-live-btn" type="button" aria-label="Start live tracking" aria-pressed="false">🟢 Start live</button>
+        <button class="map-control-btn" id="map-fullscreen-toggle" type="button" aria-label="Expand map" aria-expanded="false">⛶ Expand map</button>
+        <a class="map-control-link" id="map-google-link" href="https://www.google.com/maps" target="_blank" rel="noopener">↗ Google Maps</a>
+      </div>
+      <div id="map"></div>
+    </section>
     <div class="note">🟡 Yellow dot = chain candidate you could do here instead of Osaka.</div>
   </div>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
   <script>
     const map = L.map('map').setView([33.5902,130.4017], 10);
+    const mapWrap = document.getElementById('map-wrap');
+    const mapToggle = document.getElementById('map-fullscreen-toggle');
+    const mapLocateBtn = document.getElementById('map-locate-btn');
+    const mapLiveBtn = document.getElementById('map-live-btn');
+    const mapGoogleLink = document.getElementById('map-google-link');
+    let mapScrollY = 0;
+    let userMarker = null;
+    let userAccuracyCircle = null;
+    let liveWatchId = null;
+    let liveAutoStopTimer = null;
+
+    const updateGoogleMapLink = () => {
+      const c = map.getCenter();
+      const z = map.getZoom();
+      mapGoogleLink.href = `https://www.google.com/maps/@${c.lat},${c.lng},${Math.max(z, 12)}z`;
+    };
+
+    const setMapFullscreen = (isFullscreen) => {
+      if (isFullscreen) {
+        mapScrollY = window.scrollY;
+        mapWrap.classList.add('map-fullscreen');
+        document.body.classList.add('map-lock');
+        mapToggle.textContent = '✕ Close map';
+        mapToggle.setAttribute('aria-label', 'Close full-screen map');
+        mapToggle.setAttribute('aria-expanded', 'true');
+      } else {
+        mapWrap.classList.remove('map-fullscreen');
+        document.body.classList.remove('map-lock');
+        mapToggle.textContent = '⛶ Expand map';
+        mapToggle.setAttribute('aria-label', 'Expand map');
+        mapToggle.setAttribute('aria-expanded', 'false');
+        window.scrollTo({ top: mapScrollY, behavior: 'auto' });
+      }
+      updateGoogleMapLink();
+      setTimeout(() => map.invalidateSize(), 60);
+    };
+
+    const userLocationIcon = (isLive = false) => L.divIcon({
+      className: 'user-location-icon',
+      html: `<div class="user-dot-wrap ${isLive ? 'live' : ''}"><span class="user-dot-pulse"></span><span class="user-dot"></span></div>`,
+      iconSize: [24,24],
+      iconAnchor: [12,12]
+    });
+
+    const paintUserLocation = (pos, shouldCenter = true, isLive = false) => {
+      const latlng = [pos.coords.latitude, pos.coords.longitude];
+      const accuracy = Math.max(12, Math.round(pos.coords.accuracy || 20));
+      if (userMarker) map.removeLayer(userMarker);
+      if (userAccuracyCircle) map.removeLayer(userAccuracyCircle);
+      userMarker = L.marker(latlng, { icon: userLocationIcon(isLive) }).addTo(map)
+        .bindPopup(`You are here<br/>Accuracy: ±${accuracy}m`);
+      userAccuracyCircle = L.circle(latlng, {
+        radius: accuracy,
+        color: '#4da3ff',
+        fillColor: '#4da3ff',
+        fillOpacity: 0.12,
+        weight: 1
+      }).addTo(map);
+      if (shouldCenter) map.setView(latlng, Math.max(map.getZoom(), 15), { animate: true });
+    };
+
+    const stopLiveTracking = (msg = '🟢 Start live') => {
+      if (liveWatchId !== null) {
+        navigator.geolocation.clearWatch(liveWatchId);
+        liveWatchId = null;
+      }
+      if (liveAutoStopTimer) {
+        clearTimeout(liveAutoStopTimer);
+        liveAutoStopTimer = null;
+      }
+      if (userMarker) userMarker.setIcon(userLocationIcon(false));
+      mapLiveBtn.textContent = msg;
+      mapLiveBtn.setAttribute('aria-pressed', 'false');
+    };
+
+    mapToggle.addEventListener('click', () => setMapFullscreen(!mapWrap.classList.contains('map-fullscreen')));
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && mapWrap.classList.contains('map-fullscreen')) setMapFullscreen(false);
+    });
+
+    mapLocateBtn?.addEventListener('click', () => {
+      if (!navigator.geolocation) {
+        mapLocateBtn.textContent = '⚠️ No GPS support';
+        setTimeout(() => (mapLocateBtn.textContent = '📍 Locate once'), 1800);
+        return;
+      }
+      mapLocateBtn.textContent = '⏳ Locating...';
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          paintUserLocation(pos, true, false);
+          mapLocateBtn.textContent = '✅ Located';
+          setTimeout(() => (mapLocateBtn.textContent = '📍 Locate once'), 1400);
+        },
+        () => {
+          mapLocateBtn.textContent = '❌ Location denied';
+          setTimeout(() => (mapLocateBtn.textContent = '📍 Locate once'), 1800);
+        },
+        { enableHighAccuracy: true, timeout: 12000, maximumAge: 60000 }
+      );
+    });
+
+    mapLiveBtn?.addEventListener('click', () => {
+      if (!navigator.geolocation) {
+        mapLiveBtn.textContent = '⚠️ No GPS support';
+        setTimeout(() => (mapLiveBtn.textContent = '🟢 Start live'), 1800);
+        return;
+      }
+      if (liveWatchId !== null) {
+        stopLiveTracking('🟢 Start live');
+        return;
+      }
+      mapLiveBtn.textContent = '⏹ Stop live';
+      mapLiveBtn.setAttribute('aria-pressed', 'true');
+      liveWatchId = navigator.geolocation.watchPosition(
+        (pos) => paintUserLocation(pos, true, true),
+        () => {
+          stopLiveTracking('❌ Live blocked');
+          setTimeout(() => (mapLiveBtn.textContent = '🟢 Start live'), 1800);
+        },
+        { enableHighAccuracy: false, timeout: 15000, maximumAge: 15000 }
+      );
+      liveAutoStopTimer = setTimeout(() => stopLiveTracking('⏲ Live ended'), 30 * 60 * 1000);
+    });
+
     L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
       maxZoom: 19, subdomains: 'abcd', attribution: '&copy; OpenStreetMap contributors &copy; CARTO'
     }).addTo(map);
+    map.on('moveend zoomend', updateGoogleMapLink);
+    updateGoogleMapLink();
 
     const icon = (emoji, chain=false) => L.divIcon({
       className:'',
