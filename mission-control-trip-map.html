@@ -42,7 +42,7 @@
       <button class="btn" data-layer="exact">Exact GPS only</button>
     </div>
     <div class="mode" id="mode-label">Mode: All</div>
-    <div class="note">🟡 Yellow dot = chain candidate. Hotels shown for Japan stays (Kokura, Hiroshima, Kurashiki, Osaka). Non-address food pins use area-based placement (not exact GPS) until exact coordinates are added.</div>
+    <div class="note">🟡 Yellow dot = chain candidate. 🛍️ Shopping marker includes UNIQLO Tenjin pre-owned check. Hotels shown for Japan stays (Kokura, Hiroshima, Kurashiki, Osaka). Non-address food pins use area-based placement (not exact GPS) until exact coordinates are added.</div>
   </div>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
@@ -74,6 +74,17 @@
       {name:'Shin-Shimonoseki Station (Shinkansen)', lat:34.0031,lng:130.9504}
     ];
 
+    const tripExtraStops = [
+      {
+        name:'UNIQLO Tenjin Store (Pre-owned / 古着 check)',
+        city:'Fukuoka',
+        lat:33.5905,
+        lng:130.3989,
+        mapUrl:'https://www.google.com/maps/search/?api=1&query=UNIQLO+Tenjin+Store+Fukuoka',
+        note:'Selected-store pre-owned corner from your reel screenshots.'
+      }
+    ];
+
     const layers = { hotels:[], stations:[], food:[] };
     const bounds=[];
 
@@ -95,6 +106,14 @@
           const m = L.marker([s.lat,s.lng], {icon:icon('🚄')}).addTo(map)
             .bindPopup(`<b>${s.name}</b>`);
           addMarker(layers.stations,m,[s.lat,s.lng]);
+        });
+
+        tripExtraStops.forEach(p => {
+          const m = L.marker([p.lat,p.lng], {icon:icon('🛍️')}).addTo(map)
+            .bindPopup(`<b>${p.name}</b><br/>${p.city}<br/>${p.note||''}${p.mapUrl?`<br/><a href="${p.mapUrl}" target="_blank" rel="noopener">Open map ↗</a>`:''}`);
+          m._isChain = false;
+          m._gpsExact = true;
+          addMarker(layers.food,m,[p.lat,p.lng]);
         });
 
         return fetch('travel-food-spots.json',{cache:'no-store'}).then(r=>r.json());
