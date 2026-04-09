@@ -431,6 +431,59 @@
       }
     ];
 
+    const shoppingIdeas = [
+      {
+        name:'THE OUTLETS KITAKYUSHU',
+        city:'Kokura',
+        category:'Shopping idea · Outlet (best for stacked discounts)',
+        emoji:'🛍️',
+        photo:'assets/fukuoka-pins/yakiniku-champion.jpg',
+        mapUrl:'https://www.google.com/maps/search/?api=1&query=THE+OUTLETS+KITAKYUSHU',
+        lat:33.8692,
+        lng:130.7453
+      },
+      {
+        name:'AMU Plaza Kokura',
+        city:'Kokura',
+        category:'Shopping idea · Station mall (quick scan)',
+        emoji:'🛍️',
+        photo:'assets/fukuoka-pins/im-donut.jpg',
+        mapUrl:'https://www.google.com/maps/search/?api=1&query=AMU+Plaza+Kokura',
+        lat:33.8863,
+        lng:130.8833
+      },
+      {
+        name:'Canal City Hakata',
+        city:'Fukuoka',
+        category:'Shopping idea · Big mixed mall',
+        emoji:'🛍️',
+        photo:'assets/fukuoka-pins/musashiza.jpg',
+        mapUrl:'https://www.google.com/maps/search/?api=1&query=Canal+City+Hakata',
+        lat:33.5902,
+        lng:130.4103
+      },
+      {
+        name:'LaLaport Fukuoka',
+        city:'Fukuoka',
+        category:'Shopping idea · Family mall / sale checks',
+        emoji:'🛍️',
+        photo:'assets/fukuoka-pins/shabu-zen.jpg',
+        mapUrl:'https://www.google.com/maps/search/?api=1&query=LaLaport+Fukuoka',
+        lat:33.5665,
+        lng:130.4423
+      },
+      {
+        name:'Tenjin Underground Mall',
+        city:'Fukuoka',
+        category:'Shopping idea · Dense fashion corridor',
+        emoji:'🛍️',
+        photo:'assets/fukuoka-pins/sashisu.jpg',
+        mapUrl:'https://www.google.com/maps/search/?api=1&query=Tenjin+Underground+Mall',
+        lat:33.5907,
+        lng:130.3987
+      }
+    ];
+
     const bounds = [];
 
     staticPoints.forEach(pt => {
@@ -503,7 +556,16 @@
           bounds.push([lat, lng]);
         });
 
-        if (!spots.length && !addedShortlist.length && !fukuokaRecommendations.length && !kokuraHotelAreaIdeas.length) {
+        shoppingIdeas.forEach((p, idx) => {
+          const base = p.city === 'Kokura' ? centers.kokura : centers.fukuoka;
+          const lat = (typeof p.lat === 'number') ? p.lat : (base[0] + (((idx % 3) - 1) * 0.012));
+          const lng = (typeof p.lng === 'number') ? p.lng : (base[1] + (((Math.floor(idx / 3) % 3) - 1) * 0.012));
+          const m = L.marker([lat, lng], { icon: icon(p.emoji || '🛍️') }).addTo(map);
+          m.bindPopup(`<div style="min-width:240px;max-width:260px">${p.photo ? `<img src="${p.photo}" alt="${p.name}" style="width:100%;height:132px;object-fit:cover;border-radius:8px;margin-bottom:8px;border:1px solid rgba(0,0,0,.08)"/>` : ''}<b>${p.name}</b><br/><span style="opacity:.8">${p.city} · shopping idea</span><br/><div style="font-size:.78rem;opacity:.9;margin:4px 0 6px">${p.category || ''}</div>${p.mapUrl ? `<a href="${p.mapUrl}" target="_blank" rel="noopener">Open map ↗</a>` : ''}</div>`);
+          bounds.push([lat, lng]);
+        });
+
+        if (!spots.length && !addedShortlist.length && !fukuokaRecommendations.length && !kokuraHotelAreaIdeas.length && !shoppingIdeas.length) {
           L.marker(centers.fukuoka,{icon:icon('📍')}).addTo(map).bindPopup('No Fukuoka candidates yet.');
           return;
         }
