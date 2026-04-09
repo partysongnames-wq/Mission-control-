@@ -334,6 +334,8 @@
         category:'Recommended · Local seafood market',
         emoji:'💡',
         photo:'assets/fukuoka-pins/karatomari-ebisu.jpg',
+        lat:33.5830623,
+        lng:130.4085274,
         mapUrl:'https://www.google.com/maps/search/?api=1&query=Yanagibashi+Rengo+Market+Fukuoka'
       },
       {
@@ -342,6 +344,8 @@
         category:'Recommended · Morning seafood',
         emoji:'💡',
         photo:'assets/fukuoka-pins/sashisu.jpg',
+        lat:33.5946466,
+        lng:130.3895931,
         mapUrl:'https://www.google.com/maps/search/?api=1&query=Nagahama+Fish+Market+Fukuoka'
       },
       {
@@ -350,6 +354,8 @@
         category:'Recommended · Signature hotpot',
         emoji:'💡',
         photo:'assets/fukuoka-pins/shabu-zen.jpg',
+        lat:33.5863228,
+        lng:130.3973807,
         mapUrl:'https://www.google.com/maps/search/?api=1&query=Motsunabe+Rakutenchi+Tenjin'
       },
       {
@@ -358,6 +364,8 @@
         category:'Recommended · Night yatai crawl',
         emoji:'💡',
         photo:'assets/fukuoka-pins/musashiza.jpg',
+        lat:33.5945107,
+        lng:130.4035964,
         mapUrl:'https://www.google.com/maps/search/?api=1&query=Nakasu+Yatai+Fukuoka'
       },
       {
@@ -366,6 +374,8 @@
         category:'Recommended · Local market lane',
         emoji:'💡',
         photo:'assets/fukuoka-pins/nikuichi.jpg',
+        lat:33.8798909,
+        lng:130.8807998,
         mapUrl:'https://www.google.com/maps/search/?api=1&query=Tanga+Market+Kokura'
       }
     ];
@@ -410,6 +420,14 @@
         emoji:'💭',
         photo:'assets/fukuoka-pins/yakiniku-champion.jpg',
         mapUrl:'https://www.google.com/maps/search/?api=1&query=Matsuya+or+Sukiya+near+Kokura+Station'
+      },
+      {
+        name:'Sushiro near Kokura (fallback)',
+        city:'Kokura',
+        category:'Idea · Budget sushi fallback',
+        emoji:'💭',
+        photo:'assets/fukuoka-pins/sashisu.jpg',
+        mapUrl:'https://www.google.com/maps/search/?api=1&query=Sushiro+near+Kokura+Station'
       }
     ];
 
@@ -469,8 +487,8 @@
 
         fukuokaRecommendations.forEach((p, idx) => {
           const base = p.city === 'Kokura' ? centers.kokura : centers.fukuoka;
-          const lat = base[0] + (((idx % 3) - 1) * 0.014);
-          const lng = base[1] + (((Math.floor(idx / 3) % 3) - 1) * 0.014);
+          const lat = (typeof p.lat === 'number') ? p.lat : (base[0] + (((idx % 3) - 1) * 0.014));
+          const lng = (typeof p.lng === 'number') ? p.lng : (base[1] + (((Math.floor(idx / 3) % 3) - 1) * 0.014));
           const m = L.marker([lat, lng], { icon: icon(p.emoji || '💡') }).addTo(map);
           m.bindPopup(`<div style="min-width:240px;max-width:260px">${p.photo ? `<img src="${p.photo}" alt="${p.name}" style="width:100%;height:132px;object-fit:cover;border-radius:8px;margin-bottom:8px;border:1px solid rgba(0,0,0,.08)"/>` : ''}<b>${p.name}</b><br/><span style="opacity:.8">${p.city} · recommendation</span><br/><div style="font-size:.78rem;opacity:.9;margin:4px 0 6px">${p.category || ''}</div>${p.mapUrl ? `<a href="${p.mapUrl}" target="_blank" rel="noopener">Open map ↗</a>` : ''}</div>`);
           bounds.push([lat, lng]);
@@ -478,8 +496,8 @@
 
         kokuraHotelAreaIdeas.forEach((p, idx) => {
           const base = centers.kokura;
-          const lat = base[0] + (((idx % 3) - 1) * 0.010);
-          const lng = base[1] + (((Math.floor(idx / 3) % 3) - 1) * 0.010);
+          const lat = (typeof p.lat === 'number') ? p.lat : (base[0] + (((idx % 3) - 1) * 0.010));
+          const lng = (typeof p.lng === 'number') ? p.lng : (base[1] + (((Math.floor(idx / 3) % 3) - 1) * 0.010));
           const m = L.marker([lat, lng], { icon: icon(p.emoji || '💭') }).addTo(map);
           m.bindPopup(`<div style="min-width:240px;max-width:260px">${p.photo ? `<img src="${p.photo}" alt="${p.name}" style="width:100%;height:132px;object-fit:cover;border-radius:8px;margin-bottom:8px;border:1px solid rgba(0,0,0,.08)"/>` : ''}<b>${p.name}</b><br/><span style="opacity:.8">${p.city} · idea near hotel</span><br/><div style="font-size:.78rem;opacity:.9;margin:4px 0 6px">${p.category || ''}</div>${p.mapUrl ? `<a href="${p.mapUrl}" target="_blank" rel="noopener">Open map ↗</a>` : ''}</div>`);
           bounds.push([lat, lng]);
