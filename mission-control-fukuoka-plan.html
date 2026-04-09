@@ -326,6 +326,50 @@
       }
     ];
 
+    // Jaz recommendations (clearly marked as recommendations)
+    const fukuokaRecommendations = [
+      {
+        name:'Yanagibashi Rengo Market / 柳橋連合市場',
+        city:'Fukuoka',
+        category:'Recommended · Local seafood market',
+        emoji:'💡',
+        photo:'assets/fukuoka-pins/karatomari-ebisu.jpg',
+        mapUrl:'https://www.google.com/maps/search/?api=1&query=Yanagibashi+Rengo+Market+Fukuoka'
+      },
+      {
+        name:'Nagahama Fish Market area / 長浜鮮魚市場エリア',
+        city:'Fukuoka',
+        category:'Recommended · Morning seafood',
+        emoji:'💡',
+        photo:'assets/fukuoka-pins/sashisu.jpg',
+        mapUrl:'https://www.google.com/maps/search/?api=1&query=Nagahama+Fish+Market+Fukuoka'
+      },
+      {
+        name:'Motsunabe Rakutenchi (Tenjin)',
+        city:'Fukuoka',
+        category:'Recommended · Signature hotpot',
+        emoji:'💡',
+        photo:'assets/fukuoka-pins/shabu-zen.jpg',
+        mapUrl:'https://www.google.com/maps/search/?api=1&query=Motsunabe+Rakutenchi+Tenjin'
+      },
+      {
+        name:'Nakasu Yatai Street Food Stalls',
+        city:'Fukuoka',
+        category:'Recommended · Night yatai crawl',
+        emoji:'💡',
+        photo:'assets/fukuoka-pins/musashiza.jpg',
+        mapUrl:'https://www.google.com/maps/search/?api=1&query=Nakasu+Yatai+Fukuoka'
+      },
+      {
+        name:'Tanga Market / 旦過市場 (Kokura)',
+        city:'Kokura',
+        category:'Recommended · Local market lane',
+        emoji:'💡',
+        photo:'assets/fukuoka-pins/nikuichi.jpg',
+        mapUrl:'https://www.google.com/maps/search/?api=1&query=Tanga+Market+Kokura'
+      }
+    ];
+
     const bounds = [];
 
     staticPoints.forEach(pt => {
@@ -380,7 +424,16 @@
           bounds.push([lat, lng]);
         });
 
-        if (!spots.length && !addedShortlist.length) {
+        fukuokaRecommendations.forEach((p, idx) => {
+          const base = p.city === 'Kokura' ? centers.kokura : centers.fukuoka;
+          const lat = base[0] + (((idx % 3) - 1) * 0.014);
+          const lng = base[1] + (((Math.floor(idx / 3) % 3) - 1) * 0.014);
+          const m = L.marker([lat, lng], { icon: icon(p.emoji || '💡') }).addTo(map);
+          m.bindPopup(`<div style="min-width:240px;max-width:260px">${p.photo ? `<img src="${p.photo}" alt="${p.name}" style="width:100%;height:132px;object-fit:cover;border-radius:8px;margin-bottom:8px;border:1px solid rgba(0,0,0,.08)"/>` : ''}<b>${p.name}</b><br/><span style="opacity:.8">${p.city} · recommendation</span><br/><div style="font-size:.78rem;opacity:.9;margin:4px 0 6px">${p.category || ''}</div>${p.mapUrl ? `<a href="${p.mapUrl}" target="_blank" rel="noopener">Open map ↗</a>` : ''}</div>`);
+          bounds.push([lat, lng]);
+        });
+
+        if (!spots.length && !addedShortlist.length && !fukuokaRecommendations.length) {
           L.marker(centers.fukuoka,{icon:icon('📍')}).addTo(map).bindPopup('No Fukuoka candidates yet.');
           return;
         }
