@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>The Standard Job Lounge</title>
+  <title>The Standard Opportunity Suite</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Playfair+Display:wght@600&display=swap');
     :root {
@@ -218,6 +218,28 @@
     }
     .quick-links a:hover {
       background: rgba(250, 204, 21, 0.18);
+    }
+    .recent-applied {
+      margin-top: 1rem;
+      padding: 1rem 1.1rem;
+      border-radius: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.03);
+    }
+    .recent-applied h3 {
+      margin: 0 0 0.6rem;
+      font-size: 1rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #facc15;
+    }
+    .recent-applied ol {
+      margin: 0;
+      padding-left: 1.2rem;
+      display: grid;
+      gap: 0.35rem;
+      color: rgba(245,245,245,0.92);
+      font-size: 0.92rem;
     }
     .summary {
       display: grid;
@@ -546,16 +568,44 @@
 </head>
 <body>
   <div class="page">
+    <div class="hero" id="career-floor-top">
+      <div class="hero-content">
+        <div class="hero-pill">Job Concierge</div>
+        <h2>Coordinating the career floor</h2>
+        <p>Each desk shows the latest leads, the demo timeline, and the token pulse for the agents managing your applications.</p>
+      </div>
+    </div>
+
     <header class="header-shell">
       <div class="header-main">
-        <div class="tagline">The Standard · Job Lounge</div>
+        <div class="tagline">The Standard · Opportunity Suite</div>
         <h1>Opportunity Suite</h1>
-        <p>Curated from your 2026 tracker, this suite keeps every Bangkok role in the same cinematic vibe as The Standard Mission Control. Pockets of light highlight the high-salary tenants and upcoming interviews while the grid shows every application lined up like bespoke rooms.</p>
+        <p>Curated from your 2026 tracker, this suite keeps Bangkok applications clear, prioritized, and easy to action fast. Current rule: at least one application per day, with central Bangkok and reasonable commute prioritized.</p>
         <div class="quick-links">
           <a href="mission-control.html">Mission Control</a>
           <a href="/world-hybrid">Office View</a>
           <a href="mission-control-calendar.html">Calendar</a>
         </div>
+
+        <section class="recent-applied">
+          <h3>Recent Applications (14)</h3>
+          <ol reversed start="25">
+            <li>Duke Language School — Apr 21 → Email sent to hr@dukelanguage.com</li>
+            <li>The Essence — Apr 8 → LINE message sent</li>
+            <li>Assumption College Bangrak — Mar 1 → Re-applied Apr 8 (Email sent)</li>
+            <li>GEOS Thailand — Mar 30</li>
+            <li>Prompt Education Consultant — Mar 29</li>
+            <li>LiClass Education — Mar 20 → Interviewed</li>
+            <li>SWU Prasarnmit — Mar 12</li>
+            <li>Essential Staffing (SJC) — Mar 12</li>
+            <li>Education Services — Mar 12</li>
+            <li>Anglo Singapore — Mar 4</li>
+            <li>Srinakharinwirot University — Mar 3</li>
+            <li>BCC IEP (G9-10) — Mar 1 → Interviewed</li>
+            <li>Creative Writing / Journalism (EPL) — Mar 1 → Demo completed</li>
+            <li>AUA Corporate — Mar 1</li>
+          </ol>
+        </section>
       </div>
 
       <aside class="apply-queue" id="apply-queue">
@@ -573,45 +623,16 @@
         <div class="apply-queue-foot">Picks persist until you mark them applied; items fade after ~14 days.</div>
       </aside>
     </header>
-    <div class="hero">
-      <div class="hero-content">
-        <div class="hero-pill">Job Concierge</div>
-        <h2>Coordinating the career floor</h2>
-        <p>Each desk shows the latest leads, the demo timeline, and the token pulse for the agents managing your applications.</p>
-      </div>
-    </div>
 
-    <section class="active-grid">
-      <article class="active-card">
-        <h3>Creative Writing / Journalism (EPL)</h3>
-        <p class="active-role">High School English Teacher · Demo</p>
-        <p class="active-notes">20-minute online demo · rescheduling for Monday or Tuesday</p>
-        <ol class="active-tasks">
-          <li>Confirm the demo time, Zoom link, and any tech requirements.</li>
-          <li>Outline a tight 20-minute lesson: hook, modeling, practice prompt, and recap.</li>
-          <li>Share availability, ask who will be observing, and offer to send sample materials.</li>
-        </ol>
-      </article>
-      <article class="active-card">
-        <h3>Modulo School</h3>
-        <p class="active-role">NES English Teacher · Under review</p>
-        <p class="active-notes">Form + supporting documents submitted Mar 9</p>
-        <ol class="active-tasks">
-          <li>Keep all document files organized in one folder for quick resend.</li>
-          <li>If no response in 3–5 business days, send a short follow-up.</li>
-          <li>Continue pipeline momentum with 1–2 quality applications this week.</li>
-        </ol>
-      </article>
-    </section>
 
     <section class="summary">
       <article class="summary-card">
         <h2>Pipeline Snapshot</h2>
         <p>20 active applications across private schools, agencies, corporate training, and university roles.</p>
         <ul class="summary-list">
-          <li>Highest current targets: SWU Prasarnmit (65k), Westminster IELTS (up to 63k), Daroonpat (up to 65k)</li>
-          <li>Corporate & training: Education Services, AUA, Westminster IELTS, Pandora Production, British Council</li>
-          <li>Location range: Asok/Prasarnmit · Silom/Sathorn · Bangrak · Sukhumvit 64 · Rayong/Bangkok</li>
+          <li>Current rhythm: minimum one application per day</li>
+          <li>Priority lane: central Bangkok, adult/corporate/older-student roles with sane commute from Chapter Chula-Samyan</li>
+          <li>Avoid: jobs that require roughly 1 hour+ train commute each morning</li>
         </ul>
       </article>
       <article class="summary-card">
@@ -676,10 +697,10 @@
             <article class="job-card">
               <h3>Modulo School</h3>
               <p class="job-role">NES English Teacher</p>
-              <div class="meta"><span>Status: Review</span><span>Owner: You</span><span>Blocker: none</span></div>
-              <span class="status-pill interview">Under review</span>
-              <p class="notes">Form + docs sent Mar 9. If silent after 3–5 business days, send follow-up.</p>
-              <div class="confidence"><label>Confidence 72%</label><div class="confidence-track"><div class="confidence-fill" style="width:72%"></div></div></div>
+              <div class="meta"><span>Status: Rejected</span><span>Owner: You</span><span>Closed: 30 Mar 2026</span></div>
+              <span class="status-pill closed">Rejected · 30 Mar 2026</span>
+              <p class="notes">Application closed. No additional follow-up required.</p>
+              <div class="confidence"><label>Confidence 0%</label><div class="confidence-track"><div class="confidence-fill" style="width:0%"></div></div></div>
             </article>
             <article class="job-card">
               <h3>LiClass Education (Thonglor)</h3>
@@ -725,7 +746,7 @@
 
     <footer>
       <div>
-        The Standard Job Lounge · Styled for Bangkok applications and hotel-grade polish.
+        The Standard Opportunity Suite · Styled for Bangkok applications and hotel-grade polish.
       </div>
       <a href="mission-control.html">Return to Mission Control</a>
     </footer>
