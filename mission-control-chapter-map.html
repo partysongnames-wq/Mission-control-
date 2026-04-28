@@ -186,7 +186,8 @@
 
     const chapterIcon = L.divIcon({html:'<div style="width:32px;height:32px;clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);background:radial-gradient(circle at 35% 30%,#ffe27a 0%,#d4a514 60%,#8a6b00 100%);border:2px solid #111;box-shadow:0 0 0 2px rgba(255,215,0,.35)"></div>', className:'', iconSize:[32,32], iconAnchor:[16,16]});
     const foodPopup = (p) => {
-      const meta = [p.rating, p.price, p.walk].filter(Boolean).join(' · ');
+      const cuisine = cuisineTag(p);
+      const meta = [cuisine, p.rating, p.price, p.walk].filter(Boolean).join(' · ');
       const img = p.image ? `<img src="${p.image}" alt="${p.name}" style="width:100%;height:132px;object-fit:cover;border-radius:10px;margin:7px 0 9px;border:1px solid rgba(255,255,255,.24);">` : '';
       const mapsBtn = p.maps ? `<a href="${p.maps}" target="_blank" style="display:inline-block;margin-top:7px;padding:7px 10px;border-radius:999px;border:1px solid #7dd3fc;color:#c8f1ff;text-decoration:none;font-size:12px;font-weight:600;">Open in Google Maps ↗</a>` : '';
       return `<div style="width:248px"><span class="vip-badge">Trent Verified</span><br><b style="font-size:14px;line-height:1.25">${p.name}</b><br><span style="font-size:12px;color:#a8b7d8">${meta}</span>${img}<div style="font-size:12px;color:#dbe7ff;line-height:1.35">${p.note || ''}</div>${mapsBtn}</div>`;
@@ -210,6 +211,23 @@
     const maxvaluIcon = pngIcon('assets/map-icons/maxvalu-logo.svg', 'rgba(255,255,255,.96)', 20);
     const cafeAmazonIcon = pngIcon('assets/map-icons/cafe-amazon-logo.svg', 'rgba(255,255,255,.96)', 20);
     const mcdonaldsIcon = pngIcon('assets/map-icons/mcdonalds-logo.png', 'rgba(255,255,255,.96)', 20);
+    const chineseIcon = pngIcon('assets/map-icons/cheap.png', 'rgba(186,58,58,.95)');
+    const koreanIcon = pngIcon('assets/map-icons/cheap.png', 'rgba(93,107,217,.95)');
+    const isaanIcon = pngIcon('assets/map-icons/cheap.png', 'rgba(225,125,45,.95)');
+    const vietnameseIcon = pngIcon('assets/map-icons/cheap.png', 'rgba(46,150,90,.95)');
+    const lannaIcon = pngIcon('assets/map-icons/cheap.png', 'rgba(153,89,49,.95)');
+    const japaneseIcon = pngIcon('assets/map-icons/seafood.png', 'rgba(230,230,230,.95)');
+
+    const cuisineTag = (p) => {
+      const t = `${p.name} ${p.note}`.toLowerCase();
+      if (t.includes('chinese')) return 'Chinese';
+      if (t.includes('korean')) return 'Korean';
+      if (t.includes('isaan') || t.includes('esan')) return 'Isaan';
+      if (t.includes('vietnam')) return 'Vietnamese';
+      if (t.includes('chiang mai') || t.includes('northern')) return 'Northern Thai';
+      if (t.includes('japanese')) return 'Japanese';
+      return '';
+    };
 
     const iconForPlace = (p, group='') => {
       const t = `${p.name} ${p.note}`.toLowerCase();
@@ -221,6 +239,12 @@
       if (t.includes('kebab')) return kebabIcon;
       if (t.includes('mimi') || t.includes('date-night') || t.includes('cocktail')) return cocktailIcon;
       if (t.includes('café') || t.includes('cafe') || t.includes('coffee')) return coffeeIcon;
+      if (t.includes('chinese')) return chineseIcon;
+      if (t.includes('korean')) return koreanIcon;
+      if (t.includes('isaan') || t.includes('esan')) return isaanIcon;
+      if (t.includes('vietnam')) return vietnameseIcon;
+      if (t.includes('chiang mai') || t.includes('northern')) return lannaIcon;
+      if (t.includes('japanese')) return japaneseIcon;
       if (group === 'seafood') return seafoodIcon;
       if (group === 'cheapEats') return cheapIcon;
       if (group === 'western') return westernIcon;
@@ -242,11 +266,11 @@
     document.getElementById('stations-list').innerHTML = stations
       .map(s => `<div class="item"><b>${s.name}</b><span>${s.walk}</span></div>`).join('');
     document.getElementById('cheap-list').innerHTML = cheapEats
-      .map(p => `<div class="item"><b>🍜 ${p.name}</b><span>${p.note}</span></div>`).join('');
+      .map(p => `<div class="item"><b>🍜 ${p.name}</b><span>${[cuisineTag(p), p.note].filter(Boolean).join(' · ')}</span></div>`).join('');
     document.getElementById('western-list').innerHTML = western
-      .map(p => `<div class="item"><b>🍔 ${p.name}</b><span>${p.note}</span></div>`).join('');
+      .map(p => `<div class="item"><b>🍔 ${p.name}</b><span>${[cuisineTag(p), p.note].filter(Boolean).join(' · ')}</span></div>`).join('');
     document.getElementById('seafood-list').innerHTML = seafood
-      .map(p => `<div class="item"><b>🦐 ${p.name}</b><span>${p.note}</span></div>`).join('');
+      .map(p => `<div class="item"><b>🦐 ${p.name}</b><span>${[cuisineTag(p), p.note].filter(Boolean).join(' · ')}</span></div>`).join('');
 
     const layers = ['stations','onsen','convenience','cheapEats','western','seafood','essentials'];
     const setLayer = mode => {
