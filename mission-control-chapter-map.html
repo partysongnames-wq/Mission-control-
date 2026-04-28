@@ -161,6 +161,7 @@
       {name:'Starbucks (Samyan area)', coords:[13.733284,100.526705], note:'Coffee/work fallback', walk:'~8 min', price:'฿฿', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=Starbucks+Samyan+Mitrtown'},
       {name:'Café Amazon', coords:[13.734811,100.524904], note:'Quick coffee nearby', walk:'~8 min', price:'฿', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=Cafe+Amazon+Samyan+Bangkok'},
       {name:'Cowabunga Pizza', coords:[13.741150,100.510980], note:'Pizza comfort food · 574/576 Soi Yaowarat 7, Samphanthawong', walk:'Yaowarat side', price:'฿200–400', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=574+576+%E0%B8%8B%E0%B8%AD%E0%B8%A2+%E0%B9%80%E0%B8%A2%E0%B8%B2%E0%B8%A7%E0%B8%A3%E0%B8%B2%E0%B8%8A+7+%E0%B9%81%E0%B8%82%E0%B8%A7%E0%B8%87%E0%B8%AA%E0%B8%B1%E0%B8%A1%E0%B8%9E%E0%B8%B1%E0%B8%99%E0%B8%98%E0%B8%A7%E0%B8%87%E0%B8%A8%E0%B9%8C+%E0%B9%80%E0%B8%82%E0%B8%95%E0%B8%AA%E0%B8%B1%E0%B8%A1%E0%B8%9E%E0%B8%B1%E0%B8%99%E0%B8%98%E0%B8%A7%E0%B8%87%E0%B8%A8%E0%B9%8C+%E0%B8%81%E0%B8%A3%E0%B8%B8%E0%B8%87%E0%B9%80%E0%B8%97%E0%B8%9E%E0%B8%A1%E0%B8%AB%E0%B8%B2%E0%B8%99%E0%B8%84%E0%B8%A3+10100'},
+      {name:'Sontaya Society - Cafe and Bar', coords:[13.731120,100.522420], note:'Cafe and bar · 104 Maha Phruettharam Rd, Maha Phruttharam, Bang Rak', walk:'Bang Rak side', price:'฿฿', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=104+Maha+Phruettharam+Rd+Khwaeng+Maha+Phruttharam+Khet+Bang+Rak+Bangkok+10500'},
       {name:'Taco Bell (Samyan Mitrtown)', coords:[13.730742,100.528543], note:'Mexican fast food chain', walk:'~10 min', price:'฿฿', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=Taco+Bell+Samyan+Mitrtown+Bangkok'},
       {name:'Yoshinoya (Samyan Mitrtown area)', coords:[13.732720,100.529850], note:'Japanese beef bowl chain (upper side of Sam Yan station)', walk:'~10 min', price:'฿฿', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=Yoshinoya+Samyan+Mitrtown+Bangkok'}
     ];
@@ -261,6 +262,7 @@
       if (t.includes('café amazon') || t.includes('cafe amazon')) return cafeAmazonIcon;
       if (t.includes('mcdonald')) return mcdonaldsIcon;
       if (t.includes('father & son') || t.includes('smash box') || t.includes('buns & more')) return burgerBeerIcon;
+      if (t.includes('sontaya society')) return comboIcon('assets/map-icons/coffee.png', 'assets/map-icons/beer.png', 'rgba(86,64,52,.95)');
       if (t.includes('จิ้มจุ่ม') || t.includes('jim jum') || t.includes('hot pot') || t.includes('hotpot')) return hotpotIcon;
       if (t.includes('kebab')) return kebabIcon;
       if (t.includes('pizza')) return pizzaIcon;
