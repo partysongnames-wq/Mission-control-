@@ -283,10 +283,14 @@
     const unstack = (coords) => {
       let [lat, lng] = coords;
       let tries = 0;
-      while (usedCoords.some(([a,b]) => Math.abs(a-lat) < 0.00022 && Math.abs(b-lng) < 0.00022) && tries < 10) {
-        const step = 0.00018 * (tries + 1);
-        lat += (tries % 2 === 0 ? step : -step * 0.6);
-        lng += (tries % 3 === 0 ? step * 0.7 : -step);
+      const maxOffset = 0.000045; // ~5m safeguard, never drifts to another area/side
+      while (usedCoords.some(([a,b]) => Math.abs(a-lat) < 0.00010 && Math.abs(b-lng) < 0.00010) && tries < 8) {
+        const step = Math.min(0.000010 * (tries + 1), maxOffset);
+        lat += (tries % 2 === 0 ? step : -step * 0.7);
+        lng += (tries % 3 === 0 ? step * 0.6 : -step * 0.8);
+        // hard clamp to stay near original true coordinate
+        lat = Math.max(coords[0] - maxOffset, Math.min(coords[0] + maxOffset, lat));
+        lng = Math.max(coords[1] - maxOffset, Math.min(coords[1] + maxOffset, lng));
         tries++;
       }
       usedCoords.push([lat,lng]);
