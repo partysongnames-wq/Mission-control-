@@ -236,6 +236,7 @@
     const beerIcon = pngIcon('assets/map-icons/beer.png', 'rgba(204,140,34,.95)');
     const sushiBarIcon = comboIcon('assets/map-icons/sushi.png', 'assets/map-icons/beer.png', 'rgba(82,55,38,.95)');
     const ramenBarIcon = comboIcon('assets/map-icons/ramen.png', 'assets/map-icons/beer.png', 'rgba(82,55,38,.95)');
+    const burgerBeerIcon = comboIcon('assets/map-icons/western.png', 'assets/map-icons/beer.png', 'rgba(82,55,38,.95)');
 
     const cuisineTag = (p) => {
       const t = `${p.name} ${p.note}`.toLowerCase();
@@ -257,6 +258,7 @@
       if (t.includes('starbucks')) return starbucksIcon;
       if (t.includes('café amazon') || t.includes('cafe amazon')) return cafeAmazonIcon;
       if (t.includes('mcdonald')) return mcdonaldsIcon;
+      if (t.includes('father & son') || t.includes('smash box') || t.includes('buns & more')) return burgerBeerIcon;
       if (t.includes('kebab')) return kebabIcon;
       if (t.includes('pizza')) return pizzaIcon;
       if (t.includes('mimi') || t.includes('date-night') || t.includes('cocktail')) return cocktailIcon;
