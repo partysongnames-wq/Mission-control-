@@ -201,6 +201,18 @@
     const cheapIcon = pngIcon('assets/map-icons/cheap.png', 'rgba(197,142,29,.95)');
     const westernIcon = pngIcon('assets/map-icons/western.png', 'rgba(195,99,196,.95)');
     const seafoodIcon = pngIcon('assets/map-icons/seafood.png', 'rgba(72,153,133,.95)');
+    const kebabIcon = pngIcon('assets/map-icons/kebab.png', 'rgba(180,110,75,.95)');
+    const cocktailIcon = pngIcon('assets/map-icons/cocktail.png', 'rgba(167,96,195,.95)');
+    const coffeeIcon = pngIcon('assets/map-icons/coffee.png', 'rgba(130,92,66,.95)');
+    const iconForFoodPlace = (p, group) => {
+      const t = `${p.name} ${p.note}`.toLowerCase();
+      if (t.includes('kebab')) return kebabIcon;
+      if (t.includes('mimi') || t.includes('date-night') || t.includes('cocktail')) return cocktailIcon;
+      if (t.includes('starbucks') || t.includes('café') || t.includes('cafe') || t.includes('coffee')) return coffeeIcon;
+      if (group === 'seafood') return seafoodIcon;
+      if (group === 'cheapEats') return cheapIcon;
+      return westernIcon;
+    };
 
     L.marker(chapter.coords,{icon:chapterIcon}).bindPopup(`<b>${chapter.name}</b><br>${chapter.note}`).addTo(groups.chapter);
 
@@ -208,9 +220,9 @@
     onsen.forEach(o => L.marker(o.coords,{icon:onsenIcon}).bindPopup(`<b>${o.name}</b><br>${o.note}`).addTo(groups.onsen));
     essentials.forEach(e => L.marker(e.coords,{icon:essentialIcon}).bindPopup(`<b>${e.name}</b><br>${e.note}`).addTo(groups.essentials));
     convenience.forEach(p => L.marker(p.coords,{icon:convenienceIcon}).bindPopup(`<b>${p.name}</b><br>${p.note}`).addTo(groups.convenience));
-    cheapEats.forEach(p => L.marker(p.coords,{icon:cheapIcon}).bindPopup(foodPopup(p), {maxWidth: 280}).addTo(groups.cheapEats));
-    western.forEach(p => L.marker(p.coords,{icon:westernIcon}).bindPopup(foodPopup(p), {maxWidth: 280}).addTo(groups.western));
-    seafood.forEach(p => L.marker(p.coords,{icon:seafoodIcon}).bindPopup(foodPopup(p), {maxWidth: 280}).addTo(groups.seafood));
+    cheapEats.forEach(p => L.marker(p.coords,{icon:iconForFoodPlace(p, 'cheapEats')}).bindPopup(foodPopup(p), {maxWidth: 280}).addTo(groups.cheapEats));
+    western.forEach(p => L.marker(p.coords,{icon:iconForFoodPlace(p, 'western')}).bindPopup(foodPopup(p), {maxWidth: 280}).addTo(groups.western));
+    seafood.forEach(p => L.marker(p.coords,{icon:iconForFoodPlace(p, 'seafood')}).bindPopup(foodPopup(p), {maxWidth: 280}).addTo(groups.seafood));
 
     document.getElementById('stations-list').innerHTML = stations
       .map(s => `<div class="item"><b>${s.name}</b><span>${s.walk}</span></div>`).join('');
