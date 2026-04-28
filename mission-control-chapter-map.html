@@ -232,6 +232,7 @@
     const japaneseIcon = flaggedIcon('assets/map-icons/seafood.png', '🇯🇵', 'rgba(230,230,230,.95)');
     const sushiIcon = pngIcon('assets/map-icons/sushi.png', 'rgba(223,72,72,.95)');
     const ramenIcon = pngIcon('assets/map-icons/ramen.png', 'rgba(197,142,29,.95)');
+    const pizzaIcon = pngIcon('assets/map-icons/pizza.png', 'rgba(214,82,64,.95)');
     const beerIcon = pngIcon('assets/map-icons/beer.png', 'rgba(204,140,34,.95)');
     const sushiBarIcon = comboIcon('assets/map-icons/sushi.png', 'assets/map-icons/beer.png', 'rgba(82,55,38,.95)');
     const ramenBarIcon = comboIcon('assets/map-icons/ramen.png', 'assets/map-icons/beer.png', 'rgba(82,55,38,.95)');
@@ -257,6 +258,7 @@
       if (t.includes('café amazon') || t.includes('cafe amazon')) return cafeAmazonIcon;
       if (t.includes('mcdonald')) return mcdonaldsIcon;
       if (t.includes('kebab')) return kebabIcon;
+      if (t.includes('pizza')) return pizzaIcon;
       if (t.includes('mimi') || t.includes('date-night') || t.includes('cocktail')) return cocktailIcon;
       if (t.includes('café') || t.includes('cafe') || t.includes('coffee')) return coffeeIcon;
       if ((t.includes('sushi') || t.includes('omakase')) && (t.includes('bar') || t.includes('izakaya') || t.includes('beer'))) return sushiBarIcon;
