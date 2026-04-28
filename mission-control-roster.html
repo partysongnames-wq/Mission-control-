@@ -48,7 +48,7 @@
       content:'';
       position:absolute;
       inset:0;
-      background-image:url('/assets/standard-crew-hero.jpg');
+      background-image:url('assets/standard-crew-hero.jpg');
       background-size:cover;
       background-position:center;
       filter:contrast(1.1) saturate(1.1);
@@ -221,16 +221,16 @@
   <script>
     const AGENTS = [
       // Pinned / top-of-roster
-      { id: 'director', agentId: 'director', name: 'Trent', nickname: 'TR', desc: 'Director / approves changes', avatar: '/assets/trent-avatar.jpg', model: 'CEO' },
-      { id: '-5287663927', agentId: 'yoko', name: 'Yoko', nickname: 'Yoko', desc: 'Ops + travel coordination. Models: 5.2 / 5.3.', roles: ['Ops', 'Travel'], actions: ['watch','travel','manifesto'], avatar: '/assets/yoko.jpg', model: 'openai-codex/gpt-5.2', groups: ['Design & Y Skills','Yoko + TJ','Main Ops'] },
-      { id: 'yoko-lite', agentId: 'yoko-lite', name: 'Yuki', nickname: 'Yuki', desc: 'Lite scan bot. Model: 5.1‑mini (upgradeable).', roles: ['Lite scans'], actions: ['watch'], avatar: '/assets/yoko.jpg', avatarFilter: 'hue-rotate(200deg) saturate(1.4) brightness(1.05)', model: 'gpt-5.1-codex-mini', groups: ['Design & Y Skills','Yoko + TJ'] },
+      { id: 'director', agentId: 'director', name: 'Trent', nickname: 'TR', desc: 'Director / approves changes', avatar: 'assets/trent-avatar.jpg', model: 'CEO' },
+      { id: '-5287663927', agentId: 'yoko', name: 'Yoko', nickname: 'Yoko', desc: 'Ops + travel coordination. Models: 5.2 / 5.3.', roles: ['Ops', 'Travel'], actions: ['watch','travel','manifesto'], avatar: 'assets/yoko.jpg', model: 'openai-codex/gpt-5.2', groups: ['Design & Y Skills','Yoko + TJ','Main Ops'] },
+      { id: 'yoko-lite', agentId: 'yoko-lite', name: 'Yuki', nickname: 'Yuki', desc: 'Lite scan bot. Model: 5.1‑mini (upgradeable).', roles: ['Lite scans'], actions: ['watch'], avatar: 'assets/yoko.jpg', avatarFilter: 'hue-rotate(200deg) saturate(1.4) brightness(1.05)', model: 'gpt-5.1-codex-mini', groups: ['Design & Y Skills','Yoko + TJ'] },
 
       // Crew
-      { id: '-5275095885', agentId: 'tj', name: 'TJ', nickname: 'TJ', desc: 'Trent Assistant — travel scans + quiet ops.', action: 'travel', avatar: '/assets/tj.jpg', model: 'gpt-5.2', groups: ['Yoko + TJ'] },
-      { id: '-5158792881', agentId: 'jaz', name: 'Jaz', nickname: 'Jaz', desc: 'Jasper Assistant — manifesto + calm top 3', action: 'manifesto', avatar: '/assets/jaz.jpg', model: 'openai-codex/gpt-5.2', chatLink: 'https://t.me/Jaz_2026ops_bot' },
-      { id: '-5181843441', agentId: 'holly', name: 'Holly', nickname: 'Holly', desc: 'Japan Holiday — Japan trip + memories', action: 'memory', avatar: '/assets/holly.jpg', model: 'openai-codex/gpt-5.3-codex' },
-      { id: '-5254836070', agentId: 'joe', name: 'Joe', nickname: 'Joe', desc: 'Side Jobs — job hunt + follow-ups', avatar: '/assets/joe.jpg', model: 'openai-codex/gpt-5.3-codex' },
-      { id: '-5271777981', agentId: 'clawd', name: 'Clawd', nickname: 'Clawd', desc: 'Original creator + designer — builds the dashboards, keeps the cron fleet humming, and turns instincts into clickable tools.', action: 'watch', avatar: '/assets/clawd.jpg', model: 'openai-codex/gpt-5.2' },
+      { id: '-5275095885', agentId: 'tj', name: 'TJ', nickname: 'TJ', desc: 'Trent Assistant — travel scans + quiet ops.', action: 'travel', avatar: 'assets/tj.jpg', model: 'gpt-5.2', groups: ['Yoko + TJ'] },
+      { id: '-5158792881', agentId: 'jaz', name: 'Jaz', nickname: 'Jaz', desc: 'Jasper Assistant — manifesto + calm top 3', action: 'manifesto', avatar: 'assets/jaz.jpg', model: 'openai-codex/gpt-5.2', chatLink: 'https://t.me/Jaz_2026ops_bot' },
+      { id: '-5181843441', agentId: 'holly', name: 'Holly', nickname: 'Holly', desc: 'Japan Holiday — Japan trip + memories', action: 'memory', avatar: 'assets/holly.jpg', model: 'openai-codex/gpt-5.3-codex' },
+      { id: '-5254836070', agentId: 'joe', name: 'Joe', nickname: 'Joe', desc: 'Side Jobs — job hunt + follow-ups', avatar: 'assets/joe.jpg', model: 'openai-codex/gpt-5.3-codex' },
+      { id: '-5271777981', agentId: 'clawd', name: 'Clawd', nickname: 'Clawd', desc: 'Original creator + designer — builds the dashboards, keeps the cron fleet humming, and turns instincts into clickable tools.', action: 'watch', avatar: 'assets/clawd.jpg', model: 'openai-codex/gpt-5.2' },
     ];
 
     const roster = document.getElementById('roster');
