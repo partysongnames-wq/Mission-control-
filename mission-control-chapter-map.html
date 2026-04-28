@@ -203,6 +203,10 @@
       html:`<div style="width:34px;height:34px;border-radius:999px;background:${bg};border:1px solid rgba(255,255,255,.4);position:relative;box-shadow:0 3px 10px rgba(0,0,0,.42)"><img src="${srcA}" style="position:absolute;left:4px;top:8px;width:14px;height:14px"/><img src="${srcB}" style="position:absolute;right:4px;top:8px;width:14px;height:14px"/></div>`,
       className:'', iconSize:[34,34], iconAnchor:[17,17]
     });
+    const flaggedIcon = (src, flag, bg='rgba(30,30,30,.96)', size=18) => L.divIcon({
+      html:`<div style="width:34px;height:34px;border-radius:999px;background:${bg};border:1px solid rgba(255,255,255,.4);position:relative;box-shadow:0 3px 10px rgba(0,0,0,.42);display:flex;align-items:center;justify-content:center"><img src="${src}" style="width:${size}px;height:${size}px;display:block"/><span style="position:absolute;right:-3px;bottom:-4px;font-size:11px;line-height:1">${flag}</span></div>`,
+      className:'', iconSize:[34,34], iconAnchor:[17,17]
+    });
     const stationIcon = pngIcon('assets/map-icons/station.png', 'rgba(58,143,191,.95)');
     const onsenIcon = pngIcon('assets/map-icons/onsen.png', 'rgba(142,90,255,.95)');
     const essentialIcon = pngIcon('assets/map-icons/essentials.png', 'rgba(67,151,112,.95)');
@@ -218,12 +222,12 @@
     const maxvaluIcon = pngIcon('assets/map-icons/maxvalu-logo.svg', 'rgba(255,255,255,.96)', 20);
     const cafeAmazonIcon = pngIcon('assets/map-icons/cafe-amazon-logo.svg', 'rgba(255,255,255,.96)', 20);
     const mcdonaldsIcon = pngIcon('assets/map-icons/mcdonalds-logo.png', 'rgba(255,255,255,.96)', 20);
-    const chineseIcon = pngIcon('assets/map-icons/chinese.png', 'rgba(186,58,58,.95)');
-    const koreanIcon = pngIcon('assets/map-icons/korean.png', 'rgba(93,107,217,.95)');
-    const isaanIcon = pngIcon('assets/map-icons/isaan.png', 'rgba(225,125,45,.95)');
-    const vietnameseIcon = pngIcon('assets/map-icons/vietnamese.png', 'rgba(46,150,90,.95)');
-    const lannaIcon = pngIcon('assets/map-icons/northern.png', 'rgba(153,89,49,.95)');
-    const japaneseIcon = pngIcon('assets/map-icons/seafood.png', 'rgba(230,230,230,.95)');
+    const chineseIcon = flaggedIcon('assets/map-icons/chinese.png', '🇨🇳', 'rgba(186,58,58,.95)');
+    const koreanIcon = flaggedIcon('assets/map-icons/korean.png', '🇰🇷', 'rgba(93,107,217,.95)');
+    const isaanIcon = flaggedIcon('assets/map-icons/isaan.png', '🇹🇭', 'rgba(225,125,45,.95)');
+    const vietnameseIcon = flaggedIcon('assets/map-icons/vietnamese.png', '🇻🇳', 'rgba(46,150,90,.95)');
+    const lannaIcon = flaggedIcon('assets/map-icons/northern.png', '🏔️', 'rgba(153,89,49,.95)');
+    const japaneseIcon = flaggedIcon('assets/map-icons/seafood.png', '🇯🇵', 'rgba(230,230,230,.95)');
     const sushiIcon = pngIcon('assets/map-icons/sushi.png', 'rgba(223,72,72,.95)');
     const ramenIcon = pngIcon('assets/map-icons/ramen.png', 'rgba(197,142,29,.95)');
     const beerIcon = pngIcon('assets/map-icons/beer.png', 'rgba(204,140,34,.95)');
