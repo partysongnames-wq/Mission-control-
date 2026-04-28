@@ -279,9 +279,23 @@
     onsen.forEach(o => L.marker(o.coords,{icon:onsenIcon}).bindPopup(`<b>${o.name}</b><br>${o.note}`).addTo(groups.onsen));
     essentials.forEach(e => L.marker(e.coords,{icon:iconForPlace(e, 'essentials')}).bindPopup(`<b>${e.name}</b><br>${e.note}`).addTo(groups.essentials));
     convenience.forEach(p => L.marker(p.coords,{icon:iconForPlace(p, 'convenience')}).bindPopup(`<b>${p.name}</b><br>${p.note}`).addTo(groups.convenience));
-    cheapEats.forEach(p => L.marker(p.coords,{icon:iconForPlace(p, 'cheapEats')}).bindPopup(foodPopup(p), {maxWidth: 280}).addTo(groups.cheapEats));
-    western.forEach(p => L.marker(p.coords,{icon:iconForPlace(p, 'western')}).bindPopup(foodPopup(p), {maxWidth: 280}).addTo(groups.western));
-    seafood.forEach(p => L.marker(p.coords,{icon:iconForPlace(p, 'seafood')}).bindPopup(foodPopup(p), {maxWidth: 280}).addTo(groups.seafood));
+    const usedCoords = [];
+    const unstack = (coords) => {
+      let [lat, lng] = coords;
+      let tries = 0;
+      while (usedCoords.some(([a,b]) => Math.abs(a-lat) < 0.00022 && Math.abs(b-lng) < 0.00022) && tries < 10) {
+        const step = 0.00018 * (tries + 1);
+        lat += (tries % 2 === 0 ? step : -step * 0.6);
+        lng += (tries % 3 === 0 ? step * 0.7 : -step);
+        tries++;
+      }
+      usedCoords.push([lat,lng]);
+      return [lat,lng];
+    };
+
+    cheapEats.forEach(p => L.marker(unstack(p.coords),{icon:iconForPlace(p, 'cheapEats')}).bindPopup(foodPopup(p), {maxWidth: 280}).addTo(groups.cheapEats));
+    western.forEach(p => L.marker(unstack(p.coords),{icon:iconForPlace(p, 'western')}).bindPopup(foodPopup(p), {maxWidth: 280}).addTo(groups.western));
+    seafood.forEach(p => L.marker(unstack(p.coords),{icon:iconForPlace(p, 'seafood')}).bindPopup(foodPopup(p), {maxWidth: 280}).addTo(groups.seafood));
 
     document.getElementById('stations-list').innerHTML = stations
       .map(s => `<div class="item"><b>${s.name}</b><span>${s.walk}</span></div>`).join('');
