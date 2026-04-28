@@ -200,6 +200,10 @@
       html:`<div style="width:30px;height:30px;border-radius:999px;background:${bg};border:1px solid rgba(255,255,255,.35);display:flex;align-items:center;justify-content:center;box-shadow:0 3px 10px rgba(0,0,0,.42)"><img src="${src}" style="width:${size}px;height:${size}px;display:block"/></div>`,
       className:'', iconSize:[30,30], iconAnchor:[15,15]
     });
+    const comboIcon = (srcA, srcB, bg='rgba(30,30,30,.96)') => L.divIcon({
+      html:`<div style="width:34px;height:34px;border-radius:999px;background:${bg};border:1px solid rgba(255,255,255,.4);position:relative;box-shadow:0 3px 10px rgba(0,0,0,.42)"><img src="${srcA}" style="position:absolute;left:4px;top:8px;width:14px;height:14px"/><img src="${srcB}" style="position:absolute;right:4px;top:8px;width:14px;height:14px"/></div>`,
+      className:'', iconSize:[34,34], iconAnchor:[17,17]
+    });
     const stationIcon = pngIcon('assets/map-icons/station.png', 'rgba(58,143,191,.95)');
     const onsenIcon = pngIcon('assets/map-icons/onsen.png', 'rgba(142,90,255,.95)');
     const essentialIcon = pngIcon('assets/map-icons/essentials.png', 'rgba(67,151,112,.95)');
@@ -221,6 +225,11 @@
     const vietnameseIcon = pngIcon('assets/map-icons/cheap.png', 'rgba(46,150,90,.95)');
     const lannaIcon = pngIcon('assets/map-icons/cheap.png', 'rgba(153,89,49,.95)');
     const japaneseIcon = pngIcon('assets/map-icons/seafood.png', 'rgba(230,230,230,.95)');
+    const sushiIcon = pngIcon('assets/map-icons/sushi.png', 'rgba(223,72,72,.95)');
+    const ramenIcon = pngIcon('assets/map-icons/ramen.png', 'rgba(197,142,29,.95)');
+    const beerIcon = pngIcon('assets/map-icons/beer.png', 'rgba(204,140,34,.95)');
+    const sushiBarIcon = comboIcon('assets/map-icons/sushi.png', 'assets/map-icons/beer.png', 'rgba(82,55,38,.95)');
+    const ramenBarIcon = comboIcon('assets/map-icons/ramen.png', 'assets/map-icons/beer.png', 'rgba(82,55,38,.95)');
 
     const cuisineTag = (p) => {
       const t = `${p.name} ${p.note}`.toLowerCase();
@@ -243,6 +252,10 @@
       if (t.includes('kebab')) return kebabIcon;
       if (t.includes('mimi') || t.includes('date-night') || t.includes('cocktail')) return cocktailIcon;
       if (t.includes('café') || t.includes('cafe') || t.includes('coffee')) return coffeeIcon;
+      if ((t.includes('sushi') || t.includes('omakase')) && (t.includes('bar') || t.includes('izakaya') || t.includes('beer'))) return sushiBarIcon;
+      if ((t.includes('ramen')) && (t.includes('bar') || t.includes('izakaya') || t.includes('beer'))) return ramenBarIcon;
+      if (t.includes('sushi') || t.includes('omakase')) return sushiIcon;
+      if (t.includes('ramen')) return ramenIcon;
       if (t.includes('chinese')) return chineseIcon;
       if (t.includes('korean')) return koreanIcon;
       if (t.includes('isaan') || t.includes('esan')) return isaanIcon;
