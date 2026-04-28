@@ -205,14 +205,26 @@
     const cocktailIcon = pngIcon('assets/map-icons/cocktail.png', 'rgba(167,96,195,.95)');
     const coffeeIcon = pngIcon('assets/map-icons/coffee.png', 'rgba(130,92,66,.95)');
     const starbucksIcon = pngIcon('assets/map-icons/starbucks-logo.png', 'rgba(255,255,255,.96)', 20);
-    const iconForFoodPlace = (p, group) => {
+    const sevenElevenIcon = pngIcon('assets/map-icons/seven-eleven-logo.png', 'rgba(255,255,255,.96)', 20);
+    const maxvaluIcon = pngIcon('assets/map-icons/maxvalu-logo.png', 'rgba(255,255,255,.96)', 20);
+    const cafeAmazonIcon = pngIcon('assets/map-icons/cafe-amazon-logo.png', 'rgba(255,255,255,.96)', 20);
+    const mcdonaldsIcon = pngIcon('assets/map-icons/mcdonalds-logo.png', 'rgba(255,255,255,.96)', 20);
+
+    const iconForPlace = (p, group='') => {
       const t = `${p.name} ${p.note}`.toLowerCase();
+      if (t.includes('7-eleven')) return sevenElevenIcon;
+      if (t.includes('maxvalu')) return maxvaluIcon;
+      if (t.includes('starbucks')) return starbucksIcon;
+      if (t.includes('café amazon') || t.includes('cafe amazon')) return cafeAmazonIcon;
+      if (t.includes('mcdonald')) return mcdonaldsIcon;
       if (t.includes('kebab')) return kebabIcon;
       if (t.includes('mimi') || t.includes('date-night') || t.includes('cocktail')) return cocktailIcon;
-      if (t.includes('starbucks')) return starbucksIcon;
       if (t.includes('café') || t.includes('cafe') || t.includes('coffee')) return coffeeIcon;
       if (group === 'seafood') return seafoodIcon;
       if (group === 'cheapEats') return cheapIcon;
+      if (group === 'western') return westernIcon;
+      if (group === 'convenience') return convenienceIcon;
+      if (group === 'essentials') return essentialIcon;
       return westernIcon;
     };
 
@@ -220,11 +232,11 @@
 
     stations.forEach(s => L.marker(s.coords,{icon:stationIcon}).bindPopup(`<b>${s.name}</b><br>${s.walk}`).addTo(groups.stations));
     onsen.forEach(o => L.marker(o.coords,{icon:onsenIcon}).bindPopup(`<b>${o.name}</b><br>${o.note}`).addTo(groups.onsen));
-    essentials.forEach(e => L.marker(e.coords,{icon:essentialIcon}).bindPopup(`<b>${e.name}</b><br>${e.note}`).addTo(groups.essentials));
-    convenience.forEach(p => L.marker(p.coords,{icon:convenienceIcon}).bindPopup(`<b>${p.name}</b><br>${p.note}`).addTo(groups.convenience));
-    cheapEats.forEach(p => L.marker(p.coords,{icon:iconForFoodPlace(p, 'cheapEats')}).bindPopup(foodPopup(p), {maxWidth: 280}).addTo(groups.cheapEats));
-    western.forEach(p => L.marker(p.coords,{icon:iconForFoodPlace(p, 'western')}).bindPopup(foodPopup(p), {maxWidth: 280}).addTo(groups.western));
-    seafood.forEach(p => L.marker(p.coords,{icon:iconForFoodPlace(p, 'seafood')}).bindPopup(foodPopup(p), {maxWidth: 280}).addTo(groups.seafood));
+    essentials.forEach(e => L.marker(e.coords,{icon:iconForPlace(e, 'essentials')}).bindPopup(`<b>${e.name}</b><br>${e.note}`).addTo(groups.essentials));
+    convenience.forEach(p => L.marker(p.coords,{icon:iconForPlace(p, 'convenience')}).bindPopup(`<b>${p.name}</b><br>${p.note}`).addTo(groups.convenience));
+    cheapEats.forEach(p => L.marker(p.coords,{icon:iconForPlace(p, 'cheapEats')}).bindPopup(foodPopup(p), {maxWidth: 280}).addTo(groups.cheapEats));
+    western.forEach(p => L.marker(p.coords,{icon:iconForPlace(p, 'western')}).bindPopup(foodPopup(p), {maxWidth: 280}).addTo(groups.western));
+    seafood.forEach(p => L.marker(p.coords,{icon:iconForPlace(p, 'seafood')}).bindPopup(foodPopup(p), {maxWidth: 280}).addTo(groups.seafood));
 
     document.getElementById('stations-list').innerHTML = stations
       .map(s => `<div class="item"><b>${s.name}</b><span>${s.walk}</span></div>`).join('');
