@@ -31,10 +31,7 @@
     .leaflet-popup-content-wrapper{background:linear-gradient(180deg,#0f1728,#0a1020);color:#edf3ff;border:1px solid rgba(255,255,255,.18);border-radius:14px}
     .leaflet-popup-tip{background:#0a1020}
     .vip-badge{display:inline-block;padding:3px 8px;border-radius:999px;font-size:10px;letter-spacing:.08em;text-transform:uppercase;border:1px solid rgba(255,215,122,.5);background:rgba(255,215,122,.14);color:#ffe9a6;margin-bottom:5px}
-    .legend{position:absolute;z-index:600;right:22px;bottom:22px;background:rgba(8,12,22,.92);border:1px solid rgba(255,255,255,.2);border-radius:10px;padding:10px 11px;min-width:180px}
-    .legend h4{margin:0 0 7px;font-size:.66rem;letter-spacing:.09em;text-transform:uppercase;color:#dbe8ff}
-    .legend .row{display:flex;align-items:center;gap:8px;font-size:.74rem;color:#d8e3ff;margin:4px 0}
-    .legend .icon{width:16px;height:16px;display:inline-block;object-fit:contain}
+
     @media (max-width:980px){.grid{grid-template-columns:1fr}#map{height:56vh;min-height:420px}.photo-grid{grid-template-columns:1fr}}
   </style>
 </head>
@@ -60,7 +57,7 @@
           <button class="chip" data-layer="seafood">Seafood / Local Favs</button>
           <button class="chip" data-layer="essentials">Essentials</button>
         </div>
-        <div style="position:relative"><div id="map"></div><div class="legend"><h4>Cuisine Legend</h4><div class="row"><img class="icon" src="assets/map-icons/chinese.png"/>Chinese</div><div class="row"><img class="icon" src="assets/map-icons/korean.png"/>Korean</div><div class="row"><img class="icon" src="assets/map-icons/isaan.png"/>Isaan</div><div class="row"><img class="icon" src="assets/map-icons/vietnamese.png"/>Vietnamese</div><div class="row"><img class="icon" src="assets/map-icons/northern.png"/>Northern Thai</div><div class="row"><img class="icon" src="assets/map-icons/seafood.png"/>Japanese</div><div class="row"><img class="icon" src="assets/map-icons/sushi.png"/>Sushi</div><div class="row"><img class="icon" src="assets/map-icons/ramen.png"/>Ramen</div><div class="row"><img class="icon" src="assets/map-icons/beer.png"/>Bar</div></div></div>
+        <div style="position:relative"><div id="map"></div></div>
       </div>
 
       <div class="card">
@@ -162,7 +159,9 @@
       {name:'Father & Son\'s - The Smash Box', coords:[13.7317,100.5252], note:'High-rated smash burger pick', walk:'~10 min', price:'฿200–400', rating:'4.9★ (~39)', image:'assets/food/father-son-1.jpg', maps:'https://www.google.com/maps/search/?api=1&query=Father+%26+Son%27s+The+Smash+Box+Bangkok'},
       {name:'Starbucks (Samyan area)', coords:[13.733284,100.526705], note:'Coffee/work fallback', walk:'~8 min', price:'฿฿', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=Starbucks+Samyan+Mitrtown'},
       {name:'Café Amazon', coords:[13.734811,100.524904], note:'Quick coffee nearby', walk:'~8 min', price:'฿', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=Cafe+Amazon+Samyan+Bangkok'},
-      {name:'Cowabunga Pizza', coords:[13.729900,100.527300], note:'Pizza comfort food', walk:'~11 min', price:'฿200–400', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=Cowabunga+Pizza+Bangkok'}
+      {name:'Cowabunga Pizza', coords:[13.729900,100.527300], note:'Pizza comfort food', walk:'~11 min', price:'฿200–400', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=Cowabunga+Pizza+Bangkok'},
+      {name:'Taco Bell (Silom Complex)', coords:[13.728900,100.534500], note:'Mexican fast food chain', walk:'~15 min by bike/taxi', price:'฿฿', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=Taco+Bell+Silom+Complex+Bangkok'},
+      {name:'Yoshinoya (Samyan Mitrtown area)', coords:[13.730742,100.528543], note:'Japanese beef bowl chain', walk:'~10 min', price:'฿฿', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=Yoshinoya+Samyan+Mitrtown+Bangkok'}
     ];
 
     const seafood = [
