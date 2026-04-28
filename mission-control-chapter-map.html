@@ -130,7 +130,7 @@
     ];
 
     const essentials = [
-      {name:'Samyan Mitrtown', coords:[13.7307,100.5285], note:'Mall, groceries, food'},
+      {name:'Samyan Mitrtown', coords:[13.730742,100.528543], note:'Mall, groceries, food, Taco Bell + Yoshinoya area'},
       {name:'Chamchuri Square', coords:[13.7302,100.5314], note:'Groceries + daily errands'},
       {name:'MaxValu', coords:[13.733226,100.526495], note:'Supermarket (late hours)'},
       {name:'Bang Rak District Office Area', coords:[13.7265,100.5223], note:'Admin/services zone'}
@@ -222,6 +222,7 @@
     const maxvaluIcon = pngIcon('assets/map-icons/maxvalu-logo.svg', 'rgba(255,255,255,.96)', 20);
     const cafeAmazonIcon = pngIcon('assets/map-icons/cafe-amazon-logo.svg', 'rgba(255,255,255,.96)', 20);
     const mcdonaldsIcon = pngIcon('assets/map-icons/mcdonalds-logo.png', 'rgba(255,255,255,.96)', 20);
+    const tacoBellIcon = pngIcon('assets/map-icons/tacobell-logo.svg', 'rgba(255,255,255,.96)', 20);
     const chineseIcon = flaggedIcon('assets/map-icons/chinese.png', '🇨🇳', 'rgba(186,58,58,.95)');
     const koreanIcon = flaggedIcon('assets/map-icons/korean.png', '🇰🇷', 'rgba(93,107,217,.95)');
     const isaanIcon = flaggedIcon('assets/map-icons/isaan.png', '🇹🇭', 'rgba(225,125,45,.95)');
@@ -249,6 +250,7 @@
       const t = `${p.name} ${p.note}`.toLowerCase();
       if (t.includes('7-eleven')) return sevenElevenIcon;
       if (t.includes('maxvalu')) return maxvaluIcon;
+      if (t.includes('taco bell')) return tacoBellIcon;
       if (t.includes('starbucks')) return starbucksIcon;
       if (t.includes('café amazon') || t.includes('cafe amazon')) return cafeAmazonIcon;
       if (t.includes('mcdonald')) return mcdonaldsIcon;
