@@ -190,13 +190,17 @@
       const mapsBtn = p.maps ? `<a href="${p.maps}" target="_blank" style="display:inline-block;margin-top:7px;padding:7px 10px;border-radius:999px;border:1px solid #7dd3fc;color:#c8f1ff;text-decoration:none;font-size:12px;font-weight:600;">Open in Google Maps ↗</a>` : '';
       return `<div style="width:248px"><span class="vip-badge">Trent Verified</span><br><b style="font-size:14px;line-height:1.25">${p.name}</b><br><span style="font-size:12px;color:#a8b7d8">${meta}</span>${img}<div style="font-size:12px;color:#dbe7ff;line-height:1.35">${p.note || ''}</div>${mapsBtn}</div>`;
     };
-    const stationIcon = L.divIcon({html:'<div style="width:14px;height:14px;border-radius:50%;background:#5ecbff;border:2px solid #dff5ff"></div>', className:'', iconSize:[14,14], iconAnchor:[7,7]});
-    const onsenIcon = L.divIcon({html:'<div style="font-size:18px">♨️</div>', className:'', iconSize:[18,18], iconAnchor:[9,9]});
-    const essentialIcon = L.divIcon({html:'<div style="width:14px;height:14px;border-radius:4px;transform:rotate(45deg);background:#48d597;border:2px solid #dffff4"></div>', className:'', iconSize:[14,14], iconAnchor:[7,7]});
-    const convenienceIcon = L.divIcon({html:'<div style="width:14px;height:14px;border-radius:3px;background:#ff8d5e;border:2px solid #ffe8dc"></div>', className:'', iconSize:[14,14], iconAnchor:[7,7]});
-    const cheapIcon = L.divIcon({html:'<div style="width:14px;height:14px;border-radius:50%;background:#ffd84a;border:2px solid #fff6cc"></div>', className:'', iconSize:[14,14], iconAnchor:[7,7]});
-    const westernIcon = L.divIcon({html:'<div style="width:14px;height:14px;border-radius:4px;background:#f09cff;border:2px solid #fce5ff"></div>', className:'', iconSize:[14,14], iconAnchor:[7,7]});
-    const seafoodIcon = L.divIcon({html:'<div style="width:14px;height:14px;border-radius:50%;background:#7de3c1;border:2px solid #dffff4"></div>', className:'', iconSize:[14,14], iconAnchor:[7,7]});
+    const cuteIcon = (emoji, bg='#1f2937') => L.divIcon({
+      html:`<div style="width:30px;height:30px;border-radius:999px;background:${bg};border:1px solid rgba(255,255,255,.35);display:flex;align-items:center;justify-content:center;font-size:16px;box-shadow:0 3px 10px rgba(0,0,0,.42)">${emoji}</div>`,
+      className:'', iconSize:[30,30], iconAnchor:[15,15]
+    });
+    const stationIcon = cuteIcon('🚇', 'rgba(58,143,191,.95)');
+    const onsenIcon = cuteIcon('♨️', 'rgba(142,90,255,.95)');
+    const essentialIcon = cuteIcon('🛍️', 'rgba(67,151,112,.95)');
+    const convenienceIcon = cuteIcon('🏪', 'rgba(208,111,65,.95)');
+    const cheapIcon = cuteIcon('🍜', 'rgba(197,142,29,.95)');
+    const westernIcon = cuteIcon('🍔', 'rgba(195,99,196,.95)');
+    const seafoodIcon = cuteIcon('🦐', 'rgba(72,153,133,.95)');
 
     L.marker(chapter.coords,{icon:chapterIcon}).bindPopup(`<b>${chapter.name}</b><br>${chapter.note}`).addTo(groups.chapter);
 
@@ -211,11 +215,11 @@
     document.getElementById('stations-list').innerHTML = stations
       .map(s => `<div class="item"><b>${s.name}</b><span>${s.walk}</span></div>`).join('');
     document.getElementById('cheap-list').innerHTML = cheapEats
-      .map(p => `<div class="item"><b>${p.name}</b><span>${p.note}</span></div>`).join('');
+      .map(p => `<div class="item"><b>🍜 ${p.name}</b><span>${p.note}</span></div>`).join('');
     document.getElementById('western-list').innerHTML = western
-      .map(p => `<div class="item"><b>${p.name}</b><span>${p.note}</span></div>`).join('');
+      .map(p => `<div class="item"><b>🍔 ${p.name}</b><span>${p.note}</span></div>`).join('');
     document.getElementById('seafood-list').innerHTML = seafood
-      .map(p => `<div class="item"><b>${p.name}</b><span>${p.note}</span></div>`).join('');
+      .map(p => `<div class="item"><b>🦐 ${p.name}</b><span>${p.note}</span></div>`).join('');
 
     const layers = ['stations','onsen','convenience','cheapEats','western','seafood','essentials'];
     const setLayer = mode => {
