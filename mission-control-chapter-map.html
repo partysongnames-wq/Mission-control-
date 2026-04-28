@@ -279,32 +279,9 @@
     onsen.forEach(o => L.marker(o.coords,{icon:onsenIcon}).bindPopup(`<b>${o.name}</b><br>${o.note}`).addTo(groups.onsen));
     essentials.forEach(e => L.marker(e.coords,{icon:iconForPlace(e, 'essentials')}).bindPopup(`<b>${e.name}</b><br>${e.note}`).addTo(groups.essentials));
     convenience.forEach(p => L.marker(p.coords,{icon:iconForPlace(p, 'convenience')}).bindPopup(`<b>${p.name}</b><br>${p.note}`).addTo(groups.convenience));
-    const usedCoords = [];
-    const unstack = (coords) => {
-      let [lat, lng] = coords;
-      let tries = 0;
-      const maxOffset = 0.000045; // ~5m safeguard, never drifts to another area/side
-      while (usedCoords.some(([a,b]) => Math.abs(a-lat) < 0.00010 && Math.abs(b-lng) < 0.00010) && tries < 8) {
-        const step = Math.min(0.000010 * (tries + 1), maxOffset);
-        lat += (tries % 2 === 0 ? step : -step * 0.7);
-        lng += (tries % 3 === 0 ? step * 0.6 : -step * 0.8);
-        // hard clamp to stay near original true coordinate
-        lat = Math.max(coords[0] - maxOffset, Math.min(coords[0] + maxOffset, lat));
-        lng = Math.max(coords[1] - maxOffset, Math.min(coords[1] + maxOffset, lng));
-        tries++;
-      }
-      usedCoords.push([lat,lng]);
-      return [lat,lng];
-    };
-
-    const mustStayExact = (p) => {
-      const t = `${p.name}`.toLowerCase();
-      return t.includes('yoshinoya') || t.includes('taco bell');
-    };
-
-    cheapEats.forEach(p => L.marker(mustStayExact(p) ? p.coords : unstack(p.coords),{icon:iconForPlace(p, 'cheapEats')}).bindPopup(foodPopup(p), {maxWidth: 280}).addTo(groups.cheapEats));
-    western.forEach(p => L.marker(mustStayExact(p) ? p.coords : unstack(p.coords),{icon:iconForPlace(p, 'western')}).bindPopup(foodPopup(p), {maxWidth: 280}).addTo(groups.western));
-    seafood.forEach(p => L.marker(mustStayExact(p) ? p.coords : unstack(p.coords),{icon:iconForPlace(p, 'seafood')}).bindPopup(foodPopup(p), {maxWidth: 280}).addTo(groups.seafood));
+    cheapEats.forEach(p => L.marker(p.coords,{icon:iconForPlace(p, 'cheapEats')}).bindPopup(foodPopup(p), {maxWidth: 280}).addTo(groups.cheapEats));
+    western.forEach(p => L.marker(p.coords,{icon:iconForPlace(p, 'western')}).bindPopup(foodPopup(p), {maxWidth: 280}).addTo(groups.western));
+    seafood.forEach(p => L.marker(p.coords,{icon:iconForPlace(p, 'seafood')}).bindPopup(foodPopup(p), {maxWidth: 280}).addTo(groups.seafood));
 
     document.getElementById('stations-list').innerHTML = stations
       .map(s => `<div class="item"><b>${s.name}</b><span>${s.walk}</span></div>`).join('');
