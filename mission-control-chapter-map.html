@@ -34,7 +34,7 @@
     .legend{position:absolute;z-index:600;right:22px;bottom:22px;background:rgba(8,12,22,.92);border:1px solid rgba(255,255,255,.2);border-radius:10px;padding:10px 11px;min-width:180px}
     .legend h4{margin:0 0 7px;font-size:.66rem;letter-spacing:.09em;text-transform:uppercase;color:#dbe8ff}
     .legend .row{display:flex;align-items:center;gap:8px;font-size:.74rem;color:#d8e3ff;margin:4px 0}
-    .legend .dot{width:11px;height:11px;border-radius:999px;display:inline-block}
+    .legend .icon{width:16px;height:16px;display:inline-block;object-fit:contain}
     @media (max-width:980px){.grid{grid-template-columns:1fr}#map{height:56vh;min-height:420px}.photo-grid{grid-template-columns:1fr}}
   </style>
 </head>
@@ -60,7 +60,7 @@
           <button class="chip" data-layer="seafood">Seafood / Local Favs</button>
           <button class="chip" data-layer="essentials">Essentials</button>
         </div>
-        <div style="position:relative"><div id="map"></div><div class="legend"><h4>Cuisine Legend</h4><div class="row"><span class="dot" style="background:#ba3a3a"></span>Chinese</div><div class="row"><span class="dot" style="background:#5d6bd9"></span>Korean</div><div class="row"><span class="dot" style="background:#e17d2d"></span>Isaan</div><div class="row"><span class="dot" style="background:#2e965a"></span>Vietnamese</div><div class="row"><span class="dot" style="background:#995931"></span>Northern Thai</div><div class="row"><span class="dot" style="background:#e6e6e6"></span>Japanese</div></div></div>
+        <div style="position:relative"><div id="map"></div><div class="legend"><h4>Cuisine Legend</h4><div class="row"><img class="icon" src="assets/map-icons/cheap.png"/>Chinese</div><div class="row"><img class="icon" src="assets/map-icons/cheap.png"/>Korean</div><div class="row"><img class="icon" src="assets/map-icons/cheap.png"/>Isaan</div><div class="row"><img class="icon" src="assets/map-icons/cheap.png"/>Vietnamese</div><div class="row"><img class="icon" src="assets/map-icons/cheap.png"/>Northern Thai</div><div class="row"><img class="icon" src="assets/map-icons/seafood.png"/>Japanese</div><div class="row"><img class="icon" src="assets/map-icons/sushi.png"/>Sushi</div><div class="row"><img class="icon" src="assets/map-icons/ramen.png"/>Ramen</div><div class="row"><img class="icon" src="assets/map-icons/beer.png"/>Bar</div></div></div>
       </div>
 
       <div class="card">
