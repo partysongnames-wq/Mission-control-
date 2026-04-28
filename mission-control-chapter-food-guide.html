@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chapter VIP · Food Guide</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
+  <style>
+    :root{--bg:#070a12;--muted:#9fb2d8;--text:#f2f6ff}
+    *{box-sizing:border-box} body{margin:0;background:radial-gradient(1200px 700px at 10% -10%,#1b2444 0%,var(--bg) 55%);color:var(--text);font-family:Inter,system-ui,sans-serif}
+    .wrap{max-width:1220px;margin:0 auto;padding:18px}.top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+    .title h1{margin:0;font-size:1.3rem;letter-spacing:.08em;text-transform:uppercase}.title p{margin:6px 0 0;color:var(--muted);font-size:.9rem}
+    .btn{border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.04);color:#fff;padding:8px 12px;border-radius:999px;cursor:pointer;text-decoration:none}
+    .nav{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.pill{padding:7px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.2);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;background:rgba(255,255,255,.05);text-decoration:none;color:#fff}.pill.active{background:rgba(255,216,74,.18);border-color:rgba(255,216,74,.55)}
+    .grid{display:grid;grid-template-columns:1.25fr .95fr;gap:16px;margin-top:14px}
+    .card{background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.13);border-radius:16px;padding:14px}
+    #map{height:70vh;min-height:520px;border-radius:12px;overflow:hidden}.list{display:flex;flex-direction:column;gap:10px}
+    .item{padding:10px;border:1px solid rgba(255,255,255,.13);border-radius:10px;background:rgba(255,255,255,.03)} .item b{display:block}.item span{font-size:.78rem;color:var(--muted)}
+    .leaflet-popup-content-wrapper{background:linear-gradient(180deg,#0f1728,#0a1020);color:#edf3ff;border:1px solid rgba(255,255,255,.18);border-radius:14px}.leaflet-popup-tip{background:#0a1020}
+    .vip-badge{display:inline-block;padding:3px 8px;border-radius:999px;font-size:10px;letter-spacing:.08em;text-transform:uppercase;border:1px solid rgba(255,215,122,.5);background:rgba(255,215,122,.14);color:#ffe9a6;margin-bottom:5px}
+    @media (max-width:980px){.grid{grid-template-columns:1fr}#map{height:56vh;min-height:420px}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="top">
+      <div class="title"><h1>Chapter VIP · Food Guide</h1><p>Verified places only, with cropped Google Maps screenshots + map pins.</p></div>
+      <a class="btn" href="mission-control.html">← Mission Control</a>
+    </div>
+    <div class="nav">
+      <a class="pill" href="mission-control-chapter-map.html">Home</a>
+      <a class="pill active" href="mission-control-chapter-food-guide.html">Food Guide</a>
+      <a class="pill" href="mission-control-chapter-move-in-ops.html">Move‑In Ops</a>
+    </div>
+
+    <div class="grid">
+      <div class="card"><div id="map"></div></div>
+      <div class="card">
+        <div class="list" id="food-list"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+  <script>
+    const chapter = {name:'Chapter Chula-Samyan', coords:[13.7313584,100.5234970]};
+    const food = [
+      {name:'Father & Son\'s - The Smash Box',type:'Western comfort',coords:[13.731700,100.525200],rating:'4.9★ (~39)',walk:'~10 min',price:'฿200–400',image:'assets/food/father-son-1.jpg',fit:'50% 45%',maps:'https://www.google.com/maps/search/?api=1&query=Father+%26+Son%27s+The+Smash+Box+Bangkok'},
+      {name:'Mimi\'s Bangkok',type:'Date-night / western',coords:[13.731900,100.525300],rating:'4.9★ (~339)',walk:'~10 min',price:'฿200–400',image:'assets/food/mimis-1.jpg',fit:'50% 40%',maps:'https://www.google.com/maps/search/?api=1&query=Mimi%27s+Bangkok'},
+      {name:'Kebab Bar Halal (Bangkok)',type:'Late-night comfort',coords:[13.731600,100.525700],rating:'4.5★ (~95)',walk:'~10 min',price:'฿200–400',image:'assets/food/kebab-bar-1.jpg',fit:'50% 45%',maps:'https://www.google.com/maps/search/?api=1&query=Kebab+Bar+Halal+Bangkok'},
+      {name:'Yummy Thai Food',type:'Budget Thai',coords:[13.732642,100.522120],rating:'4.7★ (~507)',walk:'~11 min',price:'฿1–200',image:'assets/food/yummy-thai-1.jpg',fit:'50% 30%',maps:'https://www.google.com/maps/search/?api=1&query=Yummy+Thai+Food+Bangkok'},
+      {name:'Hia Tee Yai @ Nares',type:'Thai casual',coords:[13.732000,100.521900],rating:'4.8★ (~200)',walk:'~10 min',price:'฿1–200',image:'assets/food/hia-tee-yai-1.jpg',fit:'50% 40%',maps:'https://www.google.com/maps/search/?api=1&query=Hia+Tee+Yai+%40+Nares+Bangkok'},
+      {name:'Markintiny (มากินที่นี่)',type:'Thai seafood-friendly',coords:[13.731900,100.522800],rating:'4.6★ (~529)',walk:'~11 min',price:'฿200–400',image:'assets/food/markintiny-1.jpg',fit:'50% 40%',maps:'https://www.google.com/maps/search/?api=1&query=Markintiny+Bangkok'},
+      {name:'นายหน่องข้าวต้มปลา สาขาพระรามสี่-สามย่าน',type:'Seafood porridge',coords:[13.732150,100.526150],rating:'4.8★ (~136)',walk:'~9 min',price:'฿200–400',image:'assets/food/nai-nong-1.jpg',fit:'50% 42%',maps:'https://www.google.com/maps/search/?api=1&query=%E0%B8%99%E0%B8%B2%E0%B8%A2%E0%B8%AB%E0%B8%99%E0%B9%88%E0%B8%AD%E0%B8%87%E0%B8%82%E0%B9%89%E0%B8%B2%E0%B8%A7%E0%B8%95%E0%B9%89%E0%B8%A1%E0%B8%9B%E0%B8%A5%E0%B8%B2+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2%E0%B8%9E%E0%B8%A3%E0%B8%B0%E0%B8%A3%E0%B8%B2%E0%B8%A1%E0%B8%AA%E0%B8%B5%E0%B9%88-%E0%B8%AA%E0%B8%B2%E0%B8%A1%E0%B8%A2%E0%B9%88%E0%B8%B2%E0%B8%99'}
+    ];
+
+    const map = L.map('map').setView(chapter.coords, 16);
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{attribution:'&copy; OpenStreetMap &copy; CARTO'}).addTo(map);
+
+    const homeIcon = L.divIcon({html:'<div style="width:24px;height:24px;border-radius:50%;background:radial-gradient(circle,#ffe27a,#d4a514);border:2px solid #111"></div>',className:'',iconSize:[24,24],iconAnchor:[12,12]});
+    const iconForType = (type='') => {
+      const t = type.toLowerCase();
+      if (t.includes('cocktail') || t.includes('bar') || t.includes('date-night')) return '🍸';
+      if (t.includes('beer') || t.includes('pub')) return '🍺';
+      if (t.includes('kebab') || t.includes('western') || t.includes('comfort')) return '🍔';
+      if (t.includes('seafood')) return '🦐';
+      if (t.includes('thai')) return '🍜';
+      return '🍽️';
+    };
+    const markerForPlace = (p) => {
+      const emoji = iconForType(p.type);
+      return L.divIcon({
+        html:`<div style="width:28px;height:28px;border-radius:999px;background:rgba(17,24,39,.95);border:1px solid rgba(255,255,255,.35);display:flex;align-items:center;justify-content:center;font-size:16px;box-shadow:0 3px 10px rgba(0,0,0,.4)">${emoji}</div>`,
+        className:'', iconSize:[28,28], iconAnchor:[14,14]
+      });
+    };
+    L.marker(chapter.coords,{icon:homeIcon}).bindPopup('<span class="vip-badge">Home</span><br><b>Chapter Chula-Samyan</b>').addTo(map);
+
+    const popup = (p)=>`<div style="width:250px"><span class="vip-badge">Trent Verified</span><br><b style="font-size:14px">${iconForType(p.type)} ${p.name}</b><br><span style="font-size:12px;color:#a8b7d8">${p.type} · ${p.rating} · ${p.price} · ${p.walk}</span><img src="${p.image}" style="width:100%;height:138px;object-fit:cover;object-position:${p.fit};border-radius:10px;margin:7px 0 9px;border:1px solid rgba(255,255,255,.24)"><a href="${p.maps}" target="_blank" style="display:inline-block;padding:7px 10px;border-radius:999px;border:1px solid #7dd3fc;color:#c8f1ff;text-decoration:none;font-size:12px;font-weight:600">Open in Google Maps ↗</a></div>`;
+
+    food.forEach(p=>L.marker(p.coords,{icon:markerForPlace(p)}).bindPopup(popup(p),{maxWidth:285}).addTo(map));
+
+    document.getElementById('food-list').innerHTML = food.map((p,i)=>`<div class="item"><b>${i+1}. ${iconForType(p.type)} ${p.name}</b><span>${p.type} · ${p.rating} · ${p.price} · ${p.walk}</span><br><a class="btn" style="display:inline-block;margin-top:8px" href="${p.maps}" target="_blank">Google Maps ↗</a></div>`).join('');
+  </script>
+</body>
+</html>

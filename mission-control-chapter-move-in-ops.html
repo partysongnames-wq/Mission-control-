@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chapter VIP · Move-In Ops</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
+  <style>
+    :root{--bg:#070a12;--muted:#9fb2d8;--text:#f2f6ff}
+    *{box-sizing:border-box} body{margin:0;background:radial-gradient(1200px 700px at 10% -10%,#1b2444 0%,var(--bg) 55%);color:var(--text);font-family:Inter,system-ui,sans-serif}
+    .wrap{max-width:1180px;margin:0 auto;padding:18px}.top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+    .title h1{margin:0;font-size:1.3rem;letter-spacing:.08em;text-transform:uppercase}.title p{margin:6px 0 0;color:var(--muted);font-size:.9rem}
+    .btn{border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.04);color:#fff;padding:8px 12px;border-radius:999px;cursor:pointer;text-decoration:none}
+    .nav{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.pill{padding:7px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.2);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;background:rgba(255,255,255,.05);text-decoration:none;color:#fff}.pill.active{background:rgba(255,216,74,.18);border-color:rgba(255,216,74,.55)}
+    .grid{display:grid;grid-template-columns:1.2fr 1fr;gap:16px;margin-top:14px}.card{background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.13);border-radius:16px;padding:14px}
+    #map{height:60vh;min-height:420px;border-radius:12px;overflow:hidden}.task{padding:11px;border:1px solid rgba(255,255,255,.13);border-radius:10px;background:rgba(255,255,255,.03);margin-bottom:8px}
+    .task b{display:block}.task span{font-size:.8rem;color:var(--muted)}
+    @media (max-width:980px){.grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="top">
+      <div class="title"><h1>Chapter VIP · Move‑In Ops</h1><p>Execution checklist + key admin/utility pins around Chapter.</p></div>
+      <a class="btn" href="mission-control.html">← Mission Control</a>
+    </div>
+    <div class="nav">
+      <a class="pill" href="mission-control-chapter-map.html">Home</a>
+      <a class="pill" href="mission-control-chapter-food-guide.html">Food Guide</a>
+      <a class="pill active" href="mission-control-chapter-move-in-ops.html">Move‑In Ops</a>
+    </div>
+
+    <div class="grid">
+      <div class="card"><div id="map"></div></div>
+      <div class="card">
+        <div class="task"><b>1) Contract lock</b><span>Confirm 12-month term, deposit holder, written refund timeline before final payment.</span></div>
+        <div class="task"><b>2) Move-in slot</b><span>Book elevator + juristic handover time with building office.</span></div>
+        <div class="task"><b>3) Utilities day 1</b><span>Wi‑Fi test, AC test, water pressure, appliance check (washing machine plan).</span></div>
+        <div class="task"><b>4) Registration/admin</b><span>Save district office and nearest support points for any paperwork.</span></div>
+        <div class="task"><b>5) Neighborhood recon</b><span>One daytime + one evening walk: station route, grocery route, food fallback route.</span></div>
+        <div class="task"><b>6) Contingency kit</b><span>Cash-ready list: first-week transport, food, and setup purchases.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+  <script>
+    const chapter = [13.7313584,100.5234970];
+    const opsPins = [
+      {name:'Chapter Chula-Samyan', coords:[13.7313584,100.5234970], note:'Home handover point'},
+      {name:'Samyan Mitrtown', coords:[13.730742,100.528543], note:'SIM, groceries, utilities run'},
+      {name:'Chamchuri Square', coords:[13.730241,100.531431], note:'Errands and banking support'},
+      {name:'Bang Rak District Office Area', coords:[13.726500,100.522300], note:'Admin/paperwork zone'},
+      {name:'7-Eleven (nearest)', coords:[13.731721,100.523813], note:'Emergency move-in supplies'}
+    ];
+    const map = L.map('map').setView(chapter, 15);
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{attribution:'&copy; OpenStreetMap &copy; CARTO'}).addTo(map);
+    opsPins.forEach((p,idx)=>{
+      const icon = L.divIcon({html:`<div style="width:${idx===0?22:14}px;height:${idx===0?22:14}px;border-radius:${idx===0?'50%':'4px'};background:${idx===0?'#ffd84a':'#7de3c1'};border:2px solid #fff"></div>`,className:'',iconSize:[idx===0?22:14,idx===0?22:14],iconAnchor:[idx===0?11:7,idx===0?11:7]});
+      L.marker(p.coords,{icon}).bindPopup(`<b>${p.name}</b><br>${p.note}`).addTo(map);
+    });
+  </script>
+</body>
+</html>
