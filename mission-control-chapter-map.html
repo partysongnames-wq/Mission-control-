@@ -149,7 +149,8 @@
       {name:'ก๋วยเตี๋ยวปากหม้อ บ้านอุ๊ย', coords:[13.731054,100.521494], note:'Noodle + quick meal', walk:'~6 min', price:'฿', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=%E0%B8%81%E0%B9%8B%E0%B8%A7%E0%B8%A2%E0%B9%80%E0%B8%95%E0%B8%B5%E0%B9%8B%E0%B8%A2%E0%B8%A7%E0%B8%9B%E0%B8%B2%E0%B8%81%E0%B8%AB%E0%B8%A1%E0%B9%89%E0%B8%AD+%E0%B8%9A%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B8%AD%E0%B8%B8%E0%B9%8A%E0%B8%A2+Bangkok'},
       {name:'ครัวโอปอ ไทยฟู้ด', coords:[13.731245,100.520489], note:'Cheap Thai comfort food', walk:'~8 min', price:'฿', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=%E0%B8%84%E0%B8%A3%E0%B8%B1%E0%B8%A7%E0%B9%82%E0%B8%AD%E0%B8%9B%E0%B8%AD+%E0%B9%84%E0%B8%97%E0%B8%A2%E0%B8%9F%E0%B8%B9%E0%B9%89%E0%B8%94+Bangkok'},
       {name:'Yummy Thai Food', coords:[13.732642,100.522120], note:'Local casual seating style', walk:'~11 min', price:'฿1–200', rating:'4.7★ (~507)', image:'assets/food/yummy-thai-1.jpg', maps:'https://www.google.com/maps/search/?api=1&query=Yummy+Thai+Food+Bangkok'},
-      {name:'Hia Tee Yai @ Nares', coords:[13.7320,100.5219], note:'Late casual Thai meals', walk:'~10 min', price:'฿1–200', rating:'4.8★ (~200)', image:'assets/food/hia-tee-yai-1.jpg', maps:'https://www.google.com/maps/search/?api=1&query=Hia+Tee+Yai+%40+Nares+Bangkok'}
+      {name:'Hia Tee Yai @ Nares', coords:[13.7320,100.5219], note:'Late casual Thai meals', walk:'~10 min', price:'฿1–200', rating:'4.8★ (~200)', image:'assets/food/hia-tee-yai-1.jpg', maps:'https://www.google.com/maps/search/?api=1&query=Hia+Tee+Yai+%40+Nares+Bangkok'},
+      {name:'นัวนิยม จิ้มจุ่มโคราช สาขาบรรทัดทอง', coords:[13.746300,100.526900], note:'Isaan hot pot / jim jum style', walk:'Banthat Thong side', price:'฿฿', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=%E0%B8%99%E0%B8%B1%E0%B8%A7%E0%B8%99%E0%B8%B4%E0%B8%A2%E0%B8%A1+%E0%B8%88%E0%B8%B4%E0%B9%89%E0%B8%A1%E0%B8%88%E0%B8%B8%E0%B9%88%E0%B8%A1%E0%B9%82%E0%B8%84%E0%B8%A3%E0%B8%B2%E0%B8%8A+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2%E0%B8%9A%E0%B8%A3%E0%B8%A3%E0%B8%97%E0%B8%B1%E0%B8%94%E0%B8%97%E0%B8%AD%E0%B8%87+Bangkok'}
     ];
 
     const western = [
@@ -230,6 +231,7 @@
     const vietnameseIcon = flaggedIcon('assets/map-icons/vietnamese.png', '🇻🇳', 'rgba(46,150,90,.95)');
     const lannaIcon = flaggedIcon('assets/map-icons/northern.png', '🏔️', 'rgba(153,89,49,.95)');
     const japaneseIcon = flaggedIcon('assets/map-icons/seafood.png', '🇯🇵', 'rgba(230,230,230,.95)');
+    const hotpotIcon = pngIcon('assets/map-icons/hotpot.png', 'rgba(196,108,53,.95)');
     const sushiIcon = pngIcon('assets/map-icons/sushi.png', 'rgba(223,72,72,.95)');
     const ramenIcon = pngIcon('assets/map-icons/ramen.png', 'rgba(197,142,29,.95)');
     const pizzaIcon = pngIcon('assets/map-icons/pizza.png', 'rgba(214,82,64,.95)');
@@ -259,6 +261,7 @@
       if (t.includes('café amazon') || t.includes('cafe amazon')) return cafeAmazonIcon;
       if (t.includes('mcdonald')) return mcdonaldsIcon;
       if (t.includes('father & son') || t.includes('smash box') || t.includes('buns & more')) return burgerBeerIcon;
+      if (t.includes('จิ้มจุ่ม') || t.includes('jim jum') || t.includes('hot pot') || t.includes('hotpot')) return hotpotIcon;
       if (t.includes('kebab')) return kebabIcon;
       if (t.includes('pizza')) return pizzaIcon;
       if (t.includes('mimi') || t.includes('date-night') || t.includes('cocktail')) return cocktailIcon;
