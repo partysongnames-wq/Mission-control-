@@ -190,17 +190,17 @@
       const mapsBtn = p.maps ? `<a href="${p.maps}" target="_blank" style="display:inline-block;margin-top:7px;padding:7px 10px;border-radius:999px;border:1px solid #7dd3fc;color:#c8f1ff;text-decoration:none;font-size:12px;font-weight:600;">Open in Google Maps ↗</a>` : '';
       return `<div style="width:248px"><span class="vip-badge">Trent Verified</span><br><b style="font-size:14px;line-height:1.25">${p.name}</b><br><span style="font-size:12px;color:#a8b7d8">${meta}</span>${img}<div style="font-size:12px;color:#dbe7ff;line-height:1.35">${p.note || ''}</div>${mapsBtn}</div>`;
     };
-    const cuteIcon = (emoji, bg='#1f2937') => L.divIcon({
-      html:`<div style="width:30px;height:30px;border-radius:999px;background:${bg};border:1px solid rgba(255,255,255,.35);display:flex;align-items:center;justify-content:center;font-size:16px;box-shadow:0 3px 10px rgba(0,0,0,.42)">${emoji}</div>`,
+    const pngIcon = (src, bg='#1f2937') => L.divIcon({
+      html:`<div style="width:30px;height:30px;border-radius:999px;background:${bg};border:1px solid rgba(255,255,255,.35);display:flex;align-items:center;justify-content:center;box-shadow:0 3px 10px rgba(0,0,0,.42)"><img src="${src}" style="width:18px;height:18px;display:block"/></div>`,
       className:'', iconSize:[30,30], iconAnchor:[15,15]
     });
-    const stationIcon = cuteIcon('🚇', 'rgba(58,143,191,.95)');
-    const onsenIcon = cuteIcon('♨️', 'rgba(142,90,255,.95)');
-    const essentialIcon = cuteIcon('🛍️', 'rgba(67,151,112,.95)');
-    const convenienceIcon = cuteIcon('🏪', 'rgba(208,111,65,.95)');
-    const cheapIcon = cuteIcon('🍜', 'rgba(197,142,29,.95)');
-    const westernIcon = cuteIcon('🍔', 'rgba(195,99,196,.95)');
-    const seafoodIcon = cuteIcon('🦐', 'rgba(72,153,133,.95)');
+    const stationIcon = pngIcon('assets/map-icons/station.png', 'rgba(58,143,191,.95)');
+    const onsenIcon = pngIcon('assets/map-icons/onsen.png', 'rgba(142,90,255,.95)');
+    const essentialIcon = pngIcon('assets/map-icons/essentials.png', 'rgba(67,151,112,.95)');
+    const convenienceIcon = pngIcon('assets/map-icons/convenience.png', 'rgba(208,111,65,.95)');
+    const cheapIcon = pngIcon('assets/map-icons/cheap.png', 'rgba(197,142,29,.95)');
+    const westernIcon = pngIcon('assets/map-icons/western.png', 'rgba(195,99,196,.95)');
+    const seafoodIcon = pngIcon('assets/map-icons/seafood.png', 'rgba(72,153,133,.95)');
 
     L.marker(chapter.coords,{icon:chapterIcon}).bindPopup(`<b>${chapter.name}</b><br>${chapter.note}`).addTo(groups.chapter);
 
