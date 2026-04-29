@@ -20,6 +20,10 @@
     .topbar .pill{padding:6px 10px;border-radius:999px;border:1px solid rgba(246,211,116,.4);color:#ffe9a8}
     .kicker{letter-spacing:.18em;text-transform:uppercase;color:#9fc2ff;font-size:.72rem}
     .pullquote{font-size:1.25rem;line-height:1.5;padding:16px 18px;border-left:3px solid var(--gold);background:rgba(255,255,255,.03);border-radius:12px}
+    .story{display:grid;grid-template-columns:1.2fr .8fr;gap:14px}
+    .story img{width:100%;height:260px;object-fit:cover;border-radius:16px;border:1px solid var(--line)}
+    .mini-list{display:grid;gap:8px}
+    .mini{padding:10px 12px;border-radius:12px;background:rgba(255,255,255,.04);border:1px solid var(--line)}
     .hero{padding:34px;border:1px solid var(--line);border-radius:28px;background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));box-shadow:0 20px 60px rgba(0,0,0,.24)}
     .eyebrow{display:inline-block;padding:7px 11px;border-radius:999px;border:1px solid rgba(246,211,116,.28);background:rgba(246,211,116,.10);color:#ffefb8;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase}
     h1{margin:16px 0 10px;font-size:3rem;line-height:1}.lead{max-width:860px;font-size:1.08rem;line-height:1.7;color:#eaf0ff}
@@ -48,7 +52,7 @@
     .step small{display:block;color:var(--muted);margin-bottom:4px}
     .footer{margin-top:22px;padding:20px;border-radius:22px;background:rgba(255,255,255,.03);border:1px solid var(--line);color:#dfe7ff}
     a{color:#bfe8ff}
-    @media (max-width:960px){.meta,.grid2,.grid3,.photo-grid,.cue-grid{grid-template-columns:1fr}h1{font-size:2.3rem}}
+    @media (max-width:960px){.meta,.grid2,.grid3,.photo-grid,.cue-grid,.story{grid-template-columns:1fr}h1{font-size:2.3rem}}
   </style>
 </head>
 <body>
@@ -76,6 +80,18 @@
       <div class="meta">
         <div class="box"><b>Base address</b><span class="muted">Chapter Chula-Samyan, 299 Si Phraya Rd, Si Phraya, Bang Rak, Bangkok 10500</span></div>
         <div class="box"><b>Area personality</b><span class="muted">Practical, food-rich, quietly central, and surprisingly flexible once you know what to do with it.</span></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title"><h2>Featured story</h2><span>This week’s home-base strategy</span></div>
+      <div class="story">
+        <img src="https://images.unsplash.com/photo-1513415564515-763d91423bdd?auto=format&fit=crop&w=1400&q=80" alt="Bangkok urban neighborhood" />
+        <div class="mini-list">
+          <div class="mini"><b>New this week</b><br/>Build a 15-minute comfort radius around Chapter.</div>
+          <div class="mini"><b>Editor’s pick</b><br/>One familiar Yaowarat night, one new nearby spot.</div>
+          <div class="mini"><b>Low-friction rule</b><br/>Prefer MRT-linked routes on hot/rainy days.</div>
+        </div>
       </div>
     </div>
 
