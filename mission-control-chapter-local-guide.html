@@ -28,6 +28,11 @@
     .photo img{width:100%;height:180px;object-fit:cover;display:block}
     .photo span{display:block;padding:8px 10px;font-size:.78rem;color:var(--muted)}
     .sources{margin-top:10px;padding-left:18px;color:#dce7ff}
+    .cue-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+    .cue{border-radius:16px;overflow:hidden;border:1px solid var(--line);background:#0b1220}
+    .cue img{width:100%;height:170px;object-fit:cover;display:block}
+    .cue b{display:block;padding:10px 10px 4px}
+    .cue small{display:block;padding:0 10px 10px;color:var(--muted)}
     .sources li{margin:6px 0}
     .card h3{margin:0 0 10px;font-size:1.05rem}.card p{margin:0;color:#edf2ff;line-height:1.62}
     .feature{padding:16px;border-radius:18px;background:var(--soft);border:1px solid rgba(255,255,255,.08)}
@@ -38,7 +43,7 @@
     .step small{display:block;color:var(--muted);margin-bottom:4px}
     .footer{margin-top:22px;padding:20px;border-radius:22px;background:rgba(255,255,255,.03);border:1px solid var(--line);color:#dfe7ff}
     a{color:#bfe8ff}
-    @media (max-width:960px){.meta,.grid2,.grid3,.photo-grid{grid-template-columns:1fr}h1{font-size:2.3rem}}
+    @media (max-width:960px){.meta,.grid2,.grid3,.photo-grid,.cue-grid{grid-template-columns:1fr}h1{font-size:2.3rem}}
   </style>
 </head>
 <body>
@@ -71,6 +76,15 @@
         <div class="photo"><img src="assets/chapter-room/room-6.jpg" alt="Chapter room photo 6" /><span>Room view 6</span></div>
         <div class="photo"><img src="assets/chapter-room/room-7.jpg" alt="Chapter room photo 7" /><span>Room view 7</span></div>
         <div class="photo"><img src="assets/chapter-room/room-8.jpg" alt="Chapter room photo 8" /><span>Room view 8</span></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title"><h2>Visual cues around Chapter</h2><span>So you can recognize the vibe fast</span></div>
+      <div class="cue-grid">
+        <div class="cue"><img src="https://images.unsplash.com/photo-1528181304800-259b08848526?auto=format&fit=crop&w=1200&q=80" alt="Bangkok street food evening" /><b>Banthat Thong energy</b><small>Best window: 6:30 PM onward.</small></div>
+        <div class="cue"><img src="https://images.unsplash.com/photo-1508009603885-50cf7c579365?auto=format&fit=crop&w=1200&q=80" alt="Bangkok Chinatown lights" /><b>Yaowarat night mission</b><small>Atmosphere card for date/guest nights.</small></div>
+        <div class="cue"><img src="https://images.unsplash.com/photo-1544098281-073ae7f8f0f2?auto=format&fit=crop&w=1200&q=80" alt="Modern Bangkok mall interior" /><b>Samyan Mitrtown reset zone</b><small>Errands, comfort food, and low-friction days.</small></div>
       </div>
     </div>
 
