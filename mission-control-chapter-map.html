@@ -105,12 +105,20 @@
       padding:12px;border:1px solid rgba(255,255,255,.08);
       border-radius:12px;background:rgba(255,255,255,.03);
       transition:all .25s ease;
+      display:flex;gap:12px;align-items:center;
     }
     .item:hover{
       background:rgba(255,255,255,.06);
       border-color:rgba(255,255,255,.12);
       transform:translateX(2px);
     }
+    .item-thumb{
+      width:60px;height:60px;border-radius:8px;
+      object-fit:cover;flex-shrink:0;
+      border:1px solid rgba(255,255,255,.15);
+      background:rgba(0,0,0,.2);
+    }
+    .item-content{flex:1;min-width:0}
     .item b{display:block;font-size:.88rem;margin-bottom:4px}
     .item span{font-size:.76rem;color:var(--muted);line-height:1.4}
     .checklist{padding-left:20px;list-style:none}
@@ -439,14 +447,26 @@
     western.forEach(p => L.marker(p.coords,{icon:iconForPlace(p, 'western')}).bindPopup(foodPopup(p), {maxWidth: 280}).addTo(groups.western));
     seafood.forEach(p => L.marker(p.coords,{icon:iconForPlace(p, 'seafood')}).bindPopup(foodPopup(p), {maxWidth: 280}).addTo(groups.seafood));
 
+    const renderItem = (p, emoji) => {
+      const img = p.image || `https://maps.googleapis.com/maps/api/staticmap?center=${p.coords[0]},${p.coords[1]}&zoom=17&size=120x120&markers=color:red%7C${p.coords[0]},${p.coords[1]}&key=YOUR_API_KEY&style=feature:all|element:labels|visibility:off`;
+      const thumb = p.image ? `<img src="${p.image}" class="item-thumb" alt="${p.name}"/>` : '';
+      return `<div class="item">
+        ${thumb}
+        <div class="item-content">
+          <b>${emoji} ${p.name}</b>
+          <span>${[cuisineTag(p), p.rating, p.walk, p.note].filter(Boolean).join(' · ')}</span>
+        </div>
+      </div>`;
+    };
+
     document.getElementById('stations-list').innerHTML = stations
-      .map(s => `<div class="item"><b>${s.name}</b><span>${s.walk}</span></div>`).join('');
+      .map(s => `<div class="item"><div class="item-content"><b>${s.name}</b><span>${s.walk}</span></div></div>`).join('');
     document.getElementById('cheap-list').innerHTML = cheapEats
-      .map(p => `<div class="item"><b>🍜 ${p.name}</b><span>${[cuisineTag(p), p.note].filter(Boolean).join(' · ')}</span></div>`).join('');
+      .map(p => renderItem(p, '🍜')).join('');
     document.getElementById('western-list').innerHTML = western
-      .map(p => `<div class="item"><b>🍔 ${p.name}</b><span>${[cuisineTag(p), p.note].filter(Boolean).join(' · ')}</span></div>`).join('');
+      .map(p => renderItem(p, '🍔')).join('');
     document.getElementById('seafood-list').innerHTML = seafood
-      .map(p => `<div class="item"><b>🦐 ${p.name}</b><span>${[cuisineTag(p), p.note].filter(Boolean).join(' · ')}</span></div>`).join('');
+      .map(p => renderItem(p, '🦐')).join('');
 
     const layers = ['stations','onsen','convenience','cheapEats','western','seafood','essentials'];
     const setLayer = mode => {
