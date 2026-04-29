@@ -15,6 +15,11 @@
       radial-gradient(800px 500px at 100% 0%,rgba(246,211,116,.12),transparent 40%),
       linear-gradient(180deg,#08111d 0%,#060b13 100%)}
     .wrap{max-width:1180px;margin:0 auto;padding:26px}
+    .topbar{position:sticky;top:10px;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border:1px solid var(--line);border-radius:14px;background:rgba(8,14,25,.75);backdrop-filter:blur(8px);margin-bottom:14px}
+    .topbar a{font-size:.78rem;letter-spacing:.08em;color:#cfe5ff;text-decoration:none;margin-right:10px}
+    .topbar .pill{padding:6px 10px;border-radius:999px;border:1px solid rgba(246,211,116,.4);color:#ffe9a8}
+    .kicker{letter-spacing:.18em;text-transform:uppercase;color:#9fc2ff;font-size:.72rem}
+    .pullquote{font-size:1.25rem;line-height:1.5;padding:16px 18px;border-left:3px solid var(--gold);background:rgba(255,255,255,.03);border-radius:12px}
     .hero{padding:34px;border:1px solid var(--line);border-radius:28px;background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));box-shadow:0 20px 60px rgba(0,0,0,.24)}
     .eyebrow{display:inline-block;padding:7px 11px;border-radius:999px;border:1px solid rgba(246,211,116,.28);background:rgba(246,211,116,.10);color:#ffefb8;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase}
     h1{margin:16px 0 10px;font-size:3rem;line-height:1}.lead{max-width:860px;font-size:1.08rem;line-height:1.7;color:#eaf0ff}
@@ -48,10 +53,19 @@
 </head>
 <body>
   <div class="wrap">
+    <div class="topbar">
+      <div>
+        <a href="#">Chapter Journal</a>
+        <a href="#">Field Notes</a>
+        <a href="#">New Finds</a>
+      </div>
+      <span class="pill">Issue 01 · Move-in Edition</span>
+    </div>
     <div class="hero">
-      <span class="eyebrow">Resident guide</span>
+      <span class="eyebrow">Web magazine</span>
       <h1>Chapter Chula-Samyan</h1>
-      <p class="lead">A sharper way to understand this neighborhood: not as one destination, but as a base that quietly gives you convenience, texture, food depth, and access to several versions of Bangkok at once.</p>
+      <p class="lead">A living editorial for your move, equal parts local intelligence, comfort systems, and discovery. Built for someone who is not visiting, but building a life here.</p>
+      <p class="pullquote">"This is your home base dossier, updated like a magazine issue, but practical enough to improve your day immediately."</p>
       <div class="chips">
         <span class="chip">smart on budget</span>
         <span class="chip">good with Nasha</span>
