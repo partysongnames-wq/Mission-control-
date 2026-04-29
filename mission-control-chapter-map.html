@@ -368,7 +368,14 @@
     const stationIcon = pngIcon('assets/map-icons/station.png', 'rgba(58,143,191,.95)');
     const onsenIcon = pngIcon('assets/map-icons/onsen.png', 'rgba(142,90,255,.95)');
     const essentialIcon = pngIcon('assets/map-icons/essentials.png', 'rgba(67,151,112,.95)');
-    const convenienceIcon = pngIcon('assets/map-icons/convenience.png', 'rgba(208,111,65,.95)');
+    const convenienceIcon = L.icon({
+      iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
+      shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
+      iconSize: [25, 41],
+      iconAnchor: [12, 41],
+      popupAnchor: [1, -34],
+      shadowSize: [41, 41]
+    });
     const cheapIcon = pngIcon('assets/map-icons/cheap.png', 'rgba(197,142,29,.95)');
     const westernIcon = pngIcon('assets/map-icons/western.png', 'rgba(195,99,196,.95)');
     const seafoodIcon = pngIcon('assets/map-icons/seafood.png', 'rgba(72,153,133,.95)');
