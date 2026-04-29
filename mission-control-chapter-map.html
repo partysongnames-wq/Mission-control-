@@ -60,6 +60,13 @@
       background:radial-gradient(circle at top right,rgba(119,214,255,.04),transparent 60%);
       pointer-events:none;
     }
+    .map-wrap{position:relative}
+    .map-controls{position:absolute;top:10px;right:10px;z-index:1000;display:flex;gap:8px}
+    .map-control-btn{border:1px solid rgba(255,255,255,.2);background:rgba(6,11,19,.78);color:#fff;border-radius:999px;padding:7px 11px;font-size:.72rem;cursor:pointer;backdrop-filter:blur(4px)}
+    .map-control-btn:hover{background:rgba(255,255,255,.16)}
+    body.map-lock{overflow:hidden}
+    .map-wrap.map-fullscreen{position:fixed;inset:0;z-index:9999;background:rgba(3,8,16,.98);padding:calc(10px + env(safe-area-inset-top)) 10px calc(12px + env(safe-area-inset-bottom));display:flex;flex-direction:column}
+    .map-wrap.map-fullscreen #map{height:calc(100dvh - 70px);height:calc(100vh - 70px);min-height:280px;flex:1 1 auto;border-radius:14px}
     #map{
       height:68vh;min-height:540px;border-radius:16px;overflow:hidden;
       border:1px solid rgba(255,255,255,.15);
@@ -220,7 +227,12 @@
           <button class="chip" data-layer="seafood">Seafood / Local Favs</button>
           <button class="chip" data-layer="essentials">Essentials</button>
         </div>
-        <div style="position:relative"><div id="map"></div></div>
+        <div class="map-wrap" id="chapter-map-wrap">
+          <div class="map-controls">
+            <button class="map-control-btn" id="chapter-map-fullscreen" type="button" aria-expanded="false">⛶ Expand map</button>
+          </div>
+          <div id="map"></div>
+        </div>
       </div>
 
       <div class="card">
@@ -500,6 +512,17 @@
         setLayer(btn.dataset.layer);
       });
     });
+
+    const mapWrap = document.getElementById('chapter-map-wrap');
+    const fsBtn = document.getElementById('chapter-map-fullscreen');
+    const setFullscreen = on => {
+      mapWrap.classList.toggle('map-fullscreen', on);
+      document.body.classList.toggle('map-lock', on);
+      fsBtn.textContent = on ? '✕ Close map' : '⛶ Expand map';
+      fsBtn.setAttribute('aria-expanded', on ? 'true' : 'false');
+      setTimeout(() => map.invalidateSize(), 120);
+    };
+    fsBtn.addEventListener('click', () => setFullscreen(!mapWrap.classList.contains('map-fullscreen')));
   </script>
 </body>
 </html>
