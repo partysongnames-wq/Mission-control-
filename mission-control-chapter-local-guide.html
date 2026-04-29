@@ -23,6 +23,10 @@
     .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}.chip{padding:7px 12px;border-radius:999px;background:rgba(255,255,255,.05);border:1px solid var(--line);font-size:.82rem}
     .section{margin-top:18px}.section-title{display:flex;justify-content:space-between;align-items:end;gap:12px;margin-bottom:12px}.section-title h2{margin:0;font-size:1rem;letter-spacing:.14em;text-transform:uppercase;color:#dbe5ff}.section-title span{font-size:.92rem;color:var(--muted)}
     .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.card{padding:18px;border-radius:22px;background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.025));border:1px solid var(--line);box-shadow:0 16px 40px rgba(0,0,0,.18)}
+    .photo-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+    .photo{border-radius:16px;overflow:hidden;border:1px solid var(--line);background:#0b1220}
+    .photo img{width:100%;height:180px;object-fit:cover;display:block}
+    .photo span{display:block;padding:8px 10px;font-size:.78rem;color:var(--muted)}
     .card h3{margin:0 0 10px;font-size:1.05rem}.card p{margin:0;color:#edf2ff;line-height:1.62}
     .feature{padding:16px;border-radius:18px;background:var(--soft);border:1px solid rgba(255,255,255,.08)}
     .feature b{display:block;margin-bottom:5px}.tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}.tag{display:inline-block;padding:4px 8px;border-radius:999px;font-size:.72rem}
@@ -32,7 +36,7 @@
     .step small{display:block;color:var(--muted);margin-bottom:4px}
     .footer{margin-top:22px;padding:20px;border-radius:22px;background:rgba(255,255,255,.03);border:1px solid var(--line);color:#dfe7ff}
     a{color:#bfe8ff}
-    @media (max-width:960px){.meta,.grid2,.grid3{grid-template-columns:1fr}h1{font-size:2.3rem}}
+    @media (max-width:960px){.meta,.grid2,.grid3,.photo-grid{grid-template-columns:1fr}h1{font-size:2.3rem}}
   </style>
 </head>
 <body>
@@ -51,6 +55,20 @@
       <div class="meta">
         <div class="box"><b>Base address</b><span class="muted">Chapter Chula-Samyan, 299 Si Phraya Rd, Si Phraya, Bang Rak, Bangkok 10500</span></div>
         <div class="box"><b>Area personality</b><span class="muted">Practical, food-rich, quietly central, and surprisingly flexible once you know what to do with it.</span></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title"><h2>Room photo tour</h2><span>Your actual space at Chapter</span></div>
+      <div class="photo-grid">
+        <div class="photo"><img src="assets/chapter-room/room-1.jpg" alt="Chapter room photo 1" /><span>Room view 1</span></div>
+        <div class="photo"><img src="assets/chapter-room/room-2.jpg" alt="Chapter room photo 2" /><span>Room view 2</span></div>
+        <div class="photo"><img src="assets/chapter-room/room-3.jpg" alt="Chapter room photo 3" /><span>Room view 3</span></div>
+        <div class="photo"><img src="assets/chapter-room/room-4.jpg" alt="Chapter room photo 4" /><span>Room view 4</span></div>
+        <div class="photo"><img src="assets/chapter-room/room-5.jpg" alt="Chapter room photo 5" /><span>Room view 5</span></div>
+        <div class="photo"><img src="assets/chapter-room/room-6.jpg" alt="Chapter room photo 6" /><span>Room view 6</span></div>
+        <div class="photo"><img src="assets/chapter-room/room-7.jpg" alt="Chapter room photo 7" /><span>Room view 7</span></div>
+        <div class="photo"><img src="assets/chapter-room/room-8.jpg" alt="Chapter room photo 8" /><span>Room view 8</span></div>
       </div>
     </div>
 
