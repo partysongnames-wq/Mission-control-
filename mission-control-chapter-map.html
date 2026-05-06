@@ -468,7 +468,19 @@
     cheapEats.forEach(p => L.marker(p.coords,{icon:iconForPlace(p, 'cheapEats')}).bindPopup(foodPopup(p), {maxWidth: 280}).addTo(groups.cheapEats));
     western.forEach(p => L.marker(p.coords,{icon:iconForPlace(p, 'western')}).bindPopup(foodPopup(p), {maxWidth: 280}).addTo(groups.western));
     seafood.forEach(p => L.marker(p.coords,{icon:iconForPlace(p, 'seafood')}).bindPopup(foodPopup(p), {maxWidth: 280}).addTo(groups.seafood));
-    condos.forEach(p => L.marker(p.coords,{icon:iconForPlace(p, 'essentials')}).bindPopup(foodPopup(p), {maxWidth: 280}).addTo(groups.condos));
+
+    const monopolyHouseIcon = L.divIcon({
+      className:'',
+      iconSize:[30,30],
+      iconAnchor:[15,22],
+      popupAnchor:[0,-18],
+      html:`<div style="position:relative;width:30px;height:30px;filter:drop-shadow(0 5px 10px rgba(0,0,0,.5));">
+        <div style="position:absolute;left:5px;top:11px;width:20px;height:14px;background:linear-gradient(180deg,#ff3b30,#c91515);border:1.5px solid rgba(90,0,0,.9);border-radius:2px;"></div>
+        <div style="position:absolute;left:3px;top:4px;width:24px;height:11px;background:linear-gradient(180deg,#ff6b61,#e12626);border:1.5px solid rgba(90,0,0,.9);clip-path:polygon(50% 0,100% 100%,0 100%);"></div>
+        <div style="position:absolute;left:13px;top:14px;width:4px;height:10px;background:#8e0f0f;border-radius:1px;"></div>
+      </div>`
+    });
+    condos.forEach(p => L.marker(p.coords,{icon:monopolyHouseIcon}).bindPopup(foodPopup(p), {maxWidth: 280}).addTo(groups.condos));
 
     const renderItem = (p, emoji) => {
       const thumb = p.image ? `<a href="${p.maps}" target="_blank" rel="noopener noreferrer"><img src="${p.image}" class="item-thumb" alt="${p.name}" title="Open in Google Maps"/></a>` : '';
