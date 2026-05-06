@@ -489,7 +489,7 @@
         <div style="position:absolute;left:13px;top:14px;width:4px;height:10px;background:#8e0f0f;border-radius:1px;"></div>
       </div>`
     });
-    condos.forEach(p => L.marker(p.coords,{icon:monopolyHouseIcon}).bindPopup(foodPopup(p), {maxWidth: 280}).addTo(groups.condos));
+    condos.filter(p => p.name !== 'Chapter Chula-Samyan').forEach(p => L.marker(p.coords,{icon:monopolyHouseIcon}).bindPopup(foodPopup(p), {maxWidth: 280}).addTo(groups.condos));
 
     const renderItem = (p, emoji) => {
       const thumb = p.image ? `<a href="${p.maps}" target="_blank" rel="noopener noreferrer"><img src="${p.image}" class="item-thumb" alt="${p.name}" title="Open in Google Maps"/></a>` : '';
@@ -513,6 +513,7 @@
     document.getElementById('izakaya-list').innerHTML = izakaya
       .map(p => renderItem(p, '🍶')).join('');
     document.getElementById('condos-list').innerHTML = condos
+      .filter(p => p.name !== 'Chapter Chula-Samyan')
       .map(p => renderItem(p, '🏢')).join('');
 
     const layers = ['stations','onsen','convenience','cheapEats','western','seafood','izakaya','condos','essentials'];
