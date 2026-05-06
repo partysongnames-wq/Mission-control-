@@ -332,7 +332,7 @@
       {name:'Markintiny (มากินที่นี่)', coords:[13.7319,100.5228], note:'Thai seafood-friendly menu', walk:'~11 min', price:'฿200–400', rating:'4.6★ (~529)', image:'assets/food/markintiny-1.jpg', maps:'https://www.google.com/maps/search/?api=1&query=Markintiny+Bangkok'},
       {name:'นายหน่องข้าวต้มปลา สาขาพระรามสี่-สามย่าน', coords:[13.73215,100.52615], note:'Seafood porridge favorite from your route screenshots', walk:'~9 min', price:'฿200–400', rating:'4.8★ (~136)', image:'assets/food/nai-nong-1.jpg', maps:'https://www.google.com/maps/search/?api=1&query=%E0%B8%99%E0%B8%B2%E0%B8%A2%E0%B8%AB%E0%B8%99%E0%B9%88%E0%B8%AD%E0%B8%87%E0%B8%82%E0%B9%89%E0%B8%B2%E0%B8%A7%E0%B8%95%E0%B9%89%E0%B8%A1%E0%B8%9B%E0%B8%A5%E0%B8%B2+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2%E0%B8%9E%E0%B8%A3%E0%B8%B0%E0%B8%A3%E0%B8%B2%E0%B8%A1%E0%B8%AA%E0%B8%B5%E0%B9%88-%E0%B8%AA%E0%B8%B2%E0%B8%A1%E0%B8%A2%E0%B9%88%E0%B8%B2%E0%B8%99'},
       {name:'Somboon Seafood (Sam Yan / Chamchuri area)', coords:[13.7302,100.5314], note:'Popular seafood pick', walk:'~12 min', price:'฿฿฿', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=Somboon+Seafood+Sam+Yan'},
-      {name:'Nagiya Thaniya', coords:[13.7290,100.5347], note:'Japanese izakaya in Thaniya (Silom/Sala Daeng side)', walk:'~12–18 min by bike/taxi', price:'฿800–1,000', rating:'4.5★ (~248)', image:'', maps:'https://www.google.com/maps/search/?api=1&query=Nagiya+Thaniya+Bangkok'}
+      {name:'Nagiya Thaniya', coords:[13.7290,100.5347], note:'Japanese izakaya in Thaniya (Silom/Sala Daeng side)', walk:'~12–18 min by bike/taxi', price:'฿800–1,000', rating:'4.5★ (~248)', image:'', maps:'https://www.google.com/maps/search/?api=1&query=Nagiya+Thaniya+Bangkok', featured:true}
     ];
 
     const condos = [
@@ -467,7 +467,7 @@
     convenience.forEach(p => L.marker(p.coords,{icon:iconForPlace(p, 'convenience')}).bindPopup(`<b>${p.name}</b><br>${p.note}`).addTo(groups.convenience));
     cheapEats.forEach(p => L.marker(p.coords,{icon:iconForPlace(p, 'cheapEats')}).bindPopup(foodPopup(p), {maxWidth: 280}).addTo(groups.cheapEats));
     western.forEach(p => L.marker(p.coords,{icon:iconForPlace(p, 'western')}).bindPopup(foodPopup(p), {maxWidth: 280}).addTo(groups.western));
-    seafood.forEach(p => L.marker(p.coords,{icon:iconForPlace(p, 'seafood')}).bindPopup(foodPopup(p), {maxWidth: 280}).addTo(groups.seafood));
+    seafood.forEach(p => L.marker(p.coords,{icon:iconForPlace(p, 'seafood'), zIndexOffset: p.featured ? 1200 : 0}).bindPopup(foodPopup(p), {maxWidth: 280}).addTo(groups.seafood));
 
     const monopolyHouseIcon = L.divIcon({
       className:'',
