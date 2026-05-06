@@ -212,6 +212,7 @@
           <button class="chip" data-layer="cheapEats">Cheap Eats</button>
           <button class="chip" data-layer="western">Western Comfort</button>
           <button class="chip" data-layer="seafood">Seafood / Local Favs</button>
+          <button class="chip" data-layer="izakaya">Izakaya</button>
           <button class="chip" data-layer="condos">Condos We Viewed</button>
           <button class="chip" data-layer="essentials">Essentials</button>
         </div>
@@ -233,6 +234,9 @@
 
         <h3 style="margin-top:14px">Seafood / Local Favs</h3>
         <div class="list" id="seafood-list"></div>
+
+        <h3 style="margin-top:14px">Izakaya</h3>
+        <div class="list" id="izakaya-list"></div>
 
         <h3 style="margin-top:14px">Condos We Viewed Nearby</h3>
         <div class="list" id="condos-list"></div>
@@ -331,8 +335,11 @@
       {name:'แซลมอนรีพับบลิค', coords:[13.731465,100.521002], note:'Seafood/japanese casual', walk:'~7 min', price:'฿฿', rating:'', image:'assets/food/salmon-republic-1.jpg', maps:'https://www.google.com/maps/search/?api=1&query=%E0%B9%81%E0%B8%8B%E0%B8%A5%E0%B8%A1%E0%B8%AD%E0%B8%99%E0%B8%A3%E0%B8%B5%E0%B8%9E%E0%B8%B1%E0%B8%9A%E0%B8%9A%E0%B8%A5%E0%B8%B4%E0%B8%84+Bangkok'},
       {name:'Markintiny (มากินที่นี่)', coords:[13.7319,100.5228], note:'Thai seafood-friendly menu', walk:'~11 min', price:'฿200–400', rating:'4.6★ (~529)', image:'assets/food/markintiny-1.jpg', maps:'https://www.google.com/maps/search/?api=1&query=Markintiny+Bangkok'},
       {name:'นายหน่องข้าวต้มปลา สาขาพระรามสี่-สามย่าน', coords:[13.73215,100.52615], note:'Seafood porridge favorite from your route screenshots', walk:'~9 min', price:'฿200–400', rating:'4.8★ (~136)', image:'assets/food/nai-nong-1.jpg', maps:'https://www.google.com/maps/search/?api=1&query=%E0%B8%99%E0%B8%B2%E0%B8%A2%E0%B8%AB%E0%B8%99%E0%B9%88%E0%B8%AD%E0%B8%87%E0%B8%82%E0%B9%89%E0%B8%B2%E0%B8%A7%E0%B8%95%E0%B9%89%E0%B8%A1%E0%B8%9B%E0%B8%A5%E0%B8%B2+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2%E0%B8%9E%E0%B8%A3%E0%B8%B0%E0%B8%A3%E0%B8%B2%E0%B8%A1%E0%B8%AA%E0%B8%B5%E0%B9%88-%E0%B8%AA%E0%B8%B2%E0%B8%A1%E0%B8%A2%E0%B9%88%E0%B8%B2%E0%B8%99'},
-      {name:'Somboon Seafood (Sam Yan / Chamchuri area)', coords:[13.7302,100.5314], note:'Popular seafood pick', walk:'~12 min', price:'฿฿฿', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=Somboon+Seafood+Sam+Yan'},
-      {name:'Nagiya Thaniya', coords:[13.7290,100.5347], note:'Japanese izakaya in Thaniya (Silom/Sala Daeng side)', walk:'~12–18 min by bike/taxi', price:'฿800–1,000', rating:'4.5★ (~248)', image:'', maps:'https://www.google.com/maps/search/?api=1&query=Nagiya+Thaniya+Bangkok', featured:true}
+      {name:'Somboon Seafood (Sam Yan / Chamchuri area)', coords:[13.7302,100.5314], note:'Popular seafood pick', walk:'~12 min', price:'฿฿฿', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=Somboon+Seafood+Sam+Yan'}
+    ];
+
+    const izakaya = [
+      {name:'Nagiya Thaniya', coords:[13.7290,100.5347], note:'Japanese izakaya in Thaniya (Silom/Sala Daeng side)', walk:'~12–18 min by bike/taxi', price:'฿800–1,000', rating:'4.5★ (~248)', image:'assets/food/nagiya-thaniya.jpg', maps:'https://www.google.com/maps/search/?api=1&query=Nagiya+Thaniya+Bangkok', featured:true}
     ];
 
     const condos = [
@@ -357,6 +364,7 @@
       cheapEats: L.layerGroup().addTo(map),
       western: L.layerGroup().addTo(map),
       seafood: L.layerGroup().addTo(map),
+      izakaya: L.layerGroup().addTo(map),
       condos: L.layerGroup().addTo(map),
       essentials: L.layerGroup().addTo(map)
     };
@@ -468,6 +476,7 @@
     cheapEats.forEach(p => L.marker(p.coords,{icon:iconForPlace(p, 'cheapEats')}).bindPopup(foodPopup(p), {maxWidth: 280}).addTo(groups.cheapEats));
     western.forEach(p => L.marker(p.coords,{icon:iconForPlace(p, 'western')}).bindPopup(foodPopup(p), {maxWidth: 280}).addTo(groups.western));
     seafood.forEach(p => L.marker(p.coords,{icon:iconForPlace(p, 'seafood'), zIndexOffset: p.featured ? 1200 : 0}).bindPopup(foodPopup(p), {maxWidth: 280}).addTo(groups.seafood));
+    izakaya.forEach(p => L.marker(p.coords,{icon:iconForPlace(p, 'seafood'), zIndexOffset: 1400}).bindPopup(foodPopup(p), {maxWidth: 280}).addTo(groups.izakaya));
 
     const monopolyHouseIcon = L.divIcon({
       className:'',
@@ -501,10 +510,12 @@
       .map(p => renderItem(p, '🍔')).join('');
     document.getElementById('seafood-list').innerHTML = seafood
       .map(p => renderItem(p, '🦐')).join('');
+    document.getElementById('izakaya-list').innerHTML = izakaya
+      .map(p => renderItem(p, '🍶')).join('');
     document.getElementById('condos-list').innerHTML = condos
       .map(p => renderItem(p, '🏢')).join('');
 
-    const layers = ['stations','onsen','convenience','cheapEats','western','seafood','condos','essentials'];
+    const layers = ['stations','onsen','convenience','cheapEats','western','seafood','izakaya','condos','essentials'];
     const setLayer = mode => {
       layers.forEach(k => map.removeLayer(groups[k]));
       if(mode === 'all'){layers.forEach(k => groups[k].addTo(map));}
