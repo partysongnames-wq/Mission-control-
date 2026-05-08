@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Chapter Walk Gallery</title>
+  <style>
+    :root{--bg:#0b1020;--card:#121a30;--text:#eef3ff;--muted:#9fb0d4;--line:rgba(255,255,255,.14);--accent:#6ee7ff}
+    *{box-sizing:border-box} body{margin:0;background:radial-gradient(1000px 600px at 10% -10%,#1d2b52,transparent),var(--bg);color:var(--text);font:15px/1.45 -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif}
+    .wrap{max-width:1100px;margin:0 auto;padding:18px}
+    h1{margin:0 0 8px} .muted{color:var(--muted)}
+    .top{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0 16px}
+    .pill{padding:8px 12px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.04)}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px}
+    .card img{width:100%;height:180px;object-fit:cover;border-radius:10px;border:1px solid var(--line);background:#0a0f1f}
+    .meta{font-size:13px;color:var(--muted);margin:8px 0 6px}
+    .route{font-weight:600}
+    a{color:var(--accent)}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Chapter Walk Gallery</h1>
+    <div class="muted">One photo per walk by default, with optional extras when needed.</div>
+    <div class="top">
+      <div class="pill">Rule: 1 walk = 1 new pin</div>
+      <div class="pill">Photo: 1 default, extra allowed</div>
+      <div class="pill">Goal: discover underexplored directions</div>
+      <div class="pill"><a href="mission-control-chapter-map.html">Open Chapter Living Map ↗</a></div>
+    </div>
+
+    <div class="grid" id="walk-grid"></div>
+  </div>
+
+  <script>
+    const walks = [
+      {
+        date: '2026-05-08',
+        route: 'Silom Complex direction and walk back home',
+        newPin: 'Silom Complex (Shopping Malls)',
+        photo: '',
+        extras: [],
+        notes: 'Starter entry. Add image path when ready.'
+      }
+    ];
+
+    const grid = document.getElementById('walk-grid');
+    grid.innerHTML = walks.map(w => {
+      const img = w.photo ? `<img src="${w.photo}" alt="${w.route}">` : `<img alt="No photo yet" src="data:image/svg+xml;utf8,${encodeURIComponent('<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"800\" height=\"500\"><rect width=\"100%\" height=\"100%\" fill=\"#0a0f1f\"/><text x=\"50%\" y=\"50%\" fill=\"#8fa2cc\" font-size=\"24\" text-anchor=\"middle\" font-family=\"Arial\">Add walk photo here</text></svg>')}"/>`;
+      const extras = (w.extras||[]).map(p => `<a href="${p}" target="_blank">extra photo</a>`).join(' · ');
+      return `<div class="card">${img}<div class="meta">${w.date}</div><div class="route">${w.route}</div><div class="meta">New pin: ${w.newPin}</div><div>${w.notes||''}</div>${extras?`<div class="meta">${extras}</div>`:''}</div>`;
+    }).join('');
+  </script>
+</body>
+</html>
