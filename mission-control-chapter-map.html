@@ -312,7 +312,10 @@
 
     const essentials = [
       {name:'MaxValu', coords:[13.733226,100.526495], note:'Supermarket (late hours)'},
-      {name:'Bang Rak District Office Area', coords:[13.7265,100.5223], note:'Admin/services zone'}
+      {name:'Bang Rak District Office Area', coords:[13.7265,100.5223], note:'Admin/services zone'},
+      {name:'Big C Mini (Si Phraya/Surawong side)', coords:[13.7303,100.5202], note:'Convenience anchor from 2026-05-08 walk'},
+      {name:'Wat Kaewjamfa', coords:[13.7307,100.5191], note:'Temple landmark and route checkpoint'},
+      {name:'Si Phraya restaurant pocket (dusitD2/Amigo area)', coords:[13.7319,100.5215], note:'Cluster of restaurants, stronger in daytime'}
     ];
 
     const shopping = [
@@ -342,7 +345,11 @@
       {name:'ครัวโอปอ ไทยฟู้ด', coords:[13.731245,100.520489], note:'Cheap Thai comfort food', walk:'~8 min', price:'฿', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=%E0%B8%84%E0%B8%A3%E0%B8%B1%E0%B8%A7%E0%B9%82%E0%B8%AD%E0%B8%9B%E0%B8%AD+%E0%B9%84%E0%B8%97%E0%B8%A2%E0%B8%9F%E0%B8%B9%E0%B9%89%E0%B8%94+Bangkok'},
       {name:'Yummy Thai Food', coords:[13.732642,100.522120], note:'Local casual seating style', walk:'~11 min', price:'฿1–200', rating:'4.7★ (~507)', image:'assets/food/yummy-thai-1.jpg', maps:'https://www.google.com/maps/search/?api=1&query=Yummy+Thai+Food+Bangkok'},
       {name:'Hia Tee Yai @ Nares', coords:[13.7320,100.5219], note:'Late casual Thai meals', walk:'~10 min', price:'฿1–200', rating:'4.8★ (~200)', image:'assets/food/hia-tee-yai-1.jpg', maps:'https://www.google.com/maps/search/?api=1&query=Hia+Tee+Yai+%40+Nares+Bangkok'},
-      {name:'นัวนิยม จิ้มจุ่มโคราช', coords:[13.729690,100.521980], note:'Isaan hot pot / jim jum style · 969 Bang Rak, Bangkok 10500', walk:'Bang Rak side', price:'฿฿', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=969+Bang+Rak+Bangkok+10500'}
+      {name:'นัวนิยม จิ้มจุ่มโคราช', coords:[13.729690,100.521980], note:'Isaan hot pot / jim jum style · 969 Bang Rak, Bangkok 10500', walk:'Bang Rak side', price:'฿฿', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=969+Bang+Rak+Bangkok+10500'},
+      {name:'Shashi’s BBQ & Grill', coords:[13.7308,100.5199], note:'Affordable Indian option from walk discovery', walk:'Si Phraya/Maha Set side', price:'฿', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=Shashi%27s+BBQ+%26+Grill+Bangkok'},
+      {name:'Thai Pakistan Restaurant', coords:[13.7306,100.5197], note:'Interesting low-review Thai spot, test later', walk:'Si Phraya/Maha Set side', price:'฿', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=Thai+Pakistan+Restaurant+Bangkok'},
+      {name:'VK Ceylon Kitchen', coords:[13.7302,100.5196], note:'Sri Lankan cuisine, rare local find', walk:'Si Phraya lane cluster', price:'฿฿', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=VK+Ceylon+Kitchen+Bangkok'},
+      {name:'Mo Phet Mo Phloi Market', coords:[13.7300,100.5193], note:'Local market lane on walk route', walk:'Si Phraya side', price:'฿', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=Mo+Phet+Mo+Phloi+Market+Bangkok'}
     ];
 
     const western = [
@@ -362,7 +369,8 @@
       {name:'แซลมอนรีพับบลิค', coords:[13.731465,100.521002], note:'Seafood/japanese casual', walk:'~7 min', price:'฿฿', rating:'', image:'assets/food/salmon-republic-1.jpg', maps:'https://www.google.com/maps/search/?api=1&query=%E0%B9%81%E0%B8%8B%E0%B8%A5%E0%B8%A1%E0%B8%AD%E0%B8%99%E0%B8%A3%E0%B8%B5%E0%B8%9E%E0%B8%B1%E0%B8%9A%E0%B8%9A%E0%B8%A5%E0%B8%B4%E0%B8%84+Bangkok'},
       {name:'Markintiny (มากินที่นี่)', coords:[13.7319,100.5228], note:'Thai seafood-friendly menu', walk:'~11 min', price:'฿200–400', rating:'4.6★ (~529)', image:'assets/food/markintiny-1.jpg', maps:'https://www.google.com/maps/search/?api=1&query=Markintiny+Bangkok'},
       {name:'นายหน่องข้าวต้มปลา สาขาพระรามสี่-สามย่าน', coords:[13.73215,100.52615], note:'Seafood porridge favorite from your route screenshots', walk:'~9 min', price:'฿200–400', rating:'4.8★ (~136)', image:'assets/food/nai-nong-1.jpg', maps:'https://www.google.com/maps/search/?api=1&query=%E0%B8%99%E0%B8%B2%E0%B8%A2%E0%B8%AB%E0%B8%99%E0%B9%88%E0%B8%AD%E0%B8%87%E0%B8%82%E0%B9%89%E0%B8%B2%E0%B8%A7%E0%B8%95%E0%B9%89%E0%B8%A1%E0%B8%9B%E0%B8%A5%E0%B8%B2+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2%E0%B8%9E%E0%B8%A3%E0%B8%B0%E0%B8%A3%E0%B8%B2%E0%B8%A1%E0%B8%AA%E0%B8%B5%E0%B9%88-%E0%B8%AA%E0%B8%B2%E0%B8%A1%E0%B8%A2%E0%B9%88%E0%B8%B2%E0%B8%99'},
-      {name:'Somboon Seafood (Sam Yan / Chamchuri area)', coords:[13.7302,100.5314], note:'Popular seafood pick', walk:'~12 min', price:'฿฿฿', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=Somboon+Seafood+Sam+Yan'}
+      {name:'Somboon Seafood (Sam Yan / Chamchuri area)', coords:[13.7302,100.5314], note:'Popular seafood pick', walk:'~12 min', price:'฿฿฿', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=Somboon+Seafood+Sam+Yan'},
+      {name:'100 Mahaseth', coords:[13.7304,100.5198], note:'Thai restaurant · 100 Maha Set Rd, Si Phraya, Bang Rak', walk:'Si Phraya/Maha Set side', price:'฿฿฿', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=100+Mahaseth'}
     ];
 
     const izakaya = [
