@@ -220,6 +220,7 @@
           <button class="chip" data-layer="izakaya">Izakaya</button>
           <button class="chip" data-layer="condos">Condos We Viewed</button>
           <button class="chip" data-layer="shopping">Shopping Malls</button>
+          <button class="chip" data-layer="walkTrails">Walk Trails</button>
           <button class="chip" data-layer="essentials">Essentials</button>
         </div>
         <div style="position:relative"><div id="map"></div></div>
@@ -377,6 +378,24 @@
       {name:'Urbana Sathorn', coords:[13.7229,100.5360], note:'Large unit option', walk:'Sathorn side', price:'฿30,000', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=Urbana+Sathorn+Bangkok'}
     ];
 
+    const walkTrails = [
+      {
+        name:'2026-05-08 Si Phraya scout loop',
+        note:'Approx trail from your photo+maps walkthrough',
+        coords:[
+          [13.73136,100.52350],
+          [13.73100,100.52100],
+          [13.72990,100.52040],
+          [13.72930,100.51960],
+          [13.73020,100.51890],
+          [13.73110,100.51980],
+          [13.73190,100.52090],
+          [13.73240,100.52210],
+          [13.73136,100.52350]
+        ]
+      }
+    ];
+
     const map = L.map('map', {zoomControl:true}).setView(chapter.coords, 15);
     L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
       attribution:'&copy; OpenStreetMap &copy; CARTO', maxZoom:19
@@ -393,6 +412,7 @@
       izakaya: L.layerGroup().addTo(map),
       condos: L.layerGroup().addTo(map),
       shopping: L.layerGroup().addTo(map),
+      walkTrails: L.layerGroup(),
       essentials: L.layerGroup().addTo(map)
     };
 
@@ -500,6 +520,15 @@
     onsen.forEach(o => L.marker(o.coords,{icon:onsenIcon}).bindPopup(`<b>${o.name}</b><br>${o.note}`).addTo(groups.onsen));
     essentials.forEach(e => L.marker(e.coords,{icon:iconForPlace(e, 'essentials')}).bindPopup(`<b>${e.name}</b><br>${e.note}`).addTo(groups.essentials));
     shopping.forEach(s => L.marker(s.coords,{icon:iconForPlace(s, 'essentials')}).bindPopup(`<b>${s.name}</b><br>${s.note}`).addTo(groups.shopping));
+    walkTrails.forEach(t => {
+      L.polyline(t.coords, {color:'#7dd3fc', weight:4, opacity:0.9, dashArray:'8 8'})
+        .bindPopup(`<b>${t.name}</b><br>${t.note}`)
+        .addTo(groups.walkTrails);
+      const start = t.coords[0];
+      L.circleMarker(start, {radius:6, color:'#fde68a', fillColor:'#f59e0b', fillOpacity:0.95, weight:2})
+        .bindPopup(`<b>${t.name}</b><br>Start / End`)
+        .addTo(groups.walkTrails);
+    });
     convenience.forEach(p => L.marker(p.coords,{icon:iconForPlace(p, 'convenience')}).bindPopup(`<b>${p.name}</b><br>${p.note}`).addTo(groups.convenience));
     cheapEats.forEach(p => L.marker(p.coords,{icon:iconForPlace(p, 'cheapEats')}).bindPopup(foodPopup(p), {maxWidth: 280}).addTo(groups.cheapEats));
     western.forEach(p => L.marker(p.coords,{icon:iconForPlace(p, 'western')}).bindPopup(foodPopup(p), {maxWidth: 280}).addTo(groups.western));
@@ -544,7 +573,7 @@
       .filter(p => p.name !== 'Chapter Chula-Samyan')
       .map(p => renderItem(p, '🏢')).join('');
 
-    const layers = ['stations','onsen','convenience','cheapEats','western','seafood','izakaya','condos','shopping','essentials'];
+    const layers = ['stations','onsen','convenience','cheapEats','western','seafood','izakaya','condos','shopping','walkTrails','essentials'];
     const setLayer = mode => {
       layers.forEach(k => map.removeLayer(groups[k]));
       if(mode === 'all'){layers.forEach(k => groups[k].addTo(map));}
