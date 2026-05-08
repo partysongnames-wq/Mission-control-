@@ -196,7 +196,7 @@
   <div class="wrap">
     <div class="top">
       <div class="title">
-        <h1>Chapter Move-In Map</h1>
+        <h1>Chapter Living Map</h1>
         <p>Neighborhood-focused map for Chapter Chula-Samyan — transport, onsen, essentials, and first-week setup.</p>
       </div>
       <button class="btn" onclick="window.location.href='mission-control.html'">← Mission Control</button>
@@ -214,6 +214,7 @@
           <button class="chip" data-layer="seafood">Seafood / Local Favs</button>
           <button class="chip" data-layer="izakaya">Izakaya</button>
           <button class="chip" data-layer="condos">Condos We Viewed</button>
+          <button class="chip" data-layer="shopping">Shopping Malls</button>
           <button class="chip" data-layer="essentials">Essentials</button>
         </div>
         <div style="position:relative"><div id="map"></div></div>
@@ -295,10 +296,14 @@
     ];
 
     const essentials = [
-      {name:'Samyan Mitrtown', coords:[13.730742,100.528543], note:'Mall, groceries, food, Taco Bell + Yoshinoya area'},
-      {name:'Chamchuri Square', coords:[13.7302,100.5314], note:'Groceries + daily errands'},
       {name:'MaxValu', coords:[13.733226,100.526495], note:'Supermarket (late hours)'},
       {name:'Bang Rak District Office Area', coords:[13.7265,100.5223], note:'Admin/services zone'}
+    ];
+
+    const shopping = [
+      {name:'Samyan Mitrtown', coords:[13.730742,100.528543], note:'Mall, groceries, food, Taco Bell + Yoshinoya area'},
+      {name:'Chamchuri Square', coords:[13.7302,100.5314], note:'Groceries + daily errands'},
+      {name:'Silom Complex', coords:[13.7280,100.5350], note:'Mall · 191 Si Lom Rd, Silom, Bang Rak, Bangkok 10500'}
     ];
 
     const convenience = [
@@ -366,6 +371,7 @@
       seafood: L.layerGroup().addTo(map),
       izakaya: L.layerGroup().addTo(map),
       condos: L.layerGroup().addTo(map),
+      shopping: L.layerGroup().addTo(map),
       essentials: L.layerGroup().addTo(map)
     };
 
@@ -472,6 +478,7 @@
     stations.forEach(s => L.marker(s.coords,{icon:stationIcon}).bindPopup(`<b>${s.name}</b><br>${s.walk}`).addTo(groups.stations));
     onsen.forEach(o => L.marker(o.coords,{icon:onsenIcon}).bindPopup(`<b>${o.name}</b><br>${o.note}`).addTo(groups.onsen));
     essentials.forEach(e => L.marker(e.coords,{icon:iconForPlace(e, 'essentials')}).bindPopup(`<b>${e.name}</b><br>${e.note}`).addTo(groups.essentials));
+    shopping.forEach(s => L.marker(s.coords,{icon:iconForPlace(s, 'essentials')}).bindPopup(`<b>${s.name}</b><br>${s.note}`).addTo(groups.shopping));
     convenience.forEach(p => L.marker(p.coords,{icon:iconForPlace(p, 'convenience')}).bindPopup(`<b>${p.name}</b><br>${p.note}`).addTo(groups.convenience));
     cheapEats.forEach(p => L.marker(p.coords,{icon:iconForPlace(p, 'cheapEats')}).bindPopup(foodPopup(p), {maxWidth: 280}).addTo(groups.cheapEats));
     western.forEach(p => L.marker(p.coords,{icon:iconForPlace(p, 'western')}).bindPopup(foodPopup(p), {maxWidth: 280}).addTo(groups.western));
@@ -516,7 +523,7 @@
       .filter(p => p.name !== 'Chapter Chula-Samyan')
       .map(p => renderItem(p, '🏢')).join('');
 
-    const layers = ['stations','onsen','convenience','cheapEats','western','seafood','izakaya','condos','essentials'];
+    const layers = ['stations','onsen','convenience','cheapEats','western','seafood','izakaya','condos','shopping','essentials'];
     const setLayer = mode => {
       layers.forEach(k => map.removeLayer(groups[k]));
       if(mode === 'all'){layers.forEach(k => groups[k].addTo(map));}
