@@ -1,0 +1,610 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chapter Move-In Map · Mission Control</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <style>
+    :root{--bg:#060b13;--card:#0f1726;--muted:#9fb2d8;--text:#f2f6ff;--pink:#ff6fb0;--gold:#ffd84a;--blue:#5ecbff;--green:#48d597;--line:rgba(255,255,255,.08)}
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{
+      margin:0;
+      background:
+        radial-gradient(ellipse 80% 50% at 20% -10%,rgba(119,214,255,.12),transparent),
+        radial-gradient(ellipse 60% 40% at 80% 10%,rgba(246,211,116,.08),transparent),
+        linear-gradient(180deg,#08111d 0%,var(--bg) 100%);
+      color:var(--text);
+      font-family:Inter,system-ui,Segoe UI,Roboto,sans-serif;
+      min-height:100vh;
+    }
+
+    /* Noise texture overlay */
+    body::before{
+      content:'';position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.025;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")
+    }
+
+    .wrap{max-width:1240px;margin:0 auto;padding:24px;position:relative;z-index:2}
+    .top{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:20px}
+    .title h1{
+      margin:0;font-size:1.5rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+      background:linear-gradient(135deg,#fff 0%,#c8d4f0 50%,#fff 100%);
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+    }
+    .title p{margin:8px 0 0;color:var(--muted);font-size:.92rem;line-height:1.5}
+    .btn{
+      border:1px solid rgba(255,255,255,.15);
+      background:linear-gradient(135deg,rgba(255,255,255,.08),rgba(255,255,255,.04));
+      color:#fff;padding:10px 16px;border-radius:999px;cursor:pointer;
+      font-weight:500;font-size:.85rem;letter-spacing:.03em;
+      transition:all .25s ease;text-decoration:none;display:inline-block;
+    }
+    .btn:hover{
+      background:linear-gradient(135deg,rgba(255,255,255,.12),rgba(255,255,255,.08));
+      border-color:rgba(255,255,255,.25);
+      transform:translateY(-1px);
+      box-shadow:0 4px 12px rgba(0,0,0,.2);
+    }
+    .grid{display:grid;grid-template-columns:1.4fr .85fr;gap:18px;margin-top:20px}
+    .card{
+      background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.025));
+      border:1px solid rgba(255,255,255,.1);
+      border-radius:20px;padding:18px;
+      box-shadow:0 8px 32px rgba(0,0,0,.25);
+      backdrop-filter:blur(10px);
+      position:relative;overflow:hidden;
+    }
+    .card::before{
+      content:'';position:absolute;inset:0;
+      background:radial-gradient(circle at top right,rgba(119,214,255,.04),transparent 60%);
+      pointer-events:none;
+    }
+    #map{
+      height:68vh;min-height:540px;border-radius:16px;overflow:hidden;
+      border:1px solid rgba(255,255,255,.15);
+      box-shadow:0 4px 20px rgba(0,0,0,.3),inset 0 0 0 1px rgba(255,255,255,.05);
+    }
+    .chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 14px}
+    .chip{
+      padding:7px 12px;border-radius:999px;
+      border:1px solid rgba(255,255,255,.15);
+      font-size:.72rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;
+      background:rgba(255,255,255,.04);cursor:pointer;
+      transition:all .2s ease;
+      position:relative;
+    }
+    .chip:hover{
+      background:rgba(255,255,255,.08);
+      border-color:rgba(255,255,255,.25);
+      transform:translateY(-1px);
+    }
+    .chip.active{
+      border-color:rgba(246,211,116,.4);
+      background:linear-gradient(135deg,rgba(246,211,116,.15),rgba(246,211,116,.08));
+      color:#ffe8a3;
+      box-shadow:0 0 16px rgba(246,211,116,.15);
+    }
+    .chip.active::before{
+      content:'';position:absolute;inset:0;border-radius:999px;
+      background:linear-gradient(135deg,rgba(255,255,255,.1),transparent);
+      pointer-events:none;
+    }
+    h3{
+      margin:16px 0 12px;font-size:.82rem;font-weight:600;letter-spacing:.14em;
+      text-transform:uppercase;color:#d6e0ff;
+      display:flex;align-items:center;gap:10px;
+    }
+    h3::before{
+      content:'';width:20px;height:2px;
+      background:linear-gradient(90deg,var(--gold),transparent);
+      border-radius:2px;
+    }
+    .list{display:flex;flex-direction:column;gap:8px}
+    .item{
+      padding:12px;border:1px solid rgba(255,255,255,.08);
+      border-radius:12px;background:rgba(255,255,255,.03);
+      transition:all .25s ease;
+      display:flex;gap:12px;align-items:center;
+    }
+    .item:hover{
+      background:rgba(255,255,255,.06);
+      border-color:rgba(255,255,255,.12);
+      transform:translateX(2px);
+    }
+    .item-thumb{
+      width:60px;height:60px;border-radius:8px;
+      object-fit:cover;flex-shrink:0;
+      border:1px solid rgba(255,255,255,.15);
+      background:rgba(0,0,0,.2);
+      transition:all .25s ease;
+      cursor:pointer;
+    }
+    .item a:hover .item-thumb{
+      transform:scale(1.05);
+      border-color:rgba(246,211,116,.4);
+      box-shadow:0 4px 12px rgba(0,0,0,.3),0 0 0 2px rgba(246,211,116,.15);
+    }
+    .item-content{flex:1;min-width:0}
+    .item b{display:block;font-size:.88rem;margin-bottom:4px}
+    .item span{font-size:.76rem;color:var(--muted);line-height:1.4}
+    .checklist{padding-left:20px;list-style:none}
+    .checklist li{
+      margin:8px 0;color:#d8e3ff;font-size:.86rem;line-height:1.5;
+      position:relative;padding-left:8px;
+    }
+    .checklist li::before{
+      content:'→';position:absolute;left:-16px;color:var(--gold);font-weight:700;
+    }
+    .photo-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+    .photo-grid img{
+      width:100%;height:130px;object-fit:cover;border-radius:12px;
+      border:1px solid rgba(255,255,255,.12);
+      transition:all .3s ease;cursor:pointer;
+    }
+    .photo-grid img:hover{
+      transform:scale(1.02);
+      border-color:rgba(255,255,255,.25);
+      box-shadow:0 8px 24px rgba(0,0,0,.3);
+    }
+    .note{
+      font-size:.76rem;color:var(--muted);margin-top:12px;
+      line-height:1.5;padding:12px;border-radius:10px;
+      background:rgba(0,0,0,.15);border:1px solid rgba(255,255,255,.06);
+    }
+    .leaflet-popup-content-wrapper{
+      background:linear-gradient(135deg,rgba(15,23,40,.98),rgba(10,16,32,.98));
+      color:#edf3ff;border:1px solid rgba(255,255,255,.2);border-radius:16px;
+      backdrop-filter:blur(12px);
+      box-shadow:0 8px 32px rgba(0,0,0,.4);
+    }
+    .leaflet-popup-tip{background:rgba(10,16,32,.98);border:1px solid rgba(255,255,255,.2)}
+    .vip-badge{
+      display:inline-flex;align-items:center;gap:4px;
+      padding:4px 10px;border-radius:999px;font-size:10px;font-weight:600;
+      letter-spacing:.08em;text-transform:uppercase;
+      border:1px solid rgba(255,215,122,.4);
+      background:linear-gradient(135deg,rgba(255,215,122,.18),rgba(255,215,122,.12));
+      color:#ffe9a6;margin-bottom:6px;
+      box-shadow:0 0 12px rgba(255,215,122,.15);
+    }
+    .vip-badge::before{content:'✓';font-weight:700}
+
+    /* Home base special styling */
+    .item:first-child{
+      background:linear-gradient(135deg,rgba(246,211,116,.08),rgba(119,214,255,.05));
+      border-color:rgba(246,211,116,.2);
+      box-shadow:0 0 20px rgba(246,211,116,.1);
+    }
+    .item:first-child b::before{content:'★ ';color:var(--gold)}
+
+    /* Smooth animations */
+    @keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+    .card{animation:fadeIn .4s ease forwards}
+    .card:nth-child(2){animation-delay:.1s;opacity:0}
+
+    @media (max-width:980px){
+      .grid{grid-template-columns:1fr;gap:12px}
+      .card{padding:12px}
+      #map{height:72vh;min-height:560px}
+      .chips{flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;padding-bottom:4px;-webkit-overflow-scrolling:touch}
+      .chip{white-space:nowrap;flex:0 0 auto}
+      .photo-grid{grid-template-columns:1fr}
+      .wrap{padding:12px}
+      .title h1{font-size:1.15rem}
+      .top{gap:10px}
+      .btn{padding:8px 12px;font-size:.8rem}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="top">
+      <div class="title">
+        <h1>Chapter Living Map</h1>
+        <p>Neighborhood-focused map for Chapter Chula-Samyan — transport, onsen, essentials, and first-week setup. <a href="mission-control-chapter-walk-gallery.html" target="_blank">Walk Gallery ↗</a></p>
+      </div>
+      <button class="btn" onclick="window.location.href='mission-control.html'">← Mission Control</button>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <div class="chips">
+          <button class="chip active" data-layer="all">All</button>
+          <button class="chip" data-layer="stations">Stations</button>
+          <button class="chip" data-layer="onsen">Onsen</button>
+          <button class="chip" data-layer="convenience">7-Eleven</button>
+          <button class="chip" data-layer="cheapEats">Cheap Eats</button>
+          <button class="chip" data-layer="western">Western Comfort</button>
+          <button class="chip" data-layer="seafood">Seafood / Local Favs</button>
+          <button class="chip" data-layer="izakaya">Izakaya</button>
+          <button class="chip" data-layer="condos">Condos We Viewed</button>
+          <button class="chip" data-layer="shopping">Shopping Malls</button>
+          <button class="chip" data-layer="walkTrails">Walk Trails</button>
+          <button class="chip" data-layer="essentials">Essentials</button>
+        </div>
+        <div style="position:relative"><div id="map"></div></div>
+      </div>
+
+      <div class="card">
+        <h3 style="margin-top:0">Home Base</h3>
+        <div class="item"><b>Chapter Chula-Samyan</b><span>49 sqm · 27F · ฿30,000/mo · Move-in end of April</span></div>
+
+        <h3 style="margin-top:14px">Nearest Transport</h3>
+        <div class="list" id="stations-list"></div>
+
+        <h3 style="margin-top:14px">Cheap Eats (walkable)</h3>
+        <div class="list" id="cheap-list"></div>
+
+        <h3 style="margin-top:14px">Western Comfort</h3>
+        <div class="list" id="western-list"></div>
+
+        <h3 style="margin-top:14px">Seafood / Local Favs</h3>
+        <div class="list" id="seafood-list"></div>
+
+        <h3 style="margin-top:14px">Izakaya</h3>
+        <div class="list" id="izakaya-list"></div>
+
+        <h3 style="margin-top:14px">Condos We Viewed Nearby</h3>
+        <div class="list" id="condos-list"></div>
+
+        <h3 style="margin-top:14px">Trent-Verified Food Photos</h3>
+        <div class="photo-grid">
+          <img src="assets/food/father-son-1.jpg" alt="Father & Son smash box photo 1" loading="lazy">
+          <img src="assets/food/father-son-2.jpg" alt="Father & Son smash box photo 2" loading="lazy">
+          <img src="assets/food/father-son-3.jpg" alt="Father & Son smash box photo 3" loading="lazy">
+          <img src="assets/food/kebab-bar-1.jpg" alt="Kebab Bar Halal photo" loading="lazy">
+          <img src="assets/food/kebab-bar-info.jpg" alt="Kebab Bar Halal listing info" loading="lazy">
+          <img src="assets/food/mimis-1.jpg" alt="Mimi's Bangkok listing" loading="lazy">
+          <img src="assets/food/mimis-2.jpg" alt="Mimi's Bangkok ambiance" loading="lazy">
+          <img src="assets/food/mimis-3.jpg" alt="Mimi's Bangkok review shot" loading="lazy">
+          <img src="assets/food/yummy-thai-1.jpg" alt="Yummy Thai Food listing" loading="lazy">
+          <img src="assets/food/yummy-thai-2.jpg" alt="Yummy Thai Food interior" loading="lazy">
+          <img src="assets/food/markintiny-1.jpg" alt="Markintiny listing" loading="lazy">
+          <img src="assets/food/markintiny-2.jpg" alt="Markintiny interior and details" loading="lazy">
+          <img src="assets/food/hia-tee-yai-1.jpg" alt="Hia Tee Yai listing" loading="lazy">
+          <img src="assets/food/hia-tee-yai-2.jpg" alt="Hia Tee Yai menu gallery" loading="lazy">
+          <img src="assets/food/hia-tee-yai-3.jpg" alt="Hia Tee Yai dish closeup" loading="lazy">
+          <img src="assets/food/nai-nong-route.jpg" alt="Nai Nong route from Chapter" loading="lazy">
+          <img src="assets/food/nai-nong-1.jpg" alt="Nai Nong listing" loading="lazy">
+          <img src="assets/food/nai-nong-2.jpg" alt="Nai Nong seafood review panel" loading="lazy">
+          <img src="assets/food/nai-nong-3.jpg" alt="Nai Nong fish porridge bowl" loading="lazy">
+          <img src="assets/food/nai-nong-4.jpg" alt="Nai Nong dish and review" loading="lazy">
+        </div>
+        <div class="note">Father & Son’s - The Smash Box: 4.9★ (~39 reviews), ~10 min, price shown ฿200–400. Kebab Bar Halal (Bangkok): 4.5★ (~95 reviews), ~10 min, ฿200–400, open late (closes 00:00). Mimi’s Bangkok: 4.9★ (~339 reviews), ~10 min, open late (closes 00:00), strong date-night vibe. Yummy Thai Food: 4.7★ (~507 reviews), ~11 min, budget-friendly (฿1–200), local casual seating style. Markintiny: 4.6★ (~529 reviews), ~11 min, ฿200–400. Hia Tee Yai @ Nares: 4.8★ (~200 reviews), ~10 min, ฿1–200, closes 23:00. นายหน่องข้าวต้มปลา สาขาพระรามสี่-สามย่าน: 4.8★ (~136), route shown ~9 min / ~650m, ฿200–400, closes around 00:00 (from your screenshots).</div>
+
+        <h3 style="margin-top:14px">First 7 Days Checklist</h3>
+        <ul class="checklist">
+          <li>Confirm contract terms + deposit return timeline in writing</li>
+          <li>Book move-in elevator / juristic handover slot</li>
+          <li>Set up internet + test speed in-room</li>
+          <li>Install washing machine / appliance plan</li>
+          <li>Save nearest MRT/BTS + grocery pins</li>
+          <li>Do one evening and one daytime neighborhood walk</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    .leaflet-container {
+      background: #0b0f16;
+    }
+    .leaflet-tile {
+      outline: 1px solid transparent;
+      image-rendering: auto;
+    }
+  </style>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script>
+    const chapter = {name:'Chapter Chula-Samyan', coords:[13.7313584,100.5234970], note:'Home base · Locked in'};
+
+    const stations = [
+      {name:'Sam Yan MRT', coords:[13.7321,100.5301], walk:'~10 min walk'},
+      {name:'Hua Lamphong MRT', coords:[13.7376,100.5171], walk:'~12-15 min by taxi/bike'},
+      {name:'Chong Nonsi BTS', coords:[13.7238,100.5293], walk:'~10-15 min by bike/taxi'},
+      {name:'Sala Daeng BTS', coords:[13.7286,100.5343], walk:'~15 min by bike/taxi'}
+    ];
+
+    const onsen = [
+      {name:'Yunomori Onsen & Spa Sathorn 10', coords:[13.7222568,100.5274151], note:'Onsen + sauna'}
+    ];
+
+    const essentials = [
+      {name:'MaxValu', coords:[13.733226,100.526495], note:'Supermarket (late hours)'},
+      {name:'Bang Rak District Office Area', coords:[13.7265,100.5223], note:'Admin/services zone'},
+      {name:'Big C Mini (Si Phraya/Surawong side)', coords:[13.7303,100.5202], note:'Convenience anchor from 2026-05-08 walk'},
+      {name:'Wat Kaewjamfa', coords:[13.7307,100.5191], note:'Temple landmark and route checkpoint'},
+      {name:'Si Phraya restaurant pocket (dusitD2/Amigo area)', coords:[13.7319,100.5215], note:'Cluster of restaurants, stronger in daytime'}
+    ];
+
+    const shopping = [
+      {name:'Samyan Mitrtown', coords:[13.730742,100.528543], note:'Mall, groceries, food, Taco Bell + Yoshinoya area'},
+      {name:'Chamchuri Square', coords:[13.7302,100.5314], note:'Groceries + daily errands'},
+      {name:"I\'m Park Chula", coords:[13.7361,100.5260], note:'Daily-use mall near Chula side'},
+      {name:'Silom Complex', coords:[13.7280,100.5350], note:'Mall · 191 Si Lom Rd, Silom, Bang Rak, Bangkok 10500'},
+      {name:'River City Bangkok', coords:[13.7317,100.5130], note:'Art mall · 23 Charoen Krung 24, Talat Noi, Samphanthawong, Bangkok 10100'},
+      {name:'MBK Center', coords:[13.7448,100.5299], note:'Siam cluster mall'},
+      {name:'Siam Paragon', coords:[13.7466,100.5347], note:'Siam cluster flagship mall'},
+      {name:'CentralWorld', coords:[13.7470,100.5395], note:'Large mall in Siam/Ratchaprasong area'},
+      {name:'Banthat Thong (food street)', coords:[13.7397,100.5269], note:'Dense food corridor for exploratory nights'},
+      {name:'Si Phraya street layer', coords:[13.7310,100.5208], note:'Daily-living texture around Chapter base'}
+    ];
+
+    const convenience = [
+      {name:'7-Eleven (nearest)', coords:[13.731721,100.523813], note:'~1 min walk'},
+      {name:'7-Eleven', coords:[13.731408,100.522199], note:'~2 min walk'},
+      {name:'7-Eleven', coords:[13.730012,100.523674], note:'~2-3 min walk'},
+      {name:'7-Eleven', coords:[13.732251,100.526410], note:'Near Samyan Mitrtown side'}
+    ];
+
+    const cheapEats = [
+      {name:'เจ๊น้อย เย็นตาโฟ', coords:[13.732738,100.522554], note:'Local boat noodle spot', walk:'~6 min', price:'฿', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=%E0%B9%80%E0%B8%88%E0%B9%8A%E0%B8%99%E0%B9%89%E0%B8%AD%E0%B8%A2+%E0%B9%80%E0%B8%A2%E0%B9%87%E0%B8%99%E0%B8%95%E0%B8%B2%E0%B9%82%E0%B8%9F+Bangkok'},
+      {name:'ข้าวหมูแดง อาย้ง', coords:[13.728791,100.524104], note:'Budget Thai rice plate', walk:'~7 min', price:'฿', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=%E0%B8%82%E0%B9%89%E0%B8%B2%E0%B8%A7%E0%B8%AB%E0%B8%A1%E0%B8%B9%E0%B9%81%E0%B8%94%E0%B8%87+%E0%B8%AD%E0%B8%B2%E0%B8%A2%E0%B9%89%E0%B8%87+Bangkok'},
+      {name:'ก๋วยเตี๋ยวปากหม้อ บ้านอุ๊ย', coords:[13.731054,100.521494], note:'Noodle + quick meal', walk:'~6 min', price:'฿', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=%E0%B8%81%E0%B9%8B%E0%B8%A7%E0%B8%A2%E0%B9%80%E0%B8%95%E0%B8%B5%E0%B9%8B%E0%B8%A2%E0%B8%A7%E0%B8%9B%E0%B8%B2%E0%B8%81%E0%B8%AB%E0%B8%A1%E0%B9%89%E0%B8%AD+%E0%B8%9A%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B8%AD%E0%B8%B8%E0%B9%8A%E0%B8%A2+Bangkok'},
+      {name:'ครัวโอปอ ไทยฟู้ด', coords:[13.731245,100.520489], note:'Cheap Thai comfort food', walk:'~8 min', price:'฿', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=%E0%B8%84%E0%B8%A3%E0%B8%B1%E0%B8%A7%E0%B9%82%E0%B8%AD%E0%B8%9B%E0%B8%AD+%E0%B9%84%E0%B8%97%E0%B8%A2%E0%B8%9F%E0%B8%B9%E0%B9%89%E0%B8%94+Bangkok'},
+      {name:'Yummy Thai Food', coords:[13.732642,100.522120], note:'Local casual seating style', walk:'~11 min', price:'฿1–200', rating:'4.7★ (~507)', image:'assets/food/yummy-thai-1.jpg', maps:'https://www.google.com/maps/search/?api=1&query=Yummy+Thai+Food+Bangkok'},
+      {name:'Hia Tee Yai @ Nares', coords:[13.7320,100.5219], note:'Late casual Thai meals', walk:'~10 min', price:'฿1–200', rating:'4.8★ (~200)', image:'assets/food/hia-tee-yai-1.jpg', maps:'https://www.google.com/maps/search/?api=1&query=Hia+Tee+Yai+%40+Nares+Bangkok'},
+      {name:'นัวนิยม จิ้มจุ่มโคราช', coords:[13.729690,100.521980], note:'Isaan hot pot / jim jum style · 969 Bang Rak, Bangkok 10500', walk:'Bang Rak side', price:'฿฿', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=969+Bang+Rak+Bangkok+10500'},
+      {name:'Shashi’s BBQ & Grill', coords:[13.7308,100.5199], note:'Affordable Indian option from walk discovery', walk:'Si Phraya/Maha Set side', price:'฿', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=Shashi%27s+BBQ+%26+Grill+Bangkok'},
+      {name:'Thai Pakistan Restaurant', coords:[13.7306,100.5197], note:'Interesting low-review Thai spot, test later', walk:'Si Phraya/Maha Set side', price:'฿', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=Thai+Pakistan+Restaurant+Bangkok'},
+      {name:'VK Ceylon Kitchen', coords:[13.7302,100.5196], note:'Sri Lankan cuisine, rare local find', walk:'Si Phraya lane cluster', price:'฿฿', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=VK+Ceylon+Kitchen+Bangkok'},
+      {name:'Mo Phet Mo Phloi Market', coords:[13.7300,100.5193], note:'Local market lane on walk route', walk:'Si Phraya side', price:'฿', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=Mo+Phet+Mo+Phloi+Market+Bangkok'}
+    ];
+
+    const western = [
+      {name:'Buns & More', coords:[13.734117,100.526286], note:'Burger comfort food', walk:'~9 min', price:'฿200–400', rating:'', image:'assets/food/buns-and-more-1.jpg', maps:'https://www.google.com/maps/search/?api=1&query=Buns+%26+More+Samyan+Bangkok'},
+      {name:'Mimi\'s Bangkok', coords:[13.7319,100.5253], note:'Strong date-night vibe', walk:'~10 min', price:'฿200–400', rating:'4.9★ (~339)', image:'assets/food/mimis-1.jpg', maps:'https://www.google.com/maps/search/?api=1&query=Mimi%27s+Bangkok'},
+      {name:'Kebab Bar Halal (Bangkok)', coords:[13.7316,100.5257], note:'Open late and easy comfort-food stop', walk:'~10 min', price:'฿200–400', rating:'4.5★ (~95)', image:'assets/food/kebab-bar-1.jpg', maps:'https://www.google.com/maps/search/?api=1&query=Kebab+Bar+Halal+Bangkok'},
+      {name:'Father & Son\'s - The Smash Box', coords:[13.7317,100.5252], note:'High-rated smash burger pick', walk:'~10 min', price:'฿200–400', rating:'4.9★ (~39)', image:'assets/food/father-son-1.jpg', maps:'https://www.google.com/maps/search/?api=1&query=Father+%26+Son%27s+The+Smash+Box+Bangkok'},
+      {name:'Starbucks (Samyan area)', coords:[13.733284,100.526705], note:'Coffee/work fallback', walk:'~8 min', price:'฿฿', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=Starbucks+Samyan+Mitrtown'},
+      {name:'Café Amazon', coords:[13.734811,100.524904], note:'Quick coffee nearby', walk:'~8 min', price:'฿', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=Cafe+Amazon+Samyan+Bangkok'},
+      {name:'Cowabunga Pizza', coords:[13.741150,100.510980], note:'Pizza comfort food · 574/576 Soi Yaowarat 7, Samphanthawong', walk:'Yaowarat side', price:'฿200–400', rating:'', image:'assets/food/cowabunga-pizza-1.jpg', maps:'https://www.google.com/maps/search/?api=1&query=574+576+%E0%B8%8B%E0%B8%AD%E0%B8%A2+%E0%B9%80%E0%B8%A2%E0%B8%B2%E0%B8%A7%E0%B8%A3%E0%B8%B2%E0%B8%8A+7+%E0%B9%81%E0%B8%82%E0%B8%A7%E0%B8%87%E0%B8%AA%E0%B8%B1%E0%B8%A1%E0%B8%9E%E0%B8%B1%E0%B8%99%E0%B8%98%E0%B8%A7%E0%B8%87%E0%B8%A8%E0%B9%8C+%E0%B9%80%E0%B8%82%E0%B8%95%E0%B8%AA%E0%B8%B1%E0%B8%A1%E0%B8%9E%E0%B8%B1%E0%B8%99%E0%B8%98%E0%B8%A7%E0%B8%87%E0%B8%A8%E0%B9%8C+%E0%B8%81%E0%B8%A3%E0%B8%B8%E0%B8%87%E0%B9%80%E0%B8%97%E0%B8%9E%E0%B8%A1%E0%B8%AB%E0%B8%B2%E0%B8%99%E0%B8%84%E0%B8%A3+10100'},
+      {name:'Sontaya Society - Cafe and Bar', coords:[13.731120,100.522420], note:'Cafe and bar · 104 Maha Phruettharam Rd, Maha Phruttharam, Bang Rak', walk:'Bang Rak side', price:'฿฿', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=104+Maha+Phruettharam+Rd+Khwaeng+Maha+Phruttharam+Khet+Bang+Rak+Bangkok+10500'},
+      {name:'Taco Bell (Samyan Mitrtown)', coords:[13.730742,100.528543], note:'Mexican fast food chain', walk:'~10 min', price:'฿฿', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=Taco+Bell+Samyan+Mitrtown+Bangkok'},
+      {name:'Yoshinoya (Samyan Mitrtown area)', coords:[13.732720,100.529850], note:'Japanese beef bowl chain (upper side of Sam Yan station)', walk:'~10 min', price:'฿฿', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=Yoshinoya+Samyan+Mitrtown+Bangkok'}
+    ];
+
+    const seafood = [
+      {name:'แซลมอนรีพับบลิค', coords:[13.731465,100.521002], note:'Seafood/japanese casual', walk:'~7 min', price:'฿฿', rating:'', image:'assets/food/salmon-republic-1.jpg', maps:'https://www.google.com/maps/search/?api=1&query=%E0%B9%81%E0%B8%8B%E0%B8%A5%E0%B8%A1%E0%B8%AD%E0%B8%99%E0%B8%A3%E0%B8%B5%E0%B8%9E%E0%B8%B1%E0%B8%9A%E0%B8%9A%E0%B8%A5%E0%B8%B4%E0%B8%84+Bangkok'},
+      {name:'Markintiny (มากินที่นี่)', coords:[13.7319,100.5228], note:'Thai seafood-friendly menu', walk:'~11 min', price:'฿200–400', rating:'4.6★ (~529)', image:'assets/food/markintiny-1.jpg', maps:'https://www.google.com/maps/search/?api=1&query=Markintiny+Bangkok'},
+      {name:'นายหน่องข้าวต้มปลา สาขาพระรามสี่-สามย่าน', coords:[13.73215,100.52615], note:'Seafood porridge favorite from your route screenshots', walk:'~9 min', price:'฿200–400', rating:'4.8★ (~136)', image:'assets/food/nai-nong-1.jpg', maps:'https://www.google.com/maps/search/?api=1&query=%E0%B8%99%E0%B8%B2%E0%B8%A2%E0%B8%AB%E0%B8%99%E0%B9%88%E0%B8%AD%E0%B8%87%E0%B8%82%E0%B9%89%E0%B8%B2%E0%B8%A7%E0%B8%95%E0%B9%89%E0%B8%A1%E0%B8%9B%E0%B8%A5%E0%B8%B2+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2%E0%B8%9E%E0%B8%A3%E0%B8%B0%E0%B8%A3%E0%B8%B2%E0%B8%A1%E0%B8%AA%E0%B8%B5%E0%B9%88-%E0%B8%AA%E0%B8%B2%E0%B8%A1%E0%B8%A2%E0%B9%88%E0%B8%B2%E0%B8%99'},
+      {name:'Somboon Seafood (Sam Yan / Chamchuri area)', coords:[13.7302,100.5314], note:'Popular seafood pick', walk:'~12 min', price:'฿฿฿', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=Somboon+Seafood+Sam+Yan'},
+      {name:'100 Mahaseth', coords:[13.7304,100.5198], note:'Thai restaurant · 100 Maha Set Rd, Si Phraya, Bang Rak', walk:'Si Phraya/Maha Set side', price:'฿฿฿', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=100+Mahaseth'}
+    ];
+
+    const izakaya = [
+      {name:'Nagiya Thaniya', coords:[13.7290,100.5347], note:'Japanese izakaya in Thaniya (Silom/Sala Daeng side)', walk:'~12–18 min by bike/taxi', price:'฿800–1,000', rating:'4.5★ (~248)', image:'assets/food/nagiya-thaniya.jpg', maps:'https://www.google.com/maps/search/?api=1&query=Nagiya+Thaniya+Bangkok', featured:true}
+    ];
+
+    const condos = [
+      {name:'Chapter Chula-Samyan', coords:[13.7313584,100.5234970], note:'Locked in, current place', walk:'Home base', price:'฿30,000', rating:'', image:'assets/condos/chapter-room-1.jpg', maps:'https://www.google.com/maps/search/?api=1&query=Chapter+Chula+Samyan'},
+      {name:'Ideo Chula-Samyan', coords:[13.7315,100.5256], note:'Comparison condo near Chapter', walk:'~4–7 min', price:'TBD', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=Ideo+Chula+Samyan'},
+      {name:'Silom Lofts', coords:[13.7232,100.5224], note:'Priority during house hunting', walk:'Silom side', price:'฿28,000', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=Silom+Lofts+Bangkok'},
+      {name:'Klass Silom', coords:[13.7257,100.5316], note:'Viewed/comparison in Silom area', walk:'Sala Daeng/Silom side', price:'฿28,000', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=Klass+Silom+Bangkok'},
+      {name:'Saladaeng Residences', coords:[13.7252,100.5383], note:'Higher budget option', walk:'Sala Daeng side', price:'฿40,000', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=Saladaeng+Residences+Bangkok'},
+      {name:'Urbana Sathorn', coords:[13.7229,100.5360], note:'Large unit option', walk:'Sathorn side', price:'฿30,000', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=Urbana+Sathorn+Bangkok'}
+    ];
+
+    const walkTrails = [
+      {
+        name:'2026-05-08 Si Phraya scout loop',
+        note:'Updated to match your correction: Naret → Surawong → Phatthana Alley → inner narrow lane loop → back to Si Phraya',
+        coords:[
+          [13.73136,100.52350],
+          [13.73128,100.52255],
+          [13.73112,100.52170],
+          [13.73090,100.52095],
+          [13.73068,100.52030],
+          [13.73048,100.51978],
+          [13.73022,100.51958],
+          [13.72995,100.51962],
+          [13.72978,100.51988],
+          [13.72988,100.52025],
+          [13.73012,100.52042],
+          [13.73032,100.52018],
+          [13.73056,100.51996],
+          [13.73078,100.52020],
+          [13.73078,100.52074],
+          [13.73100,100.52128],
+          [13.73118,100.52192],
+          [13.73130,100.52270],
+          [13.73136,100.52350]
+        ]
+      }
+    ];
+
+    const map = L.map('map', {zoomControl:true}).setView(chapter.coords, 15);
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+      attribution:'&copy; OpenStreetMap &copy; CARTO', maxZoom:19
+    }).addTo(map);
+
+    const groups = {
+      chapter: L.layerGroup().addTo(map),
+      stations: L.layerGroup().addTo(map),
+      onsen: L.layerGroup().addTo(map),
+      convenience: L.layerGroup().addTo(map),
+      cheapEats: L.layerGroup().addTo(map),
+      western: L.layerGroup().addTo(map),
+      seafood: L.layerGroup().addTo(map),
+      izakaya: L.layerGroup().addTo(map),
+      condos: L.layerGroup().addTo(map),
+      shopping: L.layerGroup().addTo(map),
+      walkTrails: L.layerGroup(),
+      essentials: L.layerGroup().addTo(map)
+    };
+
+    const chapterIcon = L.divIcon({html:'<div style="width:32px;height:32px;clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);background:radial-gradient(circle at 35% 30%,#ffe27a 0%,#d4a514 60%,#8a6b00 100%);border:2px solid #111;box-shadow:0 0 0 2px rgba(255,215,0,.35)"></div>', className:'', iconSize:[32,32], iconAnchor:[16,16]});
+    const foodPopup = (p) => {
+      const cuisine = cuisineTag(p);
+      const meta = [cuisine, p.rating, p.price, p.walk].filter(Boolean).join(' · ');
+      const img = p.image ? `<img src="${p.image}" alt="${p.name}" style="width:100%;height:132px;object-fit:cover;border-radius:10px;margin:7px 0 9px;border:1px solid rgba(255,255,255,.24);">` : '';
+      const mapsBtn = p.maps ? `<a href="${p.maps}" target="_blank" style="display:inline-block;margin-top:7px;padding:7px 10px;border-radius:999px;border:1px solid #7dd3fc;color:#c8f1ff;text-decoration:none;font-size:12px;font-weight:600;">Open in Google Maps ↗</a>` : '';
+      return `<div style="width:248px"><span class="vip-badge">Trent Verified</span><br><b style="font-size:14px;line-height:1.25">${p.name}</b><br><span style="font-size:12px;color:#a8b7d8">${meta}</span>${img}<div style="font-size:12px;color:#dbe7ff;line-height:1.35">${p.note || ''}</div>${mapsBtn}</div>`;
+    };
+    const pngIcon = (src, bg='#1f2937', size=18) => L.divIcon({
+      html:`<div style="width:30px;height:30px;border-radius:999px;background:${bg};border:1px solid rgba(255,255,255,.35);display:flex;align-items:center;justify-content:center;box-shadow:0 3px 10px rgba(0,0,0,.42)"><img src="${src}" style="width:${size}px;height:${size}px;display:block"/></div>`,
+      className:'', iconSize:[30,30], iconAnchor:[15,15]
+    });
+    const comboIcon = (srcA, srcB, bg='rgba(30,30,30,.96)') => L.divIcon({
+      html:`<div style="width:34px;height:34px;border-radius:999px;background:${bg};border:1px solid rgba(255,255,255,.4);position:relative;box-shadow:0 3px 10px rgba(0,0,0,.42)"><img src="${srcA}" style="position:absolute;left:4px;top:8px;width:14px;height:14px"/><img src="${srcB}" style="position:absolute;right:4px;top:8px;width:14px;height:14px"/></div>`,
+      className:'', iconSize:[34,34], iconAnchor:[17,17]
+    });
+    const flaggedIcon = (src, flag, bg='rgba(30,30,30,.96)', size=18) => L.divIcon({
+      html:`<div style="width:34px;height:34px;border-radius:999px;background:${bg};border:1px solid rgba(255,255,255,.4);position:relative;box-shadow:0 3px 10px rgba(0,0,0,.42);display:flex;align-items:center;justify-content:center"><img src="${src}" style="width:${size}px;height:${size}px;display:block"/><span style="position:absolute;right:-3px;bottom:-4px;font-size:11px;line-height:1">${flag}</span></div>`,
+      className:'', iconSize:[34,34], iconAnchor:[17,17]
+    });
+    const stationIcon = pngIcon('assets/map-icons/station.png', 'rgba(58,143,191,.95)');
+    const onsenIcon = pngIcon('assets/map-icons/onsen.png', 'rgba(142,90,255,.95)');
+    const essentialIcon = pngIcon('assets/map-icons/essentials.png', 'rgba(67,151,112,.95)');
+    const convenienceIcon = pngIcon('assets/map-icons/convenience.png', 'rgba(208,111,65,.95)');
+    const cheapIcon = pngIcon('assets/map-icons/cheap.png', 'rgba(197,142,29,.95)');
+    const westernIcon = pngIcon('assets/map-icons/western.png', 'rgba(195,99,196,.95)');
+    const seafoodIcon = pngIcon('assets/map-icons/seafood.png', 'rgba(72,153,133,.95)');
+    const kebabIcon = pngIcon('assets/map-icons/kebab.png', 'rgba(180,110,75,.95)');
+    const cocktailIcon = pngIcon('assets/map-icons/cocktail.png', 'rgba(167,96,195,.95)');
+    const coffeeIcon = pngIcon('assets/map-icons/coffee.png', 'rgba(130,92,66,.95)');
+    const starbucksIcon = pngIcon('assets/map-icons/starbucks-logo.svg', 'rgba(255,255,255,.96)', 20);
+    const sevenElevenIcon = pngIcon('assets/map-icons/seven-eleven-logo.png', 'rgba(255,255,255,.96)', 20);
+    const maxvaluIcon = pngIcon('assets/map-icons/maxvalu-logo.svg', 'rgba(255,255,255,.96)', 20);
+    const cafeAmazonIcon = pngIcon('assets/map-icons/cafe-amazon-logo.svg', 'rgba(255,255,255,.96)', 20);
+    const mcdonaldsIcon = pngIcon('assets/map-icons/mcdonalds-logo.png', 'rgba(255,255,255,.96)', 20);
+    const tacoBellIcon = pngIcon('assets/map-icons/tacobell-logo.svg', 'rgba(255,255,255,.96)', 20);
+    const yoshinoyaIcon = pngIcon('assets/map-icons/yoshinoya-logo.svg', 'rgba(255,255,255,.96)', 20);
+    const chineseIcon = flaggedIcon('assets/map-icons/chinese.png', '🇨🇳', 'rgba(186,58,58,.95)');
+    const koreanIcon = flaggedIcon('assets/map-icons/korean.png', '🇰🇷', 'rgba(93,107,217,.95)');
+    const isaanIcon = flaggedIcon('assets/map-icons/isaan.png', '🇹🇭', 'rgba(225,125,45,.95)');
+    const vietnameseIcon = flaggedIcon('assets/map-icons/vietnamese.png', '🇻🇳', 'rgba(46,150,90,.95)');
+    const lannaIcon = flaggedIcon('assets/map-icons/northern.png', '🏔️', 'rgba(153,89,49,.95)');
+    const japaneseIcon = flaggedIcon('assets/map-icons/seafood.png', '🇯🇵', 'rgba(230,230,230,.95)');
+    const hotpotIcon = pngIcon('assets/map-icons/hotpot.png', 'rgba(196,108,53,.95)');
+    const sushiIcon = pngIcon('assets/map-icons/sushi.png', 'rgba(223,72,72,.95)');
+    const ramenIcon = pngIcon('assets/map-icons/ramen.png', 'rgba(197,142,29,.95)');
+    const pizzaIcon = pngIcon('assets/map-icons/pizza.png', 'rgba(214,82,64,.95)');
+    const beerIcon = pngIcon('assets/map-icons/beer.png', 'rgba(204,140,34,.95)');
+    const sushiBarIcon = comboIcon('assets/map-icons/sushi.png', 'assets/map-icons/beer.png', 'rgba(82,55,38,.95)');
+    const ramenBarIcon = comboIcon('assets/map-icons/ramen.png', 'assets/map-icons/beer.png', 'rgba(82,55,38,.95)');
+    const burgerBeerIcon = comboIcon('assets/map-icons/western.png', 'assets/map-icons/beer.png', 'rgba(82,55,38,.95)');
+
+    const cuisineTag = (p) => {
+      const t = `${p.name} ${p.note}`.toLowerCase();
+      if (t.includes('chinese')) return 'Chinese';
+      if (t.includes('korean')) return 'Korean';
+      if (t.includes('isaan') || t.includes('esan')) return 'Isaan';
+      if (t.includes('vietnam')) return 'Vietnamese';
+      if (t.includes('chiang mai') || t.includes('northern')) return 'Northern Thai';
+      if (t.includes('japanese')) return 'Japanese';
+      return '';
+    };
+
+    const iconForPlace = (p, group='') => {
+      const t = `${p.name} ${p.note}`.toLowerCase();
+      if (t.includes('7-eleven')) return sevenElevenIcon;
+      if (t.includes('maxvalu')) return maxvaluIcon;
+      if (t.includes('taco bell')) return tacoBellIcon;
+      if (t.includes('yoshinoya')) return yoshinoyaIcon;
+      if (t.includes('starbucks')) return starbucksIcon;
+      if (t.includes('café amazon') || t.includes('cafe amazon')) return cafeAmazonIcon;
+      if (t.includes('mcdonald')) return mcdonaldsIcon;
+      if (t.includes('father & son') || t.includes('smash box') || t.includes('buns & more')) return burgerBeerIcon;
+      if (t.includes('boat noodle')) return ramenIcon;
+      if (t.includes('sontaya society')) return comboIcon('assets/map-icons/coffee.png', 'assets/map-icons/beer.png', 'rgba(86,64,52,.95)');
+      if (t.includes('จิ้มจุ่ม') || t.includes('jim jum') || t.includes('hot pot') || t.includes('hotpot')) return hotpotIcon;
+      if (t.includes('kebab')) return kebabIcon;
+      if (t.includes('pizza')) return pizzaIcon;
+      if (t.includes('mimi') || t.includes('date-night') || t.includes('cocktail')) return cocktailIcon;
+      if (t.includes('café') || t.includes('cafe') || t.includes('coffee')) return coffeeIcon;
+      if ((t.includes('sushi') || t.includes('omakase')) && (t.includes('bar') || t.includes('izakaya') || t.includes('beer'))) return sushiBarIcon;
+      if ((t.includes('ramen')) && (t.includes('bar') || t.includes('izakaya') || t.includes('beer'))) return ramenBarIcon;
+      if (t.includes('sushi') || t.includes('omakase')) return sushiIcon;
+      if (t.includes('ramen')) return ramenIcon;
+      if (t.includes('chinese')) return chineseIcon;
+      if (t.includes('korean')) return koreanIcon;
+      if (t.includes('isaan') || t.includes('esan')) return isaanIcon;
+      if (t.includes('vietnam')) return vietnameseIcon;
+      if (t.includes('chiang mai') || t.includes('northern')) return lannaIcon;
+      if (t.includes('japanese')) return japaneseIcon;
+      if (group === 'seafood') return seafoodIcon;
+      if (group === 'cheapEats') return cheapIcon;
+      if (group === 'western') return westernIcon;
+      if (group === 'convenience') return convenienceIcon;
+      if (group === 'essentials') return essentialIcon;
+      return westernIcon;
+    };
+
+    L.marker(chapter.coords,{icon:chapterIcon}).bindPopup(`<b>${chapter.name}</b><br>${chapter.note}`).addTo(groups.chapter);
+
+    stations.forEach(s => L.marker(s.coords,{icon:stationIcon}).bindPopup(`<b>${s.name}</b><br>${s.walk}`).addTo(groups.stations));
+    onsen.forEach(o => L.marker(o.coords,{icon:onsenIcon}).bindPopup(`<b>${o.name}</b><br>${o.note}`).addTo(groups.onsen));
+    essentials.forEach(e => L.marker(e.coords,{icon:iconForPlace(e, 'essentials')}).bindPopup(`<b>${e.name}</b><br>${e.note}`).addTo(groups.essentials));
+    shopping.forEach(s => L.marker(s.coords,{icon:iconForPlace(s, 'essentials')}).bindPopup(`<b>${s.name}</b><br>${s.note}`).addTo(groups.shopping));
+    walkTrails.forEach(t => {
+      L.polyline(t.coords, {color:'#7dd3fc', weight:4, opacity:0.9, dashArray:'8 8'})
+        .bindPopup(`<b>${t.name}</b><br>${t.note}`)
+        .addTo(groups.walkTrails);
+      const start = t.coords[0];
+      L.circleMarker(start, {radius:6, color:'#fde68a', fillColor:'#f59e0b', fillOpacity:0.95, weight:2})
+        .bindPopup(`<b>${t.name}</b><br>Start / End`)
+        .addTo(groups.walkTrails);
+    });
+    convenience.forEach(p => L.marker(p.coords,{icon:iconForPlace(p, 'convenience')}).bindPopup(`<b>${p.name}</b><br>${p.note}`).addTo(groups.convenience));
+    cheapEats.forEach(p => L.marker(p.coords,{icon:iconForPlace(p, 'cheapEats')}).bindPopup(foodPopup(p), {maxWidth: 280}).addTo(groups.cheapEats));
+    western.forEach(p => L.marker(p.coords,{icon:iconForPlace(p, 'western')}).bindPopup(foodPopup(p), {maxWidth: 280}).addTo(groups.western));
+    seafood.forEach(p => L.marker(p.coords,{icon:iconForPlace(p, 'seafood'), zIndexOffset: p.featured ? 1200 : 0}).bindPopup(foodPopup(p), {maxWidth: 280}).addTo(groups.seafood));
+    izakaya.forEach(p => L.marker(p.coords,{icon:iconForPlace(p, 'seafood'), zIndexOffset: 1400}).bindPopup(foodPopup(p), {maxWidth: 280}).addTo(groups.izakaya));
+
+    const monopolyHouseIcon = L.divIcon({
+      className:'',
+      iconSize:[30,30],
+      iconAnchor:[15,22],
+      popupAnchor:[0,-18],
+      html:`<div style="position:relative;width:30px;height:30px;filter:drop-shadow(0 5px 10px rgba(0,0,0,.5));">
+        <div style="position:absolute;left:5px;top:11px;width:20px;height:14px;background:linear-gradient(180deg,#ff3b30,#c91515);border:1.5px solid rgba(90,0,0,.9);border-radius:2px;"></div>
+        <div style="position:absolute;left:3px;top:4px;width:24px;height:11px;background:linear-gradient(180deg,#ff6b61,#e12626);border:1.5px solid rgba(90,0,0,.9);clip-path:polygon(50% 0,100% 100%,0 100%);"></div>
+        <div style="position:absolute;left:13px;top:14px;width:4px;height:10px;background:#8e0f0f;border-radius:1px;"></div>
+      </div>`
+    });
+    condos.filter(p => p.name !== 'Chapter Chula-Samyan').forEach(p => L.marker(p.coords,{icon:monopolyHouseIcon}).bindPopup(foodPopup(p), {maxWidth: 280}).addTo(groups.condos));
+
+    const renderItem = (p, emoji) => {
+      const thumb = p.image ? `<a href="${p.maps}" target="_blank" rel="noopener noreferrer"><img src="${p.image}" class="item-thumb" alt="${p.name}" title="Open in Google Maps"/></a>` : '';
+      return `<div class="item">
+        ${thumb}
+        <div class="item-content">
+          <b>${emoji} ${p.name}</b>
+          <span>${[cuisineTag(p), p.rating, p.walk, p.note].filter(Boolean).join(' · ')}</span>
+        </div>
+      </div>`;
+    };
+
+    document.getElementById('stations-list').innerHTML = stations
+      .map(s => `<div class="item"><div class="item-content"><b>${s.name}</b><span>${s.walk}</span></div></div>`).join('');
+    document.getElementById('cheap-list').innerHTML = cheapEats
+      .map(p => renderItem(p, '🍜')).join('');
+    document.getElementById('western-list').innerHTML = western
+      .map(p => renderItem(p, '🍔')).join('');
+    document.getElementById('seafood-list').innerHTML = seafood
+      .map(p => renderItem(p, '🦐')).join('');
+    document.getElementById('izakaya-list').innerHTML = izakaya
+      .map(p => renderItem(p, '🍶')).join('');
+    document.getElementById('condos-list').innerHTML = condos
+      .filter(p => p.name !== 'Chapter Chula-Samyan')
+      .map(p => renderItem(p, '🏢')).join('');
+
+    const layers = ['stations','onsen','convenience','cheapEats','western','seafood','izakaya','condos','shopping','walkTrails','essentials'];
+    const setLayer = mode => {
+      layers.forEach(k => map.removeLayer(groups[k]));
+      if(mode === 'all'){layers.forEach(k => groups[k].addTo(map));}
+      else groups[mode].addTo(map);
+    };
+
+    document.querySelectorAll('.chip').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+        btn.classList.add('active');
+        setLayer(btn.dataset.layer);
+      });
+    });
+  </script>
+</body>
+</html>
