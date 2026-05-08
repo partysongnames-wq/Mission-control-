@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Chapter Move-In Map · Mission Control</title>
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
   <style>
     :root{--bg:#060b13;--card:#0f1726;--muted:#9fb2d8;--text:#f2f6ff;--pink:#ff6fb0;--gold:#ffd84a;--blue:#5ecbff;--green:#48d597;--line:rgba(255,255,255,.08)}
     *{box-sizing:border-box;margin:0;padding:0}
@@ -295,7 +295,7 @@
       image-rendering: auto;
     }
   </style>
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <script>
     const chapter = {name:'Chapter Chula-Samyan', coords:[13.7313584,100.5234970], note:'Home base · Locked in'};
 
@@ -346,10 +346,10 @@
       {name:'Yummy Thai Food', coords:[13.732642,100.522120], note:'Local casual seating style', walk:'~11 min', price:'฿1–200', rating:'4.7★ (~507)', image:'assets/food/yummy-thai-1.jpg', maps:'https://www.google.com/maps/search/?api=1&query=Yummy+Thai+Food+Bangkok'},
       {name:'Hia Tee Yai @ Nares', coords:[13.7320,100.5219], note:'Late casual Thai meals', walk:'~10 min', price:'฿1–200', rating:'4.8★ (~200)', image:'assets/food/hia-tee-yai-1.jpg', maps:'https://www.google.com/maps/search/?api=1&query=Hia+Tee+Yai+%40+Nares+Bangkok'},
       {name:'นัวนิยม จิ้มจุ่มโคราช', coords:[13.729690,100.521980], note:'Isaan hot pot / jim jum style · 969 Bang Rak, Bangkok 10500', walk:'Bang Rak side', price:'฿฿', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=969+Bang+Rak+Bangkok+10500'},
-      {name:'Shashi's BBQ & Grill', coords:[13.7293086,100.5184446], note:'Affordable Indian option from walk discovery (Maha Set Rd cluster)', walk:'Si Phraya/Maha Set side', price:'฿', rating:'5.0★ (1)', image:'', maps:'https://www.google.com/maps/search/?api=1&query=Shashi%27s+BBQ+%26+Grill+Bangkok'},
-      {name:'Thai Pakistan Restaurant', coords:[13.7293932,100.5192825], note:'Interesting low-review Thai spot, test later (Maha Set Rd cluster)', walk:'Si Phraya/Maha Set side', price:'฿', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=Thai+Pakistan+Restaurant+Bangkok'},
+      {name:'Shashi's BBQ & Grill', coords:[13.7293086,100.5184446], note:'Affordable Indian option from walk discovery', walk:'Si Phraya/Maha Set side', price:'฿', rating:'5.0★ (1)', image:'', maps:'https://www.google.com/maps/search/?api=1&query=Shashi%27s+BBQ+%26+Grill+Bangkok'},
+      {name:'Thai Pakistan Restaurant', coords:[13.7293932,100.5192825], note:'Interesting low-review Thai spot, test later', walk:'Si Phraya/Maha Set side', price:'฿', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=Thai+Pakistan+Restaurant+Bangkok'},
       {name:'VK Ceylon Kitchen', coords:[13.7275696,100.5217354], note:'Sri Lankan cuisine, rare local find', walk:'Si Phraya / Bang Rak side', price:'฿฿', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=VK+Ceylon+Kitchen+Bangkok'},
-      {name:'Mo Phet Mo Phloi Market', coords:[13.73012,100.51872], note:'Local market lane on walk route', walk:'Si Phraya side', price:'฿', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=Mo+Phet+Mo+Phloi+Market+Bangkok'}
+      {name:'Mo Phet Mo Phloi Market', coords:[13.7300,100.5193], note:'Local market lane on walk route', walk:'Si Phraya side', price:'฿', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=Mo+Phet+Mo+Phloi+Market+Bangkok'}
     ];
 
     const western = [
@@ -370,7 +370,7 @@
       {name:'Markintiny (มากินที่นี่)', coords:[13.7319,100.5228], note:'Thai seafood-friendly menu', walk:'~11 min', price:'฿200–400', rating:'4.6★ (~529)', image:'assets/food/markintiny-1.jpg', maps:'https://www.google.com/maps/search/?api=1&query=Markintiny+Bangkok'},
       {name:'นายหน่องข้าวต้มปลา สาขาพระรามสี่-สามย่าน', coords:[13.73215,100.52615], note:'Seafood porridge favorite from your route screenshots', walk:'~9 min', price:'฿200–400', rating:'4.8★ (~136)', image:'assets/food/nai-nong-1.jpg', maps:'https://www.google.com/maps/search/?api=1&query=%E0%B8%99%E0%B8%B2%E0%B8%A2%E0%B8%AB%E0%B8%99%E0%B9%88%E0%B8%AD%E0%B8%87%E0%B8%82%E0%B9%89%E0%B8%B2%E0%B8%A7%E0%B8%95%E0%B9%89%E0%B8%A1%E0%B8%9B%E0%B8%A5%E0%B8%B2+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2%E0%B8%9E%E0%B8%A3%E0%B8%B0%E0%B8%A3%E0%B8%B2%E0%B8%A1%E0%B8%AA%E0%B8%B5%E0%B9%88-%E0%B8%AA%E0%B8%B2%E0%B8%A1%E0%B8%A2%E0%B9%88%E0%B8%B2%E0%B8%99'},
       {name:'Somboon Seafood (Sam Yan / Chamchuri area)', coords:[13.7302,100.5314], note:'Popular seafood pick', walk:'~12 min', price:'฿฿฿', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=Somboon+Seafood+Sam+Yan'},
-      {name:'100 Mahaseth', coords:[13.73009,100.51858], note:'Thai restaurant · 100 Maha Set Rd, Si Phraya, Bang Rak', walk:'Si Phraya/Maha Set side', price:'฿฿฿', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=100+Mahaseth'}
+      {name:'100 Mahaseth', coords:[13.7304,100.5198], note:'Thai restaurant · 100 Maha Set Rd, Si Phraya, Bang Rak', walk:'Si Phraya/Maha Set side', price:'฿฿฿', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=100+Mahaseth'}
     ];
 
     const izakaya = [
@@ -389,29 +389,26 @@
     const walkTrails = [
       {
         name:'2026-05-08 Si Phraya scout loop',
-        note:'Strict turn sequence from your notes: Si Phraya → Naret Rd → right Surawong Rd → right Phatthana Alley → lane loop → return to Si Phraya',
+        note:'Updated to match your correction: Naret → Surawong → Phatthana Alley → inner narrow lane loop → back to Si Phraya',
         coords:[
           [13.73136,100.52350],
-          [13.73128,100.52270],
-          [13.73118,100.52195],
-          [13.73108,100.52125],
-          [13.73098,100.52070],
-          [13.73090,100.52025],
-          [13.73082,100.51995],
-          [13.73060,100.51990],
-          [13.73032,100.51988],
-          [13.73002,100.51988],
-          [13.72985,100.51998],
-          [13.72998,100.52025],
-          [13.73020,100.52045],
-          [13.73042,100.52060],
-          [13.73030,100.52072],
-          [13.73045,100.52086],
-          [13.73070,100.52095],
-          [13.73088,100.52125],
-          [13.73106,100.52170],
-          [13.73120,100.52230],
-          [13.73130,100.52295],
+          [13.73128,100.52255],
+          [13.73112,100.52170],
+          [13.73090,100.52095],
+          [13.73068,100.52030],
+          [13.73048,100.51978],
+          [13.73022,100.51958],
+          [13.72995,100.51962],
+          [13.72978,100.51988],
+          [13.72988,100.52025],
+          [13.73012,100.52042],
+          [13.73032,100.52018],
+          [13.73056,100.51996],
+          [13.73078,100.52020],
+          [13.73078,100.52074],
+          [13.73100,100.52128],
+          [13.73118,100.52192],
+          [13.73130,100.52270],
           [13.73136,100.52350]
         ]
       }
