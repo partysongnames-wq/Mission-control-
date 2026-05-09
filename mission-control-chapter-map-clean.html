@@ -634,6 +634,17 @@
       else groups[mode].addTo(map);
     };
 
+
+    // Visibility-safe fallback pins (plain Leaflet markers)
+    const fallbackGroups = [
+      ...stations.map(x=>({...x,label:'🚆 '+x.name})),
+      ...essentials.map(x=>({...x,label:'📍 '+x.name})),
+      ...shopping.map(x=>({...x,label:'🛍️ '+x.name})),
+      ...convenience.map(x=>({...x,label:'🏪 '+x.name}))
+    ];
+    L.marker(chapter.coords).bindPopup(`<b>${chapter.name}</b><br>${chapter.note}`).addTo(map);
+    fallbackGroups.forEach(p=>L.marker(p.coords).bindPopup(`<b>${p.label}</b><br>${p.note || p.walk || ''}<br><a href="${mapsHref(p)}" target="_blank" rel="noopener noreferrer" style="color:#2563eb">Open in Google Maps ↗</a>`).addTo(map));
+
     document.querySelectorAll('.chip').forEach(btn => {
       btn.addEventListener('click', () => {
         document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
