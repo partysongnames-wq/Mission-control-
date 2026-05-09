@@ -452,6 +452,17 @@
     };
 
     const chapterIcon = L.divIcon({html:'<div style="width:32px;height:32px;clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);background:radial-gradient(circle at 35% 30%,#ffe27a 0%,#d4a514 60%,#8a6b00 100%);border:2px solid #111;box-shadow:0 0 0 2px rgba(255,215,0,.35)"></div>', className:'', iconSize:[32,32], iconAnchor:[16,16]});
+
+
+    const mapsHref = (p) => {
+      if (p?.maps && String(p.maps).trim()) return p.maps;
+      if (Array.isArray(p?.coords) && p.coords.length === 2) {
+        const lat = Number(p.coords[0]);
+        const lng = Number(p.coords[1]);
+        if (Number.isFinite(lat) && Number.isFinite(lng)) return `https://www.google.com/maps?q=${lat},${lng}`;
+      }
+      return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p?.name || 'Bangkok')}`;
+    };
     const foodPopup = (p) => {
       const cuisine = cuisineTag(p);
       const meta = [cuisine, p.rating, p.price, p.walk].filter(Boolean).join(' · ');
@@ -551,10 +562,10 @@
 
     L.marker(chapter.coords,{icon:chapterIcon}).bindPopup(`<b>${chapter.name}</b><br>${chapter.note}`).addTo(groups.chapter);
 
-    stations.forEach(s => L.marker(s.coords,{icon:stationIcon}).bindPopup(`<b>${s.name}</b><br>${s.walk}`).addTo(groups.stations));
-    onsen.forEach(o => L.marker(o.coords,{icon:onsenIcon}).bindPopup(`<b>${o.name}</b><br>${o.note}`).addTo(groups.onsen));
-    essentials.forEach(e => L.marker(e.coords,{icon:iconForPlace(e, 'essentials')}).bindPopup(`<b>${e.name}</b><br>${e.note}`).addTo(groups.essentials));
-    shopping.forEach(s => L.marker(s.coords,{icon:iconForPlace(s, 'essentials')}).bindPopup(`<b>${s.name}</b><br>${s.note}`).addTo(groups.shopping));
+    stations.forEach(s => L.marker(s.coords,{icon:stationIcon}).bindPopup(`<b>${s.name}</b><br>${s.walk}<br><a href="${mapsHref(s)}" target="_blank" rel="noopener noreferrer" style="color:#7dd3fc">Open in Google Maps ↗</a>`).addTo(groups.stations));
+    onsen.forEach(o => L.marker(o.coords,{icon:onsenIcon}).bindPopup(`<b>${o.name}</b><br>${o.note}<br><a href="${mapsHref(o)}" target="_blank" rel="noopener noreferrer" style="color:#7dd3fc">Open in Google Maps ↗</a>`).addTo(groups.onsen));
+    essentials.forEach(e => L.marker(e.coords,{icon:iconForPlace(e, 'essentials')}).bindPopup(`<b>${e.name}</b><br>${e.note}<br><a href="${mapsHref(e)}" target="_blank" rel="noopener noreferrer" style="color:#7dd3fc">Open in Google Maps ↗</a>`).addTo(groups.essentials));
+    shopping.forEach(s => L.marker(s.coords,{icon:iconForPlace(s, 'essentials')}).bindPopup(`<b>${s.name}</b><br>${s.note}<br><a href="${mapsHref(s)}" target="_blank" rel="noopener noreferrer" style="color:#7dd3fc">Open in Google Maps ↗</a>`).addTo(groups.shopping));
     walkTrails.forEach(t => {
       L.polyline(t.coords, {color:'#7dd3fc', weight:4, opacity:0.9, dashArray:'8 8'})
         .bindPopup(`<b>${t.name}</b><br>${t.note}`)
@@ -564,7 +575,7 @@
         .bindPopup(`<b>${t.name}</b><br>Start / End`)
         .addTo(groups.walkTrails);
     });
-    convenience.forEach(p => L.marker(p.coords,{icon:iconForPlace(p, 'convenience')}).bindPopup(`<b>${p.name}</b><br>${p.note}`).addTo(groups.convenience));
+    convenience.forEach(p => L.marker(p.coords,{icon:iconForPlace(p, 'convenience')}).bindPopup(`<b>${p.name}</b><br>${p.note}<br><a href="${mapsHref(p)}" target="_blank" rel="noopener noreferrer" style="color:#7dd3fc">Open in Google Maps ↗</a>`).addTo(groups.convenience));
     cheapEats.forEach(p => L.marker(p.coords,{icon:iconForPlace(p, 'cheapEats')}).bindPopup(foodPopup(p), {maxWidth: 280}).addTo(groups.cheapEats));
     western.forEach(p => L.marker(p.coords,{icon:iconForPlace(p, 'western')}).bindPopup(foodPopup(p), {maxWidth: 280}).addTo(groups.western));
     seafood.forEach(p => L.marker(p.coords,{icon:iconForPlace(p, 'seafood'), zIndexOffset: p.featured ? 1200 : 0}).bindPopup(foodPopup(p), {maxWidth: 280}).addTo(groups.seafood));
