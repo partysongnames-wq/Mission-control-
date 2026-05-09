@@ -574,11 +574,9 @@
     ];
 
     const map = L.map('map', {zoomControl:true}).setView(chapter.coords, 15);
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-      attribution:'&copy; OpenStreetMap &copy; CARTO', maxZoom:19
-    }).addTo(map);
 
-    // Add English street name overlays
+    // Add English street name labels as bottom layer (before tiles)
+    const streetLabelsLayer = L.layerGroup();
     const streetLabels = [
       {name:'Si Phraya Rd', coords:[13.7315, 100.5210], angle:0},
       {name:'Rama IV Rd', coords:[13.7300, 100.5270], angle:45},
@@ -591,7 +589,7 @@
       {name:'Yaowarat Rd', coords:[13.7420, 100.5150], angle:35}
     ];
 
-    // Only show street labels on desktop (window width > 768px)
+    // Only add street labels on desktop
     if (window.innerWidth > 768) {
       streetLabels.forEach(label => {
         L.marker(label.coords, {
@@ -606,17 +604,24 @@
               white-space: nowrap;
               transform: rotate(${label.angle}deg);
               position: relative;
-              z-index: 9999;
+              z-index: 100;
             ">${label.name}</div>`,
             className: 'street-label',
             iconSize: [null, null],
             iconAnchor: [0, 0]
           }),
           interactive: false,
-          zIndexOffset: 9999
-        }).addTo(map);
+          zIndexOffset: 100
+        }).addTo(streetLabelsLayer);
       });
     }
+
+    // Add street labels as bottom layer
+    streetLabelsLayer.addTo(map);
+
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+      attribution:'&copy; OpenStreetMap &copy; CARTO', maxZoom:19
+    }).addTo(map);
 
     const groups = {
       chapter: L.layerGroup().addTo(map),
