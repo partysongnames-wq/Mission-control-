@@ -595,11 +595,11 @@
       streetLabels.forEach(label => {
         const labelIcon = L.divIcon({
           className:'',
-          html:`<div style="background:rgba(255,255,255,.9);color:#000;padding:2px 6px;border-radius:3px;font-size:11px;font-weight:700;white-space:nowrap;transform:rotate(${label.angle}deg);box-shadow:none;border:none">${label.name}</div>`,
-          iconSize:[80,20],
-          iconAnchor:[40,10]
+          html:`<div style="background:rgba(255,255,255,.7);color:#333;padding:1px 4px;border-radius:2px;font-size:9px;font-weight:600;white-space:nowrap;transform:rotate(${label.angle}deg);box-shadow:none;border:none;pointer-events:none">${label.name}</div>`,
+          iconSize:[70,16],
+          iconAnchor:[35,8]
         });
-        L.marker(label.coords, {icon:labelIcon, zIndexOffset:100}).addTo(map);
+        L.marker(label.coords, {icon:labelIcon, zIndexOffset:-100}).addTo(map);
       });
     }
 
