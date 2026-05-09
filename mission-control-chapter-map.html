@@ -136,17 +136,47 @@
     .checklist li::before{
       content:'→';position:absolute;left:-16px;color:var(--gold);font-weight:700;
     }
-    .photo-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+    .stats-strip{
+      display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:12px;margin:0 0 18px;
+    }
+    .stat-box{
+      background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);
+      border-radius:12px;padding:10px;text-align:center;
+    }
+    .stat-number{display:block;font-size:1.4rem;font-weight:700;color:var(--gold);margin-bottom:3px}
+    .stat-label{display:block;font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+    .section-header{
+      display:flex;justify-content:space-between;align-items:center;cursor:pointer;padding:8px 0;
+      user-select:none;margin:14px 0 0;border-bottom:1px solid rgba(255,255,255,.08);
+    }
+    .section-header h3{margin:0;font-size:.82rem}
+    .section-toggle{
+      width:18px;height:18px;display:flex;align-items:center;justify-content:center;
+      font-size:12px;color:var(--gold);transition:transform .2s ease;
+    }
+    .section-toggle.open{transform:rotate(90deg)}
+    .section-content{max-height:9999px;overflow:hidden;transition:max-height .3s ease;margin-top:10px}
+    .section-content.collapsed{max-height:0;margin-top:0}
+    .photo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
     .photo-grid img{
-      width:100%;height:130px;object-fit:cover;border-radius:12px;
+      width:100%;height:90px;object-fit:cover;border-radius:8px;
       border:1px solid rgba(255,255,255,.12);
       transition:all .3s ease;cursor:pointer;
     }
     .photo-grid img:hover{
-      transform:scale(1.02);
+      transform:scale(1.05);
       border-color:rgba(255,255,255,.25);
       box-shadow:0 8px 24px rgba(0,0,0,.3);
     }
+    .home-base-metrics{
+      display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:10px;
+    }
+    .metric{
+      background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);
+      border-radius:10px;padding:8px;text-align:center;
+    }
+    .metric-value{display:block;font-size:1.2rem;font-weight:700;color:var(--gold)}
+    .metric-label{display:block;font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-top:2px}
     .note{
       font-size:.76rem;color:var(--muted);margin-top:12px;
       line-height:1.5;padding:12px;border-radius:10px;
@@ -189,11 +219,27 @@
       #map{height:72vh;min-height:560px}
       .chips{flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;padding-bottom:4px;-webkit-overflow-scrolling:touch}
       .chip{white-space:nowrap;flex:0 0 auto}
-      .photo-grid{grid-template-columns:1fr}
+      .photo-grid{grid-template-columns:repeat(2,1fr)}
+      .stats-strip{grid-template-columns:repeat(auto-fit,minmax(80px,1fr));gap:8px}
+      .stat-number{font-size:1.2rem}
+      .stat-label{font-size:.65rem}
       .wrap{padding:12px}
       .title h1{font-size:1.15rem}
       .top{gap:10px}
       .btn{padding:8px 12px;font-size:.8rem}
+      .section-header h3{font-size:.78rem}
+      .home-base-metrics{grid-template-columns:repeat(2,1fr);gap:8px}
+      .metric{padding:6px}
+      .metric-value{font-size:1rem}
+      .metric-label{font-size:.64rem}
+    }
+    @media (max-width:600px){
+      .photo-grid{grid-template-columns:repeat(2,1fr);gap:6px}
+      .photo-grid img{height:80px}
+      .stats-strip{grid-template-columns:repeat(auto-fit,minmax(70px,1fr));gap:6px}
+      .card{padding:10px}
+      .stat-number{font-size:1rem}
+      .stat-label{font-size:.6rem}
     }
   </style>
 </head>
@@ -227,61 +273,166 @@
       </div>
 
       <div class="card">
-        <h3 style="margin-top:0">Home Base</h3>
-        <div class="item"><b>Chapter Chula-Samyan</b><span>49 sqm · 27F · ฿30,000/mo · Move-in end of April</span></div>
-
-        <h3 style="margin-top:14px">Nearest Transport</h3>
-        <div class="list" id="stations-list"></div>
-
-        <h3 style="margin-top:14px">Cheap Eats (walkable)</h3>
-        <div class="list" id="cheap-list"></div>
-
-        <h3 style="margin-top:14px">Western Comfort</h3>
-        <div class="list" id="western-list"></div>
-
-        <h3 style="margin-top:14px">Seafood / Local Favs</h3>
-        <div class="list" id="seafood-list"></div>
-
-        <h3 style="margin-top:14px">Izakaya</h3>
-        <div class="list" id="izakaya-list"></div>
-
-        <h3 style="margin-top:14px">Condos We Viewed Nearby</h3>
-        <div class="list" id="condos-list"></div>
-
-        <h3 style="margin-top:14px">Trent-Verified Food Photos</h3>
-        <div class="photo-grid">
-          <img src="assets/food/father-son-1.jpg" alt="Father & Son smash box photo 1" loading="lazy">
-          <img src="assets/food/father-son-2.jpg" alt="Father & Son smash box photo 2" loading="lazy">
-          <img src="assets/food/father-son-3.jpg" alt="Father & Son smash box photo 3" loading="lazy">
-          <img src="assets/food/kebab-bar-1.jpg" alt="Kebab Bar Halal photo" loading="lazy">
-          <img src="assets/food/kebab-bar-info.jpg" alt="Kebab Bar Halal listing info" loading="lazy">
-          <img src="assets/food/mimis-1.jpg" alt="Mimi's Bangkok listing" loading="lazy">
-          <img src="assets/food/mimis-2.jpg" alt="Mimi's Bangkok ambiance" loading="lazy">
-          <img src="assets/food/mimis-3.jpg" alt="Mimi's Bangkok review shot" loading="lazy">
-          <img src="assets/food/yummy-thai-1.jpg" alt="Yummy Thai Food listing" loading="lazy">
-          <img src="assets/food/yummy-thai-2.jpg" alt="Yummy Thai Food interior" loading="lazy">
-          <img src="assets/food/markintiny-1.jpg" alt="Markintiny listing" loading="lazy">
-          <img src="assets/food/markintiny-2.jpg" alt="Markintiny interior and details" loading="lazy">
-          <img src="assets/food/hia-tee-yai-1.jpg" alt="Hia Tee Yai listing" loading="lazy">
-          <img src="assets/food/hia-tee-yai-2.jpg" alt="Hia Tee Yai menu gallery" loading="lazy">
-          <img src="assets/food/hia-tee-yai-3.jpg" alt="Hia Tee Yai dish closeup" loading="lazy">
-          <img src="assets/food/nai-nong-route.jpg" alt="Nai Nong route from Chapter" loading="lazy">
-          <img src="assets/food/nai-nong-1.jpg" alt="Nai Nong listing" loading="lazy">
-          <img src="assets/food/nai-nong-2.jpg" alt="Nai Nong seafood review panel" loading="lazy">
-          <img src="assets/food/nai-nong-3.jpg" alt="Nai Nong fish porridge bowl" loading="lazy">
-          <img src="assets/food/nai-nong-4.jpg" alt="Nai Nong dish and review" loading="lazy">
+        <div style="margin-top:0">
+          <h3 style="margin:0 0 12px">Home Base</h3>
+          <div style="background:linear-gradient(135deg,rgba(246,211,116,.08),rgba(119,214,255,.05));border:1px solid rgba(246,211,116,.2);border-radius:14px;padding:12px;box-shadow:0 0 20px rgba(246,211,116,.1);margin-bottom:14px">
+            <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:8px">
+              <span style="font-size:1.1rem">★</span>
+              <b style="font-size:.95rem;color:#fff">Chapter Chula-Samyan</b>
+            </div>
+            <div class="home-base-metrics">
+              <div class="metric">
+                <span class="metric-value">49</span>
+                <span class="metric-label">sqm</span>
+              </div>
+              <div class="metric">
+                <span class="metric-value">27F</span>
+                <span class="metric-label">Floor</span>
+              </div>
+              <div class="metric">
+                <span class="metric-value">฿30K</span>
+                <span class="metric-label">/month</span>
+              </div>
+              <div class="metric">
+                <span class="metric-value">End Apr</span>
+                <span class="metric-label">Move-in</span>
+              </div>
+            </div>
+            <div style="font-size:.75rem;color:var(--muted);margin-top:8px;line-height:1.4">Decided and deposit paid. Top-floor area (27F, one end). Onsen confirmed working.</div>
+          </div>
         </div>
-        <div class="note">Father & Son’s - The Smash Box: 4.9★ (~39 reviews), ~10 min, price shown ฿200–400. Kebab Bar Halal (Bangkok): 4.5★ (~95 reviews), ~10 min, ฿200–400, open late (closes 00:00). Mimi’s Bangkok: 4.9★ (~339 reviews), ~10 min, open late (closes 00:00), strong date-night vibe. Yummy Thai Food: 4.7★ (~507 reviews), ~11 min, budget-friendly (฿1–200), local casual seating style. Markintiny: 4.6★ (~529 reviews), ~11 min, ฿200–400. Hia Tee Yai @ Nares: 4.8★ (~200 reviews), ~10 min, ฿1–200, closes 23:00. นายหน่องข้าวต้มปลา สาขาพระรามสี่-สามย่าน: 4.8★ (~136), route shown ~9 min / ~650m, ฿200–400, closes around 00:00 (from your screenshots).</div>
 
-        <h3 style="margin-top:14px">First 7 Days Checklist</h3>
-        <ul class="checklist">
-          <li>Confirm contract terms + deposit return timeline in writing</li>
-          <li>Book move-in elevator / juristic handover slot</li>
-          <li>Set up internet + test speed in-room</li>
-          <li>Install washing machine / appliance plan</li>
-          <li>Save nearest MRT/BTS + grocery pins</li>
-          <li>Do one evening and one daytime neighborhood walk</li>
-        </ul>
+        <div class="stats-strip">
+          <div class="stat-box">
+            <span class="stat-number" id="stat-stations">4</span>
+            <span class="stat-label">Stations</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-number" id="stat-cheap">11</span>
+            <span class="stat-label">Cheap Eats</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-number" id="stat-western">11</span>
+            <span class="stat-label">Western</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-number" id="stat-seafood">5</span>
+            <span class="stat-label">Seafood</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-number" id="stat-izakaya">1</span>
+            <span class="stat-label">Izakaya</span>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="section-header" onclick="toggleSection(this)">
+            <h3 style="margin:0;display:flex;align-items:center;gap:8px">Nearest Transport</h3>
+            <div class="section-toggle open">›</div>
+          </div>
+          <div class="section-content">
+            <div class="list" id="stations-list"></div>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="section-header" onclick="toggleSection(this)">
+            <h3 style="margin:0;display:flex;align-items:center;gap:8px">Cheap Eats (walkable)</h3>
+            <div class="section-toggle open">›</div>
+          </div>
+          <div class="section-content">
+            <div class="list" id="cheap-list"></div>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="section-header" onclick="toggleSection(this)">
+            <h3 style="margin:0;display:flex;align-items:center;gap:8px">Western Comfort</h3>
+            <div class="section-toggle open">›</div>
+          </div>
+          <div class="section-content">
+            <div class="list" id="western-list"></div>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="section-header" onclick="toggleSection(this)">
+            <h3 style="margin:0;display:flex;align-items:center;gap:8px">Seafood / Local Favs</h3>
+            <div class="section-toggle open">›</div>
+          </div>
+          <div class="section-content">
+            <div class="list" id="seafood-list"></div>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="section-header" onclick="toggleSection(this)">
+            <h3 style="margin:0;display:flex;align-items:center;gap:8px">Izakaya</h3>
+            <div class="section-toggle open">›</div>
+          </div>
+          <div class="section-content">
+            <div class="list" id="izakaya-list"></div>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="section-header" onclick="toggleSection(this)">
+            <h3 style="margin:0;display:flex;align-items:center;gap:8px">Condos We Viewed Nearby</h3>
+            <div class="section-toggle open">›</div>
+          </div>
+          <div class="section-content">
+            <div class="list" id="condos-list"></div>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="section-header" onclick="toggleSection(this)">
+            <h3 style="margin:0;display:flex;align-items:center;gap:8px">Trent-Verified Food Photos</h3>
+            <div class="section-toggle open">›</div>
+          </div>
+          <div class="section-content">
+            <div class="photo-grid">
+              <img src="assets/food/father-son-1.jpg" alt="Father & Son smash box photo 1" loading="lazy">
+              <img src="assets/food/father-son-2.jpg" alt="Father & Son smash box photo 2" loading="lazy">
+              <img src="assets/food/father-son-3.jpg" alt="Father & Son smash box photo 3" loading="lazy">
+              <img src="assets/food/kebab-bar-1.jpg" alt="Kebab Bar Halal photo" loading="lazy">
+              <img src="assets/food/kebab-bar-info.jpg" alt="Kebab Bar Halal listing info" loading="lazy">
+              <img src="assets/food/mimis-1.jpg" alt="Mimi's Bangkok listing" loading="lazy">
+              <img src="assets/food/mimis-2.jpg" alt="Mimi's Bangkok ambiance" loading="lazy">
+              <img src="assets/food/mimis-3.jpg" alt="Mimi's Bangkok review shot" loading="lazy">
+              <img src="assets/food/yummy-thai-1.jpg" alt="Yummy Thai Food listing" loading="lazy">
+              <img src="assets/food/yummy-thai-2.jpg" alt="Yummy Thai Food interior" loading="lazy">
+              <img src="assets/food/markintiny-1.jpg" alt="Markintiny listing" loading="lazy">
+              <img src="assets/food/markintiny-2.jpg" alt="Markintiny interior and details" loading="lazy">
+              <img src="assets/food/hia-tee-yai-1.jpg" alt="Hia Tee Yai listing" loading="lazy">
+              <img src="assets/food/hia-tee-yai-2.jpg" alt="Hia Tee Yai menu gallery" loading="lazy">
+              <img src="assets/food/hia-tee-yai-3.jpg" alt="Hia Tee Yai dish closeup" loading="lazy">
+              <img src="assets/food/nai-nong-route.jpg" alt="Nai Nong route from Chapter" loading="lazy">
+              <img src="assets/food/nai-nong-1.jpg" alt="Nai Nong listing" loading="lazy">
+              <img src="assets/food/nai-nong-2.jpg" alt="Nai Nong seafood review panel" loading="lazy">
+              <img src="assets/food/nai-nong-3.jpg" alt="Nai Nong fish porridge bowl" loading="lazy">
+              <img src="assets/food/nai-nong-4.jpg" alt="Nai Nong dish and review" loading="lazy">
+            </div>
+            <div class="note">Father & Son's - The Smash Box: 4.9★ (~39 reviews), ~10 min, price shown ฿200–400. Kebab Bar Halal (Bangkok): 4.5★ (~95 reviews), ~10 min, ฿200–400, open late (closes 00:00). Mimi's Bangkok: 4.9★ (~339 reviews), ~10 min, open late (closes 00:00), strong date-night vibe. Yummy Thai Food: 4.7★ (~507 reviews), ~11 min, budget-friendly (฿1–200), local casual seating style. Markintiny: 4.6★ (~529 reviews), ~11 min, ฿200–400. Hia Tee Yai @ Nares: 4.8★ (~200 reviews), ~10 min, ฿1–200, closes 23:00. นายหน่องข้าวต้มปลา สาขาพระรามสี่-สามย่าน: 4.8★ (~136), route shown ~9 min / ~650m, ฿200–400, closes around 00:00 (from your screenshots).</div>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="section-header" onclick="toggleSection(this)">
+            <h3 style="margin:0;display:flex;align-items:center;gap:8px">First 7 Days Checklist</h3>
+            <div class="section-toggle open">›</div>
+          </div>
+          <div class="section-content">
+            <ul class="checklist">
+              <li>Confirm contract terms + deposit return timeline in writing</li>
+              <li>Book move-in elevator / juristic handover slot</li>
+              <li>Set up internet + test speed in-room</li>
+              <li>Install washing machine / appliance plan</li>
+              <li>Save nearest MRT/BTS + grocery pins</li>
+              <li>Do one evening and one daytime neighborhood walk</li>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -297,6 +448,14 @@
   </style>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <script>
+    function toggleSection(header) {
+      const content = header.nextElementSibling;
+      const toggle = header.querySelector('.section-toggle');
+      content.classList.toggle('collapsed');
+      toggle.classList.toggle('open');
+    }
+  </script>
+  <script>
     const chapter = {name:'Chapter Chula-Samyan', coords:[13.7313584,100.5234970], note:'Home base · Locked in'};
 
     const stations = [
@@ -311,11 +470,11 @@
     ];
 
     const essentials = [
-      {name:'MaxValu', coords:[13.733226,100.526495], note:'Supermarket (late hours)'},
-      {name:'Bang Rak District Office Area', coords:[13.7265,100.5223], note:'Admin/services zone'},
-      {name:'Big C Mini (Si Phraya/Surawong side)', coords:[13.7303,100.5202], note:'Convenience anchor from 2026-05-08 walk'},
-      {name:'Wat Kaewjamfa', coords:[13.7307,100.5191], note:'Temple landmark and route checkpoint'},
-      {name:'Si Phraya restaurant pocket (dusitD2/Amigo area)', coords:[13.7319,100.5215], note:'Cluster of restaurants, stronger in daytime'}
+      {name:'MaxValu', coords:[13.733226,100.526495], note:'Supermarket (late hours) · Samyan Rd'},
+      {name:'Bang Rak District Office Area', coords:[13.7265,100.5223], note:'Admin/services zone · Rama IV Rd'},
+      {name:'Big C Mini (Si Phraya/Surawong side)', coords:[13.7303,100.5202], note:'Convenience anchor from 2026-05-08 walk · Si Phraya Rd'},
+      {name:'Wat Kaewjamfa', coords:[13.7307,100.5191], note:'Temple landmark and route checkpoint · Maha Set Rd'},
+      {name:'Si Phraya restaurant pocket (dusitD2/Amigo area)', coords:[13.7319,100.5215], note:'Cluster of restaurants, stronger in daytime · Si Phraya Rd'}
     ];
 
     const shopping = [
@@ -339,42 +498,42 @@
     ];
 
     const cheapEats = [
-      {name:'เจ๊น้อย เย็นตาโฟ', coords:[13.732738,100.522554], note:'Local boat noodle spot', walk:'~6 min', price:'฿', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=%E0%B9%80%E0%B8%88%E0%B9%8A%E0%B8%99%E0%B9%89%E0%B8%AD%E0%B8%A2+%E0%B9%80%E0%B8%A2%E0%B9%87%E0%B8%99%E0%B8%95%E0%B8%B2%E0%B9%82%E0%B8%9F+Bangkok'},
-      {name:'ข้าวหมูแดง อาย้ง', coords:[13.728791,100.524104], note:'Budget Thai rice plate', walk:'~7 min', price:'฿', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=%E0%B8%82%E0%B9%89%E0%B8%B2%E0%B8%A7%E0%B8%AB%E0%B8%A1%E0%B8%B9%E0%B9%81%E0%B8%94%E0%B8%87+%E0%B8%AD%E0%B8%B2%E0%B8%A2%E0%B9%89%E0%B8%87+Bangkok'},
-      {name:'ก๋วยเตี๋ยวปากหม้อ บ้านอุ๊ย', coords:[13.731054,100.521494], note:'Noodle + quick meal', walk:'~6 min', price:'฿', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=%E0%B8%81%E0%B9%8B%E0%B8%A7%E0%B8%A2%E0%B9%80%E0%B8%95%E0%B8%B5%E0%B9%8B%E0%B8%A2%E0%B8%A7%E0%B8%9B%E0%B8%B2%E0%B8%81%E0%B8%AB%E0%B8%A1%E0%B9%89%E0%B8%AD+%E0%B8%9A%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B8%AD%E0%B8%B8%E0%B9%8A%E0%B8%A2+Bangkok'},
-      {name:'ครัวโอปอ ไทยฟู้ด', coords:[13.731245,100.520489], note:'Cheap Thai comfort food', walk:'~8 min', price:'฿', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=%E0%B8%84%E0%B8%A3%E0%B8%B1%E0%B8%A7%E0%B9%82%E0%B8%AD%E0%B8%9B%E0%B8%AD+%E0%B9%84%E0%B8%97%E0%B8%A2%E0%B8%9F%E0%B8%B9%E0%B9%89%E0%B8%94+Bangkok'},
-      {name:'Yummy Thai Food', coords:[13.732642,100.522120], note:'Local casual seating style', walk:'~11 min', price:'฿1–200', rating:'4.7★ (~507)', image:'assets/food/yummy-thai-1.jpg', maps:'https://www.google.com/maps/search/?api=1&query=Yummy+Thai+Food+Bangkok'},
-      {name:'Hia Tee Yai @ Nares', coords:[13.7320,100.5219], note:'Late casual Thai meals', walk:'~10 min', price:'฿1–200', rating:'4.8★ (~200)', image:'assets/food/hia-tee-yai-1.jpg', maps:'https://www.google.com/maps/search/?api=1&query=Hia+Tee+Yai+%40+Nares+Bangkok'},
-      {name:'นัวนิยม จิ้มจุ่มโคราช', coords:[13.729690,100.521980], note:'Isaan hot pot / jim jum style · 969 Bang Rak, Bangkok 10500', walk:'Bang Rak side', price:'฿฿', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=969+Bang+Rak+Bangkok+10500'},
-      {name:'Shashi's BBQ & Grill', coords:[13.7293086,100.5184446], note:'Affordable Indian option from walk discovery', walk:'Si Phraya/Maha Set side', price:'฿', rating:'5.0★ (1)', image:'', maps:'https://www.google.com/maps/search/?api=1&query=Shashi%27s+BBQ+%26+Grill+Bangkok'},
-      {name:'Thai Pakistan Restaurant', coords:[13.7293932,100.5192825], note:'Interesting low-review Thai spot, test later', walk:'Si Phraya/Maha Set side', price:'฿', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=Thai+Pakistan+Restaurant+Bangkok'},
-      {name:'VK Ceylon Kitchen', coords:[13.7275696,100.5217354], note:'Sri Lankan cuisine, rare local find', walk:'Si Phraya / Bang Rak side', price:'฿฿', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=VK+Ceylon+Kitchen+Bangkok'},
-      {name:'Mo Phet Mo Phloi Market', coords:[13.7300,100.5193], note:'Local market lane on walk route', walk:'Si Phraya side', price:'฿', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=Mo+Phet+Mo+Phloi+Market+Bangkok'}
+      {name:'เจ๊น้อย เย็นตาโฟ', coords:[13.732738,100.522554], note:'Local boat noodle spot · Naret Rd', walk:'~6 min', price:'฿', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=%E0%B9%80%E0%B8%88%E0%B9%8A%E0%B8%99%E0%B9%89%E0%B8%AD%E0%B8%A2+%E0%B9%80%E0%B8%A2%E0%B9%87%E0%B8%99%E0%B8%95%E0%B8%B2%E0%B9%82%E0%B8%9F+Bangkok'},
+      {name:'ข้าวหมูแดง อาย้ง', coords:[13.728791,100.524104], note:'Budget Thai rice plate · Silom Rd', walk:'~7 min', price:'฿', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=%E0%B8%82%E0%B9%89%E0%B8%B2%E0%B8%A7%E0%B8%AB%E0%B8%A1%E0%B8%B9%E0%B9%81%E0%B8%94%E0%B8%87+%E0%B8%AD%E0%B8%B2%E0%B8%A2%E0%B9%89%E0%B8%87+Bangkok'},
+      {name:'ก๋วยเตี๋ยวปากหม้อ บ้านอุ๊ย', coords:[13.731054,100.521494], note:'Noodle + quick meal · Maha Phruettharam Rd', walk:'~6 min', price:'฿', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=%E0%B8%81%E0%B9%8B%E0%B8%A7%E0%B8%A2%E0%B9%80%E0%B8%95%E0%B8%B5%E0%B9%8B%E0%B8%A2%E0%B8%A7%E0%B8%9B%E0%B8%B2%E0%B8%81%E0%B8%AB%E0%B8%A1%E0%B9%89%E0%B8%AD+%E0%B8%9A%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B8%AD%E0%B8%B8%E0%B9%8A%E0%B8%A2+Bangkok'},
+      {name:'ครัวโอปอ ไทยฟู้ด', coords:[13.731245,100.520489], note:'Cheap Thai comfort food · Maha Phruettharam Rd', walk:'~8 min', price:'฿', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=%E0%B8%84%E0%B8%A3%E0%B8%B1%E0%B8%A7%E0%B9%82%E0%B8%AD%E0%B8%9B%E0%B8%AD+%E0%B9%84%E0%B8%97%E0%B8%A2%E0%B8%9F%E0%B8%B9%E0%B9%89%E0%B8%94+Bangkok'},
+      {name:'Yummy Thai Food', coords:[13.732642,100.522120], note:'Local casual seating style · Naret Rd', walk:'~11 min', price:'฿1–200', rating:'4.7★ (~507)', image:'assets/food/yummy-thai-1.jpg', maps:'https://www.google.com/maps/search/?api=1&query=Yummy+Thai+Food+Bangkok'},
+      {name:'Hia Tee Yai @ Nares', coords:[13.7320,100.5219], note:'Late casual Thai meals · Naret Rd', walk:'~10 min', price:'฿1–200', rating:'4.8★ (~200)', image:'assets/food/hia-tee-yai-1.jpg', maps:'https://www.google.com/maps/search/?api=1&query=Hia+Tee+Yai+%40+Nares+Bangkok'},
+      {name:'นัวนิยม จิ้มจุ่มโคราช', coords:[13.729690,100.521980], note:'Isaan hot pot / jim jum style · Rama IV Rd', walk:'Bang Rak side', price:'฿฿', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=969+Bang+Rak+Bangkok+10500'},
+      {name:'Shashi's BBQ & Grill', coords:[13.7293086,100.5184446], note:'Affordable Indian option · Si Phraya Rd / Maha Set Rd', walk:'Si Phraya/Maha Set side', price:'฿', rating:'5.0★ (1)', image:'', maps:'https://www.google.com/maps/search/?api=1&query=Shashi%27s+BBQ+%26+Grill+Bangkok'},
+      {name:'Thai Pakistan Restaurant', coords:[13.7293932,100.5192825], note:'Interesting low-review Thai spot · Si Phraya Rd', walk:'Si Phraya/Maha Set side', price:'฿', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=Thai+Pakistan+Restaurant+Bangkok'},
+      {name:'VK Ceylon Kitchen', coords:[13.7275696,100.5217354], note:'Sri Lankan cuisine · Rama IV Rd', walk:'Si Phraya / Bang Rak side', price:'฿฿', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=VK+Ceylon+Kitchen+Bangkok'},
+      {name:'Mo Phet Mo Phloi Market', coords:[13.7300,100.5193], note:'Local market lane on walk route · Si Phraya Rd', walk:'Si Phraya side', price:'฿', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=Mo+Phet+Mo+Phloi+Market+Bangkok'}
     ];
 
     const western = [
-      {name:'Buns & More', coords:[13.734117,100.526286], note:'Burger comfort food', walk:'~9 min', price:'฿200–400', rating:'', image:'assets/food/buns-and-more-1.jpg', maps:'https://www.google.com/maps/search/?api=1&query=Buns+%26+More+Samyan+Bangkok'},
-      {name:'Mimi\'s Bangkok', coords:[13.7319,100.5253], note:'Strong date-night vibe', walk:'~10 min', price:'฿200–400', rating:'4.9★ (~339)', image:'assets/food/mimis-1.jpg', maps:'https://www.google.com/maps/search/?api=1&query=Mimi%27s+Bangkok'},
-      {name:'Kebab Bar Halal (Bangkok)', coords:[13.7316,100.5257], note:'Open late and easy comfort-food stop', walk:'~10 min', price:'฿200–400', rating:'4.5★ (~95)', image:'assets/food/kebab-bar-1.jpg', maps:'https://www.google.com/maps/search/?api=1&query=Kebab+Bar+Halal+Bangkok'},
-      {name:'Father & Son\'s - The Smash Box', coords:[13.7317,100.5252], note:'High-rated smash burger pick', walk:'~10 min', price:'฿200–400', rating:'4.9★ (~39)', image:'assets/food/father-son-1.jpg', maps:'https://www.google.com/maps/search/?api=1&query=Father+%26+Son%27s+The+Smash+Box+Bangkok'},
-      {name:'Starbucks (Samyan area)', coords:[13.733284,100.526705], note:'Coffee/work fallback', walk:'~8 min', price:'฿฿', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=Starbucks+Samyan+Mitrtown'},
-      {name:'Café Amazon', coords:[13.734811,100.524904], note:'Quick coffee nearby', walk:'~8 min', price:'฿', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=Cafe+Amazon+Samyan+Bangkok'},
-      {name:'Cowabunga Pizza', coords:[13.741150,100.510980], note:'Pizza comfort food · 574/576 Soi Yaowarat 7, Samphanthawong', walk:'Yaowarat side', price:'฿200–400', rating:'', image:'assets/food/cowabunga-pizza-1.jpg', maps:'https://www.google.com/maps/search/?api=1&query=574+576+%E0%B8%8B%E0%B8%AD%E0%B8%A2+%E0%B9%80%E0%B8%A2%E0%B8%B2%E0%B8%A7%E0%B8%A3%E0%B8%B2%E0%B8%8A+7+%E0%B9%81%E0%B8%82%E0%B8%A7%E0%B8%87%E0%B8%AA%E0%B8%B1%E0%B8%A1%E0%B8%9E%E0%B8%B1%E0%B8%99%E0%B8%98%E0%B8%A7%E0%B8%87%E0%B8%A8%E0%B9%8C+%E0%B9%80%E0%B8%82%E0%B8%95%E0%B8%AA%E0%B8%B1%E0%B8%A1%E0%B8%9E%E0%B8%B1%E0%B8%99%E0%B8%98%E0%B8%A7%E0%B8%87%E0%B8%A8%E0%B9%8C+%E0%B8%81%E0%B8%A3%E0%B8%B8%E0%B8%87%E0%B9%80%E0%B8%97%E0%B8%9E%E0%B8%A1%E0%B8%AB%E0%B8%B2%E0%B8%99%E0%B8%84%E0%B8%A3+10100'},
+      {name:'Buns & More', coords:[13.734117,100.526286], note:'Burger comfort food · Samyan Rd', walk:'~9 min', price:'฿200–400', rating:'', image:'assets/food/buns-and-more-1.jpg', maps:'https://www.google.com/maps/search/?api=1&query=Buns+%26+More+Samyan+Bangkok'},
+      {name:'Mimi\'s Bangkok', coords:[13.7319,100.5253], note:'Strong date-night vibe · Si Phraya Rd', walk:'~10 min', price:'฿200–400', rating:'4.9★ (~339)', image:'assets/food/mimis-1.jpg', maps:'https://www.google.com/maps/search/?api=1&query=Mimi%27s+Bangkok'},
+      {name:'Kebab Bar Halal (Bangkok)', coords:[13.7316,100.5257], note:'Open late and easy comfort-food stop · Si Phraya Rd', walk:'~10 min', price:'฿200–400', rating:'4.5★ (~95)', image:'assets/food/kebab-bar-1.jpg', maps:'https://www.google.com/maps/search/?api=1&query=Kebab+Bar+Halal+Bangkok'},
+      {name:'Father & Son\'s - The Smash Box', coords:[13.7317,100.5252], note:'High-rated smash burger pick · Si Phraya Rd', walk:'~10 min', price:'฿200–400', rating:'4.9★ (~39)', image:'assets/food/father-son-1.jpg', maps:'https://www.google.com/maps/search/?api=1&query=Father+%26+Son%27s+The+Smash+Box+Bangkok'},
+      {name:'Starbucks (Samyan area)', coords:[13.733284,100.526705], note:'Coffee/work fallback · Samyan Rd', walk:'~8 min', price:'฿฿', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=Starbucks+Samyan+Mitrtown'},
+      {name:'Café Amazon', coords:[13.734811,100.524904], note:'Quick coffee nearby · Samyan Rd', walk:'~8 min', price:'฿', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=Cafe+Amazon+Samyan+Bangkok'},
+      {name:'Cowabunga Pizza', coords:[13.741150,100.510980], note:'Pizza comfort food · Yaowarat Rd', walk:'Yaowarat side', price:'฿200–400', rating:'', image:'assets/food/cowabunga-pizza-1.jpg', maps:'https://www.google.com/maps/search/?api=1&query=574+576+%E0%B8%8B%E0%B8%AD%E0%B8%A2+%E0%B9%80%E0%B8%A2%E0%B8%B2%E0%B8%A7%E0%B8%A3%E0%B8%B2%E0%B8%8A+7+%E0%B9%81%E0%B8%82%E0%B8%A7%E0%B8%87%E0%B8%AA%E0%B8%B1%E0%B8%A1%E0%B8%9E%E0%B8%B1%E0%B8%99%E0%B8%98%E0%B8%A7%E0%B8%87%E0%B8%A8%E0%B9%8C+%E0%B9%80%E0%B8%82%E0%B8%95%E0%B8%AA%E0%B8%B1%E0%B8%A1%E0%B8%9E%E0%B8%B1%E0%B8%99%E0%B8%98%E0%B8%A7%E0%B8%87%E0%B8%A8%E0%B9%8C+%E0%B8%81%E0%B8%A3%E0%B8%B8%E0%B8%87%E0%B9%80%E0%B8%97%E0%B8%9E%E0%B8%A1%E0%B8%AB%E0%B8%B2%E0%B8%99%E0%B8%84%E0%B8%A3+10100'},
       {name:'Sontaya Society - Cafe and Bar', coords:[13.731120,100.522420], note:'Cafe and bar · 104 Maha Phruettharam Rd, Maha Phruttharam, Bang Rak', walk:'Bang Rak side', price:'฿฿', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=104+Maha+Phruettharam+Rd+Khwaeng+Maha+Phruttharam+Khet+Bang+Rak+Bangkok+10500'},
-      {name:'Taco Bell (Samyan Mitrtown)', coords:[13.730742,100.528543], note:'Mexican fast food chain', walk:'~10 min', price:'฿฿', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=Taco+Bell+Samyan+Mitrtown+Bangkok'},
-      {name:'Yoshinoya (Samyan Mitrtown area)', coords:[13.732720,100.529850], note:'Japanese beef bowl chain (upper side of Sam Yan station)', walk:'~10 min', price:'฿฿', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=Yoshinoya+Samyan+Mitrtown+Bangkok'}
+      {name:'Taco Bell (Samyan Mitrtown)', coords:[13.730742,100.528543], note:'Mexican fast food chain · Phayathai Rd', walk:'~10 min', price:'฿฿', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=Taco+Bell+Samyan+Mitrtown+Bangkok'},
+      {name:'Yoshinoya (Samyan Mitrtown area)', coords:[13.732720,100.529850], note:'Japanese beef bowl chain · Phayathai Rd', walk:'~10 min', price:'฿฿', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=Yoshinoya+Samyan+Mitrtown+Bangkok'}
     ];
 
     const seafood = [
-      {name:'แซลมอนรีพับบลิค', coords:[13.731465,100.521002], note:'Seafood/japanese casual', walk:'~7 min', price:'฿฿', rating:'', image:'assets/food/salmon-republic-1.jpg', maps:'https://www.google.com/maps/search/?api=1&query=%E0%B9%81%E0%B8%8B%E0%B8%A5%E0%B8%A1%E0%B8%AD%E0%B8%99%E0%B8%A3%E0%B8%B5%E0%B8%9E%E0%B8%B1%E0%B8%9A%E0%B8%9A%E0%B8%A5%E0%B8%B4%E0%B8%84+Bangkok'},
-      {name:'Markintiny (มากินที่นี่)', coords:[13.7319,100.5228], note:'Thai seafood-friendly menu', walk:'~11 min', price:'฿200–400', rating:'4.6★ (~529)', image:'assets/food/markintiny-1.jpg', maps:'https://www.google.com/maps/search/?api=1&query=Markintiny+Bangkok'},
-      {name:'นายหน่องข้าวต้มปลา สาขาพระรามสี่-สามย่าน', coords:[13.73215,100.52615], note:'Seafood porridge favorite from your route screenshots', walk:'~9 min', price:'฿200–400', rating:'4.8★ (~136)', image:'assets/food/nai-nong-1.jpg', maps:'https://www.google.com/maps/search/?api=1&query=%E0%B8%99%E0%B8%B2%E0%B8%A2%E0%B8%AB%E0%B8%99%E0%B9%88%E0%B8%AD%E0%B8%87%E0%B8%82%E0%B9%89%E0%B8%B2%E0%B8%A7%E0%B8%95%E0%B9%89%E0%B8%A1%E0%B8%9B%E0%B8%A5%E0%B8%B2+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2%E0%B8%9E%E0%B8%A3%E0%B8%B0%E0%B8%A3%E0%B8%B2%E0%B8%A1%E0%B8%AA%E0%B8%B5%E0%B9%88-%E0%B8%AA%E0%B8%B2%E0%B8%A1%E0%B8%A2%E0%B9%88%E0%B8%B2%E0%B8%99'},
-      {name:'Somboon Seafood (Sam Yan / Chamchuri area)', coords:[13.7302,100.5314], note:'Popular seafood pick', walk:'~12 min', price:'฿฿฿', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=Somboon+Seafood+Sam+Yan'},
-      {name:'100 Mahaseth', coords:[13.7304,100.5198], note:'Thai restaurant · 100 Maha Set Rd, Si Phraya, Bang Rak', walk:'Si Phraya/Maha Set side', price:'฿฿฿', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=100+Mahaseth'}
+      {name:'แซลมอนรีพับบลิค', coords:[13.731465,100.521002], note:'Seafood/japanese casual · Maha Phruettharam Rd', walk:'~7 min', price:'฿฿', rating:'', image:'assets/food/salmon-republic-1.jpg', maps:'https://www.google.com/maps/search/?api=1&query=%E0%B9%81%E0%B8%8B%E0%B8%A5%E0%B8%A1%E0%B8%AD%E0%B8%99%E0%B8%A3%E0%B8%B5%E0%B8%9E%E0%B8%B1%E0%B8%9A%E0%B8%9A%E0%B8%A5%E0%B8%B4%E0%B8%84+Bangkok'},
+      {name:'Markintiny (มากินที่นี่)', coords:[13.7319,100.5228], note:'Thai seafood-friendly menu · Si Phraya Rd', walk:'~11 min', price:'฿200–400', rating:'4.6★ (~529)', image:'assets/food/markintiny-1.jpg', maps:'https://www.google.com/maps/search/?api=1&query=Markintiny+Bangkok'},
+      {name:'นายหน่องข้าวต้มปลา สาขาพระรามสี่-สามย่าน', coords:[13.73215,100.52615], note:'Seafood porridge favorite · Rama IV Rd', walk:'~9 min', price:'฿200–400', rating:'4.8★ (~136)', image:'assets/food/nai-nong-1.jpg', maps:'https://www.google.com/maps/search/?api=1&query=%E0%B8%99%E0%B8%B2%E0%B8%A2%E0%B8%AB%E0%B8%99%E0%B9%88%E0%B8%AD%E0%B8%87%E0%B8%82%E0%B9%89%E0%B8%B2%E0%B8%A7%E0%B8%95%E0%B9%89%E0%B8%A1%E0%B8%9B%E0%B8%A5%E0%B8%B2+%E0%B8%AA%E0%B8%B2%E0%B8%82%E0%B8%B2%E0%B8%9E%E0%B8%A3%E0%B8%B0%E0%B8%A3%E0%B8%B2%E0%B8%A1%E0%B8%AA%E0%B8%B5%E0%B9%88-%E0%B8%AA%E0%B8%B2%E0%B8%A1%E0%B8%A2%E0%B9%88%E0%B8%B2%E0%B8%99'},
+      {name:'Somboon Seafood (Sam Yan / Chamchuri area)', coords:[13.7302,100.5314], note:'Popular seafood pick · Rama IV Rd', walk:'~12 min', price:'฿฿฿', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=Somboon+Seafood+Sam+Yan'},
+      {name:'100 Mahaseth', coords:[13.7304,100.5198], note:'Thai restaurant · Maha Set Rd', walk:'Si Phraya/Maha Set side', price:'฿฿฿', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=100+Mahaseth'}
     ];
 
     const izakaya = [
-      {name:'Nagiya Thaniya', coords:[13.7290,100.5347], note:'Japanese izakaya in Thaniya (Silom/Sala Daeng side)', walk:'~12–18 min by bike/taxi', price:'฿800–1,000', rating:'4.5★ (~248)', image:'assets/food/nagiya-thaniya.jpg', maps:'https://www.google.com/maps/search/?api=1&query=Nagiya+Thaniya+Bangkok', featured:true}
+      {name:'Nagiya Thaniya', coords:[13.7290,100.5347], note:'Japanese izakaya · Silom Rd', walk:'~12–18 min by bike/taxi', price:'฿800–1,000', rating:'4.5★ (~248)', image:'assets/food/nagiya-thaniya.jpg', maps:'https://www.google.com/maps/search/?api=1&query=Nagiya+Thaniya+Bangkok', featured:true}
     ];
 
     const condos = [
@@ -415,9 +574,45 @@
     ];
 
     const map = L.map('map', {zoomControl:true}).setView(chapter.coords, 15);
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
       attribution:'&copy; OpenStreetMap &copy; CARTO', maxZoom:19
     }).addTo(map);
+
+    // Add English street name overlays
+    const streetLabels = [
+      {name:'Si Phraya Rd', coords:[13.7315, 100.5210], angle:0},
+      {name:'Rama IV Rd', coords:[13.7300, 100.5270], angle:45},
+      {name:'Maha Phruettharam Rd', coords:[13.7310, 100.5215], angle:-30},
+      {name:'Naret Rd', coords:[13.7330, 100.5220], angle:20},
+      {name:'Maha Set Rd', coords:[13.7305, 100.5185], angle:60},
+      {name:'Samyan Rd', coords:[13.7335, 100.5270], angle:15},
+      {name:'Silom Rd', coords:[13.7280, 100.5290], angle:-20},
+      {name:'Phayathai Rd', coords:[13.7340, 100.5290], angle:25},
+      {name:'Yaowarat Rd', coords:[13.7420, 100.5150], angle:35}
+    ];
+
+    streetLabels.forEach(label => {
+      L.marker(label.coords, {
+        icon: L.divIcon({
+          html: `<div style="
+            background: rgba(255,255,255,0.9);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            color: #333;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+            white-space: nowrap;
+            transform: rotate(${label.angle}deg);
+            border: 1px solid rgba(0,0,0,0.1);
+          ">${label.name}</div>`,
+          className: 'street-label',
+          iconSize: [null, null],
+          iconAnchor: [0, 0]
+        }),
+        interactive: false
+      }).addTo(map);
+    });
 
     const groups = {
       chapter: L.layerGroup().addTo(map),
