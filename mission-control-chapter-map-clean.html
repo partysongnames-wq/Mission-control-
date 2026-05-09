@@ -239,7 +239,6 @@
           <button class="chip" data-layer="shopping">Shopping Malls</button>
           <button class="chip" data-layer="walkTrails">Walk Trails</button>
           <button class="chip" data-layer="essentials">Essentials</button>
-      <button class="chip" data-layer="roads">Roads</button>
         </div>
         <div style="position:relative"><div id="map"></div></div>
       </div>
@@ -334,7 +333,7 @@
       {name:'Big C Mini (Si Phraya/Surawong side)', coords:[13.73085,100.52175], note:'Convenience anchor from 2026-05-08 walk · adjusted near Chapter corridor'},
       {name:'Wat Kaeo Chaem Fa (วัดแก้วแจ่มฟ้า) · 476 Si Phraya Rd', coords:[13.73185,100.52295], note:'476 Si Phraya Rd, Maha Phruttharam, Bang Rak, Bangkok 10500 · opposite side from Chapter Chula-Samyan', maps:'https://www.google.com/maps/search/?api=1&query=476+Si+Phraya+Road+Maha+Phruttharam+Bang+Rak+Bangkok+10500', featured:true},
       {name:'Si Phraya restaurant pocket (dusitD2/Amigo area)', coords:[13.73155,100.52235], note:'Cluster of restaurants, stronger in daytime · adjusted near condo street'},
-      {name:'📍Surawong Rd point (bottom)', coords:[13.7275921,100.5239988], note:'Surawong Road pin from Trent (bottom street)', maps:'https://www.google.com/maps?q=13.7275921,100.5239988', featured:true},
+      {name:'📍Surawong Rd point', coords:[13.7275921,100.5239988], note:'Surawong Road point near shopping area', maps:'https://www.google.com/maps?q=13.7275921,100.5239988'},
       {name:'Si Phraya Road', coords:[13.73105,100.52125], note:'Main street beside Chapter (English label)'},
       {name:'Surawong Road', coords:[13.73055,100.52310], note:'Main connector road near Chapter (English label)'},
       {name:'Maha Phruttharam Road', coords:[13.73195,100.52395], note:'Main road running past condo area (English label)'},
@@ -408,14 +407,6 @@
       {name:'Saladaeng Residences', coords:[13.7252,100.5383], note:'Higher budget option', walk:'Sala Daeng side', price:'฿40,000', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=Saladaeng+Residences+Bangkok'},
       {name:'Urbana Sathorn', coords:[13.7229,100.5360], note:'Large unit option', walk:'Sathorn side', price:'฿30,000', rating:'', image:'', maps:'https://www.google.com/maps/search/?api=1&query=Urbana+Sathorn+Bangkok'}
     ];
-
-
-    const roads = [
-      {name:'Si Phraya Rd', coords:[[13.73220,100.51990],[13.73150,100.52180],[13.73080,100.52420]]},
-      {name:'Naret Rd', coords:[[13.73040,100.52290],[13.72930,100.52370],[13.72820,100.52480]]},
-      {name:'Surawong Rd', coords:[[13.73030,100.52120],[13.72920,100.52320],[13.72790,100.52520]]}
-    ];
-
     const walkTrails = [
       {
         name:'2026-05-08 Si Phraya scout loop',
@@ -503,8 +494,7 @@
       condos: L.layerGroup().addTo(map),
       shopping: L.layerGroup().addTo(map),
       walkTrails: L.layerGroup(),
-      essentials: L.layerGroup().addTo(map),
-      roads: L.layerGroup().addTo(map)
+      essentials: L.layerGroup().addTo(map)
     };
 
     const chapterIcon = L.divIcon({html:'<div style="width:32px;height:32px;clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);background:radial-gradient(circle at 35% 30%,#ffe27a 0%,#d4a514 60%,#8a6b00 100%);border:2px solid #111;box-shadow:0 0 0 2px rgba(255,215,0,.35)"></div>', className:'', iconSize:[32,32], iconAnchor:[16,16]});
@@ -626,15 +616,6 @@
         .addTo(groups.essentials);
     });
     shopping.forEach(s => L.marker(s.coords,{icon:iconForPlace(s, 'essentials')}).bindPopup(`<b>${s.name}</b><br>${s.note}<br><a href="${mapsHref(s)}" target="_blank" rel="noopener noreferrer" style="color:#7dd3fc">Open in Google Maps ↗</a>`).addTo(groups.shopping));
-
-    roads.forEach(r => {
-      L.polyline(r.coords, {color:'#334155', weight:6, opacity:0.9})
-        .bindPopup(`<b>${r.name}</b>`)
-        .addTo(groups.roads);
-      const mid = r.coords[Math.floor(r.coords.length/2)];
-      L.marker(mid,{icon:L.divIcon({className:'',html:`<div style="background:rgba(255,255,255,.9);color:#1f2937;border:1px solid rgba(0,0,0,.15);padding:2px 6px;border-radius:6px;font-size:11px;font-weight:700">${r.name}</div>`,iconSize:[90,20],iconAnchor:[45,10]}),interactive:false}).addTo(groups.roads);
-    });
-
     walkTrails.forEach(t => {
       L.polyline(t.coords, {color:'#7dd3fc', weight:4, opacity:0.9, dashArray:'8 8'})
         .bindPopup(`<b>${t.name}</b><br>${t.note}`)
@@ -688,7 +669,7 @@
       .filter(p => p.name !== 'Chapter Chula-Samyan')
       .map(p => renderItem(p, '🏢')).join('');
 
-    const layers = ['stations','onsen','convenience','cheapEats','western','seafood','izakaya','condos','shopping','walkTrails','essentials','roads'];
+    const layers = ['stations','onsen','convenience','cheapEats','western','seafood','izakaya','condos','shopping','walkTrails','essentials'];
     const setLayer = mode => {
       layers.forEach(k => map.removeLayer(groups[k]));
       if(mode === 'all'){layers.forEach(k => groups[k].addTo(map));}
