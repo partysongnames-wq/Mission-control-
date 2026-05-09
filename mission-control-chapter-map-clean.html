@@ -453,32 +453,35 @@
       {name:'Yaowarat Rd', coords:[13.7420, 100.5150], angle:35}
     ];
 
-    streetLabels.forEach(label => {
-      L.marker(label.coords, {
-        icon: L.divIcon({
-          html: `<div style="
-            background: rgba(33,33,33,0.95);
-            padding: 6px 12px;
-            border-radius: 4px;
-            font-size: 13px;
-            font-weight: 800;
-            color: #fff;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.35);
-            white-space: nowrap;
-            transform: rotate(${label.angle}deg);
-            border: 2px solid rgba(255,255,255,0.3);
-            letter-spacing: 0.5px;
-            position: relative;
-            z-index: 9999;
-          ">${label.name}</div>`,
-          className: 'street-label',
-          iconSize: [null, null],
-          iconAnchor: [0, 0]
-        }),
-        interactive: false,
-        zIndexOffset: 9999
-      }).addTo(map);
-    });
+    // Only show street labels on desktop (window width > 768px)
+    if (window.innerWidth > 768) {
+      streetLabels.forEach(label => {
+        L.marker(label.coords, {
+          icon: L.divIcon({
+            html: `<div style="
+              background: rgba(33,33,33,0.95);
+              padding: 6px 12px;
+              border-radius: 4px;
+              font-size: 13px;
+              font-weight: 800;
+              color: #fff;
+              box-shadow: 0 4px 12px rgba(0,0,0,0.35);
+              white-space: nowrap;
+              transform: rotate(${label.angle}deg);
+              border: 2px solid rgba(255,255,255,0.3);
+              letter-spacing: 0.5px;
+              position: relative;
+              z-index: 9999;
+            ">${label.name}</div>`,
+            className: 'street-label',
+            iconSize: [null, null],
+            iconAnchor: [0, 0]
+          }),
+          interactive: false,
+          zIndexOffset: 9999
+        }).addTo(map);
+      });
+    }
 
     const groups = {
       chapter: L.layerGroup().addTo(map),
