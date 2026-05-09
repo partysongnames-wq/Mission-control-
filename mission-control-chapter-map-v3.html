@@ -331,7 +331,7 @@
       {name:'MaxValu', coords:[13.733226,100.526495], note:'Supermarket (late hours)'},
       {name:'Bang Rak District Office Area', coords:[13.7265,100.5223], note:'Admin/services zone'},
       {name:'Big C Mini (Si Phraya/Surawong side)', coords:[13.73085,100.52175], note:'Convenience anchor from 2026-05-08 walk · adjusted near Chapter corridor'},
-      {name:'840 Surawong Rd (new)', coords:[13.73070,100.52270], note:'840 Surawong Rd, Si Phraya, Bang Rak, Bangkok 10500', maps:'https://www.google.com/maps/search/?api=1&query=840+Surawong+Rd%2C+Si+Phraya%2C+Bang+Rak%2C+Bangkok+10500'},
+      {name:'📍840 Surawong Rd (NEW)', coords:[13.73070,100.52270], note:'840 Surawong Rd, Si Phraya, Bang Rak, Bangkok 10500', maps:'https://www.google.com/maps/search/?api=1&query=840+Surawong+Rd%2C+Si+Phraya%2C+Bang+Rak%2C+Bangkok+10500', featured:true},
       {name:'Wat Kaeo Chaem Fa (วัดแก้วแจ่มฟ้า) · 476 Si Phraya Rd', coords:[13.73185,100.52295], note:'476 Si Phraya Rd, Maha Phruttharam, Bang Rak, Bangkok 10500 · opposite side from Chapter Chula-Samyan', maps:'https://www.google.com/maps/search/?api=1&query=476+Si+Phraya+Road+Maha+Phruttharam+Bang+Rak+Bangkok+10500'},
       {name:'Si Phraya restaurant pocket (dusitD2/Amigo area)', coords:[13.73155,100.52235], note:'Cluster of restaurants, stronger in daytime · adjusted near condo street'},
       {name:'Si Phraya Road', coords:[13.73105,100.52125], note:'Main street beside Chapter (English label)'},
@@ -588,9 +588,12 @@
     });
 
     essentials.forEach(e => {
-      const m = L.marker(e.coords,{icon:iconForPlace(e, 'essentials')})
+      const m = L.marker(e.coords,{icon:iconForPlace(e, 'essentials'), zIndexOffset: e.featured ? 2000 : 0})
         .bindPopup(`<b>${e.name}</b><br>${e.note}<br><a href="${mapsHref(e)}" target="_blank" rel="noopener noreferrer" style="color:#7dd3fc">Open in Google Maps ↗</a>`)
         .addTo(groups.essentials);
+      if (e.featured) {
+        m.bindTooltip(e.name, {permanent:true, direction:'top', offset:[0,-12]});
+      }
     });
     shopping.forEach(s => L.marker(s.coords,{icon:iconForPlace(s, 'essentials')}).bindPopup(`<b>${s.name}</b><br>${s.note}<br><a href="${mapsHref(s)}" target="_blank" rel="noopener noreferrer" style="color:#7dd3fc">Open in Google Maps ↗</a>`).addTo(groups.shopping));
     walkTrails.forEach(t => {
