@@ -641,6 +641,11 @@
         .addTo(groups.newPins);
     });
 
+    const newPinsBounds = () => {
+      const bounds = L.latLngBounds(newPins.map(p => p.coords));
+      if (bounds.isValid()) map.fitBounds(bounds.pad(0.35));
+    };
+
     const renderItem = (p, emoji) => {
       const thumb = p.image ? `<a href="${mapsHref(p)}" target="_blank" rel="noopener noreferrer"><img src="${p.image}" class="item-thumb" alt="${p.name}" title="Open in Google Maps"/></a>` : '';
       return `<div class="item">
@@ -678,6 +683,7 @@
         document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
         btn.classList.add('active');
         setLayer(btn.dataset.layer);
+        if (btn.dataset.layer === 'newPins') newPinsBounds();
       });
     });
   </script>
