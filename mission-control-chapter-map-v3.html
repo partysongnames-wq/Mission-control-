@@ -588,11 +588,11 @@
     });
 
     essentials.forEach(e => {
-      const m = L.marker(e.coords,{icon:iconForPlace(e, 'essentials'), zIndexOffset: e.featured ? 2000 : 0})
+      const m = L.marker(e.coords,{icon: e.featured ? L.divIcon({className:'',iconSize:[34,34],iconAnchor:[17,17],html:`<div style="width:34px;height:34px;border-radius:999px;background:radial-gradient(circle,#ff4da6 0%,#b3125d 70%);border:2px solid #fff;box-shadow:0 0 0 6px rgba(255,77,166,.22)"></div>`}) : iconForPlace(e, 'essentials'), zIndexOffset: e.featured ? 3000 : 0})
         .bindPopup(`<b>${e.name}</b><br>${e.note}<br><a href="${mapsHref(e)}" target="_blank" rel="noopener noreferrer" style="color:#7dd3fc">Open in Google Maps ↗</a>`)
         .addTo(groups.essentials);
       if (e.featured) {
-        m.bindTooltip(e.name, {permanent:true, direction:'top', offset:[0,-12]});
+        m.bindTooltip(e.name, {permanent:true, direction:'top', offset:[0,-18], opacity:1});
       }
     });
     shopping.forEach(s => L.marker(s.coords,{icon:iconForPlace(s, 'essentials')}).bindPopup(`<b>${s.name}</b><br>${s.note}<br><a href="${mapsHref(s)}" target="_blank" rel="noopener noreferrer" style="color:#7dd3fc">Open in Google Maps ↗</a>`).addTo(groups.shopping));
