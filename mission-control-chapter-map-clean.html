@@ -453,17 +453,28 @@
       {name:'Yaowarat Rd', coords:[13.7420, 100.5150], angle:35}
     ];
 
+    const streetLabelsLayer = L.layerGroup();
     if (window.innerWidth > 768) {
       streetLabels.forEach(label => {
         const labelIcon = L.divIcon({
           className:'',
-          html:`<div style="background:rgba(255,255,255,.7);color:#333;padding:1px 4px;border-radius:2px;font-size:9px;font-weight:600;white-space:nowrap;transform:rotate(${label.angle}deg);box-shadow:none;border:none;pointer-events:none">${label.name}</div>`,
-          iconSize:[70,16],
-          iconAnchor:[35,8]
+          html:`<div style="background:rgba(255,255,255,.6);color:#555;padding:0px 2px;border-radius:1px;font-size:7px;font-weight:600;white-space:nowrap;transform:rotate(${label.angle}deg);box-shadow:none;border:none;pointer-events:none;letter-spacing:-0.5px">${label.name}</div>`,
+          iconSize:[50,12],
+          iconAnchor:[25,6]
         });
-        L.marker(label.coords, {icon:labelIcon, zIndexOffset:-100}).addTo(map);
+        L.marker(label.coords, {icon:labelIcon, zIndexOffset:-100}).addTo(streetLabelsLayer);
       });
+      map.addLayer(streetLabelsLayer);
     }
+
+    // Show/hide street labels based on zoom level
+    map.on('zoom', function() {
+      if (map.getZoom() >= 16) {
+        if (!map.hasLayer(streetLabelsLayer)) map.addLayer(streetLabelsLayer);
+      } else {
+        if (map.hasLayer(streetLabelsLayer)) map.removeLayer(streetLabelsLayer);
+      }
+    });
 
     const groups = {
       chapter: L.layerGroup().addTo(map),
