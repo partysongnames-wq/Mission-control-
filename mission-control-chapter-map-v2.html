@@ -436,7 +436,7 @@
     ];
 
     const map = L.map('map', {zoomControl:true}).setView(chapter.coords, 15);
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
       attribution:'&copy; OpenStreetMap &copy; CARTO', maxZoom:19
     }).addTo(map);
 
@@ -572,11 +572,6 @@
       const m = L.marker(e.coords,{icon:iconForPlace(e, 'essentials')})
         .bindPopup(`<b>${e.name}</b><br>${e.note}<br><a href="${mapsHref(e)}" target="_blank" rel="noopener noreferrer" style="color:#7dd3fc">Open in Google Maps ↗</a>`)
         .addTo(groups.essentials);
-      const isStreet = /road|rd/i.test(e.name);
-      const isTemple = /wat|temple|วัด/i.test(e.name);
-      if (isStreet || isTemple) {
-        m.bindTooltip(e.name, {permanent:true, direction:'top', offset:[0,-12], className:'street-label'});
-      }
     });
     shopping.forEach(s => L.marker(s.coords,{icon:iconForPlace(s, 'essentials')}).bindPopup(`<b>${s.name}</b><br>${s.note}<br><a href="${mapsHref(s)}" target="_blank" rel="noopener noreferrer" style="color:#7dd3fc">Open in Google Maps ↗</a>`).addTo(groups.shopping));
     walkTrails.forEach(t => {
