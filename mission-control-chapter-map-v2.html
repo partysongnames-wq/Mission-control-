@@ -568,7 +568,16 @@
 
     stations.forEach(s => L.marker(s.coords,{icon:stationIcon}).bindPopup(`<b>${s.name}</b><br>${s.walk}<br><a href="${mapsHref(s)}" target="_blank" rel="noopener noreferrer" style="color:#7dd3fc">Open in Google Maps ↗</a>`).addTo(groups.stations));
     onsen.forEach(o => L.marker(o.coords,{icon:onsenIcon}).bindPopup(`<b>${o.name}</b><br>${o.note}<br><a href="${mapsHref(o)}" target="_blank" rel="noopener noreferrer" style="color:#7dd3fc">Open in Google Maps ↗</a>`).addTo(groups.onsen));
-    essentials.forEach(e => L.marker(e.coords,{icon:iconForPlace(e, 'essentials')}).bindPopup(`<b>${e.name}</b><br>${e.note}<br><a href="${mapsHref(e)}" target="_blank" rel="noopener noreferrer" style="color:#7dd3fc">Open in Google Maps ↗</a>`).addTo(groups.essentials));
+    essentials.forEach(e => {
+      const m = L.marker(e.coords,{icon:iconForPlace(e, 'essentials')})
+        .bindPopup(`<b>${e.name}</b><br>${e.note}<br><a href="${mapsHref(e)}" target="_blank" rel="noopener noreferrer" style="color:#7dd3fc">Open in Google Maps ↗</a>`)
+        .addTo(groups.essentials);
+      const isStreet = /road|rd/i.test(e.name);
+      const isTemple = /wat|temple|วัด/i.test(e.name);
+      if (isStreet || isTemple) {
+        m.bindTooltip(e.name, {permanent:true, direction:'top', offset:[0,-12], className:'street-label'});
+      }
+    });
     shopping.forEach(s => L.marker(s.coords,{icon:iconForPlace(s, 'essentials')}).bindPopup(`<b>${s.name}</b><br>${s.note}<br><a href="${mapsHref(s)}" target="_blank" rel="noopener noreferrer" style="color:#7dd3fc">Open in Google Maps ↗</a>`).addTo(groups.shopping));
     walkTrails.forEach(t => {
       L.polyline(t.coords, {color:'#7dd3fc', weight:4, opacity:0.9, dashArray:'8 8'})
