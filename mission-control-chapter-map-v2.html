@@ -339,6 +339,13 @@
       {name:'Charoen Krung Road', coords:[13.73095,100.51755], note:'Major arterial road west of Chapter (English label)'}
     ];
 
+    const roadLabelsEN = [
+      {name:'Si Phraya Rd', coords:[13.73110,100.52135]},
+      {name:'Surawong Rd', coords:[13.73055,100.52310]},
+      {name:'Maha Phruttharam Rd', coords:[13.73195,100.52395]},
+      {name:'Charoen Krung Rd', coords:[13.73095,100.51755]}
+    ];
+
     const shopping = [
       {name:'Samyan Mitrtown', coords:[13.730742,100.528543], note:'Mall, groceries, food, Taco Bell + Yoshinoya area'},
       {name:'Chamchuri Square', coords:[13.7302,100.5314], note:'Groceries + daily errands'},
@@ -452,7 +459,8 @@
       condos: L.layerGroup().addTo(map),
       shopping: L.layerGroup().addTo(map),
       walkTrails: L.layerGroup(),
-      essentials: L.layerGroup().addTo(map)
+      essentials: L.layerGroup().addTo(map),
+      roadLabels: L.layerGroup().addTo(map)
     };
 
     const chapterIcon = L.divIcon({html:'<div style="width:32px;height:32px;clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);background:radial-gradient(circle at 35% 30%,#ffe27a 0%,#d4a514 60%,#8a6b00 100%);border:2px solid #111;box-shadow:0 0 0 2px rgba(255,215,0,.35)"></div>', className:'', iconSize:[32,32], iconAnchor:[16,16]});
@@ -568,6 +576,14 @@
 
     stations.forEach(s => L.marker(s.coords,{icon:stationIcon}).bindPopup(`<b>${s.name}</b><br>${s.walk}<br><a href="${mapsHref(s)}" target="_blank" rel="noopener noreferrer" style="color:#7dd3fc">Open in Google Maps ↗</a>`).addTo(groups.stations));
     onsen.forEach(o => L.marker(o.coords,{icon:onsenIcon}).bindPopup(`<b>${o.name}</b><br>${o.note}<br><a href="${mapsHref(o)}" target="_blank" rel="noopener noreferrer" style="color:#7dd3fc">Open in Google Maps ↗</a>`).addTo(groups.onsen));
+    roadLabelsEN.forEach(r => {
+      L.marker(r.coords,{
+        icon:L.divIcon({className:'',html:`<div class="road-en-label">${r.name}</div>`,iconSize:[120,16],iconAnchor:[60,8]}),
+        interactive:false,
+        keyboard:false
+      }).addTo(groups.roadLabels);
+    });
+
     essentials.forEach(e => {
       const m = L.marker(e.coords,{icon:iconForPlace(e, 'essentials')})
         .bindPopup(`<b>${e.name}</b><br>${e.note}<br><a href="${mapsHref(e)}" target="_blank" rel="noopener noreferrer" style="color:#7dd3fc">Open in Google Maps ↗</a>`)
@@ -627,7 +643,7 @@
       .filter(p => p.name !== 'Chapter Chula-Samyan')
       .map(p => renderItem(p, '🏢')).join('');
 
-    const layers = ['stations','onsen','convenience','cheapEats','western','seafood','izakaya','condos','shopping','walkTrails','essentials'];
+    const layers = ['stations','onsen','convenience','cheapEats','western','seafood','izakaya','condos','shopping','walkTrails','essentials','roadLabels'];
     const setLayer = mode => {
       layers.forEach(k => map.removeLayer(groups[k]));
       if(mode === 'all'){layers.forEach(k => groups[k].addTo(map));}
