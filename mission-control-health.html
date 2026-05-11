@@ -216,9 +216,9 @@
       </div>
       <div class="wellbeing-grid">
         <div class="wellbeing-card">
-          <h3>March 2026 goals</h3>
+          <h3>Current goals</h3>
           <ol id="goal-list"></ol>
-          <p class="wellbeing-note">Job apps recorded: <strong id="jobs-done">5</strong> / 15 planned.</p>
+          <p class="wellbeing-note">Job apps recorded: <strong id="jobs-done">7</strong> / 15 planned.</p>
         </div>
         <div class="wellbeing-card">
           <h3>Scheduled nudges</h3>
@@ -259,19 +259,19 @@
     </div>
   </div>
   <script>
-    const marchGoals = [
-      'Apply for 15 jobs (5 done already)',
-      'Romance with Nasha',
-      'Decide on condo',
-      'Keep AI/OpenClaw purposeful',
-      'Stay present and calm',
-      'Research TRT',
-      'Declutter — live like it’s the new place',
-      'Refocus on 12 resolutions daily',
-      'Time discipline — alarms, timesheets, no wasted days',
-      'Explore side income / wealth creation',
-      'Thai language',
-      'Gym / exercise'
+    const currentGoals = [
+      'Start back at BFITS with good energy — be friendly, not late, and show up ready',
+      'Get comfortable at Chapter Samyan — calm and smooth in the new place; learn area + facilities',
+      'Keep job scanning at least once a week, and research marriage visa options',
+      'Keep side income flowing — continue scanning for new gigs',
+      'Look better — keep GHK-Cu, Hair Tech Pro, NAD+, and supplements consistent',
+      'Convert protein into gym sessions — you are 74.10kg; use training so protein does not become fat',
+      'Use the new gym — learn machines and get comfortable (in-building, no excuses)',
+      'Self-belief before interviews — mirror work, energy, visualization (non-negotiable)',
+      'Six-minute timers — keep using them',
+      'AI discipline — 2 hours max daily with 20-minute breaks',
+      'Thai language — 30 minutes daily, consistency first',
+      'Plan the next trip — keep something to look forward to'
     ];
 
     const routineItems = [
@@ -289,8 +289,8 @@
 
     const goalList = document.getElementById('goal-list');
     const jobsDoneEl = document.getElementById('jobs-done');
-    goalList.innerHTML = marchGoals.map((goal, index) => `<li><strong>${String(index+1).padStart(2, '0')}</strong> ${goal}</li>`).join('');
-    jobsDoneEl.textContent = '5';
+    goalList.innerHTML = currentGoals.map((goal, index) => `<li><strong>${String(index+1).padStart(2, '0')}</strong> ${goal}</li>`).join('');
+    jobsDoneEl.textContent = '7';
 
     const routineList = document.getElementById('routine-list');
     routineList.innerHTML = routineItems.map(item => `<li>${item}</li>`).join('');
