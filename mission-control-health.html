@@ -236,7 +236,7 @@
         <div class="wellbeing-card">
           <h3>Scheduled nudges</h3>
           <ul class="wellbeing-schedule" id="wellbeing-schedule"></ul>
-          <p class="wellbeing-note">Nudges pop around 14:30, 16:30, 18:30 for check-ins.</p>
+          <p class="wellbeing-note">Round rhythm active: 30-minute pings + core anchors.</p>
         </div>
         <div class="wellbeing-card">
           <h3>Daily upkeep</h3>
@@ -252,6 +252,21 @@
             <button type="submit">Log check-in</button>
           </form>
           <div class="wellbeing-status">Last check: <span id="wellbeing-last-check">—</span></div>
+        </div>
+        <div class="wellbeing-card">
+          <h3>Workweek mode</h3>
+          <ul id="workweek-list"></ul>
+          <p class="wellbeing-note">Compressed mode for teaching weeks (Mon-Fri + Sunday EduFirst).</p>
+        </div>
+        <div class="wellbeing-card">
+          <h3>Daily scoreboard</h3>
+          <ul id="scoreboard-list"></ul>
+          <p class="wellbeing-note">Track protein baseline, TMNT rounds, and teaching restart prep.</p>
+        </div>
+        <div class="wellbeing-card">
+          <h3>Yearly resolution bridge</h3>
+          <ul id="yearly-bridge-list"></ul>
+          <p class="wellbeing-note">Resolutions to protect this month so May goals do not drift from 2026 direction.</p>
         </div>
         <div class="wellbeing-card">
           <h3>Thai corner soundtrack</h3>
@@ -294,10 +309,36 @@
       'Tech break (phone / screen pause) to clear the mind'
     ];
 
+    const workweekItems = [
+      'Morning baseline: water, coffee, supplements, quick breakfast',
+      'Teaching prep night-before: bag, outfit, key materials, sleep cutoff',
+      'Protein baseline: 100g minimum (120-140g stretch)',
+      'Gym fallback: 3 sessions/week minimum + 10-20 min walk/mobility on busy days',
+      'Sunday EduFirst: keep Saturday evening light and prep simple'
+    ];
+
+    const scoreboardItems = [
+      'Protein today: ____ g (baseline 100g+)',
+      'TMNT rounds: ____ / 10 target',
+      'Job actions this week: ____',
+      'Teaching restart prep complete: yes / no'
+    ];
+
+    const yearlyBridgeItems = [
+      'Character & presence: show up calm, respectful, and prepared in every class block',
+      'Adaptability: one intentional adjustment per week when schedule changes',
+      'Future direction with Nasha: one weekly relationship check-in (home, plans, support)',
+      'Health & nutrition broad: fiber, hydration, meal timing, and recovery (not protein only)',
+      'Presence & calm: one daily no-tech reset (TMNT) + one breathing reset',
+      'Relationships: one meaningful friend/family touchpoint weekly'
+    ];
+
     const scheduleBlocks = [
-      { time: '14:30', detail: 'Quick wellbeing check-in + every-five-messages reminder' },
-      { time: '16:30', detail: 'System/health maintenance sweep' },
-      { time: '18:30', detail: 'Wind-down review + tech timeout' }
+      { time: '09:30 → 19:30', detail: '30-minute round pings (execution rhythm)' },
+      { time: '09:00', detail: 'Breakfast + hydration anchor' },
+      { time: '11:30', detail: 'Lunch order anchor (for ~12:30 meal)' },
+      { time: '19:00', detail: 'Dinner + hydration anchor' },
+      { time: '22:00', detail: 'Night brush reminder + shutdown' }
     ];
 
     const goalList = document.getElementById('goal-list');
@@ -307,6 +348,15 @@
 
     const routineList = document.getElementById('routine-list');
     routineList.innerHTML = routineItems.map(item => `<li>${item}</li>`).join('');
+
+    const workweekList = document.getElementById('workweek-list');
+    workweekList.innerHTML = workweekItems.map(item => `<li>${item}</li>`).join('');
+
+    const scoreboardList = document.getElementById('scoreboard-list');
+    scoreboardList.innerHTML = scoreboardItems.map(item => `<li>${item}</li>`).join('');
+
+    const yearlyBridgeList = document.getElementById('yearly-bridge-list');
+    yearlyBridgeList.innerHTML = yearlyBridgeItems.map(item => `<li>${item}</li>`).join('');
 
     const scheduleEl = document.getElementById('wellbeing-schedule');
     scheduleEl.innerHTML = scheduleBlocks.map(block => `<li><span>${block.time}</span><span>${block.detail}</span></li>`).join('');
