@@ -218,15 +218,15 @@
         <div class="wellbeing-card">
           <h3>Protein tracker</h3>
           <ul>
-            <li>Mon 4 May: ~60-70g</li>
-            <li>Tue 5 May: ~75-95g</li>
-            <li>Wed 6 May: ~100-125g</li>
-            <li>Thu 7 May: ~65-80g</li>
-            <li>Fri 8 May: pending reconstruction</li>
-            <li>Sat 9 May: ~101-126g (midpoint ~114g)</li>
-            <li>Sun 10 May: ~62-72g (midpoint ~67g)</li>
+            <li>Mon 18 May: ~135g</li>
+            <li>Tue 19 May: ~120g+</li>
+            <li>Wed 20 May: 115g</li>
+            <li>Thu 21 May: ~130-140g (tracked 135g)</li>
+            <li>Fri 22 May: 152g (new high)</li>
+            <li>Sat 23 May: 140g</li>
+            <li>Sun 24 May: pending check-in</li>
           </ul>
-          <p class="wellbeing-note">Weekly midpoint average (known days): <strong>~90g/day</strong></p>
+          <p class="wellbeing-note">Weekly average so far (Mon-Sat): <strong>~133g/day</strong></p>
         </div>
         <div class="wellbeing-card">
           <h3>Current goals</h3>
@@ -267,6 +267,16 @@
           <h3>Yearly resolution bridge</h3>
           <ul id="yearly-bridge-list"></ul>
           <p class="wellbeing-note">Resolutions to protect this month so May goals do not drift from 2026 direction.</p>
+        </div>
+        <div class="wellbeing-card">
+          <h3>School standards (term focus)</h3>
+          <ul id="school-standards-list"></ul>
+          <p class="wellbeing-note">Simple teaching quality anchors from SNR/BFITS term briefing.</p>
+        </div>
+        <div class="wellbeing-card">
+          <h3>Daily orals checklist</h3>
+          <ul id="daily-orals-list"></ul>
+          <p class="wellbeing-note">Tick once daily to avoid double-dosing when memory is fuzzy.</p>
         </div>
         <div class="wellbeing-card">
           <h3>Thai corner soundtrack</h3>
@@ -326,7 +336,17 @@
       'Protein today: ____ g (baseline 100g+)',
       'TMNT rounds: ____ / 10 target',
       'Job actions this week: ____',
-      'Teaching restart prep complete: yes / no'
+      'Teaching restart prep complete: yes / no',
+      'Reta baseline log done (weight + measurements): yes / no'
+    ];
+
+    const dailyOralsChecklist = [
+      'Ashwagandha KSM-66 600mg',
+      'CoQ10 100mg',
+      'Vit C / Zinc / D3',
+      'Magnesium + B6 gummy',
+      'Half Valium 5mg',
+      'NAD+ 900mg'
     ];
 
     const yearlyBridgeItems = [
@@ -336,6 +356,13 @@
       'Health & nutrition broad: fiber, hydration, meal timing, and recovery (not protein only)',
       'Presence & calm: one daily no-tech reset (TMNT) + one breathing reset',
       'Relationships: one meaningful friend/family touchpoint weekly'
+    ];
+
+    const schoolStandardsItems = [
+      'Return student work within 7 days of due date',
+      'Show clearly when/how the book is used in Google Classroom',
+      'Keep grooming tidy for work days (clean shave or neat facial hair, neat hair)',
+      'Use call notes quickly: pick one teaching-quality adjustment each week'
     ];
 
     const scheduleBlocks = [
@@ -363,6 +390,12 @@
 
     const yearlyBridgeList = document.getElementById('yearly-bridge-list');
     yearlyBridgeList.innerHTML = yearlyBridgeItems.map(item => `<li>${item}</li>`).join('');
+
+    const schoolStandardsList = document.getElementById('school-standards-list');
+    schoolStandardsList.innerHTML = schoolStandardsItems.map(item => `<li>${item}</li>`).join('');
+
+    const dailyOralsList = document.getElementById('daily-orals-list');
+    dailyOralsList.innerHTML = dailyOralsChecklist.map(item => `<li>[ ] ${item}</li>`).join('');
 
     const scheduleEl = document.getElementById('wellbeing-schedule');
     scheduleEl.innerHTML = scheduleBlocks.map(block => `<li><span>${block.time}</span><span>${block.detail}</span></li>`).join('');
