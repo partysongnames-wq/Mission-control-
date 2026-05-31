@@ -218,15 +218,15 @@
         <div class="wellbeing-card">
           <h3>Protein tracker</h3>
           <ul>
-            <li>Mon 18 May: ~135g</li>
-            <li>Tue 19 May: ~120g+</li>
-            <li>Wed 20 May: 115g</li>
-            <li>Thu 21 May: ~130-140g (tracked 135g)</li>
-            <li>Fri 22 May: 152g (new high)</li>
-            <li>Sat 23 May: 140g</li>
-            <li>Sun 24 May: pending check-in</li>
+            <li>Sun 24 May: ~90-95g</li>
+            <li>Mon 25 May: pending check-in</li>
+            <li>Tue 26 May: 160g (new high)</li>
+            <li>Wed 27 May: 130g</li>
+            <li>Thu 28 May: pending check-in</li>
+            <li>Fri 29 May: pending check-in</li>
+            <li>Sat 30 May: 146g</li>
           </ul>
-          <p class="wellbeing-note">Weekly average so far (Mon-Sat): <strong>~133g/day</strong></p>
+          <p class="wellbeing-note">Weekly average (known days): <strong>~132g/day</strong></p>
         </div>
         <div class="wellbeing-card">
           <h3>Current goals</h3>
@@ -272,6 +272,11 @@
           <h3>School standards (term focus)</h3>
           <ul id="school-standards-list"></ul>
           <p class="wellbeing-note">Simple teaching quality anchors from SNR/BFITS term briefing.</p>
+        </div>
+        <div class="wellbeing-card">
+          <h3>Teaching upgrades (weekly wins)</h3>
+          <ul id="teaching-upgrades-list"></ul>
+          <p class="wellbeing-note">Log one concrete class upgrade each week so progress is visible.</p>
         </div>
         <div class="wellbeing-card">
           <h3>Daily orals checklist</h3>
@@ -359,10 +364,14 @@
     ];
 
     const schoolStandardsItems = [
-      'Return student work within 7 days of due date',
+      'Return student work within next active teaching window (target: within 7 days when school is running)',
       'Show clearly when/how the book is used in Google Classroom',
       'Keep grooming tidy for work days (clean shave or neat facial hair, neat hair)',
       'Use call notes quickly: pick one teaching-quality adjustment each week'
+    ];
+
+    const teachingUpgradesItems = [
+      'Week of May 26: Structured multi-round role-play rotation (10 scenarios, grouped by numbers, 4 rounds) -> higher engagement, more speaking time, fun energy'
     ];
 
     const scheduleBlocks = [
@@ -393,6 +402,9 @@
 
     const schoolStandardsList = document.getElementById('school-standards-list');
     schoolStandardsList.innerHTML = schoolStandardsItems.map(item => `<li>${item}</li>`).join('');
+
+    const teachingUpgradesList = document.getElementById('teaching-upgrades-list');
+    teachingUpgradesList.innerHTML = teachingUpgradesItems.map(item => `<li>${item}</li>`).join('');
 
     const dailyOralsList = document.getElementById('daily-orals-list');
     dailyOralsList.innerHTML = dailyOralsChecklist.map(item => `<li>[ ] ${item}</li>`).join('');
