@@ -266,7 +266,7 @@
           <div class="stat"><b>End Apr</b><span>Move-In</span></div>
         </div>
         <div class="map-actions">
-          <button class="btn locate-trigger" type="button">Locate Me</button>
+          <button class="btn locate-trigger" type="button">Locate Me On</button>
           <button class="btn fullscreen-trigger" type="button">Open Full Screen Map</button>
         </div>
         <div class="chips">
@@ -285,7 +285,7 @@
         </div>
         <div class="map-shell">
           <div class="map-toolbar">
-            <button class="btn locate-trigger" type="button">Locate Me</button>
+            <button class="btn locate-trigger" type="button">Locate Me On</button>
             <button class="btn fullscreen-trigger" id="fullscreen-toggle" type="button">Full Screen Map</button>
           </div>
           <div id="map"></div>
@@ -790,11 +790,24 @@
     const locateBtns = Array.from(document.querySelectorAll('.locate-trigger'));
     let userLocationMarker = null;
     let userLocationAccuracy = null;
+    let userLocationWatchId = null;
+    let userLocationActive = false;
 
     const setLocateLabel = (label) => {
       locateBtns.forEach(btn => {
         btn.textContent = label;
       });
+    };
+
+    const clearUserLocation = () => {
+      if (userLocationMarker) {
+        map.removeLayer(userLocationMarker);
+        userLocationMarker = null;
+      }
+      if (userLocationAccuracy) {
+        map.removeLayer(userLocationAccuracy);
+        userLocationAccuracy = null;
+      }
     };
 
     const showUserLocation = (lat, lng, accuracyMeters) => {
@@ -829,31 +842,52 @@
       userLocationMarker.openPopup();
     };
 
-    const locateUser = () => {
+    const stopLocateUser = () => {
+      if (userLocationWatchId !== null && navigator.geolocation) {
+        navigator.geolocation.clearWatch(userLocationWatchId);
+      }
+      userLocationWatchId = null;
+      userLocationActive = false;
+      clearUserLocation();
+      setLocateLabel('Locate Me On');
+    };
+
+    const startLocateUser = () => {
       if (!navigator.geolocation) {
         setLocateLabel('Location Unsupported');
         return;
       }
 
       setLocateLabel('Locating...');
-      navigator.geolocation.getCurrentPosition(
+      userLocationWatchId = navigator.geolocation.watchPosition(
         (position) => {
           const { latitude, longitude, accuracy } = position.coords;
           showUserLocation(latitude, longitude, accuracy);
-          setLocateLabel('Locate Me');
+          userLocationActive = true;
+          setLocateLabel('Locate Me Off');
         },
         () => {
-          setLocateLabel('Locate Me');
+          userLocationActive = false;
+          if (userLocationWatchId !== null) {
+            navigator.geolocation.clearWatch(userLocationWatchId);
+          }
+          userLocationWatchId = null;
+          setLocateLabel('Locate Me On');
         },
         {
           enableHighAccuracy: true,
           timeout: 12000,
-          maximumAge: 60000
+          maximumAge: 10000
         }
       );
     };
 
-    locateBtns.forEach(btn => btn.addEventListener('click', locateUser));
+    const toggleLocateUser = () => {
+      if (userLocationActive || userLocationWatchId !== null) stopLocateUser();
+      else startLocateUser();
+    };
+
+    locateBtns.forEach(btn => btn.addEventListener('click', toggleLocateUser));
   </script>
 </body>
 </html>
