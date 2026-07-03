@@ -333,6 +333,7 @@
       {name:'Big C Mini (Si Phraya/Surawong side)', coords:[13.73085,100.52175], note:'Convenience anchor from 2026-05-08 walk · adjusted near Chapter corridor'},
       {name:'Wat Kaeo Chaem Fa (วัดแก้วแจ่มฟ้า)', coords:[13.7308511,100.5190481], note:'Temple on Si Phraya Rd between Sawang Rd and Kaeo Fa Alley', maps:'https://www.google.com/maps/search/?api=1&query=PGJ9%2BHR+Bangkok', featured:true},
       {name:'Wat Traimit (Temple of the Golden Buddha)', coords:[13.7385146,100.5131458], note:'Commute landmark near Chinatown, spotted on motorbike route', maps:'https://www.google.com/maps/search/?api=1&query=Wat+Traimit+Bangkok', featured:true},
+      {name:'Optimus Prime Statue', coords:[13.7362129,100.5134969], note:'Big scrap-metal Transformer statue at Khao Lam Circle, Talat Noi, Bangkok.', maps:'https://maps.google.com/?q=13.7362129,100.5134969', featured:true},
       {name:'Si Phraya restaurant pocket (dusitD2/Amigo area)', coords:[13.73155,100.52235], note:'Cluster of restaurants, stronger in daytime · adjusted near condo street'},    ];
 
     const shopping = [
@@ -541,6 +542,12 @@
     const mcdonaldsIcon = pngIcon('assets/map-icons/mcdonalds-logo.png', 'rgba(255,255,255,.96)', 20);
     const tacoBellIcon = pngIcon('assets/map-icons/tacobell-logo.svg', 'rgba(255,255,255,.96)', 20);
     const yoshinoyaIcon = pngIcon('assets/map-icons/yoshinoya-logo.svg', 'rgba(255,255,255,.96)', 20);
+    const robotIcon = L.divIcon({
+      html:`<div style="width:34px;height:34px;border-radius:999px;background:radial-gradient(circle at 35% 30%,#d8dde8 0%,#8b98ae 58%,#3c495d 100%);border:1px solid rgba(255,255,255,.45);display:flex;align-items:center;justify-content:center;box-shadow:0 3px 10px rgba(0,0,0,.42);font-size:18px;line-height:1;filter:drop-shadow(0 1px 2px rgba(0,0,0,.35))">🤖</div>`,
+      className:'',
+      iconSize:[34,34],
+      iconAnchor:[17,17]
+    });
     const chineseIcon = flaggedIcon('assets/map-icons/chinese.png', '🇨🇳', 'rgba(186,58,58,.95)');
     const koreanIcon = flaggedIcon('assets/map-icons/korean.png', '🇰🇷', 'rgba(93,107,217,.95)');
     const isaanIcon = flaggedIcon('assets/map-icons/isaan.png', '🇹🇭', 'rgba(225,125,45,.95)');
@@ -573,6 +580,7 @@
       if (t.includes('maxvalu')) return maxvaluIcon;
       if (t.includes('taco bell')) return tacoBellIcon;
       if (t.includes('yoshinoya')) return yoshinoyaIcon;
+      if (t.includes('optimus') || t.includes('transformer') || t.includes('robot statue')) return robotIcon;
       if (t.includes('starbucks')) return starbucksIcon;
       if (t.includes('café amazon') || t.includes('cafe amazon')) return cafeAmazonIcon;
       if (t.includes('mcdonald')) return mcdonaldsIcon;
