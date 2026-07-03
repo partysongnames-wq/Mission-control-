@@ -266,6 +266,7 @@
           <div class="stat"><b>End Apr</b><span>Move-In</span></div>
         </div>
         <div class="map-actions">
+          <button class="btn locate-trigger" type="button">Locate Me</button>
           <button class="btn fullscreen-trigger" type="button">Open Full Screen Map</button>
         </div>
         <div class="chips">
@@ -284,6 +285,7 @@
         </div>
         <div class="map-shell">
           <div class="map-toolbar">
+            <button class="btn locate-trigger" type="button">Locate Me</button>
             <button class="btn fullscreen-trigger" id="fullscreen-toggle" type="button">Full Screen Map</button>
           </div>
           <div id="map"></div>
@@ -784,6 +786,74 @@
       if (!document.fullscreenElement) exitMapFocus();
       else enterMapFocus();
     });
+
+    const locateBtns = Array.from(document.querySelectorAll('.locate-trigger'));
+    let userLocationMarker = null;
+    let userLocationAccuracy = null;
+
+    const setLocateLabel = (label) => {
+      locateBtns.forEach(btn => {
+        btn.textContent = label;
+      });
+    };
+
+    const showUserLocation = (lat, lng, accuracyMeters) => {
+      const coords = [lat, lng];
+
+      if (!userLocationMarker) {
+        userLocationMarker = L.circleMarker(coords, {
+          radius: 8,
+          color: '#ffffff',
+          weight: 3,
+          fillColor: '#2f80ff',
+          fillOpacity: 1
+        }).bindPopup('You are here').addTo(map);
+      } else {
+        userLocationMarker.setLatLng(coords);
+      }
+
+      if (!userLocationAccuracy) {
+        userLocationAccuracy = L.circle(coords, {
+          radius: accuracyMeters || 40,
+          color: '#2f80ff',
+          weight: 1,
+          fillColor: '#2f80ff',
+          fillOpacity: 0.12
+        }).addTo(map);
+      } else {
+        userLocationAccuracy.setLatLng(coords);
+        userLocationAccuracy.setRadius(accuracyMeters || 40);
+      }
+
+      map.setView(coords, Math.max(map.getZoom(), 16));
+      userLocationMarker.openPopup();
+    };
+
+    const locateUser = () => {
+      if (!navigator.geolocation) {
+        setLocateLabel('Location Unsupported');
+        return;
+      }
+
+      setLocateLabel('Locating...');
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude, accuracy } = position.coords;
+          showUserLocation(latitude, longitude, accuracy);
+          setLocateLabel('Locate Me');
+        },
+        () => {
+          setLocateLabel('Locate Me');
+        },
+        {
+          enableHighAccuracy: true,
+          timeout: 12000,
+          maximumAge: 60000
+        }
+      );
+    };
+
+    locateBtns.forEach(btn => btn.addEventListener('click', locateUser));
   </script>
 </body>
 </html>
