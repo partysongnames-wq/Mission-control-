@@ -104,6 +104,7 @@
       right:max(12px, env(safe-area-inset-right));
     }
     .chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 14px}
+    .map-actions{display:flex;justify-content:flex-end;gap:8px;margin:0 0 12px}
     .chip{
       padding:7px 12px;border-radius:999px;
       border:1px solid rgba(255,255,255,.15);
@@ -241,6 +242,8 @@
       .stats-strip{grid-template-columns:repeat(2,minmax(0,1fr))}
       .map-toolbar{top:10px;right:10px}
       .map-toolbar .btn{padding:8px 12px}
+      .map-actions{justify-content:stretch}
+      .map-actions .btn{width:100%;text-align:center}
     }
   </style>
 </head>
@@ -262,6 +265,9 @@
           <div class="stat"><b>10</b><span>Western Comfort</span></div>
           <div class="stat"><b>End Apr</b><span>Move-In</span></div>
         </div>
+        <div class="map-actions">
+          <button class="btn fullscreen-trigger" type="button">Open Full Screen Map</button>
+        </div>
         <div class="chips">
           <button class="chip active" data-layer="all">All</button>
           <button class="chip" data-layer="stations">Stations</button>
@@ -278,7 +284,7 @@
         </div>
         <div class="map-shell">
           <div class="map-toolbar">
-            <button class="btn" id="fullscreen-toggle" type="button">Full Screen Map</button>
+            <button class="btn fullscreen-trigger" id="fullscreen-toggle" type="button">Full Screen Map</button>
           </div>
           <div id="map"></div>
         </div>
@@ -735,10 +741,14 @@
       });
     });
 
-    const fullscreenBtn = document.getElementById('fullscreen-toggle');
+    const fullscreenBtns = Array.from(document.querySelectorAll('.fullscreen-trigger'));
     const syncFullscreenState = () => {
       const focused = document.body.classList.contains('map-focus');
-      fullscreenBtn.textContent = focused ? 'Exit Full Screen' : 'Full Screen Map';
+      fullscreenBtns.forEach((btn, index) => {
+        btn.textContent = focused
+          ? 'Exit Full Screen'
+          : (index === 0 ? 'Open Full Screen Map' : 'Full Screen Map');
+      });
       setTimeout(() => map.invalidateSize(), 60);
     };
     const enterMapFocus = () => {
@@ -750,7 +760,7 @@
       syncFullscreenState();
     };
 
-    fullscreenBtn.addEventListener('click', async () => {
+    const toggleFullscreen = async () => {
       const isFocused = document.body.classList.contains('map-focus');
       const canUseNative = !!document.documentElement.requestFullscreen;
 
@@ -766,7 +776,9 @@
         try { await document.exitFullscreen(); } catch {}
       }
       exitMapFocus();
-    });
+    };
+
+    fullscreenBtns.forEach(btn => btn.addEventListener('click', toggleFullscreen));
 
     document.addEventListener('fullscreenchange', () => {
       if (!document.fullscreenElement) exitMapFocus();
